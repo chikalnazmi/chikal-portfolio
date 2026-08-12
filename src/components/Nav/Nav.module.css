@@ -1,0 +1,69 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  padding: 24px 0;
+  transition: all 0.3s ease;
+}
+
+.scrolled {
+  padding: 16px 0;
+  background-color: rgba(250, 246, 238, 0.85); /* var(--bg) with opacity */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .container {
+    padding-left: max(6vw + 60px, 24px); /* Make room for VineSpine */
+  }
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.nav {
+  display: none;
+  gap: 32px;
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .nav {
+    display: flex;
+  }
+}
+
+.link {
+  font-size: 14px;
+  color: var(--ink-soft);
+  position: relative;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.link:hover, .active {
+  color: var(--ink);
+}
+
+.arrow {
+  display: inline-block;
+}

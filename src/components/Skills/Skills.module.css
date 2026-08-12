@@ -1,0 +1,83 @@
+.skills {
+  padding: 120px 24px;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+@media (min-width: 900px) {
+  .skills {
+    padding-left: max(6vw + 60px, 24px);
+  }
+}
+
+.header {
+  margin-bottom: 60px;
+}
+
+.header p {
+  color: var(--sage);
+  margin-bottom: 12px;
+}
+
+.header h2 {
+  font-size: var(--text-h2);
+  color: var(--ink);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-bottom: 60px;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  background-color: var(--bg-alt);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 32px;
+}
+
+.categoryTitle {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.chip {
+  background-color: var(--bg);
+  border: 1px solid var(--line);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.certSection {
+  background-color: var(--bg-alt);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 32px;
+}
+
+.certChip {
+  background-color: var(--sage-light);
+  color: var(--olive);
+  border-color: transparent;
+}

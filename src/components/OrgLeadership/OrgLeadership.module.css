@@ -1,0 +1,69 @@
+.org {
+  padding: 0 24px 120px;
+  background-color: var(--bg-alt);
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+@media (min-width: 900px) {
+  .org {
+    padding-left: max(6vw + 60px, 24px);
+  }
+}
+
+.header {
+  margin-bottom: 40px;
+}
+
+.header h3 {
+  font-size: 24px;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.header p {
+  color: var(--ink-soft);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  background-color: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.statWrapper {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 24px;
+}
+
+.roleWrapper h4 {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink);
+  font-family: var(--font-body);
+  margin-bottom: 8px;
+}
+
+.date {
+  color: var(--ink-soft);
+  font-size: 11px;
+}

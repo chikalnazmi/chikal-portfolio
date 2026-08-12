@@ -1,0 +1,101 @@
+.creator {
+  padding: 120px 0;
+  background-color: var(--bg-alt);
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+@media (min-width: 900px) {
+  .creator {
+    padding-left: max(6vw + 60px, 24px);
+  }
+}
+
+.header {
+  margin-bottom: 60px;
+  padding: 0 24px;
+}
+
+.header p {
+  color: var(--sage);
+  margin-bottom: 12px;
+}
+
+.header h2 {
+  font-size: var(--text-h2);
+  color: var(--ink);
+}
+
+.carouselContainer {
+  padding-left: 24px;
+}
+
+.carousel {
+  cursor: grab;
+  overflow: hidden;
+}
+
+.innerCarousel {
+  display: flex;
+  gap: 24px;
+  width: max-content;
+  padding-right: 24px; /* padding at the end of the scroll */
+}
+
+.card {
+  width: 300px;
+  min-height: 200px;
+  background-color: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.3s ease;
+}
+
+.card:hover {
+  border-color: var(--ink-soft);
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.platform {
+  background-color: var(--sage-light);
+  color: var(--olive);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+}
+
+.arrow {
+  color: var(--ink-soft);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.card:hover .arrow {
+  transform: translate(3px, -3px);
+  color: var(--ink);
+}
+
+.handle {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+
+.description {
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1.6;
+}

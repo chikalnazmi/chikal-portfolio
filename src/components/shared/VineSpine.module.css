@@ -1,0 +1,61 @@
+.vineContainer {
+  position: absolute;
+  top: 0;
+  left: 6vw;
+  width: 20px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 50;
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .vineContainer {
+    display: block;
+  }
+}
+
+.vineSvg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: visible;
+}
+
+.budWrapper {
+  position: absolute;
+  left: 10px;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bud {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.petal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: var(--rose);
+  border-radius: 50% 50% 50% 4px;
+  transform: rotate(45deg);
+}
+
+.center {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color: var(--olive);
+  border-radius: 50%;
+  z-index: 2;
+}

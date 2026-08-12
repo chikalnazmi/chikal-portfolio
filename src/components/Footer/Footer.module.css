@@ -1,0 +1,23 @@
+.footer {
+  padding: 40px 24px;
+  background-color: var(--bg);
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (min-width: 900px) {
+  .footer {
+    padding-left: max(6vw + 60px, 24px);
+  }
+}
+
+.footer p {
+  color: var(--ink-soft);
+  font-size: 14px;
+  font-family: var(--font-body);
+}

@@ -1,0 +1,160 @@
+.experience {
+  padding: 120px 24px;
+  background-color: var(--bg-alt);
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+@media (min-width: 900px) {
+  .experience {
+    padding-left: max(6vw + 60px, 24px);
+  }
+}
+
+.header {
+  margin-bottom: 60px;
+}
+
+.header p {
+  color: var(--sage);
+  margin-bottom: 12px;
+}
+
+.header h2 {
+  font-size: var(--text-h2);
+  color: var(--ink);
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.card {
+  background-color: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle left-border color wipe on hover via pseudo-element */
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background-color: var(--olive);
+  transition: background-color 0.3s ease;
+}
+
+.card:hover::before {
+  background-color: var(--wine);
+}
+
+.cardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+@media (min-width: 768px) {
+  .cardHeader {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+}
+
+.titleArea h3 {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.company {
+  color: var(--ink-soft);
+  font-size: 15px;
+}
+
+.metaArea {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+@media (min-width: 768px) {
+  .metaArea {
+    align-items: flex-end;
+  }
+}
+
+.date {
+  color: var(--ink-soft);
+}
+
+.tag {
+  background-color: var(--sage-light);
+  color: var(--olive);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+}
+
+.highlight {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background-color: rgba(203, 120, 133, 0.1); /* var(--rose) transparent */
+  color: var(--wine);
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 24px;
+  border: 1px solid rgba(203, 120, 133, 0.2);
+}
+
+.badge {
+  background-color: var(--wine);
+  color: var(--bg);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.bullets {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.bullets li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 12px;
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.bullets li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--sage);
+  font-size: 20px;
+  line-height: 1;
+  top: -2px;
+}

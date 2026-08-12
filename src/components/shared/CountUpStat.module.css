@@ -1,0 +1,17 @@
+.statContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.statHeading {
+  font-size: clamp(32px, 4vw, 48px);
+  color: var(--wine);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.statLabel {
+  color: var(--ink-soft);
+}
