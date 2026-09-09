@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chikal Nazmi Mahira | Professional Portfolio</title>
+    <meta name="description" content="Portfolio Profesional Chikal Nazmi Mahira - Business Development, Management Trainee & Marketing.">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#F4F0EA',
+                        artichoke: '#6B705C',
+                        greenbean: '#0A1A12',
+                        cranberry: '#A3907C', /* sophisticated muted gold/bronze */
+                        cabernet: '#1A2F1D',  /* deep forest green instead of harsh red */
+                        mulledwine: '#121C14'
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['Lato', 'sans-serif'],
+                        mono: ['"Space Mono"', 'monospace'],
+                    },
+                    letterSpacing: {
+                        widest: '.25em',
+                    },
+                    animation: {
+                        'scroll-left': 'scrollLeft 30s linear infinite',
+                    },
+                    keyframes: {
+                        scrollLeft: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #020d01; 
+            color: #FFF2E6; 
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Texture Background for Content Sections */
+        .texture-bg {
+            background-image: url('Elemen/download (7).jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+        .texture-bg::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(2, 13, 1, 0.85); 
+            z-index: 0;
+            pointer-events: none;
+        }
+        .texture-bg > * { position: relative; z-index: 10; }
+
+        /* Garden Background */
+        .garden-bg {
+            background-image: url('Elemen/download (9).jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+        .garden-bg::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(2, 13, 1, 0.8); 
+            z-index: 0;
+            pointer-events: none;
+        }
+        .garden-bg > * { position: relative; z-index: 10; }
+
+        /* Glassmorphism Panels (Expert Premium Level) */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Vintage Arch Frames */
+        .vintage-arch {
+            border-top-left-radius: 999px;
+            border-top-right-radius: 999px;
+            border: 1px solid rgba(255, 242, 230, 0.15);
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            position: relative;
+        }
+        .vintage-arch-inner {
+            border-top-left-radius: 999px;
+            border-top-right-radius: 999px;
+            overflow: hidden;
+            width: 100%; height: 100%;
+        }
+
+        /* Minimalist Frames */
+        .minimal-frame {
+            position: relative;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .minimal-frame img {
+            border-radius: 10px;
+        }
+
+        /* Phone Mockup */
+        .phone-mockup {
+            border-radius: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(5, 33, 2, 0.6);
+            backdrop-filter: blur(16px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 0 0 4px rgba(255, 255, 255, 0.02);
+            position: relative;
+        }
+        .phone-notch {
+            position: absolute;
+            top: 0; left: 50%; transform: translateX(-50%);
+            width: 35%; height: 24px;
+            background-color: rgba(2, 13, 1, 0.9);
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: none;
+            z-index: 10;
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .reveal-up {
+            opacity: 0; transform: translateY(40px);
+            transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .reveal-up.active { opacity: 1; transform: translateY(0); }
+        
+        .footer-gradient::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent, rgba(2, 13, 1, 0.9) 70%, #020d01 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+        .footer-gradient > * {
+            position: relative;
+            z-index: 10;
+        }
+        
+        .decor-line {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .decor-line::before, .decor-line::after {
+            content: "";
+            height: 1px;
+            background: rgba(255, 242, 230, 0.15);
+            flex-grow: 1;
+        }
+
+        /* Expert Layout Spacing & Typography Fixes */
+        h1, h2, h3, h4, h5, h6 {
+            letter-spacing: -0.02em;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased relative">
+
+    <!-- TOP NAVBAR -->
+    <header class="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-6xl z-50 rounded-full glass-panel flex items-center justify-between px-6 py-3 transition-all duration-300 border border-cranberry/40 shadow-2xl">
+        <div class="flex items-center gap-4 hidden md:flex">
+            <span class="font-serif font-bold text-cream text-lg tracking-wide uppercase">Chikal Nazmi Mahira</span>
+        </div>
+        <div class="md:hidden font-serif font-bold text-cream text-lg">CHIKAL</div>
+
+        <nav class="hidden lg:flex gap-8 items-center">
+            <a href="#about" class="text-xs font-mono uppercase tracking-widest text-cream/70 hover:text-cream transition-colors">About</a>
+            <a href="#internship" class="text-xs font-mono uppercase tracking-widest text-cream/70 hover:text-cream transition-colors">Journey</a>
+            <a href="#organizations" class="text-xs font-mono uppercase tracking-widest text-cream/70 hover:text-cream transition-colors">Org</a>
+            <a href="#achievements" class="text-xs font-mono uppercase tracking-widest text-cream/70 hover:text-cream transition-colors">Trophy</a>
+            <a href="#creativity" class="text-xs font-mono uppercase tracking-widest text-cream/70 hover:text-cream transition-colors">Hobbies</a>
+        </nav>
+
+        <div class="flex items-center gap-4">
+            <a href="#contact" class="hidden md:inline-block px-6 py-2 rounded-full bg-cream text-cabernet font-serif font-bold text-sm hover:bg-cranberry hover:text-cream transition-colors shadow-lg">
+                Hire Me &rarr;
+            </a>
+            <!-- Mobile Toggle -->
+            <button id="mobile-menu-btn" class="lg:hidden text-cream p-2 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- MOBILE MENU OVERLAY -->
+    <div id="mobile-menu" class="fixed inset-0 bg-[#052102]/95 backdrop-blur-md z-40 hidden flex-col items-center justify-center gap-8 opacity-0 transition-opacity duration-300">
+        <a href="#about" class="mobile-link font-serif text-3xl text-cream hover:text-cranberry transition-colors">About</a>
+        <a href="#internship" class="mobile-link font-serif text-3xl text-cream hover:text-cranberry transition-colors">Journey</a>
+        <a href="#organizations" class="mobile-link font-serif text-3xl text-cream hover:text-cranberry transition-colors">Organization</a>
+        <a href="#achievements" class="mobile-link font-serif text-3xl text-cream hover:text-cranberry transition-colors">Trophy Case</a>
+        <a href="#creativity" class="mobile-link font-serif text-3xl text-cream hover:text-cranberry transition-colors">Hobbies</a>
+        <a href="#contact" class="mobile-link font-mono text-sm uppercase tracking-widest bg-cabernet text-cream px-8 py-3 mt-4 rounded-full border border-cream/20 shadow-lg">Contact Me</a>
+    </div>
+
+    <!-- SIDE DOT NAVIGATION -->
+    <nav class="fixed left-6 top-1/2 -translate-y-1/2 z-30 hidden lg:flex flex-col py-10">
+        <div class="absolute left-[5px] top-0 bottom-0 w-[1px] bg-cranberry/30 z-0"></div>
+        <div class="flex flex-col gap-8 relative z-10">
+            <a href="#hero" class="nav-dot group flex items-center relative h-3" data-target="hero"><div class="dot w-3 h-3 rounded-full bg-cream/30 border border-cream/50 transition-all duration-300"></div></a>
+            <a href="#about" class="nav-dot group flex items-center relative h-3" data-target="about"><div class="dot w-3 h-3 rounded-full bg-cream/30 border border-cream/50 transition-all duration-300"></div></a>
+            <a href="#internship" class="nav-dot group flex items-center relative h-3" data-target="internship"><div class="dot w-3 h-3 rounded-full bg-cream/30 border border-cream/50 transition-all duration-300"></div></a>
+            <a href="#business" class="nav-dot group flex items-center relative h-3" data-target="business"><div class="dot w-3 h-3 rounded-full bg-cream/30 border border-cream/50 transition-all duration-300"></div></a>
+            <a href="#organizations" class="nav-dot group flex items-center relative h-3" data-target="organizations"><div class="dot w-3 h-3 rounded-full bg-cream/30 border border-cream/50 transition-all duration-300"></div></a>
+            <a href="#achievements" class="nav-dot group flex items-center relative h-3" data-target="achievements"><div class="dot w-3 h-3 rounded-full bg-cream/30 border border-cream/50 transition-all duration-300"></div></a>
+            <a href="#creativity" class="nav-dot group flex items-center relative h-3" data-target="creativity"><div class="dot w-3 h-3 rounded-full bg-cream/30 border border-cream/50 transition-all duration-300"></div></a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION (Garden Background) -->
+    <section id="hero" class="garden-bg min-h-screen flex flex-col justify-center pt-24 pb-12 section-observe">
+        <div class="w-full max-w-6xl mx-auto px-6 flex flex-col-reverse md:flex-row items-center justify-between gap-12 reveal-up relative z-10">
+            
+            <div class="w-full md:w-3/5 space-y-6 glass-panel p-8 rounded-2xl border-0 shadow-none bg-transparent backdrop-blur-none lg:bg-[#052102]/40 lg:backdrop-blur-md lg:border lg:border-cream/10 lg:shadow-xl">
+                <p class="font-mono text-sm tracking-widest uppercase text-cream/70 font-bold border-b border-cream/20 pb-2 inline-block">Welcome to the portfolio of</p>
+                <h1 class="font-serif text-5xl md:text-7xl lg:text-7xl leading-tight text-cream font-bold whitespace-nowrap drop-shadow-lg">
+                    Chikal Nazmi Mahira
+                </h1>
+                
+                <div class="flex flex-wrap gap-3 py-4">
+                    <span class="px-4 py-1.5 border border-cranberry/50 rounded-full font-mono text-xs bg-[#052102]/60 text-cream backdrop-blur-sm">Business Development</span>
+                    <span class="px-4 py-1.5 border border-cranberry/50 rounded-full font-mono text-xs bg-[#052102]/60 text-cream backdrop-blur-sm">Management Trainee</span>
+                    <span class="px-4 py-1.5 border border-cranberry/50 rounded-full font-mono text-xs bg-[#052102]/60 text-cream backdrop-blur-sm">Marketing</span>
+                </div>
+
+                <p class="font-serif text-2xl text-cream/90 italic border-l-2 border-cabernet pl-4 drop-shadow-md">
+                    "Menanam kerja sama, merawat pertumbuhan, memanen hasil."
+                </p>
+            </div>
+
+            <div class="w-full md:w-2/5 flex justify-center md:justify-end relative">
+                <div class="vintage-arch w-64 md:w-80 h-80 md:h-[28rem]">
+                    <div class="vintage-arch-inner">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop" alt="Chikal" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS DIVIDER BAR -->
+    <div class="w-full bg-[#020d01] border-y border-cranberry/40 py-8 relative z-20 shadow-2xl">
+        <div class="max-w-6xl mx-auto px-6 flex flex-wrap justify-center gap-10 md:gap-24 text-center reveal-up">
+            <div>
+                <h4 class="font-serif text-3xl md:text-4xl font-bold text-cream">2,089%</h4>
+                <p class="font-mono text-[10px] text-cranberry uppercase tracking-widest mt-1">Reach Growth</p>
+            </div>
+            <div class="w-[1px] bg-cranberry/30 hidden md:block"></div>
+            <div>
+                <h4 class="font-serif text-3xl md:text-4xl font-bold text-cream">20+</h4>
+                <p class="font-mono text-[10px] text-cranberry uppercase tracking-widest mt-1">Brand Partnerships</p>
+            </div>
+            <div class="w-[1px] bg-cranberry/30 hidden md:block"></div>
+            <div>
+                <h4 class="font-serif text-3xl md:text-4xl font-bold text-cream">7×</h4>
+                <p class="font-mono text-[10px] text-cranberry uppercase tracking-widest mt-1">National Wins</p>
+            </div>
+            <div class="w-[1px] bg-cranberry/30 hidden md:block"></div>
+            <div>
+                <h4 class="font-serif text-3xl md:text-4xl font-bold text-cream">70+</h4>
+                <p class="font-mono text-[10px] text-cranberry uppercase tracking-widest mt-1">Team Managed</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT (TEXTURE BACKGROUND) -->
+    <div class="texture-bg">
+        
+        <!-- ABOUT SECTION -->
+        <section id="about" class="py-24 px-6 section-observe w-full">
+            <div class="max-w-6xl mx-auto reveal-up relative">
+                <div class="decor-line mb-12">
+                    <h2 class="font-serif text-5xl md:text-6xl text-cream font-bold px-4">Tentang Saya</h2>
+                </div>
+                
+                <div class="font-sans text-cream/90 leading-relaxed space-y-6 text-lg relative z-10 glass-panel p-8 md:p-12 rounded-xl">
+                    <p>
+                        Lulusan Sistem Informasi Bisnis yang memiliki ketertarikan mendalam pada pengembangan bisnis dan strategi pemasaran. Saya percaya bahwa setiap data memiliki cerita, dan setiap cerita dapat diubah menjadi strategi yang berdampak.
+                    </p>
+                    <p>
+                        Melalui pengalaman memimpin tim dan membangun komunitas, saya telah belajar bagaimana merawat relasi dan beradaptasi dalam lingkungan yang dinamis untuk mencapai target organisasi maupun bisnis.
+                    </p>
+
+                    <div class="pt-8 mt-8 border-t border-cream/20 flex flex-wrap gap-4">
+                        <a href="mailto:chikalnazmi05@gmail.com" class="flex items-center gap-2 px-6 py-2.5 bg-cabernet border border-cream/20 rounded-full hover:bg-cranberry transition-colors font-mono text-xs uppercase tracking-widest text-cream shadow-md">
+                            Email
+                        </a>
+                        <a href="https://www.linkedin.com/in/chikal-nazmi-mahira" target="_blank" class="flex items-center gap-2 px-6 py-2.5 bg-[#020d01] border border-cranberry/50 rounded-full hover:bg-cabernet transition-colors font-mono text-xs uppercase tracking-widest text-cream shadow-md">
+                            LinkedIn
+                        </a>
+                        <a href="#" target="_blank" class="flex items-center gap-2 px-6 py-2.5 bg-[#020d01] border border-cranberry/50 rounded-full hover:bg-cabernet transition-colors font-mono text-xs uppercase tracking-widest text-cream shadow-md">
+                            Instagram
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INTERNSHIP SECTION -->
+        <section id="internship" class="py-16 px-6 section-observe w-full">
+            <div class="max-w-6xl mx-auto reveal-up">
+                <div class="text-center mb-10">
+                    <h2 class="font-serif text-5xl text-cream font-bold border-b border-cream/20 pb-4 inline-block">Internship</h2>
+                </div>
+                
+                <div class="border-2 border-cabernet p-8 glass-panel rounded-xl shadow-2xl relative">
+                    <div class="flex flex-col md:flex-row justify-between items-start gap-4 mb-6">
+                        <div>
+                            <h3 class="font-serif text-3xl font-bold text-cream">Software Engineer Intern</h3>
+                            <p class="font-mono text-sm text-cranberry font-bold uppercase mt-2">PT Digivla Indonesia, Jakarta Selatan</p>
+                        </div>
+                        <span class="font-mono text-xs border border-cranberry bg-cabernet px-4 py-1.5 text-cream rounded-full shadow-md">Agt 2025 - Jan 2026</span>
+                    </div>
+                    
+                    <p class="font-sans text-cream/80 leading-relaxed mb-10 max-w-4xl">
+                        Developed a newspaper detection system for internal company operations using Python. Maintained and developed system features, conducted testing & validation for internal corporate applications.
+                    </p>
+
+                    <!-- Replaced Ugly Pink Frames with Sleek Minimal Frames -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="minimal-frame">
+                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600&fit=crop" loading="lazy" class="w-full h-64 object-cover relative z-0">
+                        </div>
+                        <div class="minimal-frame">
+                            <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=600&fit=crop" loading="lazy" class="w-full h-64 object-cover relative z-0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BUSINESS JOURNEY -->
+        <section id="business" class="py-16 px-6 section-observe w-full">
+            <div class="max-w-6xl mx-auto reveal-up relative">
+                
+                <div class="text-center mb-12">
+                    <h2 class="font-serif text-5xl text-cream font-bold border-b border-cream/20 pb-4 inline-block">Business Journey</h2>
+                </div>
+                
+                <div class="space-y-20 relative z-10 glass-panel p-8 md:p-12 rounded-xl">
+                    
+                    <!-- Journey 1 -->
+                    <div class="relative pl-6 md:pl-10 border-l-2 border-cranberry">
+                        <div class="absolute -left-[11px] top-2 w-5 h-5 rounded-full bg-cabernet border-4 border-cream shadow-md"></div>
+                        <h3 class="font-serif text-3xl font-bold text-cream">Public Relations Lead</h3>
+                        <p class="font-mono text-sm text-cream/70 uppercase mt-1 mb-4 font-bold">Manikarumi Indonesia (Mei 2024 - Present)</p>
+                        <p class="font-sans text-cream/80 leading-relaxed mb-8 max-w-4xl">
+                            Negotiated with 20+ event organizers to secure strategic brand collaborations and offline tenant placements. Directed on-site booth operations at events in Malang and Jakarta. Produced product catalog photography and TikTok content.
+                        </p>
+                        <div class="relative w-full overflow-hidden h-48 md:h-64 minimal-frame !p-2">
+                            <div class="flex w-[200%] animate-scroll-left hover:[animation-play-state:paused]" style="animation-duration: 40s;">
+                                <div class="flex w-1/2 gap-2 px-1">
+                                    <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32b7?w=400&fit=crop" loading="lazy" class="h-48 md:h-64 w-auto object-cover">
+                                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&fit=crop" loading="lazy" class="h-48 md:h-64 w-auto object-cover">
+                                    <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32b7?w=400&fit=crop" loading="lazy" class="h-48 md:h-64 w-auto object-cover">
+                                </div>
+                                <div class="flex w-1/2 gap-2 px-1">
+                                    <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32b7?w=400&fit=crop" loading="lazy" class="h-48 md:h-64 w-auto object-cover">
+                                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&fit=crop" loading="lazy" class="h-48 md:h-64 w-auto object-cover">
+                                    <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32b7?w=400&fit=crop" loading="lazy" class="h-48 md:h-64 w-auto object-cover">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Journey 2 -->
+                    <div class="relative pl-6 md:pl-10 border-l-2 border-cranberry">
+                        <div class="absolute -left-[11px] top-2 w-5 h-5 rounded-full bg-cabernet border-4 border-cream shadow-md"></div>
+                        <h3 class="font-serif text-3xl font-bold text-cream">Small Business Owner</h3>
+                        <p class="font-mono text-sm text-cream/70 uppercase mt-1 mb-4 font-bold">YarnUp! (Nov 2024 - Present)</p>
+                        <p class="font-sans text-cream/80 leading-relaxed mb-8 max-w-4xl">
+                            Founded and run a handmade knit accessories business from product to marketing. Grew Instagram Reels reach by 2,089.6% and engagement rate to 20.02% in one month. Acted as an official sponsor for university events.
+                        </p>
+                        <div class="relative w-full overflow-hidden h-48 md:h-64 minimal-frame !p-2">
+                            <div class="flex w-[200%] animate-scroll-left hover:[animation-play-state:paused]" style="animation-direction: reverse; animation-duration: 35s;">
+                                <div class="flex w-1/2 gap-2 px-1">
+                                    <img src="https://images.unsplash.com/photo-1605289982774-9a6fef564df8?w=400&fit=crop" loading="lazy" class="h-48 md:h-64 w-auto object-cover">
+                                    <img src="https://images.unsplash.com/photo-1584992236310-6edddc08acff?w=400&fit=crop" loading="lazy" class="h-48 md:h-64 w-auto object-cover">
+                                    <img src="https://images.unsplash.com/photo-1605289982774-9a6fef564df8?w=400&fit=crop" loading="lazy" class="h-48 md:h-64 w-auto object-cover">
+                                </div>
+                                <div class="flex w-1/2 gap-2 px-1">
+                                    <img src="https://images.unsplash.com/photo-1605289982774-9a6fef564df8?w=400&fit=crop" loading="lazy" class="h-48 md:h-64 w-auto object-cover">
+                                    <img src="https://images.unsplash.com/photo-1584992236310-6edddc08acff?w=400&fit=crop" loading="lazy" class="h-48 md:h-64 w-auto object-cover">
+                                    <img src="https://images.unsplash.com/photo-1605289982774-9a6fef564df8?w=400&fit=crop" loading="lazy" class="h-48 md:h-64 w-auto object-cover">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Journey 3 -->
+                    <div class="relative pl-6 md:pl-10 border-l-2 border-transparent">
+                        <div class="absolute -left-[11px] top-2 w-5 h-5 rounded-full bg-cabernet border-4 border-cream shadow-md"></div>
+                        <h3 class="font-serif text-3xl font-bold text-cream">Manager</h3>
+                        <p class="font-mono text-sm text-cream/70 uppercase mt-1 mb-4 font-bold">Dua Sisi Laundry (Jul 2026 - Present)</p>
+                        <p class="font-sans text-cream/80 leading-relaxed mb-8 max-w-4xl">
+                            Spearheaded the initial business launch, establishing standardized operating procedures (SOPs). Implemented operational and financial tracking systems. Directed early-stage local marketing initiatives.
+                        </p>
+                        <div class="relative w-full overflow-hidden h-48 md:h-64 minimal-frame !p-2">
+                            <div class="flex w-[200%] animate-scroll-left hover:[animation-play-state:paused]" style="animation-duration: 38s;">
+                                <div class="flex w-1/2 gap-2 px-1">
+                                    <img src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=400&fit=crop" loading="lazy" class="h-48 md:h-64 w-auto object-cover">
+                                    <img src="https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=400&fit=crop" loading="lazy" class="h-48 md:h-64 w-auto object-cover">
+                                    <img src="https://images.unsplash.com/photo-1549887552-cb1071d3e5ca?w=400&fit=crop" loading="lazy" class="h-48 md:h-64 w-auto object-cover">
+                                </div>
+                                <div class="flex w-1/2 gap-2 px-1">
+                                    <img src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=400&fit=crop" loading="lazy" class="h-48 md:h-64 w-auto object-cover">
+                                    <img src="https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=400&fit=crop" loading="lazy" class="h-48 md:h-64 w-auto object-cover">
+                                    <img src="https://images.unsplash.com/photo-1549887552-cb1071d3e5ca?w=400&fit=crop" loading="lazy" class="h-48 md:h-64 w-auto object-cover">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ORGANIZATION SECTION -->
+        <section id="organizations" class="py-16 px-6 section-observe w-full">
+            <div class="max-w-6xl mx-auto reveal-up">
+                <div class="text-center mb-10">
+                    <h2 class="font-serif text-5xl text-cream font-bold border-b border-cream/20 pb-4 inline-block">Organization & Volunteer</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <div class="border-2 border-cabernet p-6 glass-panel md:col-span-2 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 rounded-xl">
+                        <div class="w-full md:w-2/3">
+                            <h3 class="font-serif text-3xl font-bold text-cream mb-1">Google Student Ambassador</h3>
+                            <p class="font-mono text-xs text-cream/70 font-bold uppercase mb-4">Google (Sep 2025 - Feb 2026)</p>
+                            <p class="text-cream/80 text-lg">Represented Google as an official Student Ambassador for Indonesia, acting as a key liaison between the student community and the company.</p>
+                        </div>
+                        <div class="shrink-0">
+                            <p class="font-mono text-[10px] uppercase text-cream/50 mb-2">Preview Dokumentasi</p>
+                            <div class="w-40 h-24 border border-cream/30 cursor-pointer group rounded-sm overflow-hidden relative shadow-lg" onclick="openModal('Google Student Ambassador', 'Dokumentasi', 'Aktivitas representasi program Google.', ['https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=600&fit=crop'])">
+                                <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=300&fit=crop" loading="lazy" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all">
+                                <div class="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-transparent transition-colors">
+                                    <span class="font-mono text-xs text-cream bg-cabernet px-2 py-1 rounded-sm border border-cream/20">Lihat Full</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- HMTI 1 -->
+                    <div class="border border-cream/20 p-6 glass-panel flex flex-col justify-between rounded-xl">
+                        <div class="mb-6">
+                            <h3 class="font-serif text-2xl font-bold mb-1 text-cream">Vice Chairwoman</h3>
+                            <p class="font-mono text-xs text-cream/70 font-bold uppercase mb-4">HMTI Polinema (Feb 2024 - Feb 2025)</p>
+                            <p class="text-sm text-cream/80">Co-led the executive board alongside the Chairman to oversee and manage a committee of 70+ active members. Acted as a steering supervisor for 10 organizational events.</p>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-12 border border-cream/30 cursor-pointer group overflow-hidden rounded-sm" onclick="openModal('Vice Chairwoman', 'Dokumentasi', 'Foto kegiatan dan kepanitiaan.', ['https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600&fit=crop'])">
+                                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=100&fit=crop" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-all opacity-80">
+                            </div>
+                            <span class="text-xs font-mono uppercase tracking-widest text-cream/70 cursor-pointer hover:text-cream border-b border-transparent hover:border-cream pb-1 transition-colors" onclick="openModal('Vice Chairwoman', 'Dokumentasi', 'Foto kegiatan dan kepanitiaan.', ['https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600&fit=crop'])">Lihat Dokumentasi &rarr;</span>
+                        </div>
+                    </div>
+                    
+                    <!-- HMTI 2 -->
+                    <div class="border border-cream/20 p-6 glass-panel flex flex-col justify-between rounded-xl">
+                        <div class="mb-6">
+                            <h3 class="font-serif text-2xl font-bold mb-1 text-cream">Secretary, Election Comm.</h3>
+                            <p class="font-mono text-xs text-cream/70 font-bold uppercase mb-4">HMTI Polinema (Agt 2023 - Jan 2024)</p>
+                            <p class="text-sm text-cream/80">Managed end-to-end administrative workflows for the annual HMTI Chairperson Election, facilitating an election involving 2 candidates and over 1500+ student voters.</p>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-12 border border-cream/30 cursor-pointer group overflow-hidden rounded-sm" onclick="openModal('Secretary', 'Dokumentasi Administrasi', 'Dokumen dan arsip pemilihan ketua.', ['https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=600&fit=crop'])">
+                                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=100&fit=crop" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-all opacity-80">
+                            </div>
+                            <span class="text-xs font-mono uppercase tracking-widest text-cream/70 cursor-pointer hover:text-cream border-b border-transparent hover:border-cream pb-1 transition-colors" onclick="openModal('Secretary', 'Dokumentasi Administrasi', 'Dokumen dan arsip pemilihan ketua.', ['https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=600&fit=crop'])">Lihat Dokumentasi &rarr;</span>
+                        </div>
+                    </div>
+
+                    <!-- HMTI 3 -->
+                    <div class="border border-cream/20 p-6 glass-panel flex flex-col justify-between rounded-xl">
+                        <div class="mb-6">
+                            <h3 class="font-serif text-2xl font-bold mb-1 text-cream">Chief Executive, Orientation</h3>
+                            <p class="font-mono text-xs text-cream/70 font-bold uppercase mb-4">HMTI Polinema (Feb 2023 - Sep 2023)</p>
+                            <p class="text-sm text-cream/80">Directed the end-to-end planning, event conceptualization, and execution of the freshman orientation program for 400+ incoming IT students, leading 60+ staff members.</p>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-12 border border-cream/30 cursor-pointer group overflow-hidden rounded-sm" onclick="openModal('Chief Executive', 'Dokumentasi Acara', 'Suasana orientasi mahasiswa baru.', ['https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=600&fit=crop'])">
+                                <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=100&fit=crop" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-all opacity-80">
+                            </div>
+                            <span class="text-xs font-mono uppercase tracking-widest text-cream/70 cursor-pointer hover:text-cream border-b border-transparent hover:border-cream pb-1 transition-colors" onclick="openModal('Chief Executive', 'Dokumentasi Acara', 'Suasana orientasi mahasiswa baru.', ['https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=600&fit=crop'])">Lihat Dokumentasi &rarr;</span>
+                        </div>
+                    </div>
+
+                    <!-- UKM -->
+                    <div class="border border-cream/20 p-6 glass-panel flex flex-col justify-between rounded-xl">
+                        <div class="mb-6">
+                            <h3 class="font-serif text-2xl font-bold mb-1 text-cream">Store Division Staff</h3>
+                            <p class="font-mono text-xs text-cream/70 font-bold uppercase mb-4">UKM Usaha Mahasiswa (Jan 2023 - Jan 2024)</p>
+                            <p class="text-sm text-cream/80">Managed financial records and inventory control for the organization's store. Contributed to the development and execution of sales strategies.</p>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-12 border border-cream/30 cursor-pointer group overflow-hidden rounded-sm" onclick="openModal('Store Staff', 'Dokumentasi Toko', 'Operasional toko dan inventaris.', ['https://images.unsplash.com/photo-1567449303078-57ad995bd3fa?q=80&w=600&fit=crop'])">
+                                <img src="https://images.unsplash.com/photo-1567449303078-57ad995bd3fa?w=100&fit=crop" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-all opacity-80">
+                            </div>
+                            <span class="text-xs font-mono uppercase tracking-widest text-cream/70 cursor-pointer hover:text-cream border-b border-transparent hover:border-cream pb-1 transition-colors" onclick="openModal('Store Staff', 'Dokumentasi Toko', 'Operasional toko dan inventaris.', ['https://images.unsplash.com/photo-1567449303078-57ad995bd3fa?q=80&w=600&fit=crop'])">Lihat Dokumentasi &rarr;</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ACHIEVEMENTS SECTION -->
+        <section id="achievements" class="py-16 px-6 section-observe w-full">
+            <div class="max-w-6xl mx-auto reveal-up relative">
+                
+                <div class="text-center mb-10">
+                    <h2 class="font-serif text-5xl text-cream font-bold border-b border-cream/20 pb-4 inline-block">Trophy Case</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    
+                    <!-- Achievement 1 -->
+                    <div class="border-2 border-cabernet p-6 glass-panel relative shadow-2xl rounded-xl">
+                        <div class="absolute top-0 right-0 bg-cabernet text-cream font-mono text-[10px] font-bold px-4 py-2 uppercase border-b border-l border-cabernet rounded-tr-xl rounded-bl-xl">2026</div>
+                        <h3 class="font-serif text-2xl font-bold text-cream mb-2 pr-12 leading-snug">1st Place, Gold Medalist, Best Team & Best Idea</h3>
+                        <p class="font-sans text-sm text-cream/70 font-bold mb-6">NBPC Category Edutalk Fair Competition</p>
+                        
+                        <p class="font-mono text-[10px] uppercase tracking-widest mb-2 text-cream/50">Gallery & Proof</p>
+                        <div class="flex gap-3">
+                            <button onclick="openModal('Edutalk Fair 2026', 'Sertifikat', 'Sertifikat penghargaan 1st Place, Gold Medalist, Best Team & Best Idea NBPC Edutalk Fair Competition.', ['https://images.unsplash.com/photo-1523580494112-071d1e21d8b4?q=80&w=600&fit=crop'])" class="flex-1 bg-transparent border border-cream/20 py-2.5 rounded-full font-mono text-xs uppercase text-cream hover:bg-cream hover:text-greenbean transition-colors shadow-md">
+                                Sertifikat
+                            </button>
+                            <button onclick="openModal('Edutalk Fair 2026', 'Dokumentasi Acara', 'Suasana dan momen penerimaan penghargaan Edutalk Fair 2026.', ['https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=600&fit=crop'])" class="flex-1 bg-transparent border border-cream/20 py-2.5 rounded-full font-mono text-xs uppercase text-cream hover:bg-cream hover:text-greenbean transition-colors shadow-md">
+                                Foto Acara
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Achievement 2 -->
+                    <div class="border border-cream/20 p-6 glass-panel relative shadow-lg rounded-xl">
+                        <div class="absolute top-0 right-0 bg-transparent border-b border-l border-cream/20 text-cream font-mono text-[10px] font-bold px-4 py-2 uppercase rounded-tr-xl rounded-bl-xl">2026</div>
+                        <h3 class="font-serif text-2xl font-bold text-cream mb-2 pr-12 leading-snug">1st Place Winner</h3>
+                        <p class="font-sans text-sm text-cream/70 font-bold mb-6">Business Challenge Go 8.0</p>
+                        
+                        <p class="font-mono text-[10px] uppercase tracking-widest mb-2 text-cream/50">Gallery & Proof</p>
+                        <div class="flex gap-3">
+                            <button onclick="openModal('Business Challenge Go 8.0', 'Sertifikat', 'Sertifikat Juara 1 Business Challenge Go 8.0 tahun 2026.', ['https://images.unsplash.com/photo-1589330694653-ded6df03f754?q=80&w=600&fit=crop'])" class="flex-1 bg-transparent border border-cream/20 py-2.5 rounded-full font-mono text-xs uppercase text-cream hover:bg-cream hover:text-greenbean transition-colors shadow-md">Sertifikat</button>
+                            <button onclick="openModal('Business Challenge Go 8.0', 'Dokumentasi Acara', 'Momen kompetisi dan penjurian Business Challenge.', ['https://images.unsplash.com/photo-1556761175-5973dc0f32b7?q=80&w=600&fit=crop'])" class="flex-1 bg-transparent border border-cream/20 py-2.5 rounded-full font-mono text-xs uppercase text-cream hover:bg-cream hover:text-greenbean transition-colors shadow-md">Foto Acara</button>
+                        </div>
+                    </div>
+
+                    <!-- Achievement 3 -->
+                    <div class="border border-cream/20 p-6 glass-panel relative shadow-lg rounded-xl">
+                        <div class="absolute top-0 right-0 bg-transparent border-b border-l border-cream/20 text-cream font-mono text-[10px] font-bold px-4 py-2 uppercase rounded-tr-xl rounded-bl-xl">2025</div>
+                        <h3 class="font-serif text-2xl font-bold text-cream mb-2 pr-12 leading-snug">1st Place National Business Plan</h3>
+                        <p class="font-sans text-sm text-cream/70 font-bold mb-6">Digital Marketing Video & Entrepreneurship Podcast</p>
+                        <div class="flex gap-3">
+                            <button onclick="openModal('National Business Plan 2025', 'Sertifikat', 'Sertifikat Juara 1 tingkat nasional.', ['https://images.unsplash.com/photo-1559868461-9c6a1e389dfb?q=80&w=600&fit=crop'])" class="flex-1 bg-transparent border border-cream/20 py-2.5 rounded-full font-mono text-xs uppercase text-cream hover:bg-cream hover:text-greenbean transition-colors shadow-md">Sertifikat</button>
+                            <button onclick="openModal('National Business Plan 2025', 'Dokumentasi Acara', 'Proses pembuatan video marketing dan podcast.', ['https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=600&fit=crop'])" class="flex-1 bg-transparent border border-cream/20 py-2.5 rounded-full font-mono text-xs uppercase text-cream hover:bg-cream hover:text-greenbean transition-colors shadow-md">Foto Acara</button>
+                        </div>
+                    </div>
+
+                    <!-- Achievement 4 -->
+                    <div class="border border-cream/20 p-6 glass-panel relative shadow-lg rounded-xl">
+                        <div class="absolute top-0 right-0 bg-transparent border-b border-l border-cream/20 text-cream font-mono text-[10px] font-bold px-4 py-2 uppercase rounded-tr-xl rounded-bl-xl">2024</div>
+                        <h3 class="font-serif text-2xl font-bold text-cream mb-2 pr-12 leading-snug">1st Place Digital Education</h3>
+                        <p class="font-sans text-sm text-cream/70 font-bold mb-6">Entrepreneurship Festival</p>
+                        <div class="flex gap-3">
+                            <button onclick="openModal('Digital Education Fest 2024', 'Sertifikat', 'Sertifikat Juara 1 Digital Education.', ['https://images.unsplash.com/photo-1589330694653-ded6df03f754?q=80&w=600&fit=crop'])" class="flex-1 bg-transparent border border-cream/20 py-2.5 rounded-full font-mono text-xs uppercase text-cream hover:bg-cream hover:text-greenbean transition-colors shadow-md">Sertifikat</button>
+                            <button onclick="openModal('Digital Education Fest 2024', 'Dokumentasi Acara', 'Foto penerimaan penghargaan.', ['https://images.unsplash.com/photo-1523580494112-071d1e21d8b4?q=80&w=600&fit=crop'])" class="flex-1 bg-transparent border border-cream/20 py-2.5 rounded-full font-mono text-xs uppercase text-cream hover:bg-cream hover:text-greenbean transition-colors shadow-md">Foto Acara</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- HOBBIES & CREATIVE PURSUITS -->
+        <section id="creativity" class="py-16 px-6 section-observe w-full overflow-hidden">
+            <div class="max-w-6xl mx-auto reveal-up">
+                
+                <div class="text-center mb-16">
+                    <h2 class="font-serif text-5xl text-cream font-bold border-b border-cream/20 pb-6 inline-block">Creative Pursuits</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-start">
+                    
+                    <!-- Left Column: Content Creation (Mobile Mockup) -->
+                    <div class="relative glass-panel p-6 lg:p-8 rounded-2xl border border-cream/20 shadow-xl flex flex-col items-center">
+                        <h3 class="font-serif text-2xl text-cream mb-6 text-center font-bold">Content Creation & Video Editing</h3>
+                        
+                        <div class="relative w-full flex items-center justify-center">
+                            <!-- Left Arrow -->
+                            <button id="slider-prev" class="absolute left-0 z-20 w-10 h-10 bg-[#0a1708] border border-cream/20 rounded-full flex items-center justify-center text-cream shadow-xl hover:bg-cabernet hover:border-cream transition-all -translate-x-4 lg:-translate-x-6">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"></path></svg>
+                            </button>
+
+                            <!-- Phone Container (Shows one at a time) -->
+                            <div class="w-[280px] sm:w-[320px] overflow-hidden rounded-[2.5rem]">
+                                <div id="content-carousel" class="flex gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-4 scroll-smooth w-full">
+                                    
+                                    <!-- Phone 1: Pribadi -->
+                                    <div class="phone-mockup w-[280px] sm:w-[320px] h-[580px] shrink-0 snap-center flex flex-col p-5 pt-12">
+                                        <div class="phone-notch"></div>
+                                        <div class="flex items-center gap-3 border-b border-cream/20 pb-4">
+                                            <div class="w-12 h-12 bg-cream/20 rounded-full overflow-hidden shrink-0"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100&fit=crop" loading="lazy" class="w-full h-full object-cover"></div>
+                                            <div>
+                                                <h4 class="font-serif text-lg font-bold text-cream leading-tight">Personal Account</h4>
+                                                <p class="text-[10px] text-cream/50 uppercase tracking-widest mt-1">Lifestyle & Portfolio</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex gap-2 mt-5 mb-5">
+                                            <button onclick="updatePhone('phone-1', 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400', 'https://instagram.com', this)" class="flex-1 bg-cream/20 text-center py-2 rounded-md text-[10px] font-bold font-mono text-cream transition-colors border border-cream/20 uppercase">IG</button>
+                                            <button onclick="updatePhone('phone-1', 'https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=400', 'https://youtube.com', this)" class="flex-1 bg-transparent text-center py-2 rounded-md text-[10px] font-bold font-mono text-cream/70 transition-colors border border-cream/20 uppercase">YT</button>
+                                        </div>
+                                        <div class="flex-grow bg-cabernet/20 rounded-xl overflow-hidden relative border border-cream/10 p-1">
+                                            <img id="phone-1-img" src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400" loading="lazy" class="w-full h-full object-cover rounded-lg opacity-90 transition-all duration-300">
+                                        </div>
+                                        <a id="phone-1-link" href="https://instagram.com" target="_blank" class="block w-full mt-5 bg-transparent border border-cream/30 text-cream text-center py-3 rounded-xl font-mono text-xs uppercase font-bold hover:bg-cream hover:text-greenbean transition-colors shadow-md">Kunjungi Akun</a>
+                                    </div>
+
+                                    <!-- Phone 2: Manikarumi -->
+                                    <div class="phone-mockup w-[280px] sm:w-[320px] h-[580px] shrink-0 snap-center flex flex-col p-5 pt-12">
+                                        <div class="phone-notch"></div>
+                                        <div class="flex items-center gap-3 border-b border-cream/20 pb-4">
+                                            <div class="w-12 h-12 rounded-full overflow-hidden shrink-0 flex items-center justify-center font-serif text-xl font-bold text-cabernet bg-cream">M</div>
+                                            <div>
+                                                <h4 class="font-serif text-lg font-bold text-cream leading-tight">Manikarumi.id</h4>
+                                                <p class="text-[10px] text-cream/50 uppercase tracking-widest mt-1">PR & Content</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex gap-2 mt-5 mb-5">
+                                            <button onclick="updatePhone('phone-2', 'https://images.unsplash.com/photo-1560343090-f0409e92791a?w=400', 'https://instagram.com', this)" class="flex-1 bg-cream/20 text-center py-2 rounded-md text-[10px] font-bold font-mono text-cream transition-colors border border-cream/20 uppercase">IG</button>
+                                        </div>
+                                        <div class="flex-grow bg-cabernet/20 rounded-xl overflow-hidden relative border border-cream/10 p-1">
+                                            <img id="phone-2-img" src="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=400" loading="lazy" class="w-full h-full object-cover rounded-lg opacity-90 transition-all duration-300">
+                                        </div>
+                                        <a id="phone-2-link" href="https://instagram.com" target="_blank" class="block w-full mt-5 bg-transparent border border-cream/30 text-cream text-center py-3 rounded-xl font-mono text-xs uppercase font-bold hover:bg-cream hover:text-greenbean transition-colors shadow-md">Kunjungi Akun</a>
+                                    </div>
+
+                                    <!-- Phone 3: YarnUp! -->
+                                    <div class="phone-mockup w-[280px] sm:w-[320px] h-[580px] shrink-0 snap-center flex flex-col p-5 pt-12">
+                                        <div class="phone-notch"></div>
+                                        <div class="flex items-center gap-3 border-b border-cream/20 pb-4">
+                                            <div class="w-12 h-12 rounded-full overflow-hidden shrink-0 flex items-center justify-center font-serif text-xl font-bold text-cabernet bg-cream">Y!</div>
+                                            <div>
+                                                <h4 class="font-serif text-lg font-bold text-cream leading-tight">YarnUp!</h4>
+                                                <p class="text-[10px] text-cream/50 uppercase tracking-widest mt-1">Business Owner</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex gap-2 mt-5 mb-5">
+                                            <button onclick="updatePhone('phone-3', 'https://images.unsplash.com/photo-1584992236310-6edddc08acff?w=400', 'https://instagram.com', this)" class="flex-1 bg-cream/20 text-center py-2 rounded-md text-[10px] font-bold font-mono text-cream transition-colors border border-cream/20 uppercase">IG</button>
+                                        </div>
+                                        <div class="flex-grow bg-cabernet/20 rounded-xl overflow-hidden relative border border-cream/10 p-1">
+                                            <img id="phone-3-img" src="https://images.unsplash.com/photo-1584992236310-6edddc08acff?w=400" loading="lazy" class="w-full h-full object-cover rounded-lg opacity-90 transition-all duration-300">
+                                        </div>
+                                        <a id="phone-3-link" href="https://instagram.com" target="_blank" class="block w-full mt-5 bg-transparent border border-cream/30 text-cream text-center py-3 rounded-xl font-mono text-xs uppercase font-bold hover:bg-cream hover:text-greenbean transition-colors shadow-md">Kunjungi Akun</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                            
+                            <!-- Right Arrow -->
+                            <button id="slider-next" class="absolute right-0 z-20 w-10 h-10 bg-[#0a1708] border border-cream/20 rounded-full flex items-center justify-center text-cream shadow-xl hover:bg-cabernet hover:border-cream transition-all translate-x-4 lg:translate-x-6">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Beyond the Screen (Hobbies List) -->
+                    <div class="flex flex-col">
+                        <h3 class="font-serif text-2xl text-cream mb-6 font-bold px-2">Beyond The Screen</h3>
+                        
+                        <div class="flex flex-col gap-4">
+                            
+                            <!-- Writing -->
+                            <div class="group glass-panel border border-cream/20 rounded-xl p-4 flex items-center justify-between hover:bg-cream/10 transition-colors duration-300 shadow-md cursor-pointer">
+                                <div class="flex items-center gap-5">
+                                    <div class="w-16 h-16 rounded-md overflow-hidden shrink-0 border border-cream/20">
+                                        <img src="https://images.unsplash.com/photo-1455390582262-044cdead2708?q=80&w=200&fit=crop" loading="lazy" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500">
+                                    </div>
+                                    <div>
+                                        <h4 class="font-serif font-bold text-xl text-cream mb-1">Writing (Medium)</h4>
+                                        <p class="font-sans text-xs text-cream/70">Berbagi pemikiran dan strategi bisnis.</p>
+                                    </div>
+                                </div>
+                                <span class="w-10 h-10 shrink-0 border border-cream/30 rounded-full flex items-center justify-center text-cream/60 group-hover:bg-cream group-hover:text-greenbean transition-colors ml-4">
+                                    &rarr;
+                                </span>
+                            </div>
+
+                            <!-- Knitting -->
+                            <div class="group glass-panel border border-cream/20 rounded-xl p-4 flex items-center justify-between hover:bg-cream/10 transition-colors duration-300 shadow-md cursor-pointer">
+                                <div class="flex items-center gap-5">
+                                    <div class="w-16 h-16 rounded-md overflow-hidden shrink-0 border border-cream/20">
+                                        <img src="https://images.unsplash.com/photo-1605289982774-9a6fef564df8?q=80&w=200&fit=crop" loading="lazy" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500">
+                                    </div>
+                                    <div>
+                                        <h4 class="font-serif font-bold text-xl text-cream mb-1">Knitting (Rajutan)</h4>
+                                        <p class="font-sans text-xs text-cream/70">Eksplorasi kreativitas melalui karya handmade.</p>
+                                    </div>
+                                </div>
+                                <span class="w-10 h-10 shrink-0 border border-cream/30 rounded-full flex items-center justify-center text-cream/60 group-hover:bg-cream group-hover:text-greenbean transition-colors ml-4">
+                                    &rarr;
+                                </span>
+                            </div>
+
+                            <!-- Traveling -->
+                            <div class="group glass-panel border border-cream/20 rounded-xl p-4 flex items-center justify-between hover:bg-cream/10 transition-colors duration-300 shadow-md cursor-pointer">
+                                <div class="flex items-center gap-5">
+                                    <div class="w-16 h-16 rounded-md overflow-hidden shrink-0 border border-cream/20">
+                                        <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=200&fit=crop" loading="lazy" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500">
+                                    </div>
+                                    <div>
+                                        <h4 class="font-serif font-bold text-xl text-cream mb-1">Traveling</h4>
+                                        <p class="font-sans text-xs text-cream/70">Melihat dunia untuk perspektif baru.</p>
+                                    </div>
+                                </div>
+                                <span class="w-10 h-10 shrink-0 border border-cream/30 rounded-full flex items-center justify-center text-cream/60 group-hover:bg-cream group-hover:text-greenbean transition-colors ml-4">
+                                    &rarr;
+                                </span>
+                            </div>
+
+                            <!-- Reading -->
+                            <div class="group glass-panel border border-cream/20 rounded-xl p-4 flex items-center justify-between hover:bg-cream/10 transition-colors duration-300 shadow-md cursor-pointer">
+                                <div class="flex items-center gap-5">
+                                    <div class="w-16 h-16 rounded-md overflow-hidden shrink-0 border border-cream/20">
+                                        <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=200&fit=crop" loading="lazy" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500">
+                                    </div>
+                                    <div>
+                                        <h4 class="font-serif font-bold text-xl text-cream mb-1">Reading</h4>
+                                        <p class="font-sans text-xs text-cream/70">Eksplorasi literatur dan buku pengembangan diri.</p>
+                                    </div>
+                                </div>
+                                <span class="w-10 h-10 shrink-0 border border-cream/30 rounded-full flex items-center justify-center text-cream/60 group-hover:bg-cream group-hover:text-greenbean transition-colors ml-4">
+                                    &rarr;
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        
+    </div> <!-- END TEXTURE BG -->
+
+    <!-- CONTACT SECTION (Back to Garden BG) -->
+    <section id="contact" class="garden-bg pt-40 pb-20 px-6 text-center reveal-up relative section-observe footer-gradient">
+        
+        <h2 class="font-serif text-5xl md:text-6xl mb-6 relative z-10 text-cream font-bold">Mari Bertumbuh Bersama.</h2>
+        <p class="font-sans text-cream/90 max-w-lg mx-auto mb-10 relative z-10 text-lg glass-panel p-4 rounded-xl shadow-lg border border-cream/20">
+            Terbuka untuk diskusi mengenai peluang karir, kolaborasi bisnis, atau sekadar berbagi inspirasi.
+        </p>
+        <div class="flex flex-wrap justify-center gap-6 relative z-10">
+            <a href="mailto:chikalnazmi05@gmail.com" class="font-mono text-sm font-bold uppercase tracking-widest bg-cream text-greenbean px-8 py-4 rounded-full hover:bg-cream/80 transition-colors shadow-lg border border-cream/20">Email Me</a>
+            <a href="https://www.linkedin.com/in/chikal-nazmi-mahira" target="_blank" class="font-mono text-sm font-bold uppercase tracking-widest border border-cream/40 text-cream bg-[#081c05]/80 backdrop-blur-sm px-8 py-4 rounded-full hover:bg-cabernet hover:border-cream/20 transition-colors shadow-lg">LinkedIn</a>
+        </div>
+        
+        <!-- Subtle Footer integrated -->
+        <div class="mt-32 relative z-10">
+            <p class="text-cream/60 text-[10px] font-mono uppercase tracking-widest">
+                © 2026 Chikal Nazmi Mahira. Crafted with precision & purpose.
+            </p>
+        </div>
+    </section>
+
+    <!-- UNIVERSAL IMAGE MODAL -->
+    <div id="image-modal" class="fixed inset-0 bg-black/90 z-[100] hidden flex items-center justify-center p-4 md:p-10 opacity-0 transition-opacity duration-300">
+        <div class="glass-panel border border-cream/30 text-cream max-w-5xl w-full max-h-[90vh] overflow-y-auto rounded-xl flex flex-col relative shadow-2xl">
+            <div class="sticky top-0 bg-[#052102]/80 backdrop-blur-md border-b border-cream/30 px-6 py-4 flex justify-between items-center z-10 shadow-md">
+                <div>
+                    <h3 id="modal-title" class="font-serif text-2xl font-bold text-cream">Judul</h3>
+                    <p id="modal-subtitle" class="font-mono text-xs uppercase text-cream/70 font-bold mt-1">Kategori</p>
+                </div>
+                <button onclick="closeModal()" class="text-4xl text-cream/70 hover:text-cream transition-colors leading-none">&times;</button>
+            </div>
+            <div class="p-6 md:p-8 flex flex-col md:flex-row gap-8">
+                <div id="modal-image-container" class="w-full md:w-3/5 space-y-4"></div>
+                <div class="w-full md:w-2/5">
+                    <h4 class="font-mono text-sm font-bold uppercase tracking-widest border-b border-cream/30 pb-2 mb-4 text-cream">Deskripsi Detail</h4>
+                    <p id="modal-desc" class="font-sans text-cream/80 leading-relaxed text-sm bg-cabernet/20 p-4 border border-cream/10 rounded-xl"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Interactive Phone Logic
+        function updatePhone(phoneId, imgSrc, linkUrl, btnElement) {
+            document.getElementById(phoneId + '-img').src = imgSrc;
+            document.getElementById(phoneId + '-link').href = linkUrl;
+            
+            // Highlight active button
+            let buttons = btnElement.parentElement.querySelectorAll('button');
+            buttons.forEach(b => { 
+                b.classList.remove('bg-cream/20'); 
+                b.classList.add('bg-transparent'); 
+            });
+            btnElement.classList.remove('bg-transparent');
+            btnElement.classList.add('bg-cream/20');
+        }
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMobileMenu() {
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+                setTimeout(() => {
+                    mobileMenu.classList.add('opacity-100');
+                }, 10);
+                document.body.style.overflow = 'hidden';
+            } else {
+                mobileMenu.classList.remove('opacity-100');
+                setTimeout(() => {
+                    mobileMenu.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }, 300);
+            }
+        }
+
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', toggleMobileMenu);
+        });
+
+        // Modal Logic
+        const modal = document.getElementById('image-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalSubtitle = document.getElementById('modal-subtitle');
+        const modalDesc = document.getElementById('modal-desc');
+        const modalImageContainer = document.getElementById('modal-image-container');
+
+        function openModal(title, type, description, imagesArray) {
+            modalTitle.innerText = title;
+            modalSubtitle.innerText = type; 
+            modalDesc.innerText = description;
+            
+            modalImageContainer.innerHTML = '';
+            imagesArray.forEach(imgUrl => {
+                const imgEl = document.createElement('img');
+                imgEl.src = imgUrl;
+                imgEl.className = 'w-full h-auto border border-cream/20 rounded-lg shadow-lg'; 
+                modalImageContainer.appendChild(imgEl);
+            });
+
+            modal.classList.remove('hidden');
+            setTimeout(() => { modal.classList.add('opacity-100'); }, 10);
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeModal() {
+            modal.classList.remove('opacity-100');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = ''; 
+            }, 300);
+        }
+
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) { closeModal(); }
+        });
+
+        // Dot Navigation Active State
+        const sections = document.querySelectorAll('.section-observe');
+        const navDots = document.querySelectorAll('.nav-dot');
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    
+                    navDots.forEach(dot => {
+                        const circle = dot.querySelector('.dot');
+                        if(dot.dataset.target === id) {
+                            circle.classList.remove('bg-cream/30');
+                            circle.classList.add('bg-cream', 'scale-150', 'border-transparent'); 
+                        } else {
+                            circle.classList.add('bg-cream/30');
+                            circle.classList.remove('bg-cream', 'scale-150', 'border-transparent');
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.3, rootMargin: "-10% 0px -40% 0px" }); 
+
+        sections.forEach(sec => sectionObserver.observe(sec));
+
+        // Phone Carousel Logic
+        const contentCarousel = document.getElementById('content-carousel');
+        const btnPrev = document.getElementById('slider-prev');
+        const btnNext = document.getElementById('slider-next');
+
+        if(btnNext && contentCarousel) {
+            btnNext.addEventListener('click', () => {
+                const scrollAmount = window.innerWidth < 640 ? 296 : 336; 
+                contentCarousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            });
+            btnPrev.addEventListener('click', () => {
+                const scrollAmount = window.innerWidth < 640 ? -296 : -336;
+                contentCarousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            });
+        }
+
+        // Reveal Animation
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal-up').forEach(el => {
+            revealObserver.observe(el);
+        });
+    </script>
+</body>
+</html>

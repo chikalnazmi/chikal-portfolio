@@ -1,31 +1,42 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter, IBM_Plex_Mono } from "next/font/google";
+import { Lora, Jost, Source_Sans_3, Space_Mono } from "next/font/google";
 import "./globals.css";
-import CustomCursor from "@/components/shared/CustomCursor";
-import FallingFlowers from "@/components/shared/FallingFlowers";
 
-const fraunces = Fraunces({ 
+// Title Styling: Quincy (with Google Font Lora as warm editorial serif equivalent & local Quincy CF support)
+const quincy = Lora({ 
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
-  variable: "--font-fraunces",
+  variable: "--font-quincy",
+  display: "swap",
+  style: ["normal", "italic"]
+});
+
+// Subheader Styling: Futura (with Google Font Jost as geometric sans counterpart & system Futura support)
+const futura = Jost({ 
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  variable: "--font-futura",
   display: "swap",
 });
 
-const inter = Inter({ 
+// Paragraph Styling: Source Sans (Source Sans 3)
+const sourceSans = Source_Sans_3({ 
+  weight: ["300", "400", "500", "600", "700"],
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-source-sans",
   display: "swap",
 });
 
-const ibmPlexMono = IBM_Plex_Mono({
-  weight: ["400", "500", "600"],
+const spaceMono = Space_Mono({
+  weight: ["400", "700"],
   subsets: ["latin"],
-  variable: "--font-plex-mono",
+  variable: "--font-space-mono",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Chikal Nazmi Mahira | Portfolio",
-  description: "Business Development, Marketing & Growth Portfolio",
+  title: "Chikal Nazmi Mahira | Business Development & Marketing Strategist",
+  description: "Portfolio of Chikal Nazmi Mahira. Specializing in Business Development, Strategic Partnerships, Operations, and Marketing.",
 };
 
 export default function RootLayout({
@@ -34,10 +45,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${fraunces.variable} ${inter.variable} ${ibmPlexMono.variable}`}>
-      <body>
-        <CustomCursor />
-        <FallingFlowers />
+    <html lang="id" className={`scroll-smooth ${quincy.variable} ${futura.variable} ${sourceSans.variable} ${spaceMono.variable}`}>
+      <body className="bg-[#E8EFE5] text-[#212B1E] font-sans antialiased selection:bg-rose-blush selection:text-rose-dark">
         {children}
       </body>
     </html>
