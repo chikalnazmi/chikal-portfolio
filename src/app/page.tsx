@@ -1,6 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { 
+  getPortfolioData, 
+  subscribeToPortfolioUpdates, 
+  DEFAULT_PORTFOLIO_DATA, 
+  PortfolioData 
+} from '@/lib/portfolio-store';
 
 export default function Home() {
   // Modal state for certificates and documentation
@@ -10,13 +16,28 @@ export default function Home() {
     category: string;
     description: string;
     images: string[];
+    link?: string;
+    linkLabel?: string;
   }>({
     isOpen: false,
     title: '',
     category: '',
     description: '',
     images: [],
+    link: undefined,
+    linkLabel: undefined,
   });
+
+  // Dynamic portfolio store state (synced with /admin in real-time)
+  const [portfolioData, setPortfolioData] = useState<PortfolioData>(DEFAULT_PORTFOLIO_DATA);
+
+  useEffect(() => {
+    setPortfolioData(getPortfolioData());
+    const unsubscribe = subscribeToPortfolioUpdates((newData) => {
+      setPortfolioData(newData);
+    });
+    return () => unsubscribe();
+  }, []);
 
   // Mobile menu state
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -30,14 +51,65 @@ export default function Home() {
   // Active filter for Trophy Case Mosaic Exhibition
   const [awardFilter, setAwardFilter] = useState<'all' | '1st' | '2nd' | 'top5' | 'speaker'>('all');
 
+  // Working Experience layout view mode: 'compact' (2-per-row in 1 view) or 'collage' (multi-photo collage feed)
+  const [experienceViewMode, setExperienceViewMode] = useState<'compact' | 'collage'>('compact');
+
+  // Current slide index in infinite circular carousel (starts at 10 = index 0 Google Student Ambassador)
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(10);
+  // Active photo index for each organization card
+  const [orgPhotoIndex, setOrgPhotoIndex] = useState<{ [key: number]: number }>({ 0: 0, 1: 0, 2: 0, 3: 0, 4: 0 });
+
+  // Auto-slide documentation photos every 3 seconds without manual clicks
+  useEffect(() => {
+    const photoTimer = setInterval(() => {
+      setOrgPhotoIndex(prev => {
+        const nextState = { ...prev };
+        organizationList.forEach((_, idx) => {
+          const totalPhotos = organizationList[idx].images.length;
+          nextState[idx] = ((prev[idx] || 0) + 1) % totalPhotos;
+        });
+        return nextState;
+      });
+    }, 3000);
+
+    return () => clearInterval(photoTimer);
+  }, []);
+
+  // Reversible Cute Cozy Floral Theme state
+  const [isCuteMode, setIsCuteMode] = useState(true);
+
+  // Floating Petal Particles Data for Cute Floral Mode
+  const petalParticles = [
+    { left: '6%', delay: '0s', size: 18, duration: '14s' },
+    { left: '20%', delay: '3.5s', size: 22, duration: '18s' },
+    { left: '34%', delay: '1s', size: 16, duration: '15s' },
+    { left: '48%', delay: '5s', size: 20, duration: '20s' },
+    { left: '64%', delay: '2s', size: 24, duration: '16s' },
+    { left: '78%', delay: '4.5s', size: 16, duration: '19s' },
+    { left: '92%', delay: '6s', size: 20, duration: '17s' },
+  ];
+
+    // Active photo index inside Landscape Modal Dialog
+  const [activeModalPhoto, setActiveModalPhoto] = useState(0);
+
   // Modal open helper
-  const openModal = (title: string, category: string, description: string, images: string[]) => {
+  const openModal = (
+    title: string, 
+    category: string, 
+    description: string, 
+    images: string[],
+    link?: string,
+    linkLabel?: string
+  ) => {
+    setActiveModalPhoto(0);
     setModalData({
       isOpen: true,
       title,
       category,
       description,
-      images,
+      images: images && images.length > 0 ? images : ['/11.png'],
+      link,
+      linkLabel,
     });
   };
 
@@ -45,7 +117,7 @@ export default function Home() {
     setModalData(prev => ({ ...prev, isOpen: false }));
   };
 
-  // Case Studies Dossier Data
+  // Case Studies Dossier Data (Enhanced with Multi-Photo Documentation)
   const dossierProjects = [
     {
       id: 'operations',
@@ -54,16 +126,18 @@ export default function Home() {
       tag: 'Business Operations',
       period: '2023 - 2024',
       badgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300',
-      summary: 'Perumusan Standard Operating Procedure (SOP) hulu-ke-hilir, standarisasi pengerjaan cucian, dan digitalisasi pencatatan keuangan harian.',
-      challenge: 'Operasional cucian sebelumnya mengalami variasi kualitas pengerjaan, risiko keterlambatan pengembalian, dan pembukuan manual yang rentan selisih.',
-      strategy: 'Merancang matriks alur kerja 5 tahap (Sortir - Cuci - Kering - Setrika Uap - QC/Packing), menetapkan standar waktu layanan 24/48 jam, dan membuat dashboard kas terpusat.',
+      summary: 'Perumusan Standard Operating Procedure (SOP) hulu-ke-hilir, standarisasi pengerjaan cucian, dan digitalisasi pencatatan keuangan kas harian.',
+      challenge: 'Variasi mutu pengerjaan cuci-setrika, risiko keterlambatan pengembalian, dan pencatatan kas manual rentan selisih.',
+      strategy: 'Merancang SOP 5 tahap (Sortir-Cuci-Kering-Setrika-Packing), SLA 24/48 jam, dan dashboard kas harian terpusat.',
       results: [
         '35% Peningkatan efisiensi rotasi cucian harian',
-        '0% Zero-complaint atas kerusakan atau kehilangan pakaian',
-        'Pencatatan kas dan rekonsiliasi bahan baku 100% transparan',
+        '0% Zero-complaint atas kerusakan / kehilangan',
+        '100% Pencatatan kas & bahan baku transparan',
       ],
       image: '/3.png',
-      extraImages: ['/3.png', '/4.png'],
+      extraImages: ['/3.png', '/4.png', '/1.png'],
+      link: 'https://instagram.com/duasisi.laundry',
+      linkLabel: 'Profil Bisnis Dua Sisi ↗',
     },
     {
       id: 'growth',
@@ -72,16 +146,18 @@ export default function Home() {
       tag: 'Brand Founder & Growth',
       period: '2023 - Sekarang',
       badgeColor: 'bg-rose-100 text-rose-900 border-rose-300',
-      summary: 'Membangun brand aksesoris rajut handmade dari nol, menguji pasar melalui video storytelling, dan mengoptimalkan konversi di media sosial.',
-      challenge: 'Pasar kerajinan tangan lokal dibanjiri produk impor murah; brand butuh diferensiasi visual yang kuat dan positioning emosional untuk memvalidasi harga premium.',
-      strategy: 'Mengadopsi strategi content marketing berbasis proses pembuatan (behind-the-scenes), styling visual editorial produk, dan peluncuran batch tematik terbatas.',
+      summary: 'Membangun brand aksesoris rajut handmade dari nol, validasi produk via video storytelling, dan konversi media sosial.',
+      challenge: 'Banjir produk impor murah; brand butuh diferensiasi visual kuat dan positioning emosional untuk harga premium.',
+      strategy: 'Content marketing proses pembuatan (behind-the-scenes), styling visual editorial produk, dan rilis batch terbatas.',
       results: [
-        '+2.089% Lonjakan jangkauan akun Instagram Reels organik',
-        '20.02% Rasio keterlibatan audiens (Engagement Rate)',
-        '100% Produk terjual habis pada batch peluncuran pertama',
+        '+2.089% Lonjakan reach Reels Instagram organik',
+        '20.02% Rasio keterlibatan (Engagement Rate)',
+        '100% Produk terjual habis pada batch 1',
       ],
       image: '/5.png',
-      extraImages: ['/5.png', '/6.png'],
+      extraImages: ['/5.png', '/6.png', '/2.png'],
+      link: 'https://instagram.com/yarnup.official',
+      linkLabel: 'Official Store Instagram ↗',
     },
     {
       id: 'partnership',
@@ -91,15 +167,17 @@ export default function Home() {
       period: '2023 - 2024',
       badgeColor: 'bg-amber-100 text-amber-900 border-amber-300',
       summary: 'Memimpin kemitraan offline dengan puluhan event organizer terkemuka di Jawa Timur dan Jakarta untuk penempatan stan display tenant.',
-      challenge: 'Tingginya biaya sewa stan acara memerlukan seleksi ketat agar tenant mendapatkan traffic pengunjung yang relevan dan ROI penjualan positif.',
-      strategy: 'Melakukan riset demografi pengunjung festival, menyusun deck penawaran sponsorship yang menarik, dan menata tata letak visual booth agar mengundang interaksi.',
+      challenge: 'Biaya sewa stan tinggi; memerlukan seleksi ketat agar tenant mendapatkan traffic pengunjung relevan & ROI positif.',
+      strategy: 'Riset demografi pengunjung festival, deck sponsorship persuasif, dan display booth visual interaktif.',
       results: [
-        '20+ Kemitraan strategis dengan event organizer sukses terjalin',
-        'Ekspansi penempatan stan di kota Malang, Surabaya, dan Jakarta',
-        'Peningkatan rata-rata foot-traffic stan hingga 40% per event',
+        '20+ Kemitraan strategis event organizer',
+        'Ekspansi penempatan stan Malang, Surabaya, Jakarta',
+        '+40% Rata-rata foot-traffic stan per event',
       ],
       image: '/7.png',
-      extraImages: ['/7.png', '/8.png'],
+      extraImages: ['/7.png', '/8.png', '/12.png'],
+      link: 'https://instagram.com/manikarumi.id',
+      linkLabel: 'Galeri Booth Manikarumi ↗',
     },
     {
       id: 'data',
@@ -108,16 +186,18 @@ export default function Home() {
       tag: 'Data & Tech Strategy',
       period: '2023',
       badgeColor: 'bg-blue-100 text-blue-900 border-blue-300',
-      summary: 'Mengembangkan sistem otomasi media monitoring berbasis Python untuk deteksi berita cetak dan pipeline ekstraksi data intelligence.',
-      challenge: 'Pemantauan manual koran harian cetak memakan waktu berjam-jam dan rentan melewatkan publikasi isu strategis para klien korporat.',
-      strategy: 'Membangun script otomasi web crawling dan pengenalan tata letak artikel koran digital menggunakan pustaka pengolahan citra dan data Python.',
+      summary: 'Mengembangkan sistem otomasi media monitoring berbasis Python untuk deteksi berita cetak dan ekstraksi data intelligence.',
+      challenge: 'Pemantauan manual koran cetak memakan waktu berjam-jam dan rentan melewatkan publikasi isu strategis klien korporat.',
+      strategy: 'Script web crawling otomatis & analisis tata letak koran digital menggunakan pustaka image processing Python.',
       results: [
-        'Otomasi pipeline pemrosesan puluhan surat kabar nasional setiap pagi',
-        'Mempercepat waktu agregasi berita hingga 60% dibanding metode manual',
-        'Penyajian data analitik yang presisi untuk laporan intelligence harian',
+        'Otomasi puluhan surat kabar nasional per pagi',
+        '60% Mempercepat waktu agregasi berita vs manual',
+        'Penyajian data analitik presisi laporan harian',
       ],
       image: '/9.png',
-      extraImages: ['/9.png', '/10.png'],
+      extraImages: ['/9.png', '/10.png', '/14.png'],
+      link: 'https://digivla.id',
+      linkLabel: 'Portal Digivla Intelligence ↗',
     },
   ];
 
@@ -137,6 +217,8 @@ export default function Home() {
       desc: 'Juara 1 dalam perancangan strategi model bisnis berkelanjutan dengan keunggulan analisis kelayakan finansial dan strategi penetrasi pasar.',
       certImg: '/11.png',
       eventImg: '/12.png',
+      link: 'https://unisma.ac.id',
+      linkLabel: 'Liputan Berita Unisma ↗',
     },
     {
       year: '2024',
@@ -148,6 +230,8 @@ export default function Home() {
       desc: 'Masuk jajaran 5 proposal bisnis terbaik nasional dari ratusan tim perguruan tinggi di seluruh Indonesia.',
       certImg: '/13.png',
       eventImg: '/14.png',
+      link: 'https://unp.ac.id',
+      linkLabel: 'Warta Kompetisi UNP ↗',
     },
     {
       year: '2023',
@@ -159,6 +243,8 @@ export default function Home() {
       desc: 'Meraih Juara 1 melalui inovasi solusi digital bisnis terintegrasi dan validasi prototipe operasional.',
       certImg: '/15.png',
       eventImg: '/16.png',
+      link: 'https://polinema.ac.id',
+      linkLabel: 'Pengumuman Resmi Polinema ↗',
     },
     {
       year: '2023',
@@ -170,6 +256,8 @@ export default function Home() {
       desc: 'Finalis 5 Besar dalam kompetisi rencana bisnis bergengsi se-Indonesia dengan fokus pada skalabilitas usaha.',
       certImg: '/17.png',
       eventImg: '/11.png',
+      link: 'https://ub.ac.id',
+      linkLabel: 'Rilis Berita UB ↗',
     },
     {
       year: '2023',
@@ -181,6 +269,8 @@ export default function Home() {
       desc: 'Juara 2 Nasional dalam perumusan proposisi nilai produk dan strategi pemasaran multi-channel.',
       certImg: '/12.png',
       eventImg: '/13.png',
+      link: 'https://unisma.ac.id',
+      linkLabel: 'Arsip Berita Nasional ↗',
     },
     {
       year: '2022',
@@ -192,6 +282,8 @@ export default function Home() {
       desc: 'Juara 2 dalam perancangan ide bisnis kreatif berdaya saing tinggi.',
       certImg: '/14.png',
       eventImg: '/15.png',
+      link: 'https://umm.ac.id',
+      linkLabel: 'Publikasi UMM ↗',
     },
     {
       year: '2022',
@@ -203,6 +295,8 @@ export default function Home() {
       desc: 'Dinobatkan sebagai Pembicara Terbaik (Best Speaker) berkat retorika argumen terstruktur dan analisis kebijakan komprehensif.',
       certImg: '/16.png',
       eventImg: '/17.png',
+      link: 'https://unesa.ac.id',
+      linkLabel: 'Dokumentasi Unesa ↗',
     },
   ];
 
@@ -216,15 +310,16 @@ export default function Home() {
     return true;
   });
 
-  // 5 Organization Roles Data
+  // 5 Organization Roles Data (Enhanced with Multi-Photo Documentation & Highlights)
   const organizationList = [
     {
       period: '2024 - Sekarang',
       role: 'Google Student Ambassador',
       institution: 'Google Developer Student Clubs (GDSC) Polinema',
       tag: 'Campus Leadership & Tech Community',
-      desc: 'Menjadi representatif ekosistem Google di kampus. Memfasilitasi workshop teknologi, menghubungkan ratusan mahasiswa dengan teknologi Google, dan menyelenggarakan program inkubasi talenta digital.',
-      images: ['/11.png', '/12.png'],
+      desc: 'Menjadi representatif resmi ekosistem Google di kampus. Memfasilitasi workshop teknologi, menghubungkan ratusan mahasiswa dengan teknologi Google, dan menyelenggarakan program inkubasi talenta digital.',
+      highlights: ['Google Ecosystem', 'Tech Workshops', 'Talenta Digital'],
+      images: ['/11.png', '/12.png', '/10.png'],
     },
     {
       period: '2023 - 2024',
@@ -232,52 +327,109 @@ export default function Home() {
       institution: 'Himpunan Mahasiswa Teknologi Informasi (HMTI) Polinema',
       tag: 'Executive Governance',
       desc: 'Membawahi 8 departemen dan puluhan staf fungsional. Mengkoordinasikan perumusan program kerja tahunan, memediasi aspirasi mahasiswa ke pimpinan jurusan, dan mengawal efektivitas anggaran organisasi.',
-      images: ['/13.png', '/14.png'],
+      highlights: ['8 Departemen', 'Eksekutif Himpunan', 'Pengawalan Anggaran'],
+      images: ['/13.png', '/14.png', '/1.png'],
     },
     {
       period: '2023',
       role: 'Secretary of General Election',
       institution: 'Komisi Pemilihan Umum Mahasiswa Jurusan TI',
       tag: 'Administrative & Electoral Governance',
-      desc: 'Memimpin seluruh manajemen ketatausahaan, dokumentasi regulasi, dan verifikasi berkas kandidat pemilu raya pimpinan himpunan dengan transparansi penuh.',
-      images: ['/15.png', '/16.png'],
+      desc: 'Memimpin seluruh manajemen ketatausahaan, dokumentasi regulasi pemilu, dan verifikasi berkas kandidat pemilu raya pimpinan himpunan dengan transparansi dan akuntabilitas penuh.',
+      highlights: ['Regulasi Pemilu', 'Verifikasi Berkas', 'Transparansi Penuh'],
+      images: ['/15.png', '/16.png', '/3.png'],
     },
     {
       period: '2023',
       role: 'Chief Executive of New Student Orientation',
       institution: 'PKKMB Mahasiswa Baru Jurusan TI Polinema',
       tag: 'Operations & Event Leadership',
-      desc: 'Memimpin penyelenggaraan orientasi mahasiswa baru yang dihadiri lebih dari 600 peserta. Mengelola alur acara, logistik lapangan, manajemen risiko, serta kepemimpinan lintas komite.',
-      images: ['/17.png', '/11.png'],
+      desc: 'Memimpin penyelenggaraan orientasi mahasiswa baru yang dihadiri lebih dari 600 peserta. Mengelola alur acara, logistik lapangan, manajemen risiko, serta kepemimpinan lintas divisi komite.',
+      highlights: ['600+ Mahasiswa', 'Manajemen Risiko', 'Logistik Lapangan'],
+      images: ['/17.png', '/11.png', '/4.png'],
     },
     {
       period: '2022 - 2023',
       role: 'Store Staff & Merchandise Logistics',
       institution: 'UKM Korps Protokoler Mahasiswa (KPM) Polinema',
       tag: 'Retail & Inventory Management',
-      desc: 'Mengelola persediaan merchandise resmi protokoler, melayani transaksi penjualan seragam dan atribut, serta merekonsiliasi laporan arus kas kasir UKM.',
-      images: ['/12.png', '/13.png'],
+      desc: 'Mengelola persediaan merchandise resmi protokoler, melayani transaksi penjualan seragam dan atribut, serta merekonsiliasi laporan arus kas keuangan kasir UKM.',
+      highlights: ['Merchandise Resmi', 'Penjualan Atribut', 'Rekonsiliasi Kas'],
+      images: ['/12.png', '/13.png', '/5.png'],
+    },
+  ];
+
+  // Academic & Certified Professional Courses Data (MySkill, RevoU, TOEIC)
+  const certificationList = [
+    {
+      title: 'Intro to Digital Marketing',
+      issuer: 'RevoU',
+      year: '2024',
+      tag: 'Marketing Strategy',
+      badgeColor: 'bg-rose-100 text-rose-800 border-rose-200',
+      image: '/13.png',
+      desc: 'Sertifikasi intensif perumusan digital marketing framework, strategi social media ads, riset target audiens, dan optimasi conversion funnel.',
+    },
+    {
+      title: 'Data Analysis Fundamental',
+      issuer: 'MySkill',
+      year: '2024',
+      tag: 'Business Analytics',
+      badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200',
+      image: '/9.png',
+      desc: 'Pondasi analisis data bisnis, statistik deskriptif, visualisasi grafik data interaktif, dan penarikan insight untuk pengambilan keputusan strategis.',
+    },
+    {
+      title: 'Creating Marketing Campaign',
+      issuer: 'MySkill',
+      year: '2024',
+      tag: 'Brand Campaign',
+      badgeColor: 'bg-amber-100 text-amber-800 border-amber-200',
+      image: '/7.png',
+      desc: 'Perancangan pesan kampanye kreatif, copywriting terstruktur, pemilihan kanal distribusi konten, serta pengukuran KPI reach dan konversi.',
+    },
+    {
+      title: 'VLOOKUP & HLOOKUP Mastery',
+      issuer: 'MySkill',
+      year: '2023',
+      tag: 'Spreadsheet Modeling',
+      badgeColor: 'bg-blue-100 text-blue-800 border-blue-200',
+      image: '/15.png',
+      desc: 'Teknik pengolahan dan rekonsiliasi data kompleks skala besar menggunakan fungsi pencarian tabel dan formula lookup tingkat lanjut Microsoft Excel.',
+    },
+    {
+      title: 'Official TOEIC Certification (Score 775)',
+      issuer: 'ETS / ITC Indonesia',
+      year: '2024',
+      tag: 'English Proficiency',
+      badgeColor: 'bg-purple-100 text-purple-800 border-purple-200',
+      image: '/16.png',
+      desc: 'Sertifikasi kemahiran bahasa Inggris internasional dengan skor resmi 775 (Professional Working Proficiency) untuk komunikasi bisnis global.',
     },
   ];
 
   // Content Creator Multi-Account Data (Instagram & TikTok)
-  const creatorAccounts = {
+  const creatorAccounts = portfolioData.creatorAccounts || {
     personal: {
       name: 'Personal Account',
       handle: '@chikalnazmi',
       tag: 'Lifestyle, Career & Visual Stories',
       platforms: 'Instagram Reels & TikTok',
       stats: '10K+ Monthly Reach • High Engagement',
+      hasCenterStage: true,
+      centerLink: 'https://www.youtube.com/@chikalnazmi',
       centerImg: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=900&fit=crop',
       centerTitle: 'Visual Journal & Creative Storytelling',
       centerDesc: 'Mengeksplorasi pembuatan konten video pendek berirama sinematik, lifestyle reels, dan storytelling seputar karir dan pengembangan diri.',
       leftPhoneImg: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=500',
       leftPhoneTitle: 'Reels & Aesthetics',
       leftPhoneTag: 'Instagram',
+      leftPhoneLink: 'https://instagram.com/chikalnazmi',
       rightPhoneImg: 'https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=500',
       rightPhoneTitle: 'Short-Form Video',
       rightPhoneTag: 'TikTok',
-      link: 'https://instagram.com',
+      rightPhoneLink: 'https://www.tiktok.com/@chikalnazmi',
+      link: 'https://instagram.com/chikalnazmi',
     },
     yarnup: {
       name: 'YarnUp! Studio',
@@ -285,16 +437,20 @@ export default function Home() {
       tag: 'Handcrafted Accessories & E-Commerce',
       platforms: 'Instagram & TikTok Shop',
       stats: '+2.089% Reach Surge • 20.02% Engagement',
+      hasCenterStage: true,
+      centerLink: 'https://instagram.com/yarnup.official',
       centerImg: 'https://images.unsplash.com/photo-1605289982774-9a6fef564df8?q=80&w=900&fit=crop',
       centerTitle: 'Handcrafted Accessories Catalog',
       centerDesc: 'Mengarahkan photoshoot katalog produk rajut, video proses manual (behind-the-scenes), dan audio trending untuk mendorong konversi penjualan.',
       leftPhoneImg: 'https://images.unsplash.com/photo-1584992236310-6edddc08acff?w=500',
       leftPhoneTitle: 'Behind The Craft',
       leftPhoneTag: 'Instagram',
+      leftPhoneLink: 'https://instagram.com/yarnup.official',
       rightPhoneImg: 'https://images.unsplash.com/photo-1605289982774-9a6fef564df8?w=500',
       rightPhoneTitle: 'Crochet Patterns',
       rightPhoneTag: 'TikTok',
-      link: 'https://instagram.com',
+      rightPhoneLink: 'https://www.tiktok.com/@yarnup.official',
+      link: 'https://instagram.com/yarnup.official',
     },
     manikarumi: {
       name: 'Manikarumi Indonesia',
@@ -302,16 +458,20 @@ export default function Home() {
       tag: 'Visual Merchandising & Event PR',
       platforms: 'Instagram & Event Vlogs',
       stats: '20+ Festival Displays • 40% Foot-Traffic Surge',
+      hasCenterStage: true,
+      centerLink: 'https://instagram.com/manikarumi.id',
       centerImg: 'https://images.unsplash.com/photo-1556761175-5973dc0f32b7?q=80&w=900&fit=crop',
       centerTitle: 'Festival Exhibition & Retail Display',
       centerDesc: 'Menata tata letak booth offline di berbagai festival Malang dan Jakarta, lalu mengabadikannya dalam konten video interaktif untuk media sosial.',
       leftPhoneImg: 'https://images.unsplash.com/photo-1560343090-f0409e92791a?w=500',
       leftPhoneTitle: 'Booth Atmosphere',
       leftPhoneTag: 'Instagram',
+      leftPhoneLink: 'https://instagram.com/manikarumi.id',
       rightPhoneImg: 'https://images.unsplash.com/photo-1511578314322-379afb476865?w=500',
       rightPhoneTitle: 'Festival Highlights',
       rightPhoneTag: 'TikTok',
-      link: 'https://instagram.com',
+      rightPhoneLink: 'https://www.tiktok.com/@manikarumi.id',
+      link: 'https://instagram.com/manikarumi.id',
     },
     duasisi: {
       name: 'Dua Sisi Laundry',
@@ -319,16 +479,22 @@ export default function Home() {
       tag: 'Digital Marketing & Business Ops',
       platforms: 'Instagram & Customer Education',
       stats: '35% Efficiency Gain • Zero Garment Loss',
+      // Dua Sisi Laundry: belum ada video landscape, sehingga diatur hasCenterStage: false
+      // Tampilan otomatis adaptif hanya merender 2 phone mockups!
+      hasCenterStage: false,
+      centerLink: undefined,
       centerImg: '/3.png',
       centerTitle: 'Standardized Laundry Operations',
       centerDesc: 'Memproduksi konten edukasi perawatan pakaian, higienitas proses cuci-setrika uap, dan kampanye promosi digital untuk menjangkau pelanggan lokal.',
       leftPhoneImg: '/4.png',
       leftPhoneTitle: 'Process Transparency',
       leftPhoneTag: 'Instagram',
+      leftPhoneLink: 'https://instagram.com/duasisi.laundry',
       rightPhoneImg: 'https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=500',
       rightPhoneTitle: 'Garment Care Tips',
       rightPhoneTag: 'TikTok',
-      link: 'https://instagram.com',
+      rightPhoneLink: 'https://www.tiktok.com/@duasisi.laundry',
+      link: 'https://instagram.com/duasisi.laundry',
     },
   };
 
@@ -372,7 +538,35 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#E8EFE5] text-[#212B1E] font-sans antialiased selection:bg-rose-blush selection:text-rose-dark relative">
+    <div className="min-h-screen font-sans antialiased selection:bg-rose-blush selection:text-rose-dark relative transition-colors duration-700 bg-sage-linen text-[#212B1E]">
+      {/* Paper & Linen Tactile Texture Overlay (Subtle Organic Grain) */}
+      <div className="paper-texture-overlay" />
+      {/* Cute Floating Falling Petals */}
+      {isCuteMode && (
+        <div className="fixed inset-0 pointer-events-none overflow-hidden z-20">
+          {petalParticles.map((p, idx) => (
+            <div
+              key={idx}
+              className="petal-particle"
+              style={{
+                left: p.left,
+                top: '-40px',
+                animationDelay: p.delay,
+                animationDuration: p.duration,
+              }}
+            >
+              <svg width={p.size} height={p.size} viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12 2C12 2 15 6 18 10C21 14 20 18 17 21C14 24 10 24 7 21C4 18 3 14 6 10C9 6 12 2 12 2Z"
+                  fill="#F7C6D0"
+                  opacity="0.85"
+                />
+                <circle cx="12" cy="14" r="2.5" fill="#ECA2B3" />
+              </svg>
+            </div>
+          ))}
+        </div>
+      )}
       {/* Decorative Subtle Background Botanical Glows */}
       <div className="fixed top-0 left-0 w-[550px] h-[550px] bg-rose-blush/30 rounded-full blur-3xl pointer-events-none -translate-x-1/2 -translate-y-1/2" />
       <div className="fixed bottom-0 right-0 w-[650px] h-[650px] bg-[#CAD7C5]/40 rounded-full blur-3xl pointer-events-none translate-x-1/3 translate-y-1/3" />
@@ -397,7 +591,7 @@ export default function Home() {
           </a>
 
           {/* Desktop Nav Links */}
-          <div className="hidden md:flex items-center gap-7 text-xs font-semibold tracking-wider uppercase text-forest/80">
+          <div className="hidden md:flex items-center gap-6 text-xs font-semibold tracking-wider uppercase text-forest/80">
             <a href="#works" className="hover:text-rose-dark transition-colors">
               Selected Works
             </a>
@@ -406,6 +600,9 @@ export default function Home() {
             </a>
             <a href="#leadership" className="hover:text-rose-dark transition-colors">
               Leadership
+            </a>
+            <a href="#credentials" className="hover:text-rose-dark transition-colors">
+              Education & Certs
             </a>
             <a href="#creative" className="hover:text-rose-dark transition-colors">
               Creative & Content
@@ -451,6 +648,9 @@ export default function Home() {
             </a>
             <a href="#leadership" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
               Leadership
+            </a>
+            <a href="#credentials" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
+              Education & Certs
             </a>
             <a href="#creative" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
               Creative & Content
@@ -542,7 +742,25 @@ export default function Home() {
               
               {/* Modern Arch Frame Container */}
               <div className="relative bg-[#CAD7C5]/30 p-2.5 rounded-t-[160px] rounded-b-[32px] border-2 border-[#CAD7C5] shadow-xl">
-                <div className="relative w-full aspect-[4/5] rounded-t-[150px] rounded-b-[24px] overflow-hidden bg-forest/10">
+                {/* Cute Washi Tape Sticker (Cute Mode) */}
+              {isCuteMode && (
+                <div className="absolute -top-3.5 left-4 z-20 px-3.5 py-1 washi-tape rounded-xs -rotate-3 text-[11px] font-serif italic text-[#781E34] flex items-center gap-1.5">
+                  <span>🌸</span> note to self: keep growing ♡
+                </div>
+              )}
+              
+              {/* Cute Sticky Note Reminder (Cute Mode) */}
+              {isCuteMode && (
+                <div className="hidden sm:flex flex-col absolute -bottom-6 -right-5 z-20 p-3 sticky-note-cute rounded-2xl rotate-2 text-xs font-serif text-[#5C4D3C] max-w-[170px]">
+                  <div className="w-7 h-1.5 bg-[#F5D3DC]/80 mx-auto -mt-3.5 mb-1.5 rounded-xs -rotate-2" />
+                  <p className="font-bold mb-0.5 text-[10px] text-[#A6435B] flex items-center gap-1">
+                    <span>daily reminder ♡</span>
+                  </p>
+                  <p className="text-[10px] leading-tight text-[#4A3B2C]">live gently, dream freely 🌸</p>
+                </div>
+              )}
+
+              <div className="relative w-full aspect-[4/5] rounded-t-[150px] rounded-b-[24px] overflow-hidden bg-forest/10">
                   <img
                     src="/2.png"
                     alt="Chikal Nazmi Mahira"
@@ -604,103 +822,116 @@ export default function Home() {
       <section id="works" className="max-w-6xl mx-auto px-4 sm:px-6 py-20">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-semibold text-rose-dark uppercase tracking-wider mb-3">
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-3">
             Portfolio Dossier
           </div>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-forest mb-3">
             Selected Works & Business Cases
           </h2>
-          <p className="text-sm sm:text-base text-forest/75 leading-relaxed">
-            Studi kasus nyata pembuktian eksekusi dari formulasi strategi operasional, peluncuran brand mandiri, hingga kemitraan komersial.
+          <p className="text-sm sm:text-base text-forest/75 leading-relaxed font-source">
+            Studi kasus pembuktian eksekusi nyata dari formulasi SOP operasional, peluncuran brand mandiri, hingga kemitraan komersial.
           </p>
         </div>
 
-        {/* Dossier Filter Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
-          <button
-            onClick={() => setActiveDossierTab('all')}
-            className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${
-              activeDossierTab === 'all'
-                ? 'bg-rose-dark text-white shadow-sm'
-                : 'bg-white/70 text-forest/80 border border-[#CAD7C5] hover:bg-white'
-            }`}
-          >
-            All Initiatives (4)
-          </button>
-          <button
-            onClick={() => setActiveDossierTab('operations')}
-            className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${
-              activeDossierTab === 'operations'
-                ? 'bg-rose-dark text-white shadow-sm'
-                : 'bg-white/70 text-forest/80 border border-[#CAD7C5] hover:bg-white'
-            }`}
-          >
-            Operations & SOP
-          </button>
-          <button
-            onClick={() => setActiveDossierTab('growth')}
-            className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${
-              activeDossierTab === 'growth'
-                ? 'bg-rose-dark text-white shadow-sm'
-                : 'bg-white/70 text-forest/80 border border-[#CAD7C5] hover:bg-white'
-            }`}
-          >
-            Brand Growth & E-Commerce
-          </button>
-          <button
-            onClick={() => setActiveDossierTab('partnership')}
-            className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${
-              activeDossierTab === 'partnership'
-                ? 'bg-rose-dark text-white shadow-sm'
-                : 'bg-white/70 text-forest/80 border border-[#CAD7C5] hover:bg-white'
-            }`}
-          >
-            Event B2B Partnership
-          </button>
-          <button
-            onClick={() => setActiveDossierTab('data')}
-            className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${
-              activeDossierTab === 'data'
-                ? 'bg-rose-dark text-white shadow-sm'
-                : 'bg-white/70 text-forest/80 border border-[#CAD7C5] hover:bg-white'
-            }`}
-          >
-            Software & Data
-          </button>
+        {/* Dossier Controls: Filter Categories + Layout Mode Switcher */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-10 pb-4 border-b border-[#CAD7C5]/60">
+          {/* Category Filter Pills */}
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
+            <button
+              onClick={() => setActiveDossierTab('all')}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all ${
+                activeDossierTab === 'all'
+                  ? 'bg-rose-dark text-white shadow-sm'
+                  : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
+              }`}
+            >
+              All Initiatives (4)
+            </button>
+            <button
+              onClick={() => setActiveDossierTab('operations')}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all ${
+                activeDossierTab === 'operations'
+                  ? 'bg-rose-dark text-white shadow-sm'
+                  : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
+              }`}
+            >
+              Operations & SOP
+            </button>
+            <button
+              onClick={() => setActiveDossierTab('growth')}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all ${
+                activeDossierTab === 'growth'
+                  ? 'bg-rose-dark text-white shadow-sm'
+                  : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
+              }`}
+            >
+              Brand Growth
+            </button>
+            <button
+              onClick={() => setActiveDossierTab('partnership')}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all ${
+                activeDossierTab === 'partnership'
+                  ? 'bg-rose-dark text-white shadow-sm'
+                  : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
+              }`}
+            >
+              Event B2B
+            </button>
+            <button
+              onClick={() => setActiveDossierTab('data')}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all ${
+                activeDossierTab === 'data'
+                  ? 'bg-rose-dark text-white shadow-sm'
+                  : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
+              }`}
+            >
+              Software & Data
+            </button>
+          </div>
+
+          {/* View Mode Toggle: Compact 2-Grid vs Multi-Photo Collage Feed */}
+          <div className="flex items-center gap-1.5 bg-white/85 backdrop-blur-sm border border-[#CAD7C5] p-1 rounded-full shadow-xs">
+            <button
+              onClick={() => setExperienceViewMode('compact')}
+              className={`px-3 py-1 rounded-full text-[11px] font-semibold transition-all flex items-center gap-1.5 ${
+                experienceViewMode === 'compact'
+                  ? 'bg-forest text-[#E8EFE5] shadow-xs'
+                  : 'text-forest/70 hover:text-forest'
+              }`}
+              title="Tampilkan 2 pengalaman kerja berdampingan dalam 1 halaman"
+            >
+              <span>⊞</span>
+              <span>2-Grid Kompak (1 Halaman)</span>
+            </button>
+            <button
+              onClick={() => setExperienceViewMode('collage')}
+              className={`px-3 py-1 rounded-full text-[11px] font-semibold transition-all flex items-center gap-1.5 ${
+                experienceViewMode === 'collage'
+                  ? 'bg-forest text-[#E8EFE5] shadow-xs'
+                  : 'text-forest/70 hover:text-forest'
+              }`}
+              title="Tampilkan feed horizontal dengan kolase dokumentasi multi-foto"
+            >
+              <span>☰</span>
+              <span>Kolase Multi-Foto</span>
+            </button>
+          </div>
         </div>
 
-        {/* Case Dossier Cards (Alternating Editorial 2-Column Layout) */}
-        <div className="space-y-10">
-          {filteredDossier.map((project, idx) => (
-            <div
-              key={project.id}
-              className="bg-white/90 backdrop-blur-sm border border-[#CAD7C5] rounded-3xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all"
-            >
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                
-                {/* Visual Showcase (5 Cols) */}
-                <div className={`lg:col-span-5 ${idx % 2 === 1 ? 'lg:order-2' : ''}`}>
-                  <div className="relative group overflow-hidden rounded-2xl border border-[#CAD7C5] bg-[#E8EFE5]/50 aspect-[4/3]">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-forest/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                      <button
-                        onClick={() => openModal(project.title, project.category, project.summary, project.extraImages)}
-                        className="px-4 py-2 rounded-full bg-white text-forest text-xs font-semibold shadow-md hover:bg-rose-blush transition-colors"
-                      >
-                        Buka Galeri Bukti ↗
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Narrative & Metrics Breakdown (7 Cols) */}
-                <div className={`lg:col-span-7 ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
-                  <div className="flex flex-wrap items-center gap-2 mb-2">
+        {/* =================================================================== */}
+        {/* MODE A: COMPACT 2-GRID (2 Poin Langsung dalam 1 Layar Pandangan)    */}
+        {/* =================================================================== */}
+        {experienceViewMode === 'compact' ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+            {filteredDossier.map((project) => (
+              <div
+                key={project.id}
+                className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-3xl p-5 sm:p-6 shadow-sm hover:shadow-md hover:border-rose-dusty/50 transition-all flex flex-col justify-between group"
+              >
+                <div>
+                  {/* Card Header Info */}
+                  <div className="flex items-center justify-between gap-2 mb-3">
                     <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${project.badgeColor} uppercase tracking-wider`}>
                       {project.tag}
                     </span>
@@ -709,64 +940,259 @@ export default function Home() {
                     </span>
                   </div>
 
-                  <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest mb-3">
+                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-forest mb-3 group-hover:text-rose-dark transition-colors">
                     {project.title}
                   </h3>
 
-                  <p className="text-sm text-forest/80 leading-relaxed mb-5">
+                  {/* Direct Multi-Photo Mini Gallery (2 Foto Dokumentasi Nyata Langsung Muncul) */}
+                  <div className="relative mb-4 overflow-hidden rounded-2xl border border-[#CAD7C5]/70 bg-[#E8EFE5]/40 p-1.5">
+                    <div className="grid grid-cols-12 gap-1.5 aspect-[16/9]">
+                      {/* Foto Utama (7 Kolom) */}
+                      <div className="col-span-7 relative overflow-hidden rounded-xl bg-forest/5">
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <span className="absolute bottom-1.5 left-1.5 bg-forest/80 backdrop-blur-xs text-white text-[9px] font-medium px-2 py-0.5 rounded-full">
+                          Utama
+                        </span>
+                      </div>
+                      {/* Foto Pendukung (5 Kolom) */}
+                      <div className="col-span-5 relative overflow-hidden rounded-xl bg-forest/5">
+                        <img
+                          src={project.extraImages[1] || project.image}
+                          alt={`${project.title} dokumentasi tambahan`}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <span className="absolute bottom-1.5 right-1.5 bg-rose-dark/85 backdrop-blur-xs text-white text-[9px] font-medium px-2 py-0.5 rounded-full">
+                          Dokumentasi
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Quick Hover Action */}
+                    <div className="absolute inset-0 bg-forest/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                      <span className="px-3.5 py-1.5 rounded-full bg-white text-forest text-xs font-semibold shadow-md pointer-events-auto cursor-pointer"
+                        onClick={() => openModal(project.title, project.category, project.summary, project.extraImages)}
+                      >
+                        🔍 Buka Galeri Penuh ({project.extraImages.length} Foto)
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Crisp 1-Sentence Summary */}
+                  <p className="text-xs sm:text-sm text-forest/80 leading-relaxed mb-4 font-source">
                     {project.summary}
                   </p>
 
-                  {/* Challenge & Strategy Matrix */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5 p-4 rounded-2xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/70">
+                  {/* Compact Challenge & Strategy Pill */}
+                  <div className="grid grid-cols-2 gap-2 p-3 rounded-xl bg-[#E8EFE5]/45 border border-[#CAD7C5]/60 mb-4 text-[11px] font-source">
                     <div>
-                      <span className="block text-[11px] font-bold uppercase tracking-wider text-forest/60 mb-1">
-                        🎯 The Challenge
+                      <span className="block font-bold text-forest/60 uppercase tracking-wider text-[10px] mb-0.5">
+                        🎯 Challenge
                       </span>
-                      <p className="text-xs text-forest/80 leading-snug">
+                      <p className="text-forest/85 leading-snug line-clamp-2">
                         {project.challenge}
                       </p>
                     </div>
                     <div>
-                      <span className="block text-[11px] font-bold uppercase tracking-wider text-rose-dark mb-1">
+                      <span className="block font-bold text-rose-dark uppercase tracking-wider text-[10px] mb-0.5">
                         💡 Strategic Action
                       </span>
-                      <p className="text-xs text-forest/80 leading-snug">
+                      <p className="text-forest/85 leading-snug line-clamp-2 font-medium">
                         {project.strategy}
                       </p>
                     </div>
                   </div>
 
                   {/* Key Measurable Outcomes */}
-                  <div className="mb-6">
-                    <span className="block text-[11px] font-bold uppercase tracking-wider text-forest mb-2">
-                      📈 Measurable Key Outcomes:
+                  <div className="space-y-1.5 mb-5 font-source">
+                    <span className="block text-[10px] font-bold uppercase tracking-wider text-forest/70">
+                      📈 Key Measurable Outcomes:
                     </span>
-                    <ul className="space-y-1.5">
-                      {project.results.map((res, rIdx) => (
-                        <li key={rIdx} className="text-xs text-forest/85 flex items-start gap-2">
-                          <span className="text-rose-dusty font-bold">✔</span>
-                          <span>{res}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    {project.results.map((res, rIdx) => (
+                      <div key={rIdx} className="text-xs text-forest flex items-start gap-1.5">
+                        <span className="text-rose-dusty font-bold text-sm leading-none">✔</span>
+                        <span className="leading-snug">{res}</span>
+                      </div>
+                    ))}
                   </div>
-
-                  {/* Action Link */}
-                  <button
-                    onClick={() => openModal(project.title, project.category, project.summary, project.extraImages)}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-rose-dark hover:text-rose-berry transition-colors"
-                  >
-                    <span>Lihat Dokumentasi & Detail SOP</span>
-                    <span>→</span>
-                  </button>
-
                 </div>
 
+                {/* Bottom Trigger Button & Adaptive External Link */}
+                <div className="pt-3 border-t border-[#CAD7C5]/50 flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={() => openModal(project.title, project.category, project.summary, project.extraImages, project.link, project.linkLabel)}
+                      className="inline-flex items-center gap-1 text-xs font-bold text-rose-dark hover:text-rose-berry transition-colors cursor-pointer"
+                    >
+                      <span>Buka Detail & SOP</span>
+                      <span>→</span>
+                    </button>
+                    {project.link && (
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="text-[11px] font-bold text-emerald-800 hover:text-emerald-950 underline flex items-center gap-1"
+                      >
+                        <span>🔗</span>
+                        <span>{project.linkLabel || 'Tautan ↗'}</span>
+                      </a>
+                    )}
+                  </div>
+                  <span className="text-[10px] font-medium text-forest/50">
+                    {project.extraImages.length} Bukti Foto
+                  </span>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          /* =================================================================== */
+          /* MODE B: EDITORIAL MULTI-PHOTO COLLAGE FEED (Kolase Banyak Foto)     */
+          /* =================================================================== */
+          <div className="space-y-8">
+            {filteredDossier.map((project, idx) => (
+              <div
+                key={project.id}
+                className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-3xl p-6 sm:p-7 shadow-sm hover:shadow-md transition-all group"
+              >
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+                  
+                  {/* Multi-Photo Asymmetric Collage Showcase (5 Cols) */}
+                  <div className={`lg:col-span-5 ${idx % 2 === 1 ? 'lg:order-2' : ''}`}>
+                    <div className="relative p-2 rounded-2xl border border-[#CAD7C5] bg-[#E8EFE5]/50">
+                      <div className="grid grid-cols-2 gap-2">
+                        {/* Foto 1: Besar di atas */}
+                        <div className="col-span-2 relative aspect-[16/9] rounded-xl overflow-hidden bg-forest/10">
+                          <img
+                            src={project.image}
+                            alt={project.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                          <span className="absolute bottom-2 left-2 bg-forest/85 backdrop-blur-xs text-white text-[10px] font-medium px-2.5 py-0.5 rounded-full">
+                            Dokumentasi Primer
+                          </span>
+                        </div>
+                        {/* Foto 2: Kiri bawah */}
+                        <div className="col-span-1 relative aspect-[4/3] rounded-lg overflow-hidden bg-forest/10">
+                          <img
+                            src={project.extraImages[1] || project.image}
+                            alt="Bukti SOP"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                        </div>
+                        {/* Foto 3: Kanan bawah */}
+                        <div className="col-span-1 relative aspect-[4/3] rounded-lg overflow-hidden bg-forest/10">
+                          <img
+                            src={project.extraImages[2] || project.image}
+                            alt="Bukti Implementasi"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                          <div
+                            onClick={() => openModal(project.title, project.category, project.summary, project.extraImages)}
+                            className="absolute inset-0 bg-forest/60 hover:bg-forest/70 transition-colors flex flex-col items-center justify-center text-white text-center p-1 cursor-pointer"
+                          >
+                            <span className="text-xs font-bold">+{project.extraImages.length}</span>
+                            <span className="text-[9px] font-medium uppercase tracking-wider">Foto Penuh</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="mt-2 flex items-center gap-2">
+                        <button
+                          onClick={() => openModal(project.title, project.category, project.summary, project.extraImages, project.link, project.linkLabel)}
+                          className="grow py-1.5 rounded-xl bg-white text-forest text-xs font-bold shadow-xs hover:bg-rose-blush hover:text-rose-dark transition-colors border border-[#CAD7C5]/70 cursor-pointer"
+                        >
+                          Buka Galeri Lengkap ↗
+                        </button>
+                        {project.link && (
+                          <a
+                            href={project.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-3 py-1.5 rounded-xl bg-emerald-100 text-emerald-900 text-xs font-bold shadow-xs hover:bg-emerald-200 transition-colors border border-emerald-300 flex items-center gap-1 shrink-0"
+                          >
+                            <span>🔗</span>
+                            <span>{project.linkLabel || 'Tautan ↗'}</span>
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Narrative & Metrics Breakdown (7 Cols) */}
+                  <div className={`lg:col-span-7 ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
+                    <div className="flex flex-wrap items-center gap-2 mb-2">
+                      <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${project.badgeColor} uppercase tracking-wider`}>
+                        {project.tag}
+                      </span>
+                      <span className="text-xs text-forest/60 font-medium">
+                        {project.period}
+                      </span>
+                    </div>
+
+                    <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest mb-2">
+                      {project.title}
+                    </h3>
+
+                    <p className="text-xs sm:text-sm text-forest/80 leading-relaxed mb-4 font-source">
+                      {project.summary}
+                    </p>
+
+                    {/* Challenge & Strategy Matrix */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4 p-3.5 rounded-2xl bg-[#E8EFE5]/45 border border-[#CAD7C5]/70 font-source">
+                      <div>
+                        <span className="block text-[10px] font-bold uppercase tracking-wider text-forest/60 mb-0.5">
+                          🎯 The Challenge
+                        </span>
+                        <p className="text-xs text-forest/80 leading-snug">
+                          {project.challenge}
+                        </p>
+                      </div>
+                      <div>
+                        <span className="block text-[10px] font-bold uppercase tracking-wider text-rose-dark mb-0.5">
+                          💡 Strategic Action
+                        </span>
+                        <p className="text-xs text-forest/80 leading-snug font-medium">
+                          {project.strategy}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Key Measurable Outcomes */}
+                    <div className="mb-4 font-source">
+                      <span className="block text-[11px] font-bold uppercase tracking-wider text-forest mb-1.5">
+                        📈 Measurable Key Outcomes:
+                      </span>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                        {project.results.map((res, rIdx) => (
+                          <div key={rIdx} className="p-2 rounded-xl bg-white border border-[#CAD7C5]/60 text-xs text-forest">
+                            <span className="text-rose-dusty font-bold mr-1">✔</span>
+                            <span className="font-medium text-[11px]">{res}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Action Link */}
+                    <button
+                      onClick={() => openModal(project.title, project.category, project.summary, project.extraImages)}
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-rose-dark hover:text-rose-berry transition-colors"
+                    >
+                      <span>Lihat Dokumentasi & Detail SOP Lengkap</span>
+                      <span>→</span>
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
 
       </section>
 
@@ -914,7 +1340,7 @@ export default function Home() {
               return (
                 <div
                   key={idx}
-                  onClick={() => openModal(award.title, `${award.rank} • ${award.organizer}`, award.desc, [award.certImg, award.eventImg])}
+                  onClick={() => openModal(award.title, `${award.rank} • ${award.organizer}`, award.desc, [award.certImg, award.eventImg], award.link, award.linkLabel)}
                   className={`group relative rounded-3xl overflow-hidden cursor-pointer bg-forest/20 border-2 border-white/60 shadow-md transition-all duration-500 hover:-translate-y-2.5 hover:scale-[1.015] hover:shadow-2xl ${colSpan} flex flex-col justify-between p-5`}
                 >
                   {/* Background Event Documentation Image */}
@@ -969,12 +1395,26 @@ export default function Home() {
 
                     <div className="pt-3 border-t border-white/20 flex items-center justify-between">
                       <span className="text-[11px] font-bold text-rose-blush flex items-center gap-1">
-                        <span>📜 Sertifikat & Bukti Foto</span>
+                        <span>📜 Bukti Foto</span>
                       </span>
-                      <span className="px-3.5 py-1.5 rounded-full bg-rose-dark text-white text-xs font-bold shadow-md hover:bg-rose-berry transition-colors flex items-center gap-1">
-                        <span>Buka Detail</span>
-                        <span>↗</span>
-                      </span>
+                      <div className="flex items-center gap-2">
+                        {award.link && (
+                          <a
+                            href={award.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="px-2.5 py-1.5 rounded-full bg-white/20 hover:bg-white text-white hover:text-forest text-[11px] font-bold border border-white/30 transition-colors flex items-center gap-1"
+                          >
+                            <span>🔗</span>
+                            <span>{award.linkLabel || 'Publikasi'}</span>
+                          </a>
+                        )}
+                        <span className="px-3.5 py-1.5 rounded-full bg-rose-dark text-white text-xs font-bold shadow-md hover:bg-rose-berry transition-colors flex items-center gap-1">
+                          <span>Detail</span>
+                          <span>↗</span>
+                        </span>
+                      </div>
                     </div>
                   </div>
 
@@ -993,80 +1433,440 @@ export default function Home() {
       </section>
 
       {/* ========================================================================= */}
-      {/* SECTION 3: INSTITUTIONAL LEADERSHIP & GOVERNANCE */}
+      {/* SECTION 3: INSTITUTIONAL LEADERSHIP & GOVERNANCE (Infinite Coverflow)    */}
       {/* ========================================================================= */}
-      <section id="leadership" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
+      <section id="leadership" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80 overflow-hidden">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-semibold text-rose-dark uppercase tracking-wider mb-3">
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-3">
             Governance & Track Record
           </div>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-forest mb-3">
             Leadership & Organizational Impact
           </h2>
-          <p className="text-sm sm:text-base text-forest/75 leading-relaxed">
-            Pengalaman memimpin ratusan mahasiswa, mengelola tata kelola organisasi skala jurusan, serta mewakili ekosistem teknologi kampus.
+          <p className="text-sm sm:text-base text-forest/75 leading-relaxed font-source">
+            Pengalaman memimpin ratusan mahasiswa, mengawal tata kelola organisasi skala jurusan, serta mewakili ekosistem teknologi kampus. Geser kartu ke samping untuk menjelajahi peran.
           </p>
         </div>
 
-        {/* Timeline Journal Layout */}
-        <div className="space-y-6">
-          {organizationList.map((org, idx) => (
-            <div
-              key={idx}
-              className="bg-white/85 backdrop-blur-sm border border-[#CAD7C5] rounded-2xl p-6 sm:p-7 hover:border-rose-dusty/60 transition-all flex flex-col md:flex-row md:items-start justify-between gap-6"
-            >
-              <div className="md:max-w-3xl">
-                <div className="flex flex-wrap items-center gap-2.5 mb-2">
-                  <span className="text-xs font-semibold text-rose-dark bg-rose-blush/60 px-2.5 py-0.5 rounded-full">
-                    {org.period}
+        {/* Carousel Status Counter */}
+        {(() => {
+          const activeOrgIdx = ((currentSlideIndex % organizationList.length) + organizationList.length) % organizationList.length;
+          const activeOrg = organizationList[activeOrgIdx];
+
+          const handleNextOrg = () => {
+            setCurrentSlideIndex(prev => {
+              const next = prev + 1;
+              return next >= 20 ? next - 5 : next;
+            });
+          };
+
+          const handlePrevOrg = () => {
+            setCurrentSlideIndex(prev => {
+              const prevIdx = prev - 1;
+              return prevIdx < 5 ? prevIdx + 5 : prevIdx;
+            });
+          };
+
+          const handleJumpOrg = (targetIdx: number) => {
+            const currentSet = Math.floor(currentSlideIndex / organizationList.length) * organizationList.length;
+            setCurrentSlideIndex(currentSet + targetIdx);
+          };
+
+          return (
+            <>
+              <div className="flex items-center justify-between max-w-4xl mx-auto mb-4 px-2">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-rose-dark animate-pulse" />
+                  <span className="text-xs font-bold text-forest uppercase tracking-wider font-source">
+                    Peran {activeOrgIdx + 1} dari {organizationList.length}
                   </span>
-                  <span className="text-[11px] font-bold text-forest/60 uppercase tracking-wider">
-                    {org.tag}
+                  <span className="text-xs text-forest/50 hidden sm:inline">•</span>
+                  <span className="text-xs font-serif italic text-forest/75 hidden sm:inline">
+                    {activeOrg.role} ({activeOrg.institution})
                   </span>
                 </div>
-                <h3 className="font-serif text-2xl font-bold text-forest mb-1">
-                  {org.role}
-                </h3>
-                <h4 className="text-xs font-semibold text-forest/70 uppercase tracking-wide mb-3">
-                  {org.institution}
-                </h4>
-                <p className="text-xs sm:text-sm text-forest/80 leading-relaxed">
-                  {org.desc}
-                </p>
+
+                <div className="text-[11px] text-forest/60 font-medium hidden sm:flex items-center gap-1.5 bg-white/70 px-3 py-1 rounded-full border border-[#CAD7C5]/60">
+                  <span>🔄 Auto-slide foto 3s aktif</span>
+                </div>
               </div>
 
-              <div className="shrink-0 self-start md:self-center">
+              {/* =================================================================== */}
+              {/* INFINITE COVERFLOW CONTAINER WITH PROMINENT SIDE ARROWS             */}
+              {/* =================================================================== */}
+              <div 
+                className="relative py-8 select-none"
+                style={{ 
+                  '--card-width': 'min(80vw, 390px)',
+                  '--card-gap': '1.75rem'
+                } as React.CSSProperties}
+              >
+                {/* Floating Left Arrow Button (Prominent on Side) */}
                 <button
-                  onClick={() => openModal(org.role, org.institution, org.desc, org.images)}
-                  className="px-4 py-2 rounded-full text-xs font-semibold bg-white border border-[#CAD7C5] text-forest hover:bg-forest hover:text-white transition-all shadow-xs flex items-center gap-1.5"
+                  onClick={handlePrevOrg}
+                  className="absolute left-1 sm:left-3 lg:left-6 top-1/2 -translate-y-1/2 z-40 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/95 backdrop-blur-md border-2 border-[#CAD7C5] shadow-xl text-forest hover:bg-forest hover:text-[#E8EFE5] hover:scale-110 active:scale-95 transition-all flex items-center justify-center text-2xl font-bold cursor-pointer ring-4 ring-forest/5"
+                  title="Peran Sebelumnya (Geser Kiri)"
+                  aria-label="Previous Role"
                 >
-                  <span>Lihat Dokumentasi</span>
-                  <span>↗</span>
+                  ‹
                 </button>
-              </div>
-            </div>
-          ))}
 
-          {/* Formal Education Summary Card */}
-          <div className="bg-[#CAD7C5]/30 border-2 border-dashed border-[#CAD7C5] rounded-2xl p-6 sm:p-7 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                {/* Floating Right Arrow Button (Prominent on Side) */}
+                <button
+                  onClick={handleNextOrg}
+                  className="absolute right-1 sm:right-3 lg:right-6 top-1/2 -translate-y-1/2 z-40 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/95 backdrop-blur-md border-2 border-[#CAD7C5] shadow-xl text-forest hover:bg-forest hover:text-[#E8EFE5] hover:scale-110 active:scale-95 transition-all flex items-center justify-center text-2xl font-bold cursor-pointer ring-4 ring-forest/5"
+                  title="Peran Selanjutnya (Geser Kanan)"
+                  aria-label="Next Role"
+                >
+                  ›
+                </button>
+
+                {/* Track with smooth transition */}
+                <div 
+                  className="flex items-center transition-transform duration-500 ease-out"
+                  style={{
+                    gap: 'var(--card-gap)',
+                    transform: `translateX(calc(50% - (${currentSlideIndex} * (var(--card-width) + var(--card-gap)) + (var(--card-width) / 2))))`
+                  }}
+                >
+                  {Array.from({ length: 25 }).map((_, globalIdx) => {
+                    const orgIdx = globalIdx % organizationList.length;
+                    const org = organizationList[orgIdx];
+                    const isCenter = globalIdx === currentSlideIndex;
+                    const activePhotoIdx = orgPhotoIndex[orgIdx] || 0;
+                    const currentPhoto = org.images[activePhotoIdx] || org.images[0];
+
+                    return (
+                      <div
+                        key={globalIdx}
+                        onClick={() => setCurrentSlideIndex(globalIdx)}
+                        style={{ width: 'var(--card-width)' }}
+                        className={`shrink-0 rounded-3xl transition-all duration-500 flex flex-col justify-between overflow-hidden cursor-pointer ${
+                          isCenter
+                            ? 'scale-105 sm:scale-108 z-30 opacity-100 bg-white shadow-2xl ring-2 ring-rose-dark/35 border-transparent'
+                            : 'scale-90 sm:scale-95 z-10 opacity-55 hover:opacity-85 bg-white/85 shadow-md border border-[#CAD7C5]'
+                        }`}
+                      >
+                        {/* Spotlight Ribbon on Center Card */}
+                        {isCenter && (
+                          <div className="bg-gradient-to-r from-forest via-rose-dark to-forest text-[#E8EFE5] text-center text-[10px] font-bold uppercase tracking-widest py-1">
+                            ✦ Spotlight Organization ✦
+                          </div>
+                        )}
+
+                        {/* Card Image Area: 1:1 Aspect Ratio (Square) with Auto-Sliding Photo */}
+                        <div className="relative aspect-square overflow-hidden bg-forest/10 group/img">
+                          <img
+                            src={currentPhoto}
+                            alt={`${org.role} - ${org.institution}`}
+                            className="w-full h-full object-cover group-hover/img:scale-105 transition-all duration-700"
+                          />
+                          
+                          {/* Gradient overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-forest/75 via-transparent to-black/20 pointer-events-none" />
+
+                          {/* Top Badges */}
+                          <div className="absolute top-3 inset-x-3 flex items-center justify-between z-10">
+                            <span className="text-[10px] font-bold bg-white/90 backdrop-blur-xs text-forest px-2.5 py-0.5 rounded-full shadow-xs">
+                              {org.period}
+                            </span>
+                            <span className="text-[10px] font-medium bg-forest/85 backdrop-blur-xs text-white px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-xs">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                              <span>Foto {activePhotoIdx + 1}/{org.images.length}</span>
+                            </span>
+                          </div>
+
+                          {/* Multi-Photo Indicators & Thumbnail switcher at bottom of 1:1 photo */}
+                          <div className="absolute bottom-3 left-3 z-10 flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full">
+                            {org.images.map((_, pIdx) => (
+                              <button
+                                key={pIdx}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setOrgPhotoIndex(prev => ({ ...prev, [orgIdx]: pIdx }));
+                                }}
+                                className={`w-4 h-4 rounded-full text-[9px] font-bold flex items-center justify-center transition-all ${
+                                  activePhotoIdx === pIdx
+                                    ? 'bg-rose-dark text-white scale-110 shadow-xs'
+                                    : 'bg-white/40 text-white hover:bg-white/70'
+                                }`}
+                                title={`Foto ${pIdx + 1}`}
+                              >
+                                {pIdx + 1}
+                              </button>
+                            ))}
+                          </div>
+
+                          {/* Zoom / Full Gallery Action */}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              openModal(org.role, org.institution, org.desc, org.images);
+                            }}
+                            className="absolute bottom-3 right-3 z-10 px-2.5 py-1 rounded-full bg-white/90 hover:bg-rose-blush text-forest text-[10px] font-bold shadow-xs transition-colors"
+                            title="Buka Dokumentasi Resolusi Penuh"
+                          >
+                            🔍 Galeri
+                          </button>
+                        </div>
+
+                        {/* Card Content Body */}
+                        <div className="p-5 sm:p-6 flex flex-col justify-between grow">
+                          <div>
+                            <div className="text-[10px] font-bold text-rose-dark uppercase tracking-wider mb-1">
+                              {org.tag}
+                            </div>
+
+                            <h3 className="font-serif text-xl sm:text-2xl font-bold text-forest mb-1">
+                              {org.role}
+                            </h3>
+
+                            <h4 className="text-xs font-subheader text-forest/70 tracking-wider uppercase mb-3">
+                              {org.institution}
+                            </h4>
+
+                            <p className="text-xs sm:text-sm text-forest/80 leading-relaxed font-source mb-4 line-clamp-3">
+                              {org.desc}
+                            </p>
+
+                            {/* Highlights Badges */}
+                            <div className="flex flex-wrap gap-1.5 mb-4">
+                              {org.highlights.map((item, hIdx) => (
+                                <span
+                                  key={hIdx}
+                                  className="text-[10px] font-medium px-2.5 py-0.5 rounded-full bg-[#E8EFE5]/70 border border-[#CAD7C5] text-forest/85"
+                                >
+                                  ✓ {item}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Footer Trigger */}
+                          <div className="pt-3 border-t border-[#CAD7C5]/50 flex items-center justify-between">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                openModal(org.role, org.institution, org.desc, org.images);
+                              }}
+                              className="text-xs font-bold text-rose-dark hover:text-rose-berry transition-colors flex items-center gap-1 cursor-pointer"
+                            >
+                              <span>Dokumentasi Lengkap</span>
+                              <span>↗</span>
+                            </button>
+                            <span className="text-[10px] text-forest/50 font-medium">
+                              {org.images.length} Foto Tersedia
+                            </span>
+                          </div>
+
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Quick Role Jump Pills (Clickable direct navigation below carousel) */}
+              <div className="flex flex-wrap items-center justify-center gap-2 mt-4 mb-10">
+                {organizationList.map((org, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => handleJumpOrg(idx)}
+                    className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer ${
+                      idx === activeOrgIdx
+                        ? 'bg-forest text-[#E8EFE5] font-bold shadow-sm ring-2 ring-forest/20'
+                        : 'bg-white/80 text-forest/75 border border-[#CAD7C5] hover:bg-white hover:text-forest'
+                    }`}
+                  >
+                    <span className="opacity-60 mr-1.5">#{idx + 1}</span>
+                    <span>{org.role.split('(')[0].trim()}</span>
+                  </button>
+                ))}
+              </div>
+            </>
+          );
+        })()}
+
+        </section>
+
+      {/* ========================================================================= */}
+      {/* SECTION 4: ACADEMIC CREDENTIALS & PROFESSIONAL CERTIFICATIONS            */}
+      {/* ========================================================================= */}
+      <section id="credentials" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
+        
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-3">
+            Academic & Professional Foundations
+          </div>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-forest mb-3">
+            Education & Certified Competencies
+          </h2>
+          <p className="text-sm sm:text-base text-forest/75 leading-relaxed font-source">
+            Fondasi akademik Sistem Informasi Bisnis, skor kemahiran bahasa Inggris internasional (TOEIC), serta lisensi pelatihan intensif industri digital.
+          </p>
+        </div>
+
+        {/* 2-Column Split Layout matching User Reference Style */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+          
+          {/* LEFT: Formal Academic & Language Anchor Card (Hero Card) */}
+          <div className="lg:col-span-4 bg-gradient-to-br from-white via-white/95 to-[#E8EFE5]/60 border border-[#CAD7C5] rounded-[2rem] p-6 sm:p-7 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
             <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-forest/60">
-                Formal Academic Credential
-              </span>
-              <h3 className="font-serif text-xl font-bold text-forest mt-0.5">
+              {/* Header Badge */}
+              <div className="flex items-center justify-between gap-2 mb-4">
+                <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-rose-blush/80 text-rose-dark border border-rose-dusty/40 uppercase tracking-wider">
+                  🎓 Formal Degree
+                </span>
+                <span className="text-xs font-mono font-bold text-forest/60">
+                  2020 – 2024
+                </span>
+              </div>
+
+              {/* Title & Institution */}
+              <h3 className="font-serif text-2xl font-bold text-forest mb-1 group-hover:text-rose-dark transition-colors">
                 Sarjana Terapan Sistem Informasi Bisnis (D4 SIB)
               </h3>
-              <p className="text-xs text-forest/75 mt-0.5">
-                Jurusan Teknologi Informasi — Politeknik Negeri Malang (2020 - 2024)
+              <h4 className="text-xs font-subheader text-forest/70 uppercase tracking-wide mb-5">
+                Jurusan Teknologi Informasi — Politeknik Negeri Malang
+              </h4>
+
+              {/* Key Credentials Badges (IPK & TOEIC Score 775) */}
+              <div className="space-y-2.5 mb-6">
+                <div className="flex items-center gap-3 p-3 rounded-2xl bg-white border border-[#CAD7C5]/70 shadow-xs">
+                  <div className="w-9 h-9 rounded-xl bg-forest text-[#E8EFE5] flex items-center justify-center text-sm font-bold shrink-0">
+                    🌟
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-forest/60 block">
+                      Academic Standing
+                    </span>
+                    <span className="text-xs font-bold text-forest">
+                      IPK Memuaskan / Cum Laude Honor
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 p-3 rounded-2xl bg-white border border-[#CAD7C5]/70 shadow-xs">
+                  <div className="w-9 h-9 rounded-xl bg-rose-dark text-white flex items-center justify-center text-sm font-bold shrink-0">
+                    🌐
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-rose-dark block">
+                      Global English Proficiency
+                    </span>
+                    <span className="text-xs font-bold text-forest">
+                      Official TOEIC Score: <span className="text-rose-dark font-extrabold text-sm">775</span> (Working Proficiency)
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Focus Summary */}
+              <p className="text-xs text-forest/80 leading-relaxed font-source mb-6">
+                Mengombinasikan tata kelola proses bisnis hulu-ke-hilir, pemodelan data relasional, serta strategi penetrasi pasar dengan kemampuan komunikasi bahasa Inggris standar multinasional.
               </p>
             </div>
-            <div className="text-left sm:text-right">
-              <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-forest text-[#E8EFE5]">
-                IPK Memuaskan / Honor
+
+            {/* Action Trigger */}
+            <button
+              onClick={() => openModal(
+                'Sarjana Terapan Sistem Informasi Bisnis (D4 SIB)',
+                'Politeknik Negeri Malang (2020 - 2024)',
+                'Ijazah Resmi Kelulusan Sarjana Terapan Sistem Informasi Bisnis & Sertifikat Resmi Skor TOEIC 775 (International Test Center). Memadukan keahlian analitik data, integrasi sistem, dan manajemen operasional bisnis.',
+                ['/11.png', '/12.png', '/16.png']
+              )}
+              className="w-full py-2.5 rounded-full bg-forest text-[#E8EFE5] hover:bg-rose-dark text-xs font-bold shadow-xs hover:shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <span>Buka Dokumen Kelulusan & TOEIC</span>
+              <span>↗</span>
+            </button>
+          </div>
+
+          {/* RIGHT: Professional Certifications & Training Courses Gallery (Matching User Reference Layout) */}
+          <div className="lg:col-span-8 flex flex-col justify-between">
+            <div className="flex items-center justify-between mb-4 px-1">
+              <div>
+                <span className="text-[11px] font-bold uppercase tracking-widest text-rose-dark block mb-0.5">
+                  ✦ Certified Industry Training
+                </span>
+                <h3 className="font-serif text-xl sm:text-2xl font-bold text-forest">
+                  Professional Courses & Accreditations
+                </h3>
+              </div>
+              <span className="text-xs text-forest/50 font-medium hidden sm:inline">
+                Geser ke kanan untuk melihat semua ({certificationList.length}) →
               </span>
             </div>
+
+            {/* Horizontal Scrollable Row of Training Cards (Just like User's 2nd Reference Image!) */}
+            <div className="flex gap-4 overflow-x-auto pb-4 pt-1 no-scrollbar select-none">
+              {certificationList.map((item, idx) => (
+                <div
+                  key={idx}
+                  onClick={() => openModal(
+                    item.title,
+                    `${item.issuer} • ${item.year} (${item.tag})`,
+                    item.desc,
+                    [item.image]
+                  )}
+                  className="min-w-[210px] sm:min-w-[230px] max-w-[240px] shrink-0 bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-[1.75rem] p-3.5 hover:shadow-lg hover:border-rose-dusty/60 hover:-translate-y-1 transition-all flex flex-col justify-between group cursor-pointer"
+                >
+                  <div>
+                    {/* Visual Card Graphic (Clean 1:1 or 4:3 with Tag) */}
+                    <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-forest/5 mb-3 border border-[#CAD7C5]/60">
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                      
+                      {/* Issuer & Year Pill */}
+                      <span className="absolute bottom-2 left-2 bg-white/90 backdrop-blur-xs text-forest text-[9px] font-bold px-2 py-0.5 rounded-full shadow-xs">
+                        {item.issuer} • {item.year}
+                      </span>
+                    </div>
+
+                    {/* Category Tag */}
+                    <span className={`inline-block text-[9px] font-bold px-2 py-0.5 rounded-full border ${item.badgeColor} uppercase tracking-wider mb-1.5`}>
+                      {item.tag}
+                    </span>
+
+                    {/* Course Title (Clean, Bold, No Lengthy Description per User Request!) */}
+                    <h4 className="font-serif text-sm sm:text-base font-bold text-forest group-hover:text-rose-dark transition-colors line-clamp-2 leading-snug">
+                      {item.title}
+                    </h4>
+                  </div>
+
+                  {/* Bottom Minimal Arrow Footer (Like User's Reference Arrow Circle!) */}
+                  <div className="pt-3 mt-2 border-t border-[#CAD7C5]/40 flex items-center justify-between text-xs">
+                    <span className="text-[10px] text-forest/60 font-medium">
+                      Lihat Sertifikat
+                    </span>
+                    <span className="w-6 h-6 rounded-full bg-[#E8EFE5] text-forest group-hover:bg-rose-dark group-hover:text-white transition-colors flex items-center justify-center text-[10px] font-bold">
+                      →
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Trust Banner Below Cards */}
+            <div className="mt-3 p-3.5 rounded-2xl bg-[#CAD7C5]/30 border border-[#CAD7C5]/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-forest/80">
+              <div className="flex items-center gap-2">
+                <span className="text-base">📜</span>
+                <span className="font-medium text-[11px] sm:text-xs">
+                  Seluruh sertifikat diterbitkan oleh institusi terakreditasi (RevoU, MySkill, dan ETS International).
+                </span>
+              </div>
+              <span className="text-[11px] font-bold text-rose-dark shrink-0">
+                Klik kartu untuk pratinjau sertifikat ↗
+              </span>
+            </div>
+
           </div>
 
         </div>
@@ -1074,7 +1874,7 @@ export default function Home() {
       </section>
 
       {/* ========================================================================= */}
-      {/* SECTION 4: CREATIVE PURSUITS & CONTENT CREATOR HIGHLIGHT */}
+      {/* SECTION 5: CREATIVE PURSUITS & CONTENT CREATOR HIGHLIGHT */}
       {/* ========================================================================= */}
       <section id="creative" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
         
@@ -1174,80 +1974,188 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Multi-Device Pop-out Stage (Inspired by user's reference image!) */}
-          <div className="relative py-6 flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-8">
-            
-            {/* Left Phone Mockup (Reels / Stories) - Hover Pops! */}
-            <div className="w-full sm:w-[220px] lg:w-[200px] shrink-0 bg-[#253521] p-3 rounded-[2.5rem] border-2 border-[#CAD7C5] shadow-lg transition-all duration-500 hover:-translate-y-3 hover:scale-105 hover:shadow-2xl group cursor-pointer">
-              <div className="w-16 h-4 bg-black/60 rounded-full mx-auto mb-2" />
-              <div className="relative aspect-[9/16] rounded-3xl overflow-hidden bg-forest/30">
-                <img
-                  src={currentCreator.leftPhoneImg}
-                  alt={currentCreator.leftPhoneTitle}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                />
-                <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/85 via-black/40 to-transparent text-white">
-                  <span className="inline-block px-2 py-0.5 rounded-full bg-rose-dark/90 text-[9px] font-bold uppercase tracking-wider mb-1">
-                    {currentCreator.leftPhoneTag}
-                  </span>
-                  <p className="text-[11px] font-bold leading-tight line-clamp-1">
-                    {currentCreator.leftPhoneTitle}
-                  </p>
+          {/* Multi-Device Pop-out Stage (Adaptive: 3 Devices if hasCenterStage, or 2 Phones if hasCenterStage is false!) */}
+          {currentCreator.hasCenterStage ? (
+            /* 3-DEVICE STAGE (Left Phone + Clickable YouTube/Video Stage + Right Phone) */
+            <div className="relative py-6 flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-8">
+              
+              {/* Left Phone Mockup (Reels / Stories) - Hover Pops! */}
+              <div 
+                onClick={() => {
+                  if (currentCreator.leftPhoneLink || currentCreator.link) {
+                    window.open(currentCreator.leftPhoneLink || currentCreator.link, '_blank');
+                  }
+                }}
+                className="w-full sm:w-[220px] lg:w-[200px] shrink-0 bg-[#253521] p-3 rounded-[2.5rem] border-2 border-[#CAD7C5] shadow-lg transition-all duration-500 hover:-translate-y-3 hover:scale-105 hover:shadow-2xl group cursor-pointer"
+              >
+                <div className="w-16 h-4 bg-black/60 rounded-full mx-auto mb-2" />
+                <div className="relative aspect-[9/16] rounded-3xl overflow-hidden bg-forest/30">
+                  <img
+                    src={currentCreator.leftPhoneImg}
+                    alt={currentCreator.leftPhoneTitle}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/85 via-black/40 to-transparent text-white">
+                    <span className="inline-block px-2 py-0.5 rounded-full bg-rose-dark/90 text-[9px] font-bold uppercase tracking-wider mb-1">
+                      {currentCreator.leftPhoneTag}
+                    </span>
+                    <p className="text-[11px] font-bold leading-tight line-clamp-1">
+                      {currentCreator.leftPhoneTitle}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Central Wide Featured Stage (Tablet / Screen View) - Links out to YouTube / Video! */}
+              <div 
+                onClick={() => {
+                  if (currentCreator.centerLink) {
+                    window.open(currentCreator.centerLink, '_blank');
+                  }
+                }}
+                className="w-full lg:max-w-[480px] bg-white rounded-3xl p-3 border-2 border-[#CAD7C5] shadow-xl transition-all duration-500 hover:-translate-y-3 hover:scale-[1.03] hover:shadow-2xl group cursor-pointer relative"
+              >
+                <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#CAD7C5]/50 mb-2.5">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-rose-dusty" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                    <span className="text-[10px] text-forest/50 font-mono ml-2 truncate">
+                      content-studio / {activeCreatorAccount}
+                    </span>
+                  </div>
+
+                  {currentCreator.centerLink && (
+                    <span className="text-[10px] font-bold font-mono px-2.5 py-0.5 rounded-full bg-red-100 text-red-700 border border-red-200 flex items-center gap-1 group-hover:bg-red-600 group-hover:text-white transition-colors">
+                      <span>▶</span>
+                      <span>Buka di YouTube ↗</span>
+                    </span>
+                  )}
+                </div>
+
+                <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-[#E8EFE5]">
+                  <img
+                    src={currentCreator.centerImg}
+                    alt={currentCreator.centerTitle}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  
+                  {/* Play button hover overlay */}
+                  <div className="absolute inset-0 bg-forest/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                    <div className="w-14 h-14 rounded-full bg-white/95 text-red-600 flex items-center justify-center text-2xl shadow-xl transform scale-75 group-hover:scale-100 transition-transform">
+                      ▶
+                    </div>
+                  </div>
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-forest/95 via-forest/40 to-transparent flex flex-col justify-end p-5 text-white">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-rose-blush mb-1">
+                      {currentCreator.platforms}
+                    </span>
+                    <h4 className="font-serif text-xl sm:text-2xl font-bold leading-tight mb-1">
+                      {currentCreator.centerTitle}
+                    </h4>
+                    <p className="text-xs text-[#E8EFE5]/85 leading-snug line-clamp-2">
+                      {currentCreator.centerDesc}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Phone Mockup (Shorts / Feed) - Hover Pops! */}
+              <div 
+                onClick={() => {
+                  if (currentCreator.rightPhoneLink || currentCreator.link) {
+                    window.open(currentCreator.rightPhoneLink || currentCreator.link, '_blank');
+                  }
+                }}
+                className="w-full sm:w-[220px] lg:w-[200px] shrink-0 bg-[#253521] p-3 rounded-[2.5rem] border-2 border-[#CAD7C5] shadow-lg transition-all duration-500 hover:-translate-y-3 hover:scale-105 hover:shadow-2xl group cursor-pointer"
+              >
+                <div className="w-16 h-4 bg-black/60 rounded-full mx-auto mb-2" />
+                <div className="relative aspect-[9/16] rounded-3xl overflow-hidden bg-forest/30">
+                  <img
+                    src={currentCreator.rightPhoneImg}
+                    alt={currentCreator.rightPhoneTitle}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/85 via-black/40 to-transparent text-white">
+                    <span className="inline-block px-2 py-0.5 rounded-full bg-emerald-700/90 text-[9px] font-bold uppercase tracking-wider mb-1">
+                      {currentCreator.rightPhoneTag}
+                    </span>
+                    <p className="text-[11px] font-bold leading-tight line-clamp-1">
+                      {currentCreator.rightPhoneTitle}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          ) : (
+            /* ADAPTIVE 2-PHONE STAGE (For Dua Sisi Laundry / Accounts without landscape video) */
+            <div className="py-6 flex flex-col items-center justify-center">
+              <div className="mb-5 inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#E8EFE5] border border-[#CAD7C5] text-forest text-xs font-medium">
+                <span>📱</span>
+                <span>Dual Mobile Showcase — Video Vertikal (Instagram Reels & TikTok) • Format Landscape Segera Hadir</span>
+              </div>
+
+              <div className="flex flex-row flex-wrap items-center justify-center gap-6 sm:gap-10">
+                {/* Left Phone Mockup */}
+                <div 
+                  onClick={() => {
+                    if (currentCreator.leftPhoneLink || currentCreator.link) {
+                      window.open(currentCreator.leftPhoneLink || currentCreator.link, '_blank');
+                    }
+                  }}
+                  className="w-[230px] sm:w-[250px] shrink-0 bg-[#253521] p-3 rounded-[2.5rem] border-2 border-[#CAD7C5] shadow-xl transition-all duration-500 hover:-translate-y-3 hover:scale-105 hover:shadow-2xl group cursor-pointer"
+                >
+                  <div className="w-16 h-4 bg-black/60 rounded-full mx-auto mb-2" />
+                  <div className="relative aspect-[9/16] rounded-3xl overflow-hidden bg-forest/30">
+                    <img
+                      src={currentCreator.leftPhoneImg}
+                      alt={currentCreator.leftPhoneTitle}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-x-0 bottom-0 p-3.5 bg-gradient-to-t from-black/90 via-black/50 to-transparent text-white">
+                      <span className="inline-block px-2.5 py-0.5 rounded-full bg-rose-dark text-[10px] font-bold uppercase tracking-wider mb-1">
+                        {currentCreator.leftPhoneTag}
+                      </span>
+                      <p className="text-xs font-bold leading-tight">
+                        {currentCreator.leftPhoneTitle}
+                      </p>
+                      <p className="text-[10px] text-white/75 mt-0.5">Buka di Instagram ↗</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Phone Mockup */}
+                <div 
+                  onClick={() => {
+                    if (currentCreator.rightPhoneLink || currentCreator.link) {
+                      window.open(currentCreator.rightPhoneLink || currentCreator.link, '_blank');
+                    }
+                  }}
+                  className="w-[230px] sm:w-[250px] shrink-0 bg-[#253521] p-3 rounded-[2.5rem] border-2 border-[#CAD7C5] shadow-xl transition-all duration-500 hover:-translate-y-3 hover:scale-105 hover:shadow-2xl group cursor-pointer"
+                >
+                  <div className="w-16 h-4 bg-black/60 rounded-full mx-auto mb-2" />
+                  <div className="relative aspect-[9/16] rounded-3xl overflow-hidden bg-forest/30">
+                    <img
+                      src={currentCreator.rightPhoneImg}
+                      alt={currentCreator.rightPhoneTitle}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-x-0 bottom-0 p-3.5 bg-gradient-to-t from-black/90 via-black/50 to-transparent text-white">
+                      <span className="inline-block px-2.5 py-0.5 rounded-full bg-emerald-700 text-[10px] font-bold uppercase tracking-wider mb-1">
+                        {currentCreator.rightPhoneTag}
+                      </span>
+                      <p className="text-xs font-bold leading-tight">
+                        {currentCreator.rightPhoneTitle}
+                      </p>
+                      <p className="text-[10px] text-white/75 mt-0.5">Buka di TikTok ↗</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-
-            {/* Central Wide Featured Stage (Tablet / Screen View) - Hover Pops! */}
-            <div className="w-full lg:max-w-[480px] bg-white rounded-3xl p-3 border-2 border-[#CAD7C5] shadow-xl transition-all duration-500 hover:-translate-y-3 hover:scale-[1.03] hover:shadow-2xl group cursor-pointer">
-              <div className="flex items-center gap-1.5 px-3 py-1.5 border-b border-[#CAD7C5]/50 mb-2.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-rose-dusty" />
-                <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-                <span className="text-[10px] text-forest/50 font-mono ml-2 truncate">
-                  content-studio / {activeCreatorAccount}
-                </span>
-              </div>
-              <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-[#E8EFE5]">
-                <img
-                  src={currentCreator.centerImg}
-                  alt={currentCreator.centerTitle}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-forest/90 via-forest/30 to-transparent flex flex-col justify-end p-5 text-white">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-rose-blush mb-1">
-                    {currentCreator.platforms}
-                  </span>
-                  <h4 className="font-serif text-xl sm:text-2xl font-bold leading-tight mb-1">
-                    {currentCreator.centerTitle}
-                  </h4>
-                  <p className="text-xs text-[#E8EFE5]/85 leading-snug line-clamp-2">
-                    {currentCreator.centerDesc}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Phone Mockup (Shorts / Feed) - Hover Pops! */}
-            <div className="w-full sm:w-[220px] lg:w-[200px] shrink-0 bg-[#253521] p-3 rounded-[2.5rem] border-2 border-[#CAD7C5] shadow-lg transition-all duration-500 hover:-translate-y-3 hover:scale-105 hover:shadow-2xl group cursor-pointer">
-              <div className="w-16 h-4 bg-black/60 rounded-full mx-auto mb-2" />
-              <div className="relative aspect-[9/16] rounded-3xl overflow-hidden bg-forest/30">
-                <img
-                  src={currentCreator.rightPhoneImg}
-                  alt={currentCreator.rightPhoneTitle}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                />
-                <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/85 via-black/40 to-transparent text-white">
-                  <span className="inline-block px-2 py-0.5 rounded-full bg-emerald-700/90 text-[9px] font-bold uppercase tracking-wider mb-1">
-                    {currentCreator.rightPhoneTag}
-                  </span>
-                  <p className="text-[11px] font-bold leading-tight line-clamp-1">
-                    {currentCreator.rightPhoneTitle}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-          </div>
+          )}
 
           <p className="text-center text-xs text-forest/60 italic mt-4">
             Arahkan kursor ke masing-masing kartu untuk melihat efek pop-out interaktif
@@ -1355,15 +2263,16 @@ export default function Home() {
               Terbuka untuk posisi Management Trainee, Business Development, Strategic Marketing Specialist, serta inisiatif kemitraan baru. Mari berdiskusi bagaimana saya dapat berkontribusi nyata bagi organisasi Anda.
             </p>
 
-            <div className="flex flex-wrap items-center justify-center gap-3">
+            {/* Primary Direct Contact Buttons */}
+            <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
               <a
-                href="mailto:chikalnazmi@gmail.com"
+                href={`mailto:${portfolioData.socials.email}`}
                 className="px-6 py-3 rounded-full text-xs font-bold bg-white text-forest hover:bg-rose-blush transition-colors flex items-center gap-2 shadow-sm"
               >
-                <span>✉ Kirim Email: chikalnazmi@gmail.com</span>
+                <span>✉ Kirim Email: {portfolioData.socials.email}</span>
               </a>
               <a
-                href="https://wa.me/6281234567890?text=Halo%20Chikal,%20saya%20tertarik%20berdiskusi%20mengenai%20peluang%20kerjasama."
+                href={portfolioData.socials.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-6 py-3 rounded-full text-xs font-bold bg-rose-dark text-white hover:bg-rose-berry transition-colors flex items-center gap-2 shadow-sm"
@@ -1371,12 +2280,90 @@ export default function Home() {
                 <span>💬 WhatsApp Langsung</span>
               </a>
               <a
-                href="https://linkedin.com"
+                href={portfolioData.socials.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-5 py-3 rounded-full text-xs font-bold bg-white/10 border border-white/20 text-white hover:bg-white/20 transition-colors"
               >
                 LinkedIn Profile ↗
+              </a>
+            </div>
+
+            {/* Divider with subtle label */}
+            <div className="flex items-center gap-3 my-5 w-full max-w-xs justify-center opacity-40">
+              <div className="h-px bg-white grow" />
+              <span className="text-[10px] uppercase font-mono tracking-widest text-white">Social Media</span>
+              <div className="h-px bg-white grow" />
+            </div>
+
+            {/* Official Social Media Brand Icon Buttons (Instagram, TikTok, YouTube, Medium) */}
+            <div className="flex items-center justify-center gap-3.5">
+              {/* Instagram */}
+              <a
+                href={portfolioData.socials.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Instagram: @chikalnazmi"
+                aria-label="Instagram Chikal Nazmi"
+                className="w-12 h-12 rounded-2xl bg-white/10 hover:bg-gradient-to-tr hover:from-[#f09433] hover:via-[#dc2743] hover:to-[#bc1888] border border-white/20 hover:border-transparent text-white flex items-center justify-center transition-all duration-300 hover:scale-115 hover:-translate-y-1 shadow-md group relative"
+              >
+                <svg className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+                <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity bg-black/90 text-white text-[10px] font-mono px-2 py-0.5 rounded pointer-events-none whitespace-nowrap shadow-md z-30">
+                  Instagram
+                </span>
+              </a>
+
+              {/* TikTok */}
+              <a
+                href={portfolioData.socials.tiktok}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="TikTok: @chikalnazmi"
+                aria-label="TikTok Chikal Nazmi"
+                className="w-12 h-12 rounded-2xl bg-white/10 hover:bg-black border border-white/20 hover:border-[#25F4EE] text-white hover:text-[#25F4EE] flex items-center justify-center transition-all duration-300 hover:scale-115 hover:-translate-y-1 shadow-md group relative"
+              >
+                <svg className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.86 4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-3.04-1.52z"/>
+                </svg>
+                <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity bg-black/90 text-white text-[10px] font-mono px-2 py-0.5 rounded pointer-events-none whitespace-nowrap shadow-md z-30">
+                  TikTok
+                </span>
+              </a>
+
+              {/* YouTube */}
+              <a
+                href={portfolioData.socials.youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="YouTube: Chikal Nazmi"
+                aria-label="YouTube Chikal Nazmi"
+                className="w-12 h-12 rounded-2xl bg-white/10 hover:bg-[#FF0000] border border-white/20 hover:border-transparent text-white flex items-center justify-center transition-all duration-300 hover:scale-115 hover:-translate-y-1 shadow-md group relative"
+              >
+                <svg className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+                <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity bg-black/90 text-white text-[10px] font-mono px-2 py-0.5 rounded pointer-events-none whitespace-nowrap shadow-md z-30">
+                  YouTube
+                </span>
+              </a>
+
+              {/* Medium */}
+              <a
+                href={portfolioData.socials.medium}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Medium: @chikalnazmi"
+                aria-label="Medium Chikal Nazmi"
+                className="w-12 h-12 rounded-2xl bg-white/10 hover:bg-white border border-white/20 hover:border-transparent text-white hover:text-black flex items-center justify-center transition-all duration-300 hover:scale-115 hover:-translate-y-1 shadow-md group relative"
+              >
+                <svg className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/>
+                </svg>
+                <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity bg-black/90 text-white text-[10px] font-mono px-2 py-0.5 rounded pointer-events-none whitespace-nowrap shadow-md z-30">
+                  Medium
+                </span>
               </a>
             </div>
           </div>
@@ -1401,54 +2388,234 @@ export default function Home() {
 
       </footer>
 
+      {/* Floating Reversible Mode Switcher (Bottom Right) */}
+      <div className="fixed bottom-5 right-5 z-40">
+        <button
+          onClick={() => setIsCuteMode(!isCuteMode)}
+          className={`px-4 py-2.5 rounded-full text-xs font-subheader tracking-wider font-bold shadow-xl border flex items-center gap-2 transition-all hover:scale-105 active:scale-95 ${
+            isCuteMode
+              ? 'bg-[#FFFDF5] border-[#FAD2E1] text-[#781E34]'
+              : 'bg-white border-[#CAD7C5] text-forest'
+          }`}
+          title="Klik untuk beralih mode tampilan kapan saja"
+        >
+          <span className="text-base">{isCuteMode ? '🌸' : '🌿'}</span>
+          <span>{isCuteMode ? 'Kembalikan ke Editorial' : 'Coba Mode Cute Floral'}</span>
+        </button>
+      </div>
+
       {/* ========================================================================= */}
-      {/* REUSABLE MODAL DIALOG: Certificates & Proof Documentation */}
+      {/* REUSABLE MODAL DIALOG: Panoramic Adaptive Collage Card (Zero Scroll, Fit) */}
       {/* ========================================================================= */}
       {modalData.isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/65 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-[#CAD7C5] p-6 sm:p-8 relative">
-            
-            {/* Close Button */}
-            <button
-              onClick={closeModal}
-              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#E8EFE5] hover:bg-rose-blush text-forest flex items-center justify-center transition-colors text-base font-bold"
-              aria-label="Tutup Dialog"
-            >
-              ✕
-            </button>
-
-            {/* Modal Category & Title */}
-            <span className="inline-block text-[11px] font-bold uppercase tracking-wider text-rose-dark bg-rose-blush/40 px-3 py-1 rounded-full mb-2">
-              {modalData.category}
-            </span>
-            <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest mb-3 pr-8">
-              {modalData.title}
-            </h3>
-            <p className="text-xs sm:text-sm text-forest/80 leading-relaxed mb-6">
-              {modalData.description}
-            </p>
-
-            {/* Modal Image Gallery */}
-            <div className="space-y-4">
-              {modalData.images.map((imgSrc, imgIdx) => (
-                <div key={imgIdx} className="rounded-2xl overflow-hidden border border-[#CAD7C5] bg-[#E8EFE5]/30">
-                  <img
-                    src={imgSrc}
-                    alt={`${modalData.title} dok ${imgIdx + 1}`}
-                    className="w-full max-h-[480px] object-contain mx-auto"
-                  />
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-md animate-fadeIn select-none"
+          onClick={closeModal}
+        >
+          <div 
+            className="bg-white rounded-[2.5rem] max-w-6xl w-[95vw] max-h-[92vh] shadow-2xl border-2 border-[#CAD7C5] p-5 sm:p-7 relative overflow-hidden flex flex-col justify-between"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* ------------------------------------------------------------------- */}
+            {/* TOP HEADER: Badge, Title & Compact 1-Sentence Summary               */}
+            {/* ------------------------------------------------------------------- */}
+            <div className="flex items-start justify-between gap-4 pb-3 mb-3 border-b border-[#CAD7C5]/70">
+              <div className="max-w-4xl pr-4">
+                <div className="flex items-center gap-2.5 mb-1.5">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-rose-dark bg-rose-blush/60 border border-rose-dusty/30 px-3 py-0.5 rounded-full">
+                    {modalData.category}
+                  </span>
+                  <span className="text-[11px] font-medium text-forest/60">
+                    • {modalData.images.length} Dokumentasi Visual
+                  </span>
                 </div>
-              ))}
-            </div>
 
-            {/* Modal Footer Button */}
-            <div className="mt-6 pt-4 border-t border-[#CAD7C5] flex justify-end">
+                <h3 className="font-serif text-xl sm:text-2xl font-bold text-forest leading-snug mb-1">
+                  {modalData.title}
+                </h3>
+
+                <p className="text-xs sm:text-sm text-forest/80 leading-relaxed font-source line-clamp-2">
+                  {modalData.description}
+                </p>
+              </div>
+
+              {/* Close Button at top right */}
               <button
                 onClick={closeModal}
-                className="px-5 py-2 rounded-full text-xs font-semibold bg-forest text-white hover:bg-rose-dark transition-colors"
+                className="w-10 h-10 rounded-full bg-[#E8EFE5] hover:bg-rose-blush text-forest hover:text-rose-dark flex items-center justify-center transition-all text-lg font-bold shadow-xs cursor-pointer shrink-0"
+                aria-label="Tutup Dialog"
               >
-                Tutup Dokumen
+                ✕
               </button>
+            </div>
+
+            {/* ------------------------------------------------------------------- */}
+            {/* ADAPTIVE PHOTO COLLAGE CANVAS: Auto-adapts to 1, 2, 3, or 4+ Photos  */}
+            {/* Fits portrait and landscape naturally without vertical scrolling!   */}
+            {/* ------------------------------------------------------------------- */}
+            <div className="w-full grow h-[350px] sm:h-[410px] overflow-hidden my-1">
+              
+              {/* CASE 1: Only 1 Photo */}
+              {modalData.images.length === 1 && (
+                <div className="h-full w-full rounded-2xl overflow-hidden bg-forest/5 border border-[#CAD7C5]/80 flex items-center justify-center group relative">
+                  <img
+                    src={modalData.images[0]}
+                    alt={modalData.title}
+                    className="w-full h-full object-contain p-2 group-hover:scale-[1.02] transition-transform duration-500"
+                  />
+                  <div className="absolute bottom-3 left-3 bg-forest/85 backdrop-blur-xs text-white text-[10px] px-3 py-1 rounded-full shadow-xs flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                    <span>Dokumentasi Utama Terverifikasi</span>
+                  </div>
+                  <a
+                    href={modalData.images[0]}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 text-forest text-xs font-bold px-3 py-1.5 rounded-full shadow-md hover:bg-rose-blush flex items-center gap-1"
+                  >
+                    <span>Resolusi Asli</span>
+                    <span>↗</span>
+                  </a>
+                </div>
+              )}
+
+              {/* CASE 2: Exactly 2 Photos (Balanced Side-by-Side Split) */}
+              {modalData.images.length === 2 && (
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 h-full w-full">
+                  {modalData.images.map((img, i) => (
+                    <div key={i} className="h-full rounded-2xl overflow-hidden bg-forest/5 border border-[#CAD7C5]/80 relative group">
+                      <img
+                        src={img}
+                        alt={`${modalData.title} foto ${i + 1}`}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                      <span className="absolute bottom-3 left-3 bg-forest/85 backdrop-blur-xs text-white text-[10px] font-medium px-2.5 py-1 rounded-full shadow-xs">
+                        Dokumen {i + 1}
+                      </span>
+                      <a
+                        href={img}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 text-forest text-xs font-bold px-2.5 py-1 rounded-full shadow-md hover:bg-rose-blush"
+                      >
+                        Buka Asli ↗
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* CASE 3: Exactly 3 Photos (Featured Left + 2 Stacked Right Collage) */}
+              {modalData.images.length === 3 && (
+                <div className="grid grid-cols-12 gap-3 sm:gap-4 h-full w-full">
+                  {/* Photo 1: Large Featured (7 cols) */}
+                  <div className="col-span-7 h-full rounded-2xl overflow-hidden bg-forest/5 border border-[#CAD7C5]/80 relative group">
+                    <img
+                      src={modalData.images[0]}
+                      alt={`${modalData.title} dok 1`}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                    <span className="absolute bottom-3 left-3 bg-forest/85 backdrop-blur-xs text-white text-[10px] font-medium px-3 py-1 rounded-full shadow-xs">
+                      Dokumentasi Utama
+                    </span>
+                    <a
+                      href={modalData.images[0]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 text-forest text-xs font-bold px-2.5 py-1 rounded-full shadow-md hover:bg-rose-blush"
+                    >
+                      Buka Asli ↗
+                    </a>
+                  </div>
+
+                  {/* Photo 2 & 3: Stacked (5 cols) */}
+                  <div className="col-span-5 grid grid-rows-2 gap-3 h-full">
+                    {modalData.images.slice(1, 3).map((img, i) => (
+                      <div key={i} className="h-full rounded-2xl overflow-hidden bg-forest/5 border border-[#CAD7C5]/80 relative group">
+                        <img
+                          src={img}
+                          alt={`${modalData.title} dok ${i + 2}`}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                        <span className="absolute bottom-2.5 left-2.5 bg-forest/85 backdrop-blur-xs text-white text-[9px] font-medium px-2 py-0.5 rounded-full shadow-xs">
+                          Dokumen {i + 2}
+                        </span>
+                        <a
+                          href={img}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="absolute top-2.5 right-2.5 opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 text-forest text-xs font-bold px-2 py-0.5 rounded-full shadow-md hover:bg-rose-blush"
+                        >
+                          ↗
+                        </a>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* CASE 4: 4 or More Photos (Panoramic 4-Column Collage Grid) */}
+              {modalData.images.length >= 4 && (
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 h-full w-full">
+                  {modalData.images.slice(0, 4).map((img, i) => (
+                    <div key={i} className="h-full rounded-2xl overflow-hidden bg-forest/5 border border-[#CAD7C5]/80 relative group">
+                      <img
+                        src={img}
+                        alt={`${modalData.title} dok ${i + 1}`}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                      <span className="absolute bottom-2.5 left-2.5 bg-forest/85 backdrop-blur-xs text-white text-[9px] font-medium px-2 py-0.5 rounded-full shadow-xs">
+                        Dokumen {i + 1}
+                      </span>
+                      <a
+                        href={img}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="absolute top-2.5 right-2.5 opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 text-forest text-xs font-bold px-2 py-0.5 rounded-full shadow-md hover:bg-rose-blush"
+                      >
+                        ↗
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+            </div>
+
+            {/* ------------------------------------------------------------------- */}
+            {/* BOTTOM MINIMAL FOOTER: Status, Adaptive External Link & Close Action */}
+            {/* ------------------------------------------------------------------- */}
+            <div className="pt-2.5 mt-2 border-t border-[#CAD7C5]/60 flex flex-wrap items-center justify-between gap-3 text-xs text-forest/70">
+              <div className="flex items-center gap-2">
+                <span className="text-rose-dusty font-bold">✔</span>
+                <span className="text-[11px] font-medium">
+                  Seluruh dokumentasi dapat diklik untuk dibuka dalam ukuran resolusi penuh asli
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2.5">
+                {modalData.link && (
+                  <a
+                    href={modalData.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 rounded-full text-xs font-bold bg-emerald-100 border border-emerald-300 text-emerald-900 hover:bg-emerald-200 transition-colors shadow-xs flex items-center gap-1.5"
+                  >
+                    <span>🔗</span>
+                    <span>{modalData.linkLabel || 'Buka Tautan Eksternal / Berita ↗'}</span>
+                  </a>
+                )}
+                <button
+                  onClick={closeModal}
+                  className="px-6 py-2 rounded-full text-xs font-bold bg-forest text-[#E8EFE5] hover:bg-rose-dark transition-colors shadow-xs cursor-pointer"
+                >
+                  Tutup Dialog
+                </button>
+              </div>
             </div>
 
           </div>

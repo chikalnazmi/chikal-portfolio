@@ -6,11 +6,11 @@
   * {
     box-sizing: border-box;
   }
-  
+
   html {
     scroll-behavior: smooth;
   }
-  
+
   body {
     background-color: #E8EFE5;
     color: #212B1E;
@@ -24,19 +24,23 @@
 ::-webkit-scrollbar {
   width: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: #E8EFE5;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #BD5871;
   border-radius: 9999px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #781E34;
 }
 
 /* Typography Styling (Quincy, Futura, Source Sans) */
-.font-quincy, .font-title {
+.font-quincy,
+.font-title {
   font-family: 'Quincy CF', 'Quincy', var(--font-quincy), Georgia, serif;
 }
 
@@ -45,43 +49,41 @@
   font-style: italic;
 }
 
-.font-futura, .font-subheader {
+.font-futura,
+.font-subheader {
   font-family: 'Futura', 'Futura-Medium', var(--font-futura), 'Century Gothic', sans-serif;
   letter-spacing: 0.22em;
   text-transform: uppercase;
 }
 
-.font-source, .font-body {
+.font-source,
+.font-body {
   font-family: var(--font-source-sans), 'Source Sans 3', 'Source Sans Pro', sans-serif;
 }
 
 /* Botanical Glows (Sage & Pink) */
 .floral-glow-hero {
-  background: radial-gradient(
-    ellipse at center,
-    rgba(245, 211, 220, 0.85) 0%,
-    rgba(148, 171, 139, 0.45) 45%,
-    rgba(69, 94, 63, 0.15) 70%,
-    transparent 85%
-  );
+  background: radial-gradient(ellipse at center,
+      rgba(245, 211, 220, 0.85) 0%,
+      rgba(148, 171, 139, 0.45) 45%,
+      rgba(69, 94, 63, 0.15) 70%,
+      transparent 85%);
   filter: blur(40px);
 }
 
 .floral-glow-bento {
-  background: radial-gradient(
-    ellipse at 50% 40%,
-    #455E3F 0%,
-    #32462E 40%,
-    #253521 80%,
-    #1A2617 100%
-  );
+  background: radial-gradient(ellipse at 50% 40%,
+      #455E3F 0%,
+      #32462E 40%,
+      #253521 80%,
+      #1A2617 100%);
 }
 
 /* Oval Portrait Frame */
 .oval-portrait {
   border-radius: 50% 50% 48% 48% / 60% 60% 40% 40%;
   border: 2px solid rgba(189, 88, 113, 0.4);
-  box-shadow: 
+  box-shadow:
     0 0 0 8px rgba(245, 211, 220, 0.5),
     0 0 0 16px rgba(148, 171, 139, 0.2),
     0 24px 60px rgba(33, 43, 30, 0.18);
@@ -90,7 +92,7 @@
 
 .oval-portrait:hover {
   transform: translateY(-4px) scale(1.01);
-  box-shadow: 
+  box-shadow:
     0 0 0 10px rgba(245, 211, 220, 0.7),
     0 0 0 20px rgba(148, 171, 139, 0.25),
     0 30px 70px rgba(33, 43, 30, 0.25);
@@ -127,7 +129,7 @@
   border-radius: 2.2rem;
   border: 4px solid #253521;
   background: #FFFFFF;
-  box-shadow: 
+  box-shadow:
     0 0 0 1px rgba(189, 88, 113, 0.25),
     0 20px 50px rgba(37, 53, 33, 0.18);
 }
@@ -144,70 +146,68 @@
   transform: translateY(0);
 }
 
-/* Oval Portrait Frame */
-.oval-portrait {
-  border-radius: 50% 50% 48% 48% / 60% 60% 40% 40%;
-  border: 2px solid rgba(158, 61, 82, 0.35);
-  box-shadow: 
-    0 0 0 8px rgba(246, 211, 220, 0.4),
-    0 0 0 16px rgba(158, 61, 82, 0.1),
-    0 24px 60px rgba(74, 18, 31, 0.15);
-  transition: transform 0.5s ease, box-shadow 0.5s ease;
+/* ========================================================================= */
+/* TACTILE PAPER GRAIN & SAGE LINEN TEXTURE */
+/* ========================================================================= */
+.paper-texture-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 99;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-.oval-portrait:hover {
-  transform: translateY(-4px) scale(1.01);
-  box-shadow: 
-    0 0 0 10px rgba(246, 211, 220, 0.6),
-    0 0 0 20px rgba(158, 61, 82, 0.15),
-    0 30px 70px rgba(74, 18, 31, 0.22);
+.bg-sage-linen {
+  background-color: #E8EFE5;
+  background-image:
+    radial-gradient(at 0% 0%, rgba(245, 211, 220, 0.4) 0px, transparent 45%),
+    radial-gradient(at 100% 100%, rgba(148, 171, 139, 0.3) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(245, 211, 220, 0.25) 0px, transparent 40%),
+    radial-gradient(at 0% 100%, rgba(189, 88, 113, 0.12) 0px, transparent 45%);
 }
 
-/* Bento Card Style */
-.bento-card {
-  background: #FFFFFF;
-  border-radius: 24px;
-  border: 1.5px solid rgba(74, 18, 31, 0.08);
-  box-shadow: 0 10px 30px -5px rgba(74, 18, 31, 0.05), 0 2px 8px rgba(0, 0, 0, 0.02);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+/* ========================================================================= */
+/* COZY CUTE FLORAL THEME UTILITIES (Reversible Mode) */
+/* ========================================================================= */
+@keyframes floatPetal {
+  0% {
+    transform: translateY(-40px) translateX(0px) rotate(0deg);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.85;
+  }
+
+  85% {
+    opacity: 0.85;
+  }
+
+  100% {
+    transform: translateY(105vh) translateX(100px) rotate(360deg);
+    opacity: 0;
+  }
 }
 
-.bento-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 20px 45px -8px rgba(74, 18, 31, 0.12);
-  border-color: rgba(158, 61, 82, 0.3);
+.petal-particle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 25;
+  animation: floatPetal 16s linear infinite;
 }
 
-/* Minimal Experience Row */
-.timeline-row {
-  border-top: 1px solid rgba(74, 18, 31, 0.12);
-  padding: 1.25rem 0;
-  transition: background-color 0.2s ease;
+.washi-tape {
+  background: rgba(245, 211, 220, 0.85);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  border-left: 2px dashed rgba(189, 88, 113, 0.3);
+  border-right: 2px dashed rgba(189, 88, 113, 0.3);
 }
 
-.timeline-row:hover {
-  background-color: rgba(246, 211, 220, 0.18);
+.sticky-note-cute {
+  background: #FFFDF5;
+  box-shadow: 2px 8px 20px rgba(189, 88, 113, 0.15);
+  border: 1px solid rgba(254, 234, 161, 0.6);
 }
-
-/* Phone Mockup Frame */
-.phone-frame {
-  border-radius: 2.2rem;
-  border: 4px solid #4A121F;
-  background: #FFFFFF;
-  box-shadow: 
-    0 0 0 1px rgba(158, 61, 82, 0.2),
-    0 20px 50px rgba(74, 18, 31, 0.2);
-}
-
-/* Scroll reveal utility */
-.reveal-up {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.reveal-up.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-    
