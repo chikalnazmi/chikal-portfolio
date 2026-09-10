@@ -9,6 +9,7 @@ import {
   DEFAULT_PORTFOLIO_DATA,
   PortfolioData 
 } from '@/lib/portfolio-store';
+import ImageUploadField from '@/components/ImageUploadField';
 
 export default function AdminPortal() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -435,43 +436,18 @@ export default function AdminPortal() {
               </div>
 
               {/* Right Column: Avatar Photo Edit & Live Preview (4 cols) */}
-              <div className="lg:col-span-4 p-5 rounded-2xl bg-[#E8EFE5]/40 border border-[#CAD7C5] flex flex-col items-center justify-between gap-4">
-                <div className="w-full text-center">
-                  <span className="text-[10px] font-bold uppercase text-forest tracking-wider block mb-1">
-                    Foto Profil Utama (Live Preview)
-                  </span>
-                  
-                  {/* Image Frame Preview */}
-                  <div className="w-36 h-44 mx-auto rounded-t-full rounded-b-2xl overflow-hidden border-2 border-forest shadow-md bg-forest/10 relative my-2">
-                    <img
-                      src={data.hero?.avatarImg || '/2.png'}
-                      alt="Preview Profil"
-                      className="w-full h-full object-cover object-top"
-                      onError={(e) => {
-                        // Fallback if image path not found
-                        (e.target as HTMLImageElement).src = '/2.png';
-                      }}
-                    />
-                  </div>
-                </div>
-
-                <div className="w-full">
-                  <label className="block text-[11px] font-bold text-forest mb-1">
-                    Path File Foto / URL Gambar:
-                  </label>
-                  <input
-                    type="text"
-                    value={data.hero?.avatarImg || ''}
-                    onChange={(e) => setData({
+              <div className="lg:col-span-4 p-5 rounded-2xl bg-[#E8EFE5]/40 border border-[#CAD7C5] flex flex-col justify-start gap-4">
+                <div>
+                  <ImageUploadField
+                    label="Foto Profil Utama (Avatar Hero):"
+                    value={data.hero?.avatarImg || '/2.png'}
+                    onChange={(newUrl) => setData({
                       ...data,
-                      hero: { ...data.hero, avatarImg: e.target.value }
+                      hero: { ...data.hero, avatarImg: newUrl }
                     })}
-                    placeholder="Contoh: /2.png atau /foto-wisuda.jpg"
-                    className="w-full px-3 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-mono"
+                    aspectRatio="portrait"
+                    helperText="Foto vertikal/portrait (rasio 4:5 atau 1:1) dengan resolusi tajam."
                   />
-                  <span className="text-[10px] text-forest/60 mt-1 block">
-                    Tip: Masukkan foto baru ke folder <code>public/</code> lalu ketik namanya di sini.
-                  </span>
                 </div>
               </div>
             </div>
@@ -662,77 +638,55 @@ export default function AdminPortal() {
                 </div>
 
                 {/* Photos & Documentation Section */}
-                <div className="p-4 rounded-2xl bg-[#E8EFE5]/40 border border-[#CAD7C5] space-y-4">
-                  <h4 className="font-serif font-bold text-sm text-forest">
-                    🖼️ Foto Sampul & Bukti Dokumentasi Proyek
-                  </h4>
+                <div className="p-5 rounded-2xl bg-[#E8EFE5]/40 border border-[#CAD7C5] space-y-4">
+                  <div className="flex items-center justify-between">
+                    <h4 className="font-serif font-bold text-sm text-forest">
+                      🖼️ Foto Sampul & Bukti Dokumentasi Proyek
+                    </h4>
+                    <span className="text-[11px] text-rose-dark font-medium">
+                      Bisa langsung upload file dari laptop 📁
+                    </span>
+                  </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
                     {/* Primary Image */}
-                    <div className="space-y-1.5">
-                      <label className="block text-[11px] font-bold text-forest">Foto Sampul Utama:</label>
-                      <input
-                        type="text"
-                        value={data.projects[activeProjectIdx].image}
-                        onChange={(e) => {
-                          const updated = [...data.projects];
-                          updated[activeProjectIdx].image = e.target.value;
-                          setData({ ...data, projects: updated });
-                        }}
-                        className="w-full px-3 py-1.5 rounded-lg bg-white border border-[#CAD7C5] text-xs font-mono"
-                      />
-                      <div className="w-full aspect-[16/10] rounded-lg overflow-hidden border border-[#CAD7C5] bg-black/5">
-                        <img
-                          src={data.projects[activeProjectIdx].image}
-                          alt="Cover Preview"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    </div>
+                    <ImageUploadField
+                      label="Foto Sampul Utama:"
+                      value={data.projects[activeProjectIdx].image}
+                      onChange={(newUrl) => {
+                        const updated = [...data.projects];
+                        updated[activeProjectIdx].image = newUrl;
+                        setData({ ...data, projects: updated });
+                      }}
+                      aspectRatio="landscape"
+                      helperText="Foto sampul landscape utama (rasio 16:10)"
+                    />
 
                     {/* Extra Image 1 */}
-                    <div className="space-y-1.5">
-                      <label className="block text-[11px] font-bold text-forest">Foto Bukti 2:</label>
-                      <input
-                        type="text"
-                        value={data.projects[activeProjectIdx].extraImages[1] || ''}
-                        onChange={(e) => {
-                          const updated = [...data.projects];
-                          updated[activeProjectIdx].extraImages[1] = e.target.value;
-                          setData({ ...data, projects: updated });
-                        }}
-                        className="w-full px-3 py-1.5 rounded-lg bg-white border border-[#CAD7C5] text-xs font-mono"
-                      />
-                      <div className="w-full aspect-[16/10] rounded-lg overflow-hidden border border-[#CAD7C5] bg-black/5">
-                        <img
-                          src={data.projects[activeProjectIdx].extraImages[1] || data.projects[activeProjectIdx].image}
-                          alt="Bukti 2 Preview"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    </div>
+                    <ImageUploadField
+                      label="Foto Bukti 2 (Slide Dokumentasi):"
+                      value={data.projects[activeProjectIdx].extraImages[1] || ''}
+                      onChange={(newUrl) => {
+                        const updated = [...data.projects];
+                        updated[activeProjectIdx].extraImages[1] = newUrl;
+                        setData({ ...data, projects: updated });
+                      }}
+                      aspectRatio="landscape"
+                      helperText="Dokumentasi kedua untuk galeri modal"
+                    />
 
                     {/* Extra Image 2 */}
-                    <div className="space-y-1.5">
-                      <label className="block text-[11px] font-bold text-forest">Foto Bukti 3:</label>
-                      <input
-                        type="text"
-                        value={data.projects[activeProjectIdx].extraImages[2] || ''}
-                        onChange={(e) => {
-                          const updated = [...data.projects];
-                          updated[activeProjectIdx].extraImages[2] = e.target.value;
-                          setData({ ...data, projects: updated });
-                        }}
-                        className="w-full px-3 py-1.5 rounded-lg bg-white border border-[#CAD7C5] text-xs font-mono"
-                      />
-                      <div className="w-full aspect-[16/10] rounded-lg overflow-hidden border border-[#CAD7C5] bg-black/5">
-                        <img
-                          src={data.projects[activeProjectIdx].extraImages[2] || data.projects[activeProjectIdx].image}
-                          alt="Bukti 3 Preview"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    </div>
+                    <ImageUploadField
+                      label="Foto Bukti 3 (Slide Dokumentasi):"
+                      value={data.projects[activeProjectIdx].extraImages[2] || ''}
+                      onChange={(newUrl) => {
+                        const updated = [...data.projects];
+                        updated[activeProjectIdx].extraImages[2] = newUrl;
+                        setData({ ...data, projects: updated });
+                      }}
+                      aspectRatio="landscape"
+                      helperText="Dokumentasi ketiga untuk galeri modal"
+                    />
                   </div>
                 </div>
 
@@ -889,55 +843,42 @@ export default function AdminPortal() {
                 </div>
 
                 {/* Photos: Certificate and Event Image */}
-                <div className="p-4 rounded-2xl bg-[#E8EFE5]/40 border border-[#CAD7C5] space-y-4">
-                  <h4 className="font-serif font-bold text-sm text-forest">
-                    📜 Foto Sertifikat & Dokumentasi Panggung Kejuaraan
-                  </h4>
+                <div className="p-5 rounded-2xl bg-[#E8EFE5]/40 border border-[#CAD7C5] space-y-4">
+                  <div className="flex items-center justify-between">
+                    <h4 className="font-serif font-bold text-sm text-forest">
+                      📜 Foto Sertifikat & Dokumentasi Panggung Kejuaraan
+                    </h4>
+                    <span className="text-[11px] text-rose-dark font-medium">
+                      Bisa langsung upload file dari laptop 📁
+                    </span>
+                  </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     {/* Certificate Image */}
-                    <div className="space-y-1.5">
-                      <label className="block text-[11px] font-bold text-forest">Foto Sertifikat Asli:</label>
-                      <input
-                        type="text"
-                        value={data.awards[activeAwardIdx].certImg}
-                        onChange={(e) => {
-                          const updated = [...data.awards];
-                          updated[activeAwardIdx].certImg = e.target.value;
-                          setData({ ...data, awards: updated });
-                        }}
-                        className="w-full px-3 py-1.5 rounded-lg bg-white border border-[#CAD7C5] text-xs font-mono"
-                      />
-                      <div className="w-full aspect-[4/3] rounded-lg overflow-hidden border border-[#CAD7C5] bg-black/5">
-                        <img
-                          src={data.awards[activeAwardIdx].certImg}
-                          alt="Certificate Preview"
-                          className="w-full h-full object-contain p-2"
-                        />
-                      </div>
-                    </div>
+                    <ImageUploadField
+                      label="Foto Sertifikat Asli:"
+                      value={data.awards[activeAwardIdx].certImg}
+                      onChange={(newUrl) => {
+                        const updated = [...data.awards];
+                        updated[activeAwardIdx].certImg = newUrl;
+                        setData({ ...data, awards: updated });
+                      }}
+                      aspectRatio="certificate"
+                      helperText="Scan sertifikat resmi juara (rasio 4:3)"
+                    />
 
                     {/* Event Documentation Image */}
-                    <div className="space-y-1.5">
-                      <label className="block text-[11px] font-bold text-forest">Foto Panggung / Dokumentasi Event:</label>
-                      <input
-                        type="text"
-                        value={data.awards[activeAwardIdx].eventImg}
-                        onChange={(e) => {
-                          const updated = [...data.awards];
-                          updated[activeAwardIdx].eventImg = e.target.value;
-                          setData({ ...data, awards: updated });
-                        }}
-                        className="w-full px-3 py-1.5 rounded-lg bg-white border border-[#CAD7C5] text-xs font-mono"
-                      />
-                      <div className="w-full aspect-[4/3] rounded-lg overflow-hidden border border-[#CAD7C5] bg-black/5">
-                        <img
-                          src={data.awards[activeAwardIdx].eventImg}
-                          alt="Event Preview"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    </div>
+                    <ImageUploadField
+                      label="Foto Panggung / Dokumentasi Event:"
+                      value={data.awards[activeAwardIdx].eventImg}
+                      onChange={(newUrl) => {
+                        const updated = [...data.awards];
+                        updated[activeAwardIdx].eventImg = newUrl;
+                        setData({ ...data, awards: updated });
+                      }}
+                      aspectRatio="certificate"
+                      helperText="Foto penyerahan piala/dokumentasi panggung"
+                    />
                   </div>
                 </div>
 
@@ -1092,77 +1033,55 @@ export default function AdminPortal() {
                 </div>
 
                 {/* Photos & Mockup Images with Live Preview */}
-                <div className="p-4 rounded-2xl bg-[#E8EFE5]/40 border border-[#CAD7C5] space-y-4">
-                  <h4 className="font-serif font-bold text-sm text-forest">
-                    📱 Foto Mockup HP Kiri, Layar Tengah & HP Kanan
-                  </h4>
+                <div className="p-5 rounded-2xl bg-[#E8EFE5]/40 border border-[#CAD7C5] space-y-4">
+                  <div className="flex items-center justify-between">
+                    <h4 className="font-serif font-bold text-sm text-forest">
+                      📱 Foto Mockup HP Kiri, Layar Tengah & HP Kanan
+                    </h4>
+                    <span className="text-[11px] text-rose-dark font-medium">
+                      Bisa langsung upload file dari laptop 📁
+                    </span>
+                  </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
                     {/* Left Phone Photo */}
-                    <div className="space-y-1.5">
-                      <label className="block text-[11px] font-bold text-forest">Foto HP Kiri (Instagram Reels):</label>
-                      <input
-                        type="text"
-                        value={data.creatorAccounts[activeCreatorKey].leftPhoneImg}
-                        onChange={(e) => {
-                          const updated = { ...data.creatorAccounts };
-                          updated[activeCreatorKey].leftPhoneImg = e.target.value;
-                          setData({ ...data, creatorAccounts: updated });
-                        }}
-                        className="w-full px-3 py-1.5 rounded-lg bg-white border border-[#CAD7C5] text-xs font-mono"
-                      />
-                      <div className="w-28 h-48 mx-auto rounded-2xl overflow-hidden border border-[#CAD7C5] bg-black/10">
-                        <img
-                          src={data.creatorAccounts[activeCreatorKey].leftPhoneImg}
-                          alt="Left Phone Preview"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    </div>
+                    <ImageUploadField
+                      label="Foto HP Kiri (Instagram Reels):"
+                      value={data.creatorAccounts[activeCreatorKey].leftPhoneImg}
+                      onChange={(newUrl) => {
+                        const updated = { ...data.creatorAccounts };
+                        updated[activeCreatorKey].leftPhoneImg = newUrl;
+                        setData({ ...data, creatorAccounts: updated });
+                      }}
+                      aspectRatio="phone"
+                      helperText="Rasio 9:16 (Vertikal Layar HP)"
+                    />
 
                     {/* Center Landscape Photo */}
-                    <div className="space-y-1.5">
-                      <label className="block text-[11px] font-bold text-forest">Foto Layar Tengah (Landscape):</label>
-                      <input
-                        type="text"
-                        value={data.creatorAccounts[activeCreatorKey].centerImg}
-                        onChange={(e) => {
-                          const updated = { ...data.creatorAccounts };
-                          updated[activeCreatorKey].centerImg = e.target.value;
-                          setData({ ...data, creatorAccounts: updated });
-                        }}
-                        className="w-full px-3 py-1.5 rounded-lg bg-white border border-[#CAD7C5] text-xs font-mono"
-                      />
-                      <div className="w-full aspect-[16/10] rounded-lg overflow-hidden border border-[#CAD7C5] bg-black/10">
-                        <img
-                          src={data.creatorAccounts[activeCreatorKey].centerImg}
-                          alt="Center Preview"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    </div>
+                    <ImageUploadField
+                      label="Foto Layar Tengah (Landscape):"
+                      value={data.creatorAccounts[activeCreatorKey].centerImg}
+                      onChange={(newUrl) => {
+                        const updated = { ...data.creatorAccounts };
+                        updated[activeCreatorKey].centerImg = newUrl;
+                        setData({ ...data, creatorAccounts: updated });
+                      }}
+                      aspectRatio="landscape"
+                      helperText="Rasio 16:10 / 16:9 (Layar Video Utama)"
+                    />
 
                     {/* Right Phone Photo */}
-                    <div className="space-y-1.5">
-                      <label className="block text-[11px] font-bold text-forest">Foto HP Kanan (TikTok Shorts):</label>
-                      <input
-                        type="text"
-                        value={data.creatorAccounts[activeCreatorKey].rightPhoneImg}
-                        onChange={(e) => {
-                          const updated = { ...data.creatorAccounts };
-                          updated[activeCreatorKey].rightPhoneImg = e.target.value;
-                          setData({ ...data, creatorAccounts: updated });
-                        }}
-                        className="w-full px-3 py-1.5 rounded-lg bg-white border border-[#CAD7C5] text-xs font-mono"
-                      />
-                      <div className="w-28 h-48 mx-auto rounded-2xl overflow-hidden border border-[#CAD7C5] bg-black/10">
-                        <img
-                          src={data.creatorAccounts[activeCreatorKey].rightPhoneImg}
-                          alt="Right Phone Preview"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    </div>
+                    <ImageUploadField
+                      label="Foto HP Kanan (TikTok Shorts):"
+                      value={data.creatorAccounts[activeCreatorKey].rightPhoneImg}
+                      onChange={(newUrl) => {
+                        const updated = { ...data.creatorAccounts };
+                        updated[activeCreatorKey].rightPhoneImg = newUrl;
+                        setData({ ...data, creatorAccounts: updated });
+                      }}
+                      aspectRatio="phone"
+                      helperText="Rasio 9:16 (Vertikal Layar HP)"
+                    />
                   </div>
                 </div>
 
@@ -1312,45 +1231,54 @@ export default function AdminPortal() {
               Di sistem portofolio ini, kamu punya <strong>2 cara super mudah</strong> untuk menampilkan foto aslimu (foto wisuda, foto dokumentasi lomba, foto produk, sertifikat, dll):
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Cara 1: Menggunakan Folder Public */}
-              <div className="p-6 rounded-2xl bg-[#E8EFE5]/50 border border-[#CAD7C5] space-y-3">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {/* Cara 1: Langsung Upload dari Laptop (FITUR UTAMA) */}
+              <div className="p-5 rounded-2xl bg-emerald-50/70 border-2 border-emerald-300 space-y-3 shadow-xs">
                 <div className="flex items-center gap-2">
-                  <span className="w-7 h-7 rounded-full bg-forest text-white flex items-center justify-center font-bold text-xs">1</span>
-                  <h4 className="font-bold text-sm text-forest">Cara 1: Simpan di Folder <code>public/</code> (Rekomendasi)</h4>
+                  <span className="w-7 h-7 rounded-full bg-emerald-700 text-white flex items-center justify-center font-bold text-xs">⭐</span>
+                  <h4 className="font-bold text-sm text-forest">Cara 1: Langsung Upload dari Laptop (Paling Praktis)</h4>
                 </div>
                 <p className="text-xs text-forest/80 leading-relaxed">
-                  Kamu tinggal copy & paste foto barumu dari komputermu ke dalam folder:
-                  <br />
-                  <code className="inline-block mt-1 p-1 bg-white rounded border border-[#CAD7C5] font-mono text-[11px] text-forest">
-                    c:\Kerja\chikal-portfolio\public\
-                  </code>
+                  Sekarang kamu <strong>tidak perlu mengetik nama file atau memindah manual</strong>.
                 </p>
-                <div className="text-xs text-forest/75 space-y-1 bg-white p-3 rounded-xl border border-[#CAD7C5]/60">
-                  <p className="font-bold text-rose-dark">Contoh langkah:</p>
-                  <p>1. Beri nama file fotomu, misal: <code>foto-wisuda.jpg</code></p>
-                  <p>2. Taruh di dalam folder <code>public/</code></p>
-                  <p>3. Di halaman Admin Studio ini, di kolom foto cukup ketik:</p>
-                  <p className="font-mono font-bold text-forest">/foto-wisuda.jpg</p>
-                  <p>4. Fotonya akan langsung muncul di Live Preview dan di websitemu!</p>
+                <div className="text-xs text-forest/85 space-y-1.5 bg-white p-3.5 rounded-xl border border-emerald-200">
+                  <p className="font-bold text-emerald-800">Langkah-langkah:</p>
+                  <p>1. Klik tombol <strong>&ldquo;📁 Pilih dari Laptop&rdquo;</strong> atau seret langsung file fotomu ke kotak garis putus-putus.</p>
+                  <p>2. Foto otomatis dikompres agar website tetap super cepat dan ringan.</p>
+                  <p>3. Preview langsung muncul seketika!</p>
+                  <p>4. Klik tombol <strong>&ldquo;💾 Simpan Data&rdquo;</strong> di pojok kanan atas.</p>
                 </div>
               </div>
 
-              {/* Cara 2: Menggunakan Link URL Gambar Online */}
-              <div className="p-6 rounded-2xl bg-[#E8EFE5]/50 border border-[#CAD7C5] space-y-3">
+              {/* Cara 2: Menggunakan Folder Public */}
+              <div className="p-5 rounded-2xl bg-[#E8EFE5]/50 border border-[#CAD7C5] space-y-3">
                 <div className="flex items-center gap-2">
-                  <span className="w-7 h-7 rounded-full bg-rose-dark text-white flex items-center justify-center font-bold text-xs">2</span>
-                  <h4 className="font-bold text-sm text-forest">Cara 2: Menggunakan Link Gambar Online (URL)</h4>
+                  <span className="w-7 h-7 rounded-full bg-forest text-white flex items-center justify-center font-bold text-xs">2</span>
+                  <h4 className="font-bold text-sm text-forest">Cara 2: Folder <code>public/</code></h4>
                 </div>
                 <p className="text-xs text-forest/80 leading-relaxed">
-                  Jika foto sudah pernah kamu upload ke internet (misal di Google Drive publik, Imgur, Cloudinary, atau Supabase Storage):
+                  Bila ingin mengorganisir file secara manual di proyek:
                 </p>
                 <div className="text-xs text-forest/75 space-y-1 bg-white p-3 rounded-xl border border-[#CAD7C5]/60">
-                  <p className="font-bold text-rose-dark">Contoh langkah:</p>
-                  <p>1. Copy link URL langsung gambarnya, contoh:</p>
-                  <p className="font-mono text-[10px] break-all text-forest">https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=900</p>
-                  <p>2. Tempelkan link tersebut ke kolom foto di halaman Admin Studio.</p>
-                  <p>3. Klik Simpan Data, selesai!</p>
+                  <p>1. Simpan foto ke folder <code>public/</code> (contoh: <code>foto-wisuda.jpg</code>).</p>
+                  <p>2. Klik <em>&ldquo;Tautan / Path Manual&rdquo;</em> di bawah foto.</p>
+                  <p>3. Ketik <code>/foto-wisuda.jpg</code>.</p>
+                </div>
+              </div>
+
+              {/* Cara 3: Menggunakan Link URL Gambar Online */}
+              <div className="p-5 rounded-2xl bg-[#E8EFE5]/50 border border-[#CAD7C5] space-y-3">
+                <div className="flex items-center gap-2">
+                  <span className="w-7 h-7 rounded-full bg-rose-dark text-white flex items-center justify-center font-bold text-xs">3</span>
+                  <h4 className="font-bold text-sm text-forest">Cara 3: Link Gambar Online (URL)</h4>
+                </div>
+                <p className="text-xs text-forest/80 leading-relaxed">
+                  Jika foto sudah tersimpan di web hosting / cloud:
+                </p>
+                <div className="text-xs text-forest/75 space-y-1 bg-white p-3 rounded-xl border border-[#CAD7C5]/60">
+                  <p>1. Copy link URL langsung gambarnya (misal Unsplash/Cloudinary).</p>
+                  <p>2. Buka <em>&ldquo;Tautan / Path Manual&rdquo;</em> dan tempel URL.</p>
+                  <p>3. Klik Simpan Data.</p>
                 </div>
               </div>
             </div>
