@@ -118,7 +118,7 @@ export default function Home() {
   };
 
   // Case Studies Dossier Data (Enhanced with Multi-Photo Documentation)
-  const dossierProjects = [
+  const defaultDossierProjects = [
     {
       id: 'operations',
       category: 'OPERATIONAL EXCELLENCE & SCALING',
@@ -201,12 +201,16 @@ export default function Home() {
     },
   ];
 
+  const dossierProjects = (portfolioData.projects && portfolioData.projects.length > 0)
+    ? portfolioData.projects
+    : defaultDossierProjects;
+
   const filteredDossier = activeDossierTab === 'all' 
     ? dossierProjects 
     : dossierProjects.filter(p => p.id === activeDossierTab);
 
   // 7 Trophy Case Awards Data
-  const awardsList = [
+  const defaultAwardsList = [
     {
       year: '2024',
       rank: '1st Winner',
@@ -299,6 +303,10 @@ export default function Home() {
       linkLabel: 'Dokumentasi Unesa ↗',
     },
   ];
+
+  const awardsList = (portfolioData.awards && portfolioData.awards.length > 0)
+    ? portfolioData.awards
+    : defaultAwardsList;
 
   // Dynamic filter for Trophy Case Mosaic
   const filteredAwards = awardsList.filter(award => {
@@ -679,40 +687,48 @@ export default function Home() {
             {/* Live Availability Pill */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-[#CAD7C5] text-forest text-xs font-medium mb-6 shadow-xs">
               <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
-              <span>Available for Management Trainee & BizDev Roles</span>
+              <span>{portfolioData.hero?.subheadline || 'Available for Management Trainee & BizDev Roles'}</span>
             </div>
 
             {/* Editorial Headline */}
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.15] text-forest tracking-tight mb-6">
-              Cultivating Growth through{' '}
-              <span className="editorial-italic text-rose-dark font-normal">
-                Analytical Strategy
-              </span>{' '}
-              & Creative Tenacity.
+              {portfolioData.hero?.headline || (
+                <>
+                  Cultivating Growth through{' '}
+                  <span className="editorial-italic text-rose-dark font-normal">
+                    Analytical Strategy
+                  </span>{' '}
+                  & Creative Tenacity.
+                </>
+              )}
             </h1>
 
             {/* Value Proposition Subtext */}
             <p className="text-base sm:text-lg text-forest/80 leading-relaxed font-normal max-w-xl mb-8">
-              Halo, saya <span className="font-semibold text-forest">Chikal Nazmi Mahira</span>. Lulusan D4 Sistem Informasi Bisnis (Politeknik Negeri Malang) dengan spesialisasi dalam ekspansi kemitraan, formulasi SOP operasional terukur, dan pertumbuhan brand berbasis data.
+              {portfolioData.hero?.bio || (
+                <>
+                  Halo, saya <span className="font-semibold text-forest">Chikal Nazmi Mahira</span>. Lulusan D4 Sistem Informasi Bisnis (Politeknik Negeri Malang) dengan spesialisasi dalam ekspansi kemitraan, formulasi SOP operasional terukur, dan pertumbuhan brand berbasis data.
+                </>
+              )}
             </p>
 
             {/* Metrics Ribbon (Clean Statistical Grid) */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full max-w-xl mb-8">
               <div className="bg-white/70 border border-[#CAD7C5] rounded-xl p-3 text-center">
-                <span className="block font-serif text-2xl font-bold text-rose-dark">7x</span>
-                <span className="text-[11px] text-forest/70 uppercase tracking-wider font-medium">National Awards</span>
+                <span className="block font-serif text-2xl font-bold text-rose-dark">{portfolioData.hero?.stat1Value || '7x'}</span>
+                <span className="text-[11px] text-forest/70 uppercase tracking-wider font-medium">{portfolioData.hero?.stat1Label || 'National Awards'}</span>
               </div>
               <div className="bg-white/70 border border-[#CAD7C5] rounded-xl p-3 text-center">
-                <span className="block font-serif text-2xl font-bold text-rose-dark">+2.089%</span>
-                <span className="text-[11px] text-forest/70 uppercase tracking-wider font-medium">Reels Reach Surge</span>
+                <span className="block font-serif text-2xl font-bold text-rose-dark">{portfolioData.hero?.stat2Value || '+2.089%'}</span>
+                <span className="text-[11px] text-forest/70 uppercase tracking-wider font-medium">{portfolioData.hero?.stat2Label || 'Reels Reach Surge'}</span>
               </div>
               <div className="bg-white/70 border border-[#CAD7C5] rounded-xl p-3 text-center">
-                <span className="block font-serif text-2xl font-bold text-forest">20+</span>
-                <span className="text-[11px] text-forest/70 uppercase tracking-wider font-medium">Event Partners</span>
+                <span className="block font-serif text-2xl font-bold text-forest">{portfolioData.hero?.stat3Value || '20+'}</span>
+                <span className="text-[11px] text-forest/70 uppercase tracking-wider font-medium">{portfolioData.hero?.stat3Label || 'Event Partners'}</span>
               </div>
               <div className="bg-white/70 border border-[#CAD7C5] rounded-xl p-3 text-center">
-                <span className="block font-serif text-2xl font-bold text-forest">D4 SIB</span>
-                <span className="text-[11px] text-forest/70 uppercase tracking-wider font-medium">Polinema Honor</span>
+                <span className="block font-serif text-2xl font-bold text-forest">{portfolioData.hero?.stat4Value || 'D4 SIB'}</span>
+                <span className="text-[11px] text-forest/70 uppercase tracking-wider font-medium">{portfolioData.hero?.stat4Label || 'Polinema Honor'}</span>
               </div>
             </div>
 
@@ -762,7 +778,7 @@ export default function Home() {
 
               <div className="relative w-full aspect-[4/5] rounded-t-[150px] rounded-b-[24px] overflow-hidden bg-forest/10">
                   <img
-                    src="/2.png"
+                    src={portfolioData.hero?.avatarImg || '/2.png'}
                     alt="Chikal Nazmi Mahira"
                     className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700"
                   />

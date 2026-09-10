@@ -65,7 +65,23 @@ export interface AwardItem {
   linkLabel?: string;
 }
 
+export interface HeroContent {
+  headline: string;
+  subheadline: string;
+  bio: string;
+  avatarImg: string;
+  stat1Value: string;
+  stat1Label: string;
+  stat2Value: string;
+  stat2Label: string;
+  stat3Value: string;
+  stat3Label: string;
+  stat4Value: string;
+  stat4Label: string;
+}
+
 export interface PortfolioData {
+  hero: HeroContent;
   socials: SocialLinks;
   creatorAccounts: Record<string, CreatorAccount>;
   projects: ProjectDoc[];
@@ -73,6 +89,20 @@ export interface PortfolioData {
 }
 
 export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
+  hero: {
+    headline: 'Cultivating Growth through Analytical Strategy & Creative Tenacity.',
+    subheadline: 'Available for Management Trainee & BizDev Roles',
+    bio: 'Halo, saya Chikal Nazmi Mahira. Lulusan D4 Sistem Informasi Bisnis (Politeknik Negeri Malang) dengan spesialisasi dalam ekspansi kemitraan, formulasi SOP operasional terukur, dan pertumbuhan brand berbasis data.',
+    avatarImg: '/2.png',
+    stat1Value: '7x',
+    stat1Label: 'National Awards',
+    stat2Value: '+2.089%',
+    stat2Label: 'Reels Reach Surge',
+    stat3Value: '20+',
+    stat3Label: 'Event Partners',
+    stat4Value: 'D4 SIB',
+    stat4Label: 'Polinema Honor',
+  },
   socials: {
     email: 'chikalnazmi@gmail.com',
     whatsappNumber: '6281234567890',
@@ -153,8 +183,6 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
       tag: 'Digital Marketing & Business Ops',
       platforms: 'Instagram & Customer Education',
       stats: '35% Efficiency Gain • Zero Garment Loss',
-      // Dua Sisi Laundry: Belum ada video landscape, sehingga diatur hasCenterStage: false
-      // Tampilan otomatis adaptif hanya merender 2 phone mockups!
       hasCenterStage: false,
       centerLink: undefined,
       centerImg: '/3.png',
@@ -359,8 +387,9 @@ export function getPortfolioData(): PortfolioData {
     if (!raw) return DEFAULT_PORTFOLIO_DATA;
     const parsed = JSON.parse(raw);
     return {
-      socials: { ...DEFAULT_PORTFOLIO_DATA.socials, ...parsed.socials },
-      creatorAccounts: { ...DEFAULT_PORTFOLIO_DATA.creatorAccounts, ...parsed.creatorAccounts },
+      hero: { ...DEFAULT_PORTFOLIO_DATA.hero, ...(parsed.hero || {}) },
+      socials: { ...DEFAULT_PORTFOLIO_DATA.socials, ...(parsed.socials || {}) },
+      creatorAccounts: { ...DEFAULT_PORTFOLIO_DATA.creatorAccounts, ...(parsed.creatorAccounts || {}) },
       projects: parsed.projects && parsed.projects.length > 0 ? parsed.projects : DEFAULT_PORTFOLIO_DATA.projects,
       awards: parsed.awards && parsed.awards.length > 0 ? parsed.awards : DEFAULT_PORTFOLIO_DATA.awards,
     };
