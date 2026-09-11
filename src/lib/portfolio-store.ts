@@ -305,7 +305,7 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
       id: 'data',
       category: 'SOFTWARE ENGINEERING INTERNSHIP',
       title: 'PT Digivla Indonesia — Software Engineer Intern',
-      tag: 'Software Engineer Intern',
+      tag: 'Software & Data Systems',
       period: '2024 - 2025',
       badgeColor: 'bg-blue-100 text-blue-900 border-blue-300',
       summary: 'Mengembangkan sistem deteksi koran internal perusahaan menggunakan Python, melakukan pemeliharaan fitur, serta pengujian dan validasi aplikasi internal.',
@@ -320,6 +320,46 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
       extraImages: ['/9.png', '/10.png', '/14.png'],
       link: 'https://digivla.id',
       linkLabel: 'Portal Digivla Intelligence ↗',
+    },
+    {
+      id: 'surveyku',
+      category: 'WEB APPLICATION & SYSTEMS',
+      title: 'Website SurveyKu — Academic Survey Platform',
+      tag: 'Web & Systems Development',
+      period: '2023 - 2024',
+      badgeColor: 'bg-purple-100 text-purple-900 border-purple-300',
+      summary: 'Merancang arsitektur antarmuka UI/UX dan basis data relasional untuk sistem pengumpulan kuesioner dan evaluasi kepuasan mahasiswa secara daring.',
+      challenge: 'Mempermudah distribusi kuesioner dan visualisasi data hasil survei responden secara realtime.',
+      strategy: 'Perancangan prototipe Figma berorientasi user-centric dan pemodelan relasional database terstruktur.',
+      results: [
+        'UI/UX Prototyping',
+        'Relational DB Schema',
+        'Realtime Analytics',
+      ],
+      image: '/15.png',
+      extraImages: ['/15.png', '/16.png', '/13.png'],
+      link: 'https://polinema.ac.id',
+      linkLabel: 'Detail Riset SurveyKu ↗',
+    },
+    {
+      id: 'campaign',
+      category: 'CONTENT PLANNING & META ADS',
+      title: 'Digital Marketing & Content Growth Strategy',
+      tag: 'Social Media Strategy & Ads',
+      period: '2023 - Sekarang',
+      badgeColor: 'bg-rose-100 text-rose-900 border-rose-300',
+      summary: 'Perencanaan kalender konten media sosial, produksi video pendek berdaya jangkau tinggi, serta eksekusi kampanye promosi digital terukur.',
+      challenge: 'Meningkatkan retensi penonton dan interaksi organik di tengah algoritma media sosial yang dinamis.',
+      strategy: 'Storytelling berdurasi singkat yang informatif dengan visual hooks kuat pada 3 detik pertama.',
+      results: [
+        'Editorial Calendar',
+        'Visual Hook Production',
+        'Organic Reach Surge',
+      ],
+      image: '/17.png',
+      extraImages: ['/17.png', '/1.png', '/2.png'],
+      link: 'https://instagram.com/chikalnazmi',
+      linkLabel: 'Lihat Portfolio Konten ↗',
     },
   ],
   awards: [
@@ -561,7 +601,7 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
   ],
 };
 
-const STORAGE_KEY = 'chikal_portfolio_content_v3';
+const STORAGE_KEY = 'chikal_portfolio_content_v4';
 const EVENT_NAME = 'chikal_portfolio_updated';
 
 // Helper to get portfolio data (reads localStorage on client, or defaults)

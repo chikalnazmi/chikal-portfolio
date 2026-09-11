@@ -43,7 +43,7 @@ export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Active filter/tab in Selected Works Dossier
-  const [activeDossierTab, setActiveDossierTab] = useState<'all' | 'operations' | 'growth' | 'partnership' | 'data'>('all');
+  const [activeDossierTab, setActiveDossierTab] = useState<string>('all');
 
   // Active account in Content Creator Showcase
   const [activeCreatorAccount, setActiveCreatorAccount] = useState<'personal' | 'yarnup' | 'manikarumi' | 'duasisi'>('personal');
@@ -201,6 +201,46 @@ export default function Home() {
       extraImages: ['/9.png', '/10.png', '/14.png'],
       link: 'https://digivla.id',
       linkLabel: 'Portal Digivla Intelligence ↗',
+    },
+    {
+      id: 'surveyku',
+      category: 'Web Application & Systems',
+      title: 'Website SurveyKu — Academic Survey Platform',
+      tag: 'UI/UX & Web Systems',
+      period: '2023 - 2024',
+      badgeColor: 'bg-purple-100 text-purple-900 border-purple-300',
+      summary: 'Merancang arsitektur antarmuka UI/UX dan basis data relasional untuk sistem pengumpulan kuesioner dan evaluasi kepuasan mahasiswa secara daring.',
+      challenge: 'Mempermudah distribusi kuesioner dan visualisasi data hasil survei responden secara realtime.',
+      strategy: 'Perancangan prototipe Figma berorientasi user-centric dan pemodelan relasional database terstruktur.',
+      results: [
+        'UI/UX Prototyping Figma',
+        'Relational Database Schema',
+        'Realtime Analytics & Feedback',
+      ],
+      image: '/15.png',
+      extraImages: ['/15.png', '/16.png', '/13.png'],
+      link: 'https://polinema.ac.id',
+      linkLabel: 'Detail Riset SurveyKu ↗',
+    },
+    {
+      id: 'campaign',
+      category: 'Digital Marketing & Content Strategy',
+      title: 'Creative Content Strategy & Social Campaigns',
+      tag: 'Social Media Strategy',
+      period: '2023 - Sekarang',
+      badgeColor: 'bg-rose-100 text-rose-900 border-rose-300',
+      summary: 'Perencanaan kalender konten media sosial, produksi video pendek berdaya jangkau tinggi, serta eksekusi kampanye promosi digital terukur.',
+      challenge: 'Meningkatkan retensi penonton dan interaksi organik di tengah algoritma media sosial yang dinamis.',
+      strategy: 'Storytelling berdurasi singkat yang informatif dengan visual hooks kuat pada 3 detik pertama.',
+      results: [
+        'Editorial Content Calendar',
+        'Short-Form Video Production',
+        'Organic Reach & Engagement Surge',
+      ],
+      image: '/17.png',
+      extraImages: ['/17.png', '/1.png', '/2.png'],
+      link: 'https://instagram.com/chikalnazmi',
+      linkLabel: 'Lihat Portfolio Konten ↗',
     },
   ];
 
@@ -1061,340 +1101,182 @@ export default function Home() {
       </section>
 
       {/* ========================================================================= */}
-      {/* SECTION 1: SELECTED STRATEGIC WORKS & CASE DOSSIER */}
+      {/* SECTION: MY WORK INCLUDES (Grid Portfolio Matching User Reference Layout) */}
       {/* ========================================================================= */}
       <section id="works" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-3">
-            Portfolio Dossier
+            ✦ Portfolio Dossier ✦
           </div>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-forest mb-3">
-            Selected Works & Business Cases
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-forest mb-3 tracking-tight uppercase">
+            MY WORK INCLUDES
           </h2>
           <p className="text-sm sm:text-base text-forest/75 leading-relaxed font-source">
-            Studi kasus pembuktian eksekusi nyata dari formulasi SOP operasional, peluncuran brand mandiri, hingga kemitraan komersial.
+            Inisiatif proyek strategis, manajemen operasional bisnis, visual branding, dan pengembangan sistem digital. Arahkan kursor ke kartu untuk melihat ringkasan dan klik untuk membuka dokumentasi lengkap.
           </p>
         </div>
 
-        {/* Dossier Controls: Filter Categories + Layout Mode Switcher */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-10 pb-4 border-b border-[#CAD7C5]/60">
-          {/* Category Filter Pills */}
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
-            <button
-              onClick={() => setActiveDossierTab('all')}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all ${
-                activeDossierTab === 'all'
-                  ? 'bg-rose-dark text-white shadow-sm'
-                  : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
-              }`}
-            >
-              All Initiatives (4)
-            </button>
-            <button
-              onClick={() => setActiveDossierTab('operations')}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all ${
-                activeDossierTab === 'operations'
-                  ? 'bg-rose-dark text-white shadow-sm'
-                  : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
-              }`}
-            >
-              Operations & SOP
-            </button>
-            <button
-              onClick={() => setActiveDossierTab('growth')}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all ${
-                activeDossierTab === 'growth'
-                  ? 'bg-rose-dark text-white shadow-sm'
-                  : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
-              }`}
-            >
-              Brand Growth
-            </button>
-            <button
-              onClick={() => setActiveDossierTab('partnership')}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all ${
-                activeDossierTab === 'partnership'
-                  ? 'bg-rose-dark text-white shadow-sm'
-                  : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
-              }`}
-            >
-              Event B2B
-            </button>
-            <button
-              onClick={() => setActiveDossierTab('data')}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all ${
-                activeDossierTab === 'data'
-                  ? 'bg-rose-dark text-white shadow-sm'
-                  : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
-              }`}
-            >
-              Software & Data
-            </button>
-          </div>
-
-          {/* View Mode Toggle: Compact 2-Grid vs Multi-Photo Collage Feed */}
-          <div className="flex items-center gap-1.5 bg-white/85 backdrop-blur-sm border border-[#CAD7C5] p-1 rounded-full shadow-xs">
-            <button
-              onClick={() => setExperienceViewMode('compact')}
-              className={`px-3 py-1 rounded-full text-[11px] font-semibold transition-all flex items-center gap-1.5 ${
-                experienceViewMode === 'compact'
-                  ? 'bg-forest text-[#E8EFE5] shadow-xs'
-                  : 'text-forest/70 hover:text-forest'
-              }`}
-              title="Tampilkan 2 pengalaman kerja berdampingan dalam 1 halaman"
-            >
-              <span>⊞</span>
-              <span>2-Grid Kompak (1 Halaman)</span>
-            </button>
-            <button
-              onClick={() => setExperienceViewMode('collage')}
-              className={`px-3 py-1 rounded-full text-[11px] font-semibold transition-all flex items-center gap-1.5 ${
-                experienceViewMode === 'collage'
-                  ? 'bg-forest text-[#E8EFE5] shadow-xs'
-                  : 'text-forest/70 hover:text-forest'
-              }`}
-              title="Tampilkan feed horizontal dengan kolase dokumentasi multi-foto"
-            >
-              <span>☰</span>
-              <span>Kolase Multi-Foto</span>
-            </button>
-          </div>
+        {/* Category Filter Pills */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-10 pb-4 border-b border-[#CAD7C5]/60">
+          <button
+            onClick={() => setActiveDossierTab('all')}
+            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
+              activeDossierTab === 'all'
+                ? 'bg-rose-dark text-white shadow-sm'
+                : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
+            }`}
+          >
+            All Projects ({dossierProjects.length})
+          </button>
+          <button
+            onClick={() => setActiveDossierTab('operations')}
+            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
+              activeDossierTab === 'operations'
+                ? 'bg-rose-dark text-white shadow-sm'
+                : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
+            }`}
+          >
+            Operations & SOP
+          </button>
+          <button
+            onClick={() => setActiveDossierTab('growth')}
+            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
+              activeDossierTab === 'growth'
+                ? 'bg-rose-dark text-white shadow-sm'
+                : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
+            }`}
+          >
+            Branding & E-Commerce
+          </button>
+          <button
+            onClick={() => setActiveDossierTab('partnership')}
+            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
+              activeDossierTab === 'partnership'
+                ? 'bg-rose-dark text-white shadow-sm'
+                : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
+            }`}
+          >
+            PR & Event Placement
+          </button>
+          <button
+            onClick={() => setActiveDossierTab('data')}
+            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
+              activeDossierTab === 'data'
+                ? 'bg-rose-dark text-white shadow-sm'
+                : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
+            }`}
+          >
+            Software & Data
+          </button>
+          <button
+            onClick={() => setActiveDossierTab('surveyku')}
+            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
+              activeDossierTab === 'surveyku'
+                ? 'bg-rose-dark text-white shadow-sm'
+                : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
+            }`}
+          >
+            Web Systems
+          </button>
+          <button
+            onClick={() => setActiveDossierTab('campaign')}
+            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
+              activeDossierTab === 'campaign'
+                ? 'bg-rose-dark text-white shadow-sm'
+                : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
+            }`}
+          >
+            Digital Marketing
+          </button>
         </div>
 
-        {/* =================================================================== */}
-        {/* MODE A: COMPACT 2-GRID (2 Poin Langsung dalam 1 Layar Pandangan)    */}
-        {/* =================================================================== */}
-        {experienceViewMode === 'compact' ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
-            {filteredDossier.map((project) => (
-              <div
-                key={project.id}
-                className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-3xl p-5 sm:p-6 shadow-sm hover:shadow-md hover:border-rose-dusty/50 transition-all flex flex-col justify-between group"
-              >
-                <div>
-                  {/* Card Header Info */}
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${project.badgeColor} uppercase tracking-wider`}>
-                      {project.tag}
-                    </span>
-                    <span className="text-xs text-forest/60 font-medium">
-                      {project.period}
+        {/* 3-Column Grid Matching User Reference Image */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 items-stretch">
+          {filteredDossier.map((project) => (
+            <div
+              key={project.id}
+              onClick={() => openModal(
+                project.title,
+                `${project.tag} • ${project.period}`,
+                project.summary,
+                project.extraImages && project.extraImages.length > 0 ? project.extraImages : [project.image],
+                project.link,
+                project.linkLabel
+              )}
+              className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-[2rem] p-4 sm:p-5 shadow-sm hover:shadow-xl hover:border-rose-dusty/80 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group cursor-pointer"
+            >
+              <div>
+                {/* 1. GAMBAR PROYEK (Visual Showcase Clean on Top) */}
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-forest/5 mb-4 border border-[#CAD7C5]/60 shadow-2xs">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-50 group-hover:opacity-80 transition-opacity pointer-events-none" />
+                  
+                  {/* Category Pill on Image */}
+                  <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-forest text-[9px] font-bold px-2.5 py-1 rounded-full shadow-xs uppercase tracking-wider">
+                    {project.tag}
+                  </span>
+
+                  {/* Hover Quick Prompt */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-forest/30 pointer-events-none">
+                    <span className="px-3.5 py-1.5 rounded-full bg-white/95 text-rose-dark text-xs font-bold shadow-md flex items-center gap-1.5 backdrop-blur-xs">
+                      <span>🔍 Buka Dokumentasi</span>
+                      <span>↗</span>
                     </span>
                   </div>
+                </div>
 
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-forest mb-3 group-hover:text-rose-dark transition-colors">
-                    {project.title}
-                  </h3>
+                {/* 2. JUDUL PROYEK DI BAWAHNYA (Uppercase Bold, faithful to reference screenshot) */}
+                <div className="flex items-center justify-between gap-2 mb-1.5">
+                  <span className="text-[10px] font-mono font-bold text-forest/50 uppercase tracking-wider">
+                    {project.period}
+                  </span>
+                  <span className="text-[10px] text-forest/60 font-medium">
+                    {project.extraImages?.length || 1} Foto
+                  </span>
+                </div>
 
-                  {/* Direct Multi-Photo Mini Gallery (2 Foto Dokumentasi Nyata Langsung Muncul) */}
-                  <div className="relative mb-4 overflow-hidden rounded-2xl border border-[#CAD7C5]/70 bg-[#E8EFE5]/40 p-1.5">
-                    <div className="grid grid-cols-12 gap-1.5 aspect-[16/9]">
-                      {/* Foto Utama (7 Kolom) */}
-                      <div className="col-span-7 relative overflow-hidden rounded-xl bg-forest/5">
-                        <img
-                          src={project.image}
-                          alt={project.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                        <span className="absolute bottom-1.5 left-1.5 bg-forest/80 backdrop-blur-xs text-white text-[9px] font-medium px-2 py-0.5 rounded-full">
-                          Utama
-                        </span>
-                      </div>
-                      {/* Foto Pendukung (5 Kolom) */}
-                      <div className="col-span-5 relative overflow-hidden rounded-xl bg-forest/5">
-                        <img
-                          src={project.extraImages[1] || project.image}
-                          alt={`${project.title} dokumentasi tambahan`}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                        <span className="absolute bottom-1.5 right-1.5 bg-rose-dark/85 backdrop-blur-xs text-white text-[9px] font-medium px-2 py-0.5 rounded-full">
-                          Dokumentasi
-                        </span>
-                      </div>
-                    </div>
+                <h3 className="font-serif text-base sm:text-lg font-bold text-forest uppercase tracking-wide group-hover:text-rose-dark transition-colors line-clamp-2 leading-snug">
+                  {project.title}
+                </h3>
 
-                    {/* Quick Hover Action */}
-                    <div className="absolute inset-0 bg-forest/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-                      <span className="px-3.5 py-1.5 rounded-full bg-white text-forest text-xs font-semibold shadow-md pointer-events-auto cursor-pointer"
-                        onClick={() => openModal(project.title, project.category, project.summary, project.extraImages)}
-                      >
-                        🔍 Buka Galeri Penuh ({project.extraImages.length} Foto)
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Crisp 1-Sentence Summary */}
-                  <p className="text-xs sm:text-sm text-forest/80 leading-relaxed mb-4 font-source">
+                {/* 3. PENJELASAN SINGKAT YANG MUNCUL SAAT KURSOR MENGARAH KE KARTU (HOVER REVEAL) */}
+                <div className="max-h-0 opacity-0 group-hover:max-h-36 group-hover:opacity-100 group-hover:mt-2.5 transition-all duration-400 ease-out overflow-hidden">
+                  <p className="text-xs text-forest/80 font-source leading-relaxed mb-3">
                     {project.summary}
                   </p>
-
-                  {/* Highlights / Key Focus (Clean, aesthetic tags) */}
-                  <div className="flex flex-wrap gap-2 mb-5 font-source">
-                    {project.results.map((res, rIdx) => (
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.results?.map((res, rIdx) => (
                       <span
                         key={rIdx}
-                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FAFBF8] border border-[#CAD7C5]/70 text-[11px] font-medium text-forest shadow-2xs"
+                        className="inline-flex items-center gap-1 text-[10px] font-medium px-2.5 py-0.5 rounded-full bg-[#E8EFE5] text-forest border border-[#CAD7C5]"
                       >
-                        <span className="w-1.5 h-1.5 rounded-full bg-rose-dusty shrink-0" />
+                        <span className="w-1 h-1 rounded-full bg-rose-dark" />
                         <span>{res}</span>
                       </span>
                     ))}
                   </div>
                 </div>
-
-                {/* Bottom Trigger Button & Adaptive External Link */}
-                <div className="pt-3 border-t border-[#CAD7C5]/50 flex flex-wrap items-center justify-between gap-2">
-                  <div className="flex items-center gap-3">
-                    <button
-                      onClick={() => openModal(project.title, project.category, project.summary, project.extraImages, project.link, project.linkLabel)}
-                      className="inline-flex items-center gap-1 text-xs font-bold text-rose-dark hover:text-rose-berry transition-colors cursor-pointer"
-                    >
-                      <span>Lihat Dokumentasi Proyek</span>
-                      <span>→</span>
-                    </button>
-                    {project.link && (
-                      <a
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="text-[11px] font-bold text-emerald-800 hover:text-emerald-950 underline flex items-center gap-1"
-                      >
-                        <span>🔗</span>
-                        <span>{project.linkLabel || 'Tautan ↗'}</span>
-                      </a>
-                    )}
-                  </div>
-                  <span className="text-[10px] font-medium text-forest/50">
-                    {project.extraImages.length} Bukti Foto
-                  </span>
-                </div>
               </div>
-            ))}
-          </div>
-        ) : (
-          /* =================================================================== */
-          /* MODE B: EDITORIAL MULTI-PHOTO COLLAGE FEED (Kolase Banyak Foto)     */
-          /* =================================================================== */
-          <div className="space-y-8">
-            {filteredDossier.map((project, idx) => (
-              <div
-                key={project.id}
-                className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-3xl p-6 sm:p-7 shadow-sm hover:shadow-md transition-all group"
-              >
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
-                  
-                  {/* Multi-Photo Asymmetric Collage Showcase (5 Cols) */}
-                  <div className={`lg:col-span-5 ${idx % 2 === 1 ? 'lg:order-2' : ''}`}>
-                    <div className="relative p-2 rounded-2xl border border-[#CAD7C5] bg-[#E8EFE5]/50">
-                      <div className="grid grid-cols-2 gap-2">
-                        {/* Foto 1: Besar di atas */}
-                        <div className="col-span-2 relative aspect-[16/9] rounded-xl overflow-hidden bg-forest/10">
-                          <img
-                            src={project.image}
-                            alt={project.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          />
-                          <span className="absolute bottom-2 left-2 bg-forest/85 backdrop-blur-xs text-white text-[10px] font-medium px-2.5 py-0.5 rounded-full">
-                            Dokumentasi Primer
-                          </span>
-                        </div>
-                        {/* Foto 2: Kiri bawah */}
-                        <div className="col-span-1 relative aspect-[4/3] rounded-lg overflow-hidden bg-forest/10">
-                          <img
-                            src={project.extraImages[1] || project.image}
-                            alt="Bukti SOP"
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          />
-                        </div>
-                        {/* Foto 3: Kanan bawah */}
-                        <div className="col-span-1 relative aspect-[4/3] rounded-lg overflow-hidden bg-forest/10">
-                          <img
-                            src={project.extraImages[2] || project.image}
-                            alt="Bukti Implementasi"
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          />
-                          <div
-                            onClick={() => openModal(project.title, project.category, project.summary, project.extraImages)}
-                            className="absolute inset-0 bg-forest/60 hover:bg-forest/70 transition-colors flex flex-col items-center justify-center text-white text-center p-1 cursor-pointer"
-                          >
-                            <span className="text-xs font-bold">+{project.extraImages.length}</span>
-                            <span className="text-[9px] font-medium uppercase tracking-wider">Foto Penuh</span>
-                          </div>
-                        </div>
-                      </div>
 
-                      <div className="mt-2 flex items-center gap-2">
-                        <button
-                          onClick={() => openModal(project.title, project.category, project.summary, project.extraImages, project.link, project.linkLabel)}
-                          className="grow py-1.5 rounded-xl bg-white text-forest text-xs font-bold shadow-xs hover:bg-rose-blush hover:text-rose-dark transition-colors border border-[#CAD7C5]/70 cursor-pointer"
-                        >
-                          Buka Galeri Lengkap ↗
-                        </button>
-                        {project.link && (
-                          <a
-                            href={project.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="px-3 py-1.5 rounded-xl bg-emerald-100 text-emerald-900 text-xs font-bold shadow-xs hover:bg-emerald-200 transition-colors border border-emerald-300 flex items-center gap-1 shrink-0"
-                          >
-                            <span>🔗</span>
-                            <span>{project.linkLabel || 'Tautan ↗'}</span>
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Narrative & Metrics Breakdown (7 Cols) */}
-                  <div className={`lg:col-span-7 ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
-                    <div className="flex flex-wrap items-center gap-2 mb-2">
-                      <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${project.badgeColor} uppercase tracking-wider`}>
-                        {project.tag}
-                      </span>
-                      <span className="text-xs text-forest/60 font-medium">
-                        {project.period}
-                      </span>
-                    </div>
-
-                    <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest mb-2">
-                      {project.title}
-                    </h3>
-
-                    <p className="text-xs sm:text-sm text-forest/80 leading-relaxed mb-4 font-source">
-                      {project.summary}
-                    </p>
-
-                    {/* Highlights / Key Focus (Clean, authentic tags) */}
-                    <div className="flex flex-wrap gap-2 mb-4 font-source">
-                      {project.results.map((res, rIdx) => (
-                        <span
-                          key={rIdx}
-                          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-[#CAD7C5]/70 text-xs font-medium text-forest shadow-2xs"
-                        >
-                          <span className="w-1.5 h-1.5 rounded-full bg-rose-dusty shrink-0" />
-                          <span>{res}</span>
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Action Link */}
-                    <button
-                      onClick={() => openModal(project.title, project.category, project.summary, project.extraImages, project.link, project.linkLabel)}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-rose-dark hover:text-rose-berry transition-colors cursor-pointer"
-                    >
-                      <span>Lihat Dokumentasi Proyek</span>
-                      <span>→</span>
-                    </button>
-                  </div>
-
-                </div>
+              {/* Bottom Subtle Action Trigger */}
+              <div className="pt-3 mt-3 border-t border-[#CAD7C5]/40 flex items-center justify-between text-xs text-forest/60">
+                <span className="text-[11px] font-bold text-rose-dark group-hover:underline flex items-center gap-1">
+                  <span>Klik untuk dokumentasi</span>
+                  <span className="text-xs">↗</span>
+                </span>
+                <span className="w-6 h-6 rounded-full bg-[#E8EFE5] text-forest group-hover:bg-rose-dark group-hover:text-white transition-colors flex items-center justify-center text-[10px] font-bold">
+                  →
+                </span>
               </div>
-            ))}
-          </div>
-        )}
+            </div>
+          ))}
+        </div>
 
       </section>
 
