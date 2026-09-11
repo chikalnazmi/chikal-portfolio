@@ -120,22 +120,22 @@ export default function Home() {
     setModalData(prev => ({ ...prev, isOpen: false }));
   };
 
-  // Case Studies Dossier Data (Enhanced with Multi-Photo Documentation)
+  // Case Studies Dossier Data (Authentic & Grounded)
   const defaultDossierProjects = [
     {
       id: 'operations',
-      category: 'OPERATIONAL EXCELLENCE & SCALING',
-      title: 'Dua Sisi Laundry Operations & SOP System',
-      tag: 'Business Operations',
+      category: 'Business & Operations',
+      title: 'Dua Sisi Laundry — Operasional & Sistem Kas',
+      tag: 'Operations & SOP',
       period: '2023 - 2024',
       badgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300',
-      summary: 'Perumusan Standard Operating Procedure (SOP) hulu-ke-hilir, standarisasi pengerjaan cucian, dan digitalisasi pencatatan keuangan kas harian.',
-      challenge: 'Variasi mutu pengerjaan cuci-setrika, risiko keterlambatan pengembalian, dan pencatatan kas manual rentan selisih.',
-      strategy: 'Merancang SOP 5 tahap (Sortir-Cuci-Kering-Setrika-Packing), SLA 24/48 jam, dan dashboard kas harian terpusat.',
+      summary: 'Penyusunan alur kerja operasional cuci-setrika, pendataan kas harian, dan koordinasi layanan laundry lokal.',
+      challenge: 'Perlunya alur kerja cuci-setrika yang konsisten dan pencatatan kas harian yang rapi.',
+      strategy: 'Merumuskan alur pengerjaan terstandarisasi dan pencatatan pembukuan harian.',
       results: [
-        '35% Peningkatan efisiensi rotasi cucian harian',
-        '0% Zero-complaint atas kerusakan / kehilangan',
-        '100% Pencatatan kas & bahan baku transparan',
+        'SOP pengerjaan cuci & setrika rapi',
+        'Pencatatan kas harian teratur',
+        'Pengelolaan komplain & kepuasan pelanggan',
       ],
       image: '/3.png',
       extraImages: ['/3.png', '/4.png', '/1.png'],
@@ -144,18 +144,18 @@ export default function Home() {
     },
     {
       id: 'growth',
-      category: 'ECOMMERCE & ORGANIC BRAND LAUNCH',
-      title: 'YarnUp! Studio — Handcrafted Accessories Engine',
-      tag: 'Brand Founder & Growth',
+      category: 'Brand & Social Media',
+      title: 'YarnUp! Studio — Brand Aksesoris Rajut',
+      tag: 'Handmade & Content',
       period: '2023 - Sekarang',
       badgeColor: 'bg-rose-100 text-rose-900 border-rose-300',
-      summary: 'Membangun brand aksesoris rajut handmade dari nol, validasi produk via video storytelling, dan konversi media sosial.',
-      challenge: 'Banjir produk impor murah; brand butuh diferensiasi visual kuat dan positioning emosional untuk harga premium.',
-      strategy: 'Content marketing proses pembuatan (behind-the-scenes), styling visual editorial produk, dan rilis batch terbatas.',
+      summary: 'Mengembangkan brand aksesoris rajut handmade, pembuatan katalog foto dan video konten pendek di Instagram.',
+      challenge: 'Membangun awareness produk rajut handmade lokal di media sosial.',
+      strategy: 'Membuat konten video proses pembuatan rajut dan foto katalog produk estetik.',
       results: [
-        '+2.089% Lonjakan reach Reels Instagram organik',
-        '20.02% Rasio keterlibatan (Engagement Rate)',
-        '100% Produk terjual habis pada batch 1',
+        'Desain katalog & konten produk',
+        'Pembuatan video proses rajut kreatif',
+        'Sponsorship merchandise acara kampus',
       ],
       image: '/5.png',
       extraImages: ['/5.png', '/6.png', '/2.png'],
@@ -164,18 +164,18 @@ export default function Home() {
     },
     {
       id: 'partnership',
-      category: 'B2B NEGOTIATION & EVENT ACTIVATION',
-      title: 'Manikarumi Indonesia — Retail Placement & PR',
-      tag: 'Event PR & Display',
+      category: 'Public Relations & Event',
+      title: 'Manikarumi Indonesia — PR & Event Partner',
+      tag: 'Public Relations',
       period: '2023 - 2024',
       badgeColor: 'bg-amber-100 text-amber-900 border-amber-300',
-      summary: 'Memimpin kemitraan offline dengan puluhan event organizer terkemuka di Jawa Timur dan Jakarta untuk penempatan stan display tenant.',
-      challenge: 'Biaya sewa stan tinggi; memerlukan seleksi ketat agar tenant mendapatkan traffic pengunjung relevan & ROI positif.',
-      strategy: 'Riset demografi pengunjung festival, deck sponsorship persuasif, dan display booth visual interaktif.',
+      summary: 'Membina kemitraan dengan event organizer di Malang & Jakarta untuk pengadaan stan display bazar dan promosi offline.',
+      challenge: 'Memperluas jangkauan stan offline melalui kolaborasi dengan berbagai penyelenggara acara.',
+      strategy: 'Menjalin komunikasi aktif dengan event organizer serta menata display stan produk yang menarik.',
       results: [
-        '20+ Kemitraan strategis event organizer',
-        'Ekspansi penempatan stan Malang, Surabaya, Jakarta',
-        '+40% Rata-rata foot-traffic stan per event',
+        'Koordinasi 20+ event bazar',
+        'Pengaturan display booth produk',
+        'Dukungan konten promosi TikTok & IG',
       ],
       image: '/7.png',
       extraImages: ['/7.png', '/8.png', '/12.png'],
@@ -184,18 +184,18 @@ export default function Home() {
     },
     {
       id: 'data',
-      category: 'SOFTWARE ENGINEERING & MEDIA MONITORING',
-      title: 'PT Digivla Indonesia — Automated Intelligence Pipeline',
-      tag: 'Data & Tech Strategy',
+      category: 'Software Engineer Intern',
+      title: 'PT Digivla Indonesia — Software Engineer Intern',
+      tag: 'Python & Tech Support',
       period: '2023',
       badgeColor: 'bg-blue-100 text-blue-900 border-blue-300',
-      summary: 'Mengembangkan sistem otomasi media monitoring berbasis Python untuk deteksi berita cetak dan ekstraksi data intelligence.',
-      challenge: 'Pemantauan manual koran cetak memakan waktu berjam-jam dan rentan melewatkan publikasi isu strategis klien korporat.',
-      strategy: 'Script web crawling otomatis & analisis tata letak koran digital menggunakan pustaka image processing Python.',
+      summary: 'Magang sebagai software engineer, membantu otomasi pengumpulan berita koran cetak dan pengujian sistem media intelligence.',
+      challenge: 'Membantu otomasi pemantauan berita dari koran cetak ke format digital.',
+      strategy: 'Membantu pengembangan skrip Python untuk deteksi berita dan verifikasi akurasi data.',
       results: [
-        'Otomasi puluhan surat kabar nasional per pagi',
-        '60% Mempercepat waktu agregasi berita vs manual',
-        'Penyajian data analitik presisi laporan harian',
+        'Pengembangan skrip Python pendeteksi berita',
+        'Pengecekan kualitas data berita koran',
+        'Dokumentasi dan pengujian sistem internal',
       ],
       image: '/9.png',
       extraImages: ['/9.png', '/10.png', '/14.png'],
@@ -221,7 +221,7 @@ export default function Home() {
       title: 'National Fest Business Plan Competition 2024',
       organizer: 'Fakultas Ekonomi dan Bisnis, Universitas Islam Malang',
       scope: 'Tingkat Nasional',
-      desc: 'Juara 1 dalam perancangan strategi model bisnis berkelanjutan dengan keunggulan analisis kelayakan finansial dan strategi penetrasi pasar.',
+      desc: 'Juara 1 dalam perancangan ide dan rencana bisnis mahasiswa tingkat nasional.',
       certImg: '/11.png',
       eventImg: '/12.png',
       link: 'https://unisma.ac.id',
@@ -234,7 +234,7 @@ export default function Home() {
       title: 'National Business Plan Competition (BPC) 2024',
       organizer: 'Universitas Negeri Padang',
       scope: 'Tingkat Nasional',
-      desc: 'Masuk jajaran 5 proposal bisnis terbaik nasional dari ratusan tim perguruan tinggi di seluruh Indonesia.',
+      desc: 'Masuk jajaran 5 proposal bisnis terpilih pada kompetisi tingkat nasional.',
       certImg: '/13.png',
       eventImg: '/14.png',
       link: 'https://unp.ac.id',
@@ -247,7 +247,7 @@ export default function Home() {
       title: 'Lomba Business Plan Mahasiswa 2023',
       organizer: 'Politeknik Negeri Malang',
       scope: 'Tingkat Institusi',
-      desc: 'Meraih Juara 1 melalui inovasi solusi digital bisnis terintegrasi dan validasi prototipe operasional.',
+      desc: 'Meraih Juara 1 dalam kompetisi business plan mahasiswa tingkat kampus.',
       certImg: '/15.png',
       eventImg: '/16.png',
       link: 'https://polinema.ac.id',
@@ -260,7 +260,7 @@ export default function Home() {
       title: 'National Business Plan Competition 2023',
       organizer: 'Universitas Brawijaya',
       scope: 'Tingkat Nasional',
-      desc: 'Finalis 5 Besar dalam kompetisi rencana bisnis bergengsi se-Indonesia dengan fokus pada skalabilitas usaha.',
+      desc: 'Finalis 5 besar dalam kompetisi rencana bisnis mahasiswa nasional.',
       certImg: '/17.png',
       eventImg: '/11.png',
       link: 'https://ub.ac.id',
@@ -269,11 +269,11 @@ export default function Home() {
     {
       year: '2023',
       rank: '2nd Winner',
-      rankBadge: 'bg-forest-light text-white',
+      rankBadge: 'bg-forest text-white',
       title: 'National Fest Business Plan Competition 2023',
       organizer: 'Fakultas Ekonomi dan Bisnis, Universitas Islam Malang',
       scope: 'Tingkat Nasional',
-      desc: 'Juara 2 Nasional dalam perumusan proposisi nilai produk dan strategi pemasaran multi-channel.',
+      desc: 'Juara 2 dalam perumusan ide dan strategi pemasaran produk.',
       certImg: '/12.png',
       eventImg: '/13.png',
       link: 'https://unisma.ac.id',
@@ -282,11 +282,11 @@ export default function Home() {
     {
       year: '2022',
       rank: '2nd Winner',
-      rankBadge: 'bg-forest-light text-white',
+      rankBadge: 'bg-forest text-white',
       title: 'Business Plan Competition Nasional 2022',
       organizer: 'Universitas Muhammadiyah Malang',
       scope: 'Tingkat Nasional',
-      desc: 'Juara 2 dalam perancangan ide bisnis kreatif berdaya saing tinggi.',
+      desc: 'Juara 2 dalam perancangan proposal bisnis kreatif mahasiswa.',
       certImg: '/14.png',
       eventImg: '/15.png',
       link: 'https://umm.ac.id',
@@ -295,11 +295,11 @@ export default function Home() {
     {
       year: '2022',
       rank: 'Best Speaker',
-      rankBadge: 'bg-amber-600 text-white',
-      title: 'Lomba Debat Nasional FH UNHAS 2022',
-      organizer: 'Fakultas Hukum, Universitas Hasanuddin',
+      rankBadge: 'bg-rose-dark text-white',
+      title: 'National Business Plan Competition 2022',
+      organizer: 'Universitas Negeri Surabaya',
       scope: 'Tingkat Nasional',
-      desc: 'Dinobatkan sebagai Pembicara Terbaik (Best Speaker) berkat retorika argumen terstruktur dan analisis kebijakan komprehensif.',
+      desc: 'Penghargaan Pembicara Terbaik dalam presentasi bisnis dan sesi tanya jawab.',
       certImg: '/16.png',
       eventImg: '/17.png',
       link: 'https://unesa.ac.id',
@@ -321,15 +321,15 @@ export default function Home() {
     return true;
   });
 
-  // 5 Organization Roles Data (Enhanced with Multi-Photo Documentation & Highlights)
+  // 5 Organization Roles Data (Authentic & Grounded)
   const organizationList = [
     {
       period: '2024 - Sekarang',
       role: 'Google Student Ambassador',
       institution: 'Google Developer Student Clubs (GDSC) Polinema',
       tag: 'Campus Leadership & Tech Community',
-      desc: 'Menjadi representatif resmi ekosistem Google di kampus. Memfasilitasi workshop teknologi, menghubungkan ratusan mahasiswa dengan teknologi Google, dan menyelenggarakan program inkubasi talenta digital.',
-      highlights: ['Google Ecosystem', 'Tech Workshops', 'Talenta Digital'],
+      desc: 'Representatif ekosistem Google di kampus, memfasilitasi sesi pengenalan teknologi dan kegiatan komunitas mahasiswa.',
+      highlights: ['Google Ecosystem', 'Tech Workshops', 'Komunitas Mahasiswa'],
       images: ['/11.png', '/12.png', '/10.png'],
     },
     {
@@ -337,8 +337,8 @@ export default function Home() {
       role: 'Vice Chairwoman (Wakil Ketua Himpunan)',
       institution: 'Himpunan Mahasiswa Teknologi Informasi (HMTI) Polinema',
       tag: 'Executive Governance',
-      desc: 'Membawahi 8 departemen dan puluhan staf fungsional. Mengkoordinasikan perumusan program kerja tahunan, memediasi aspirasi mahasiswa ke pimpinan jurusan, dan mengawal efektivitas anggaran organisasi.',
-      highlights: ['8 Departemen', 'Eksekutif Himpunan', 'Pengawalan Anggaran'],
+      desc: 'Membantu koordinasi lintas divisi dan mendukung kelancaran pelaksanaan program kerja mahasiswa Jurusan TI.',
+      highlights: ['Koordinasi Divisi', 'Program Kerja Mahasiswa', 'Aspirasi Mahasiswa'],
       images: ['/13.png', '/14.png', '/1.png'],
     },
     {
@@ -346,8 +346,8 @@ export default function Home() {
       role: 'Secretary of General Election',
       institution: 'Komisi Pemilihan Umum Mahasiswa Jurusan TI',
       tag: 'Administrative & Electoral Governance',
-      desc: 'Memimpin seluruh manajemen ketatausahaan, dokumentasi regulasi pemilu, dan verifikasi berkas kandidat pemilu raya pimpinan himpunan dengan transparansi dan akuntabilitas penuh.',
-      highlights: ['Regulasi Pemilu', 'Verifikasi Berkas', 'Transparansi Penuh'],
+      desc: 'Mengelola tata kelola administrasi, surat-menyurat, dan dokumentasi pada pemilihan umum raya himpunan mahasiswa.',
+      highlights: ['Administrasi Pemilu', 'Verifikasi Berkas', 'Dokumentasi Acara'],
       images: ['/15.png', '/16.png', '/3.png'],
     },
     {
@@ -355,8 +355,8 @@ export default function Home() {
       role: 'Chief Executive of New Student Orientation',
       institution: 'PKKMB Mahasiswa Baru Jurusan TI Polinema',
       tag: 'Operations & Event Leadership',
-      desc: 'Memimpin penyelenggaraan orientasi mahasiswa baru yang dihadiri lebih dari 600 peserta. Mengelola alur acara, logistik lapangan, manajemen risiko, serta kepemimpinan lintas divisi komite.',
-      highlights: ['600+ Mahasiswa', 'Manajemen Risiko', 'Logistik Lapangan'],
+      desc: 'Mengkoordinasikan kepanitiaan dalam penyelenggaraan orientasi mahasiswa baru jurusan TI.',
+      highlights: ['Koordinasi Panitia', 'Alur Acara', 'Penyambutan Mahasiswa Baru'],
       images: ['/17.png', '/11.png', '/4.png'],
     },
     {
@@ -364,8 +364,8 @@ export default function Home() {
       role: 'Store Staff & Merchandise Logistics',
       institution: 'UKM Korps Protokoler Mahasiswa (KPM) Polinema',
       tag: 'Retail & Inventory Management',
-      desc: 'Mengelola persediaan merchandise resmi protokoler, melayani transaksi penjualan seragam dan atribut, serta merekonsiliasi laporan arus kas keuangan kasir UKM.',
-      highlights: ['Merchandise Resmi', 'Penjualan Atribut', 'Rekonsiliasi Kas'],
+      desc: 'Membantu pengelolaan stok merchandise dan pencatatan transaksi kasir seragam UKM.',
+      highlights: ['Merchandise Organisasi', 'Pelayanan Transaksi', 'Pencatatan Kasir'],
       images: ['/12.png', '/13.png', '/5.png'],
     },
   ];
@@ -548,14 +548,31 @@ export default function Home() {
     },
   ];
 
-  // Skills Data (From portfolioData or defaults)
+  // Skills Data (Extract exactly 3 grounded skills per domain)
   const skillsData = (portfolioData.skills && portfolioData.skills.length > 0)
     ? portfolioData.skills
     : (DEFAULT_PORTFOLIO_DATA.skills || []);
 
-  const filteredSkills = activeSkillCategory === 'all'
-    ? skillsData
-    : skillsData.filter(cat => cat.id === activeSkillCategory || (activeSkillCategory === 'hard' && cat.type === 'hard') || (activeSkillCategory === 'soft' && cat.type === 'soft'));
+  const itSkills = skillsData.find(s => s.id === 'tech')?.skills.slice(0, 3) || [
+    'html/css fundamental',
+    'UI/UX Research',
+    'Figma Prototyping',
+  ];
+  const bizSkills = skillsData.find(s => s.id === 'business')?.skills.slice(0, 3) || [
+    'Business Model Canvas',
+    'Standard Operating Procedure (SOP)',
+    'Market Research',
+  ];
+  const creativeSkills = skillsData.find(s => s.id === 'creative')?.skills.slice(0, 3) || [
+    'Branding',
+    'CapCut & Video Editing',
+    'Content Storytelling',
+  ];
+  const personalSkills = skillsData.find(s => s.id === 'soft')?.skills.slice(0, 3) || [
+    'Proactive Problem Solving',
+    'Responsibility & High Ownership',
+    'Strategic Communication & Collaboration',
+  ];
 
   return (
     <div className="min-h-screen font-sans antialiased selection:bg-rose-blush selection:text-rose-dark relative transition-colors duration-700 bg-sage-linen text-[#212B1E]">
@@ -725,7 +742,7 @@ export default function Home() {
             <p className="text-base sm:text-lg text-forest/80 leading-relaxed font-normal max-w-xl mb-8">
               {portfolioData.hero?.bio || (
                 <>
-                  Halo, saya <span className="font-semibold text-forest">Chikal Nazmi Mahira</span>. Lulusan D4 Sistem Informasi Bisnis (Politeknik Negeri Malang) dengan spesialisasi dalam ekspansi kemitraan, formulasi SOP operasional terukur, dan pertumbuhan brand berbasis data.
+                  Halo, saya <span className="font-semibold text-forest">Chikal Nazmi Mahira</span>. Mahasiswi / Lulusan D4 Sistem Informasi Bisnis Politeknik Negeri Malang yang berfokus pada operasional bisnis, public relations, dan pembuatan konten kreatif.
                 </>
               )}
             </p>
@@ -1020,36 +1037,16 @@ export default function Home() {
                     {project.summary}
                   </p>
 
-                  {/* Compact Challenge & Strategy Pill */}
-                  <div className="grid grid-cols-2 gap-2 p-3 rounded-xl bg-[#E8EFE5]/45 border border-[#CAD7C5]/60 mb-4 text-[11px] font-source">
-                    <div>
-                      <span className="block font-bold text-forest/60 uppercase tracking-wider text-[10px] mb-0.5">
-                        🎯 Challenge
-                      </span>
-                      <p className="text-forest/85 leading-snug line-clamp-2">
-                        {project.challenge}
-                      </p>
-                    </div>
-                    <div>
-                      <span className="block font-bold text-rose-dark uppercase tracking-wider text-[10px] mb-0.5">
-                        💡 Strategic Action
-                      </span>
-                      <p className="text-forest/85 leading-snug line-clamp-2 font-medium">
-                        {project.strategy}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Key Measurable Outcomes */}
-                  <div className="space-y-1.5 mb-5 font-source">
-                    <span className="block text-[10px] font-bold uppercase tracking-wider text-forest/70">
-                      📈 Key Measurable Outcomes:
-                    </span>
+                  {/* Highlights / Key Focus (Clean, aesthetic tags) */}
+                  <div className="flex flex-wrap gap-2 mb-5 font-source">
                     {project.results.map((res, rIdx) => (
-                      <div key={rIdx} className="text-xs text-forest flex items-start gap-1.5">
-                        <span className="text-rose-dusty font-bold text-sm leading-none">✔</span>
-                        <span className="leading-snug">{res}</span>
-                      </div>
+                      <span
+                        key={rIdx}
+                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FAFBF8] border border-[#CAD7C5]/70 text-[11px] font-medium text-forest shadow-2xs"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-rose-dusty shrink-0" />
+                        <span>{res}</span>
+                      </span>
                     ))}
                   </div>
                 </div>
@@ -1061,7 +1058,7 @@ export default function Home() {
                       onClick={() => openModal(project.title, project.category, project.summary, project.extraImages, project.link, project.linkLabel)}
                       className="inline-flex items-center gap-1 text-xs font-bold text-rose-dark hover:text-rose-berry transition-colors cursor-pointer"
                     >
-                      <span>Buka Detail & SOP</span>
+                      <span>Lihat Dokumentasi Proyek</span>
                       <span>→</span>
                     </button>
                     {project.link && (
@@ -1177,47 +1174,25 @@ export default function Home() {
                       {project.summary}
                     </p>
 
-                    {/* Challenge & Strategy Matrix */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4 p-3.5 rounded-2xl bg-[#E8EFE5]/45 border border-[#CAD7C5]/70 font-source">
-                      <div>
-                        <span className="block text-[10px] font-bold uppercase tracking-wider text-forest/60 mb-0.5">
-                          🎯 The Challenge
+                    {/* Highlights / Key Focus (Clean, authentic tags) */}
+                    <div className="flex flex-wrap gap-2 mb-4 font-source">
+                      {project.results.map((res, rIdx) => (
+                        <span
+                          key={rIdx}
+                          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-[#CAD7C5]/70 text-xs font-medium text-forest shadow-2xs"
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-rose-dusty shrink-0" />
+                          <span>{res}</span>
                         </span>
-                        <p className="text-xs text-forest/80 leading-snug">
-                          {project.challenge}
-                        </p>
-                      </div>
-                      <div>
-                        <span className="block text-[10px] font-bold uppercase tracking-wider text-rose-dark mb-0.5">
-                          💡 Strategic Action
-                        </span>
-                        <p className="text-xs text-forest/80 leading-snug font-medium">
-                          {project.strategy}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Key Measurable Outcomes */}
-                    <div className="mb-4 font-source">
-                      <span className="block text-[11px] font-bold uppercase tracking-wider text-forest mb-1.5">
-                        📈 Measurable Key Outcomes:
-                      </span>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                        {project.results.map((res, rIdx) => (
-                          <div key={rIdx} className="p-2 rounded-xl bg-white border border-[#CAD7C5]/60 text-xs text-forest">
-                            <span className="text-rose-dusty font-bold mr-1">✔</span>
-                            <span className="font-medium text-[11px]">{res}</span>
-                          </div>
-                        ))}
-                      </div>
+                      ))}
                     </div>
 
                     {/* Action Link */}
                     <button
-                      onClick={() => openModal(project.title, project.category, project.summary, project.extraImages)}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-rose-dark hover:text-rose-berry transition-colors"
+                      onClick={() => openModal(project.title, project.category, project.summary, project.extraImages, project.link, project.linkLabel)}
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-rose-dark hover:text-rose-berry transition-colors cursor-pointer"
                     >
-                      <span>Lihat Dokumentasi & Detail SOP Lengkap</span>
+                      <span>Lihat Dokumentasi Proyek</span>
                       <span>→</span>
                     </button>
                   </div>
@@ -1908,204 +1883,147 @@ export default function Home() {
       </section>
 
       {/* ========================================================================= */}
-      {/* SECTION 5: CORE COMPETENCIES & MULTIDISCIPLINARY SKILLS MATRIX           */}
+      {/* SECTION 5: SKILLS SPOTLIGHT CARD (Faithful to Reference, Clean & Grounded) */}
       {/* ========================================================================= */}
-      <section id="skills" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
+      <section id="skills" className="max-w-4xl mx-auto px-4 sm:px-6 py-16 sm:py-20 border-t border-[#CAD7C5]/80">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-3">
-            ✦ Core Capabilities & Methodologies ✦
+        <div className="text-center max-w-xl mx-auto mb-10">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-2.5">
+            ✦ Core Capabilities ✦
           </div>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-forest mb-3">
-            Technical & Personal Competencies
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-forest mb-2.5">
+            Skills & Competencies
           </h2>
-          <p className="text-sm sm:text-base text-forest/75 leading-relaxed font-source">
-            Integrasi keahlian teknikal sistem informasi, formulasi strategi bisnis terukur, eksekusi konten digital kreatif, serta kepemimpinan tim.
+          <p className="text-xs sm:text-sm text-forest/75 leading-relaxed font-source">
+            Ringkasan keahlian teknis dan kemampuan kerja sama tim yang dipelajari dan diterapkan secara praktis.
           </p>
         </div>
 
-        {/* Filter Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
-          {[
-            { id: 'all', label: 'Semua Keahlian (33+)', icon: '🌟' },
-            { id: 'tech', label: 'IT & Digital Systems', icon: '💻' },
-            { id: 'business', label: 'Business & Strategic', icon: '📈' },
-            { id: 'creative', label: 'Creative & Content', icon: '🎬' },
-            { id: 'soft', label: 'Personal & Leadership', icon: '✨' },
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveSkillCategory(tab.id)}
-              className={`px-4 py-2 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                activeSkillCategory === tab.id
-                  ? 'bg-forest text-white shadow-sm scale-102'
-                  : 'bg-white/80 border border-[#CAD7C5] text-forest/80 hover:bg-[#E8EFE5] hover:border-forest/40'
-              }`}
-            >
-              <span>{tab.icon}</span>
-              <span>{tab.label}</span>
-            </button>
-          ))}
-        </div>
+        {/* The 1 Centered Aesthetic Dossier Card (Matching User's Reference Screenshot) */}
+        <div className="max-w-md mx-auto bg-gradient-to-b from-[#FCEEF1] via-[#F8E3E8] to-[#F3D7DE] border-2 border-rose-300/80 rounded-[2.5rem] p-6 sm:p-8 shadow-lg text-forest relative overflow-hidden">
+          {/* Soft decorative ambient glow */}
+          <div className="absolute -top-12 -right-12 w-36 h-36 bg-white/50 rounded-full blur-2xl pointer-events-none" />
 
-        {/* Grid: 8 cols categorized cards + 4 cols reference card aesthetic */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
-          
-          {/* LEFT: Categorized Skills Cards (8 cols) */}
-          <div className="lg:col-span-8 space-y-6">
-            {filteredSkills.map((category) => (
-              <div
-                key={category.id}
-                className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-[2rem] p-6 sm:p-7 shadow-sm hover:shadow-md transition-all group"
-              >
-                {/* Header with Icon, Subtitle, Title */}
-                <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-2xl bg-forest/5 border border-[#CAD7C5]/70 flex items-center justify-center text-xl shadow-2xs">
-                      {category.icon}
-                    </div>
-                    <div>
-                      <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border uppercase tracking-wider ${category.badgeColor}`}>
-                        {category.subtitle}
-                      </span>
-                      <h3 className="font-serif text-lg sm:text-xl font-bold text-forest mt-0.5 group-hover:text-rose-dark transition-colors">
-                        {category.title}
-                      </h3>
-                    </div>
-                  </div>
-                  <span className="text-[11px] font-mono font-bold text-forest/50 bg-[#E8EFE5] px-2.5 py-1 rounded-full">
-                    {category.skills.length} Skills
+          {/* Top Badge & Dossier Tag */}
+          <div className="flex items-center justify-between gap-2 mb-6">
+            <span className="text-[10px] font-bold px-3.5 py-1 rounded-full bg-white/90 text-rose-dark border border-rose-300 uppercase tracking-wider shadow-2xs">
+              ★ SPOTLIGHT SKILLS CARD
+            </span>
+            <span className="text-xs font-serif italic text-rose-dark/70 font-bold tracking-wider">
+              Dossier
+            </span>
+          </div>
+
+          {/* Technical Skills Header */}
+          <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest mb-4 tracking-tight">
+            Technical Skills
+          </h3>
+
+          {/* Subdivided Domains: IT, Business, Creative — Exactly 3 skills each */}
+          <div className="space-y-4 mb-6">
+            {/* IT / Tech */}
+            <div>
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-forest/60 mb-1.5 flex items-center gap-1.5">
+                <span>💻</span>
+                <span>IT & Digital Systems</span>
+              </span>
+              <div className="flex flex-wrap gap-1.5">
+                {itSkills.map((skill, sIdx) => (
+                  <span
+                    key={sIdx}
+                    className="inline-block px-3 py-1 rounded-full border border-forest/30 bg-white/80 text-[11px] font-medium text-forest shadow-2xs hover:border-forest transition-colors"
+                  >
+                    {skill}
                   </span>
-                </div>
+                ))}
+              </div>
+            </div>
 
-                {/* Description */}
-                <p className="text-xs text-forest/75 leading-relaxed font-source mb-5">
-                  {category.description}
-                </p>
+            {/* Business */}
+            <div>
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-forest/60 mb-1.5 flex items-center gap-1.5">
+                <span>📈</span>
+                <span>Business & Operations</span>
+              </span>
+              <div className="flex flex-wrap gap-1.5">
+                {bizSkills.map((skill, sIdx) => (
+                  <span
+                    key={sIdx}
+                    className="inline-block px-3 py-1 rounded-full border border-forest/30 bg-white/80 text-[11px] font-medium text-forest shadow-2xs hover:border-forest transition-colors"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
 
-                {/* Pill Badges matching user's reference */}
-                <div className="flex flex-wrap gap-2 sm:gap-2.5">
-                  {category.skills.map((skill, sIdx) => (
-                    <span
-                      key={sIdx}
-                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-forest/25 bg-[#FAFBF8] text-xs font-semibold text-forest shadow-2xs hover:border-rose-dark hover:bg-rose-blush/40 hover:text-rose-dark hover:scale-105 transition-all select-none cursor-default group/pill"
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-rose-dusty group-hover/pill:bg-rose-dark transition-colors" />
-                      <span>{skill}</span>
-                    </span>
-                  ))}
-                </div>
+            {/* Creative */}
+            <div>
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-forest/60 mb-1.5 flex items-center gap-1.5">
+                <span>🎬</span>
+                <span>Creative & Media</span>
+              </span>
+              <div className="flex flex-wrap gap-1.5">
+                {creativeSkills.map((skill, sIdx) => (
+                  <span
+                    key={sIdx}
+                    className="inline-block px-3 py-1 rounded-full border border-forest/30 bg-white/80 text-[11px] font-medium text-forest shadow-2xs hover:border-forest transition-colors"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Personal Skills Header */}
+          <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest mb-3 tracking-tight">
+            Personal Skills
+          </h3>
+
+          {/* Big Pill Marquee Badge */}
+          <div className="inline-block w-full text-center px-4 py-2 rounded-full border border-forest/30 bg-white/85 text-xs font-bold text-forest shadow-2xs mb-4">
+            Creative — Openness — Teamwork
+          </div>
+
+          {/* Bulleted Strengths (Only 3 realistic, grounded points) */}
+          <div className="space-y-2 text-xs text-forest/90 font-medium pl-1 mb-6">
+            {personalSkills.map((skill, pIdx) => (
+              <div key={pIdx} className="flex items-center gap-2.5">
+                <span className="w-2 h-2 rounded-full bg-rose-dark shrink-0" />
+                <span>{skill}</span>
               </div>
             ))}
           </div>
 
-          {/* RIGHT: Personalized Card inspired directly by User's Reference CV design (4 cols) */}
-          <div className="lg:col-span-4 bg-gradient-to-b from-[#FCECEF] via-[#F9E2E7] to-[#F2D6DD] border-2 border-rose-300/80 rounded-[2.5rem] p-6 sm:p-7 shadow-md text-forest relative overflow-hidden flex flex-col justify-between">
-            {/* Soft decorative glow */}
-            <div className="absolute -top-12 -right-12 w-32 h-32 bg-white/40 rounded-full blur-2xl pointer-events-none" />
-
-            <div>
-              {/* Card Badge */}
-              <div className="flex items-center justify-between gap-2 mb-4">
-                <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-white/80 text-rose-dark border border-rose-300 uppercase tracking-wider shadow-2xs">
-                  ★ Spotlight Skills Card
+          {/* Bottom QR & Connect Widget (Faithful to "Scan me!" tribute) */}
+          <div className="pt-3 border-t border-rose-300/60 flex items-center justify-between gap-3 bg-white/70 p-3.5 rounded-2xl border border-rose-200/90 shadow-2xs">
+            <div className="flex items-center gap-3">
+              {/* Stylized QR Box */}
+              <div className="w-11 h-11 rounded-xl bg-white p-1 border border-forest/25 shadow-2xs shrink-0 flex items-center justify-center">
+                <svg viewBox="0 0 24 24" className="w-9 h-9 text-forest" fill="currentColor">
+                  <path d="M2 2h8v8H2V2zm2 2v4h4V4H4zm10-2h8v8h-8V2zm2 2v4h4V4h-4zM2 14h8v8H2v-8zm2 2v4h4v-4H4zm14 0h4v2h-4v-2zm-4 0h2v4h-2v-4zm4 4h4v2h-4v-2zm-2-2h2v2h-2v-2zm-2 2h2v2h-2v-2zm6 0h2v2h-2v-2z" />
+                </svg>
+              </div>
+              <div>
+                <span className="text-[9px] font-mono uppercase text-forest/60 block font-bold tracking-wider">
+                  Portfolio Quick QR
                 </span>
-                <span className="text-xs font-mono text-rose-dark/70 font-bold">
-                  Dossier
+                <span className="text-xs font-bold text-forest">
+                  Chikal Nazmi
                 </span>
-              </div>
-
-              {/* Technical Skills Header (Exact styling as in user picture) */}
-              <h3 className="font-serif text-2xl font-bold text-forest mb-3 tracking-tight">
-                Technical Skills
-              </h3>
-
-              {/* Pill Badges in reference card */}
-              <div className="flex flex-wrap gap-1.5 mb-6">
-                {[
-                  'Branding',
-                  'html/css fundamental',
-                  'UX- Research',
-                  'UI- Research',
-                  'Design System',
-                  'illustrator',
-                  'Prototyping',
-                  'Usability testing',
-                ].map((s, idx) => (
-                  <span
-                    key={idx}
-                    className="inline-block px-3 py-1 rounded-full border border-forest/40 bg-white/70 text-[11px] font-semibold text-forest shadow-2xs hover:border-forest transition-colors"
-                  >
-                    {s}
-                  </span>
-                ))}
-              </div>
-
-              {/* Personal Skills Header (Exact styling as in user picture) */}
-              <h3 className="font-serif text-2xl font-bold text-forest mb-3 tracking-tight">
-                Personal Skills
-              </h3>
-
-              {/* Big Pill Marquee Badge */}
-              <div className="inline-block w-full text-center px-3.5 py-1.5 rounded-full border border-forest/40 bg-white/80 text-xs font-bold text-forest shadow-2xs mb-4">
-                Creative — Openness — Teamwork
-              </div>
-
-              {/* Bulleted Strengths */}
-              <div className="space-y-1.5 text-xs text-forest/90 font-medium pl-1 mb-6">
-                <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-rose-dark" />
-                  <span>Breakthrough Thinking</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-rose-dark" />
-                  <span>Proactive Problem Solving</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-rose-dark" />
-                  <span>Responsibility & High Ownership</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-rose-dark" />
-                  <span>Cross-Functional Collaboration</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-rose-dark" />
-                  <span>Strategic Communication</span>
-                </div>
               </div>
             </div>
 
-            {/* Bottom QR & Connect Widget (Exact tribute to user's "Scan me!" QR reference) */}
-            <div className="pt-4 border-t border-rose-300/60 flex items-center justify-between gap-3 bg-white/60 p-3.5 rounded-2xl border border-rose-200/80">
-              <div className="flex items-center gap-3">
-                {/* Stylized QR Box */}
-                <div className="w-12 h-12 rounded-xl bg-white p-1 border border-forest/30 shadow-2xs shrink-0 flex items-center justify-center">
-                  <svg viewBox="0 0 24 24" className="w-10 h-10 text-forest" fill="currentColor">
-                    <path d="M2 2h8v8H2V2zm2 2v4h4V4H4zm10-2h8v8h-8V2zm2 2v4h4V4h-4zM2 14h8v8H2v-8zm2 2v4h4v-4H4zm14 0h4v2h-4v-2zm-4 0h2v4h-2v-4zm4 4h4v2h-4v-2zm-2-2h2v2h-2v-2zm-2 2h2v2h-2v-2zm6 0h2v2h-2v-2z" />
-                  </svg>
-                </div>
-                <div>
-                  <span className="text-[10px] font-mono uppercase text-forest/60 block font-bold">
-                    Portfolio Quick QR
-                  </span>
-                  <span className="text-xs font-bold text-forest">
-                    Chikal Nazmi
-                  </span>
-                </div>
-              </div>
-
-              <a
-                href="https://wa.me/6281234567890?text=Halo%20Chikal,%20saya%20tertarik%20melihat%20portofolio%20dan%20skillset%20kamu."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-3 py-1.5 rounded-full border border-forest/40 bg-white text-[11px] font-bold text-rose-dark hover:bg-forest hover:text-white transition-all shadow-2xs shrink-0"
-              >
-                Scan me! 📱
-              </a>
-            </div>
-
+            <a
+              href="https://wa.me/6281234567890?text=Halo%20Chikal,%20saya%20tertarik%20melihat%20portofolio%20dan%20skillset%20kamu."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3.5 py-1.5 rounded-full border border-forest/30 bg-white text-[11px] font-bold text-rose-dark hover:bg-forest hover:text-white transition-all shadow-2xs shrink-0"
+            >
+              Scan me! 📱
+            </a>
           </div>
 
         </div>
