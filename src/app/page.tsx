@@ -54,6 +54,9 @@ export default function Home() {
   // Working Experience layout view mode: 'compact' (2-per-row in 1 view) or 'collage' (multi-photo collage feed)
   const [experienceViewMode, setExperienceViewMode] = useState<'compact' | 'collage'>('compact');
 
+  // Active category filter for Skills Matrix
+  const [activeSkillCategory, setActiveSkillCategory] = useState<string>('all');
+
   // Current slide index in infinite circular carousel (starts at 10 = index 0 Google Student Ambassador)
   const [currentSlideIndex, setCurrentSlideIndex] = useState(10);
   // Active photo index for each organization card
@@ -545,6 +548,15 @@ export default function Home() {
     },
   ];
 
+  // Skills Data (From portfolioData or defaults)
+  const skillsData = (portfolioData.skills && portfolioData.skills.length > 0)
+    ? portfolioData.skills
+    : (DEFAULT_PORTFOLIO_DATA.skills || []);
+
+  const filteredSkills = activeSkillCategory === 'all'
+    ? skillsData
+    : skillsData.filter(cat => cat.id === activeSkillCategory || (activeSkillCategory === 'hard' && cat.type === 'hard') || (activeSkillCategory === 'soft' && cat.type === 'soft'));
+
   return (
     <div className="min-h-screen font-sans antialiased selection:bg-rose-blush selection:text-rose-dark relative transition-colors duration-700 bg-sage-linen text-[#212B1E]">
       {/* Paper & Linen Tactile Texture Overlay (Subtle Organic Grain) */}
@@ -612,6 +624,9 @@ export default function Home() {
             <a href="#credentials" className="hover:text-rose-dark transition-colors">
               Education & Certs
             </a>
+            <a href="#skills" className="hover:text-rose-dark transition-colors">
+              Skills
+            </a>
             <a href="#creative" className="hover:text-rose-dark transition-colors">
               Creative & Content
             </a>
@@ -659,6 +674,9 @@ export default function Home() {
             </a>
             <a href="#credentials" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
               Education & Certs
+            </a>
+            <a href="#skills" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
+              Skills Matrix
             </a>
             <a href="#creative" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
               Creative & Content
@@ -1890,7 +1908,212 @@ export default function Home() {
       </section>
 
       {/* ========================================================================= */}
-      {/* SECTION 5: CREATIVE PURSUITS & CONTENT CREATOR HIGHLIGHT */}
+      {/* SECTION 5: CORE COMPETENCIES & MULTIDISCIPLINARY SKILLS MATRIX           */}
+      {/* ========================================================================= */}
+      <section id="skills" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
+        
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-3">
+            ✦ Core Capabilities & Methodologies ✦
+          </div>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-forest mb-3">
+            Technical & Personal Competencies
+          </h2>
+          <p className="text-sm sm:text-base text-forest/75 leading-relaxed font-source">
+            Integrasi keahlian teknikal sistem informasi, formulasi strategi bisnis terukur, eksekusi konten digital kreatif, serta kepemimpinan tim.
+          </p>
+        </div>
+
+        {/* Filter Pills */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
+          {[
+            { id: 'all', label: 'Semua Keahlian (33+)', icon: '🌟' },
+            { id: 'tech', label: 'IT & Digital Systems', icon: '💻' },
+            { id: 'business', label: 'Business & Strategic', icon: '📈' },
+            { id: 'creative', label: 'Creative & Content', icon: '🎬' },
+            { id: 'soft', label: 'Personal & Leadership', icon: '✨' },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveSkillCategory(tab.id)}
+              className={`px-4 py-2 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                activeSkillCategory === tab.id
+                  ? 'bg-forest text-white shadow-sm scale-102'
+                  : 'bg-white/80 border border-[#CAD7C5] text-forest/80 hover:bg-[#E8EFE5] hover:border-forest/40'
+              }`}
+            >
+              <span>{tab.icon}</span>
+              <span>{tab.label}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Grid: 8 cols categorized cards + 4 cols reference card aesthetic */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+          
+          {/* LEFT: Categorized Skills Cards (8 cols) */}
+          <div className="lg:col-span-8 space-y-6">
+            {filteredSkills.map((category) => (
+              <div
+                key={category.id}
+                className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-[2rem] p-6 sm:p-7 shadow-sm hover:shadow-md transition-all group"
+              >
+                {/* Header with Icon, Subtitle, Title */}
+                <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-2xl bg-forest/5 border border-[#CAD7C5]/70 flex items-center justify-center text-xl shadow-2xs">
+                      {category.icon}
+                    </div>
+                    <div>
+                      <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border uppercase tracking-wider ${category.badgeColor}`}>
+                        {category.subtitle}
+                      </span>
+                      <h3 className="font-serif text-lg sm:text-xl font-bold text-forest mt-0.5 group-hover:text-rose-dark transition-colors">
+                        {category.title}
+                      </h3>
+                    </div>
+                  </div>
+                  <span className="text-[11px] font-mono font-bold text-forest/50 bg-[#E8EFE5] px-2.5 py-1 rounded-full">
+                    {category.skills.length} Skills
+                  </span>
+                </div>
+
+                {/* Description */}
+                <p className="text-xs text-forest/75 leading-relaxed font-source mb-5">
+                  {category.description}
+                </p>
+
+                {/* Pill Badges matching user's reference */}
+                <div className="flex flex-wrap gap-2 sm:gap-2.5">
+                  {category.skills.map((skill, sIdx) => (
+                    <span
+                      key={sIdx}
+                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-forest/25 bg-[#FAFBF8] text-xs font-semibold text-forest shadow-2xs hover:border-rose-dark hover:bg-rose-blush/40 hover:text-rose-dark hover:scale-105 transition-all select-none cursor-default group/pill"
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-rose-dusty group-hover/pill:bg-rose-dark transition-colors" />
+                      <span>{skill}</span>
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* RIGHT: Personalized Card inspired directly by User's Reference CV design (4 cols) */}
+          <div className="lg:col-span-4 bg-gradient-to-b from-[#FCECEF] via-[#F9E2E7] to-[#F2D6DD] border-2 border-rose-300/80 rounded-[2.5rem] p-6 sm:p-7 shadow-md text-forest relative overflow-hidden flex flex-col justify-between">
+            {/* Soft decorative glow */}
+            <div className="absolute -top-12 -right-12 w-32 h-32 bg-white/40 rounded-full blur-2xl pointer-events-none" />
+
+            <div>
+              {/* Card Badge */}
+              <div className="flex items-center justify-between gap-2 mb-4">
+                <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-white/80 text-rose-dark border border-rose-300 uppercase tracking-wider shadow-2xs">
+                  ★ Spotlight Skills Card
+                </span>
+                <span className="text-xs font-mono text-rose-dark/70 font-bold">
+                  Dossier
+                </span>
+              </div>
+
+              {/* Technical Skills Header (Exact styling as in user picture) */}
+              <h3 className="font-serif text-2xl font-bold text-forest mb-3 tracking-tight">
+                Technical Skills
+              </h3>
+
+              {/* Pill Badges in reference card */}
+              <div className="flex flex-wrap gap-1.5 mb-6">
+                {[
+                  'Branding',
+                  'html/css fundamental',
+                  'UX- Research',
+                  'UI- Research',
+                  'Design System',
+                  'illustrator',
+                  'Prototyping',
+                  'Usability testing',
+                ].map((s, idx) => (
+                  <span
+                    key={idx}
+                    className="inline-block px-3 py-1 rounded-full border border-forest/40 bg-white/70 text-[11px] font-semibold text-forest shadow-2xs hover:border-forest transition-colors"
+                  >
+                    {s}
+                  </span>
+                ))}
+              </div>
+
+              {/* Personal Skills Header (Exact styling as in user picture) */}
+              <h3 className="font-serif text-2xl font-bold text-forest mb-3 tracking-tight">
+                Personal Skills
+              </h3>
+
+              {/* Big Pill Marquee Badge */}
+              <div className="inline-block w-full text-center px-3.5 py-1.5 rounded-full border border-forest/40 bg-white/80 text-xs font-bold text-forest shadow-2xs mb-4">
+                Creative — Openness — Teamwork
+              </div>
+
+              {/* Bulleted Strengths */}
+              <div className="space-y-1.5 text-xs text-forest/90 font-medium pl-1 mb-6">
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-rose-dark" />
+                  <span>Breakthrough Thinking</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-rose-dark" />
+                  <span>Proactive Problem Solving</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-rose-dark" />
+                  <span>Responsibility & High Ownership</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-rose-dark" />
+                  <span>Cross-Functional Collaboration</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-rose-dark" />
+                  <span>Strategic Communication</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom QR & Connect Widget (Exact tribute to user's "Scan me!" QR reference) */}
+            <div className="pt-4 border-t border-rose-300/60 flex items-center justify-between gap-3 bg-white/60 p-3.5 rounded-2xl border border-rose-200/80">
+              <div className="flex items-center gap-3">
+                {/* Stylized QR Box */}
+                <div className="w-12 h-12 rounded-xl bg-white p-1 border border-forest/30 shadow-2xs shrink-0 flex items-center justify-center">
+                  <svg viewBox="0 0 24 24" className="w-10 h-10 text-forest" fill="currentColor">
+                    <path d="M2 2h8v8H2V2zm2 2v4h4V4H4zm10-2h8v8h-8V2zm2 2v4h4V4h-4zM2 14h8v8H2v-8zm2 2v4h4v-4H4zm14 0h4v2h-4v-2zm-4 0h2v4h-2v-4zm4 4h4v2h-4v-2zm-2-2h2v2h-2v-2zm-2 2h2v2h-2v-2zm6 0h2v2h-2v-2z" />
+                  </svg>
+                </div>
+                <div>
+                  <span className="text-[10px] font-mono uppercase text-forest/60 block font-bold">
+                    Portfolio Quick QR
+                  </span>
+                  <span className="text-xs font-bold text-forest">
+                    Chikal Nazmi
+                  </span>
+                </div>
+              </div>
+
+              <a
+                href="https://wa.me/6281234567890?text=Halo%20Chikal,%20saya%20tertarik%20melihat%20portofolio%20dan%20skillset%20kamu."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 py-1.5 rounded-full border border-forest/40 bg-white text-[11px] font-bold text-rose-dark hover:bg-forest hover:text-white transition-all shadow-2xs shrink-0"
+              >
+                Scan me! 📱
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* ========================================================================= */}
+      {/* SECTION 6: CREATIVE PURSUITS & CONTENT CREATOR HIGHLIGHT */}
       {/* ========================================================================= */}
       <section id="creative" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
         

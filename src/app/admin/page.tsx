@@ -15,11 +15,13 @@ export default function AdminPortal() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [pinInput, setPinInput] = useState('');
   const [pinError, setPinError] = useState(false);
-  const [activeTab, setActiveTab] = useState<'hero' | 'projects' | 'awards' | 'creator' | 'socials' | 'photoguide' | 'supabase'>('hero');
+  const [activeTab, setActiveTab] = useState<'hero' | 'projects' | 'awards' | 'skills' | 'creator' | 'socials' | 'photoguide' | 'supabase'>('hero');
   const [data, setData] = useState<PortfolioData>(DEFAULT_PORTFOLIO_DATA);
   const [activeCreatorKey, setActiveCreatorKey] = useState<string>('personal');
   const [activeProjectIdx, setActiveProjectIdx] = useState<number>(0);
   const [activeAwardIdx, setActiveAwardIdx] = useState<number>(0);
+  const [activeSkillIdx, setActiveSkillIdx] = useState<number>(0);
+  const [newSkillInput, setNewSkillInput] = useState<string>('');
   const [saveSuccessToast, setSaveSuccessToast] = useState(false);
 
   // Secret PIN (Default: chikal2026)
@@ -225,6 +227,16 @@ export default function AdminPortal() {
             }`}
           >
             🏆 Kejuaraan & Sertifikat
+          </button>
+          <button
+            onClick={() => setActiveTab('skills')}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+              activeTab === 'skills'
+                ? 'bg-forest text-white shadow-sm'
+                : 'text-forest/70 hover:bg-[#E8EFE5]'
+            }`}
+          >
+            ⚡ Keahlian (Skills)
           </button>
           <button
             onClick={() => setActiveTab('creator')}
@@ -888,6 +900,179 @@ export default function AdminPortal() {
                     className="px-6 py-2.5 rounded-full bg-forest text-white text-xs font-bold hover:bg-rose-dark transition-colors shadow-sm cursor-pointer"
                   >
                     Simpan Perubahan Kejuaraan 💾
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ================================================================= */}
+        {/* TAB: KEAHLIAN & KOMPETENSI (HARD SKILLS & SOFT SKILLS)            */}
+        {/* ================================================================= */}
+        {activeTab === 'skills' && (
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#CAD7C5] shadow-xs space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <h2 className="font-serif text-xl font-bold text-forest">
+                  Pengaturan Keahlian (Hard Skills & Soft Skills)
+                </h2>
+                <p className="text-xs text-forest/70 mt-1">
+                  Kelola daftar keahlian berdasarkan kategori: IT & Digital Systems, Bisnis & Manajemen Strategis, Konten Kreator, dan Personal Mastery.
+                </p>
+              </div>
+
+              <span className="text-xs font-mono bg-[#E8EFE5] text-forest font-bold px-3 py-1.5 rounded-full border border-[#CAD7C5]">
+                {data.skills?.reduce((acc, cat) => acc + cat.skills.length, 0) || 0} Total Skills
+              </span>
+            </div>
+
+            {/* Category Selector Tabs */}
+            <div className="flex flex-wrap gap-2 border-b border-[#CAD7C5]/70 pb-4">
+              {data.skills?.map((cat, idx) => (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveSkillIdx(idx)}
+                  className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 ${
+                    activeSkillIdx === idx
+                      ? 'bg-rose-dark text-white shadow-xs'
+                      : 'bg-[#E8EFE5] text-forest/80 hover:bg-[#CAD7C5]'
+                  }`}
+                >
+                  <span>{cat.icon}</span>
+                  <span>{cat.title.split('&')[0].trim()}</span>
+                  <span className="text-[10px] opacity-75">({cat.skills.length})</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Active Category Skills Editor */}
+            {data.skills && data.skills[activeSkillIdx] && (
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="md:col-span-2">
+                    <label className="block text-xs font-bold text-forest mb-1">Nama Kategori Keahlian:</label>
+                    <input
+                      type="text"
+                      value={data.skills[activeSkillIdx].title}
+                      onChange={(e) => {
+                        const updated = [...(data.skills || [])];
+                        updated[activeSkillIdx].title = e.target.value;
+                        setData({ ...data, skills: updated });
+                      }}
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-serif font-bold text-forest"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-forest mb-1">Tipe / Subtitle:</label>
+                    <input
+                      type="text"
+                      value={data.skills[activeSkillIdx].subtitle}
+                      onChange={(e) => {
+                        const updated = [...(data.skills || [])];
+                        updated[activeSkillIdx].subtitle = e.target.value;
+                        setData({ ...data, skills: updated });
+                      }}
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-forest mb-1">Deskripsi Ringkas Kategori:</label>
+                  <textarea
+                    rows={2}
+                    value={data.skills[activeSkillIdx].description}
+                    onChange={(e) => {
+                      const updated = [...(data.skills || [])];
+                      updated[activeSkillIdx].description = e.target.value;
+                      setData({ ...data, skills: updated });
+                    }}
+                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs leading-relaxed"
+                  />
+                </div>
+
+                {/* Pill Badges Management Area */}
+                <div className="p-5 rounded-2xl bg-[#E8EFE5]/40 border border-[#CAD7C5] space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                      <h4 className="font-serif font-bold text-sm text-forest">
+                        🏷️ Daftar Pill Badge Keahlian ({data.skills[activeSkillIdx].skills.length})
+                      </h4>
+                      <p className="text-[11px] text-forest/70">
+                        Klik tombol tanda silang ✕ pada pill untuk menghapus, atau gunakan formulir di bawah untuk menambah skill baru.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Badges List with Remove button */}
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    {data.skills[activeSkillIdx].skills.map((skill, sIdx) => (
+                      <span
+                        key={sIdx}
+                        className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-forest/30 bg-white text-xs font-semibold text-forest shadow-2xs hover:border-rose-dark transition-all"
+                      >
+                        <span>{skill}</span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const updated = [...(data.skills || [])];
+                            updated[activeSkillIdx].skills = updated[activeSkillIdx].skills.filter((_, i) => i !== sIdx);
+                            setData({ ...data, skills: updated });
+                          }}
+                          className="w-4 h-4 rounded-full bg-rose-blush text-rose-dark hover:bg-rose-dark hover:text-white flex items-center justify-center text-[10px] font-bold transition-colors cursor-pointer"
+                          title="Hapus skill ini"
+                        >
+                          ✕
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Add New Skill Input */}
+                  <div className="pt-3 border-t border-[#CAD7C5]/60 flex items-center gap-2">
+                    <input
+                      type="text"
+                      value={newSkillInput}
+                      onChange={(e) => setNewSkillInput(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          if (newSkillInput.trim()) {
+                            const updated = [...(data.skills || [])];
+                            updated[activeSkillIdx].skills = [...updated[activeSkillIdx].skills, newSkillInput.trim()];
+                            setData({ ...data, skills: updated });
+                            setNewSkillInput('');
+                          }
+                        }
+                      }}
+                      placeholder="Ketik nama skill baru lalu tekan Enter / klik Tambah..."
+                      className="flex-1 px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-medium text-forest shadow-inner"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (newSkillInput.trim()) {
+                          const updated = [...(data.skills || [])];
+                          updated[activeSkillIdx].skills = [...updated[activeSkillIdx].skills, newSkillInput.trim()];
+                          setData({ ...data, skills: updated });
+                          setNewSkillInput('');
+                        }
+                      }}
+                      className="px-4 py-2 rounded-xl bg-forest hover:bg-rose-dark text-white text-xs font-bold transition-all shadow-xs shrink-0 cursor-pointer"
+                    >
+                      + Tambah Skill
+                    </button>
+                  </div>
+                </div>
+
+                <div className="pt-2 flex justify-end">
+                  <button
+                    onClick={handleSave}
+                    className="px-6 py-2.5 rounded-full bg-forest text-white text-xs font-bold hover:bg-rose-dark transition-colors shadow-sm cursor-pointer"
+                  >
+                    Simpan Perubahan Keahlian 💾
                   </button>
                 </div>
               </div>

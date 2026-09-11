@@ -80,12 +80,24 @@ export interface HeroContent {
   stat4Label: string;
 }
 
+export interface SkillCategory {
+  id: string;
+  title: string;
+  subtitle: string;
+  type: 'hard' | 'soft';
+  icon: string;
+  badgeColor: string;
+  skills: string[];
+  description: string;
+}
+
 export interface PortfolioData {
   hero: HeroContent;
   socials: SocialLinks;
   creatorAccounts: Record<string, CreatorAccount>;
   projects: ProjectDoc[];
   awards: AwardItem[];
+  skills?: SkillCategory[];
 }
 
 export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
@@ -374,6 +386,85 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
       linkLabel: 'Dokumentasi Unesa ↗',
     },
   ],
+  skills: [
+    {
+      id: 'tech',
+      title: 'IT & Digital Systems',
+      subtitle: 'Technical Hard Skills',
+      type: 'hard',
+      icon: '💻',
+      badgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300',
+      description: 'Perancangan arsitektur sistem informasi, riset pengguna interaktif, wireframing, dan dasar rekayasa web (D4 SIB & Google Student Ambassador).',
+      skills: [
+        'UI/UX Research',
+        'html/css fundamental',
+        'Design System',
+        'Figma Prototyping',
+        'Usability Testing',
+        'BPMN (Process Modeling)',
+        'Relational Database (SQL)',
+        'System Analysis & Wireframing',
+        'Git & Version Control',
+      ],
+    },
+    {
+      id: 'business',
+      title: 'Business & Strategic Management',
+      subtitle: 'Commercial Hard Skills',
+      type: 'hard',
+      icon: '📈',
+      badgeColor: 'bg-amber-100 text-amber-900 border-amber-300',
+      description: 'Formulasi strategi pertumbuhan usaha, perancangan SOP operasional hulu-ke-hilir, audit kas harian, dan ekspansi kemitraan bisnis.',
+      skills: [
+        'Business Model Canvas (BMC)',
+        'Standard Operating Procedure (SOP)',
+        'Financial Feasibility Analysis',
+        'Market Penetration Strategy',
+        'Cash Flow & Operational Audit',
+        'Competitor Benchmarking',
+        'Project Management',
+        'B2B Partnership Expansion',
+      ],
+    },
+    {
+      id: 'creative',
+      title: 'Creative & Content Production',
+      subtitle: 'Creative Hard Skills',
+      type: 'hard',
+      icon: '🎬',
+      badgeColor: 'bg-rose-100 text-rose-900 border-rose-300',
+      description: 'Produksi media visual, storytelling video pendek viral lintas platform (Reels & TikTok), copywriting persuasif, serta kurasi pameran retail.',
+      skills: [
+        'Branding & Visual Identity',
+        'Adobe Illustrator',
+        'Short-Form Video (Reels & TikTok)',
+        'Content Strategy & Copywriting',
+        'CapCut & Video Editing',
+        'Visual Merchandising',
+        'Social Media Organic Growth',
+        'Audience Engagement Analysis',
+      ],
+    },
+    {
+      id: 'soft',
+      title: 'Personal Mastery & Leadership',
+      subtitle: 'Core Soft Skills',
+      type: 'soft',
+      icon: '✨',
+      badgeColor: 'bg-purple-100 text-purple-900 border-purple-300',
+      description: 'Kecakapan kepemimpinan tata kelola ratusan mahasiswa, retorika debat nasional, serta pemecahan masalah proaktif dan adaptif.',
+      skills: [
+        'Creative - Openness - Teamwork',
+        'Breakthrough Thinking',
+        'Proactive Problem Solving',
+        'High Responsibility & Ownership',
+        'Cross-Functional Collaboration',
+        'Strategic Public Speaking & Debating',
+        'Executive Governance & Leadership',
+        'Fast Adaptability & Continuous Learning',
+      ],
+    },
+  ],
 };
 
 const STORAGE_KEY = 'chikal_portfolio_content_v1';
@@ -392,6 +483,7 @@ export function getPortfolioData(): PortfolioData {
       creatorAccounts: { ...DEFAULT_PORTFOLIO_DATA.creatorAccounts, ...(parsed.creatorAccounts || {}) },
       projects: parsed.projects && parsed.projects.length > 0 ? parsed.projects : DEFAULT_PORTFOLIO_DATA.projects,
       awards: parsed.awards && parsed.awards.length > 0 ? parsed.awards : DEFAULT_PORTFOLIO_DATA.awards,
+      skills: parsed.skills && parsed.skills.length > 0 ? parsed.skills : DEFAULT_PORTFOLIO_DATA.skills,
     };
   } catch {
     return DEFAULT_PORTFOLIO_DATA;
