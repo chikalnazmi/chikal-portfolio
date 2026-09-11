@@ -15,12 +15,13 @@ export default function AdminPortal() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [pinInput, setPinInput] = useState('');
   const [pinError, setPinError] = useState(false);
-  const [activeTab, setActiveTab] = useState<'hero' | 'projects' | 'awards' | 'skills' | 'creator' | 'socials' | 'photoguide' | 'supabase'>('hero');
+  const [activeTab, setActiveTab] = useState<'hero' | 'education' | 'projects' | 'awards' | 'skills' | 'creator' | 'socials' | 'photoguide' | 'supabase'>('hero');
   const [data, setData] = useState<PortfolioData>(DEFAULT_PORTFOLIO_DATA);
   const [activeCreatorKey, setActiveCreatorKey] = useState<string>('personal');
   const [activeProjectIdx, setActiveProjectIdx] = useState<number>(0);
   const [activeAwardIdx, setActiveAwardIdx] = useState<number>(0);
   const [activeSkillIdx, setActiveSkillIdx] = useState<number>(0);
+  const [activeCertIdx, setActiveCertIdx] = useState<number>(0);
   const [newSkillInput, setNewSkillInput] = useState<string>('');
   const [saveSuccessToast, setSaveSuccessToast] = useState(false);
 
@@ -207,6 +208,16 @@ export default function AdminPortal() {
             }`}
           >
             🏠 Profil & Teks Utama
+          </button>
+          <button
+            onClick={() => setActiveTab('education')}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+              activeTab === 'education'
+                ? 'bg-forest text-white shadow-sm'
+                : 'text-forest/70 hover:bg-[#E8EFE5]'
+            }`}
+          >
+            🎓 Pendidikan & Sertifikasi
           </button>
           <button
             onClick={() => setActiveTab('projects')}
@@ -476,6 +487,480 @@ export default function AdminPortal() {
         )}
 
         {/* ================================================================= */}
+        {/* TAB: PENDIDIKAN FORMAL (ACADEMIC) & SERTIFIKASI PROFESIONAL        */}
+        {/* ================================================================= */}
+        {activeTab === 'education' && (
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#CAD7C5] shadow-xs space-y-8">
+            <div>
+              <h2 className="font-serif text-xl font-bold text-forest">
+                Pengaturan Pendidikan Formal (D4 SIB) & Sertifikasi Profesional
+              </h2>
+              <p className="text-xs text-forest/70 mt-1">
+                Ubah gelar sarjana, institusi, IPK, skor tes TOEIC, berkas ijazah resmi, serta daftar sertifikat kursus profesional industri.
+              </p>
+            </div>
+
+            {/* SECTION A: FORMAL ACADEMIC DEGREE */}
+            <div className="p-6 rounded-2xl bg-gradient-to-br from-[#E8EFE5]/40 to-white border border-[#CAD7C5] space-y-5">
+              <div className="flex items-center justify-between border-b border-[#CAD7C5]/70 pb-3">
+                <div className="flex items-center gap-2">
+                  <span className="text-xl">🎓</span>
+                  <h3 className="font-serif font-bold text-base text-forest">
+                    1. Latar Belakang Akademik Formal (Degree Card)
+                  </h3>
+                </div>
+                <span className="text-xs font-mono bg-white text-forest px-3 py-1 rounded-full border border-[#CAD7C5] font-bold">
+                  Ditampilkan di Beranda Sebelah Spotlight Skills
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="md:col-span-2">
+                  <label className="block text-xs font-bold text-forest mb-1">Nama Gelar Akademik:</label>
+                  <input
+                    type="text"
+                    value={data.academic?.degree || ''}
+                    onChange={(e) => setData({
+                      ...data,
+                      academic: {
+                        ...(data.academic || DEFAULT_PORTFOLIO_DATA.academic!),
+                        degree: e.target.value
+                      }
+                    })}
+                    placeholder="Sarjana Terapan Sistem Informasi Bisnis (D4 SIB)"
+                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-serif font-bold text-forest"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-forest mb-1">Periode Studi:</label>
+                  <input
+                    type="text"
+                    value={data.academic?.period || ''}
+                    onChange={(e) => setData({
+                      ...data,
+                      academic: {
+                        ...(data.academic || DEFAULT_PORTFOLIO_DATA.academic!),
+                        period: e.target.value
+                      }
+                    })}
+                    placeholder="2020 – 2024"
+                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-mono"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="md:col-span-2">
+                  <label className="block text-xs font-bold text-forest mb-1">Jurusan & Institusi Kampus:</label>
+                  <input
+                    type="text"
+                    value={data.academic?.institution || ''}
+                    onChange={(e) => setData({
+                      ...data,
+                      academic: {
+                        ...(data.academic || DEFAULT_PORTFOLIO_DATA.academic!),
+                        institution: e.target.value
+                      }
+                    })}
+                    placeholder="Jurusan Teknologi Informasi — Politeknik Negeri Malang"
+                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-forest mb-1">Label Badge Atas:</label>
+                  <input
+                    type="text"
+                    value={data.academic?.badge || ''}
+                    onChange={(e) => setData({
+                      ...data,
+                      academic: {
+                        ...(data.academic || DEFAULT_PORTFOLIO_DATA.academic!),
+                        badge: e.target.value
+                      }
+                    })}
+                    placeholder="🎓 FORMAL DEGREE"
+                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-bold text-rose-dark"
+                  />
+                </div>
+              </div>
+
+              {/* Standing & TOEIC Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="p-4 rounded-xl bg-white border border-[#CAD7C5]/80 space-y-2">
+                  <label className="block text-[11px] font-bold text-forest uppercase tracking-wider">
+                    🌟 Prestasi Akademik (GPA):
+                  </label>
+                  <input
+                    type="text"
+                    value={data.academic?.gpaTitle || ''}
+                    onChange={(e) => setData({
+                      ...data,
+                      academic: {
+                        ...(data.academic || DEFAULT_PORTFOLIO_DATA.academic!),
+                        gpaTitle: e.target.value
+                      }
+                    })}
+                    placeholder="ACADEMIC STANDING"
+                    className="w-full px-3 py-1.5 rounded-lg bg-[#E8EFE5]/30 border border-[#CAD7C5] text-[11px] uppercase font-bold text-forest/70"
+                  />
+                  <input
+                    type="text"
+                    value={data.academic?.gpaValue || ''}
+                    onChange={(e) => setData({
+                      ...data,
+                      academic: {
+                        ...(data.academic || DEFAULT_PORTFOLIO_DATA.academic!),
+                        gpaValue: e.target.value
+                      }
+                    })}
+                    placeholder="IPK Memuaskan / Cum Laude Honor"
+                    className="w-full px-3 py-1.5 rounded-lg bg-white border border-[#CAD7C5] text-xs font-bold text-forest"
+                  />
+                </div>
+
+                <div className="p-4 rounded-xl bg-white border border-[#CAD7C5]/80 space-y-2">
+                  <label className="block text-[11px] font-bold text-rose-dark uppercase tracking-wider">
+                    🌐 Kemahiran Bahasa Internasional (TOEIC):
+                  </label>
+                  <div className="grid grid-cols-2 gap-2">
+                    <input
+                      type="text"
+                      value={data.academic?.toeicScore || ''}
+                      onChange={(e) => setData({
+                        ...data,
+                        academic: {
+                          ...(data.academic || DEFAULT_PORTFOLIO_DATA.academic!),
+                          toeicScore: e.target.value
+                        }
+                      })}
+                      placeholder="Skor: 775"
+                      className="w-full px-3 py-1.5 rounded-lg bg-white border border-[#CAD7C5] text-xs font-extrabold text-rose-dark"
+                    />
+                    <input
+                      type="text"
+                      value={data.academic?.toeicLevel || ''}
+                      onChange={(e) => setData({
+                        ...data,
+                        academic: {
+                          ...(data.academic || DEFAULT_PORTFOLIO_DATA.academic!),
+                          toeicLevel: e.target.value
+                        }
+                      })}
+                      placeholder="Working Proficiency"
+                      className="w-full px-3 py-1.5 rounded-lg bg-white border border-[#CAD7C5] text-xs font-bold text-forest"
+                    />
+                  </div>
+                  <input
+                    type="text"
+                    value={data.academic?.toeicTitle || ''}
+                    onChange={(e) => setData({
+                      ...data,
+                      academic: {
+                        ...(data.academic || DEFAULT_PORTFOLIO_DATA.academic!),
+                        toeicTitle: e.target.value
+                      }
+                    })}
+                    placeholder="GLOBAL ENGLISH PROFICIENCY"
+                    className="w-full px-3 py-1.5 rounded-lg bg-[#E8EFE5]/30 border border-[#CAD7C5] text-[11px] uppercase font-bold text-forest/70"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-forest mb-1">Deskripsi Ringkasan Keilmuan:</label>
+                <textarea
+                  rows={3}
+                  value={data.academic?.description || ''}
+                  onChange={(e) => setData({
+                    ...data,
+                    academic: {
+                      ...(data.academic || DEFAULT_PORTFOLIO_DATA.academic!),
+                      description: e.target.value
+                    }
+                  })}
+                  className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs leading-relaxed"
+                />
+              </div>
+
+              {/* Academic Certificate Images (Ijazah / Transkrip / TOEIC) */}
+              <div className="pt-2">
+                <label className="block text-xs font-bold text-forest mb-3">
+                  📄 Berkas Dokumen Kelulusan & TOEIC (Dibuka Saat Tombol Diklik):
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <ImageUploadField
+                    label="Dokumen 1 (Ijazah Resmi):"
+                    value={data.academic?.images?.[0] || '/11.png'}
+                    onChange={(newUrl) => {
+                      const updatedImages = [...(data.academic?.images || ['/11.png', '/12.png', '/16.png'])];
+                      updatedImages[0] = newUrl;
+                      setData({
+                        ...data,
+                        academic: {
+                          ...(data.academic || DEFAULT_PORTFOLIO_DATA.academic!),
+                          images: updatedImages
+                        }
+                      });
+                    }}
+                    aspectRatio="certificate"
+                    helperText="Scan Ijazah Resmi D4 SIB"
+                  />
+                  <ImageUploadField
+                    label="Dokumen 2 (Sertifikat TOEIC 775):"
+                    value={data.academic?.images?.[1] || '/12.png'}
+                    onChange={(newUrl) => {
+                      const updatedImages = [...(data.academic?.images || ['/11.png', '/12.png', '/16.png'])];
+                      updatedImages[1] = newUrl;
+                      setData({
+                        ...data,
+                        academic: {
+                          ...(data.academic || DEFAULT_PORTFOLIO_DATA.academic!),
+                          images: updatedImages
+                        }
+                      });
+                    }}
+                    aspectRatio="certificate"
+                    helperText="Sertifikat Resmi Skor TOEIC"
+                  />
+                  <ImageUploadField
+                    label="Dokumen 3 (Transkrip / Pendukung):"
+                    value={data.academic?.images?.[2] || '/16.png'}
+                    onChange={(newUrl) => {
+                      const updatedImages = [...(data.academic?.images || ['/11.png', '/12.png', '/16.png'])];
+                      updatedImages[2] = newUrl;
+                      setData({
+                        ...data,
+                        academic: {
+                          ...(data.academic || DEFAULT_PORTFOLIO_DATA.academic!),
+                          images: updatedImages
+                        }
+                      });
+                    }}
+                    aspectRatio="certificate"
+                    helperText="Transkrip Nilai / Dokumen Lain"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* SECTION B: PROFESSIONAL CERTIFICATIONS LIST */}
+            <div className="p-6 rounded-2xl bg-[#E8EFE5]/30 border border-[#CAD7C5] space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#CAD7C5]/70 pb-3">
+                <div className="flex items-center gap-2">
+                  <span className="text-xl">📜</span>
+                  <div>
+                    <h3 className="font-serif font-bold text-base text-forest">
+                      2. Daftar Sertifikasi Pelatihan Profesional ({data.certifications?.length || 0})
+                    </h3>
+                    <p className="text-[11px] text-forest/70">
+                      Tersaji dalam format kartu memanjang tanpa perlu digeser di section &quot;Professional Courses &amp; Accreditations&quot;.
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    const currentCerts = data.certifications || DEFAULT_PORTFOLIO_DATA.certifications || [];
+                    const newCert = {
+                      id: 'cert-' + Date.now(),
+                      title: 'Sertifikasi Baru',
+                      issuer: 'Lembaga Penerbit',
+                      year: '2024',
+                      tag: 'Bidang Keahlian',
+                      badgeColor: 'bg-rose-blush/80 text-rose-dark border-rose-dusty/40',
+                      image: '/11.png',
+                      desc: 'Deskripsi kompetensi dan materi yang dipelajari dalam pelatihan ini.',
+                      link: ''
+                    };
+                    const updated = [...currentCerts, newCert];
+                    setData({ ...data, certifications: updated });
+                    setActiveCertIdx(updated.length - 1);
+                  }}
+                  className="px-4 py-1.5 rounded-full text-xs font-bold bg-rose-dark text-white hover:bg-rose-berry transition-colors shadow-2xs shrink-0 cursor-pointer"
+                >
+                  ➕ Tambah Sertifikat Baru
+                </button>
+              </div>
+
+              {/* Certification Tabs */}
+              <div className="flex flex-wrap gap-2">
+                {(data.certifications || DEFAULT_PORTFOLIO_DATA.certifications || []).map((c, cIdx) => (
+                  <button
+                    key={cIdx}
+                    onClick={() => setActiveCertIdx(cIdx)}
+                    className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+                      activeCertIdx === cIdx
+                        ? 'bg-rose-dark text-white shadow-xs'
+                        : 'bg-white text-forest/80 border border-[#CAD7C5] hover:bg-[#CAD7C5]'
+                    }`}
+                  >
+                    {c.issuer} ({c.year})
+                  </button>
+                ))}
+              </div>
+
+              {/* Active Certification Editor */}
+              {(() => {
+                const certs = data.certifications || DEFAULT_PORTFOLIO_DATA.certifications || [];
+                const currentCert = certs[activeCertIdx];
+                if (!currentCert) return null;
+
+                return (
+                  <div className="p-5 rounded-2xl bg-white border border-[#CAD7C5] space-y-4 shadow-2xs">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                      <div className="md:col-span-2">
+                        <label className="block text-xs font-bold text-forest mb-1">Judul Sertifikasi / Pelatihan:</label>
+                        <input
+                          type="text"
+                          value={currentCert.title}
+                          onChange={(e) => {
+                            const updated = [...certs];
+                            updated[activeCertIdx] = { ...currentCert, title: e.target.value };
+                            setData({ ...data, certifications: updated });
+                          }}
+                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-serif font-bold text-forest"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-forest mb-1">Lembaga Penerbit (Issuer):</label>
+                        <input
+                          type="text"
+                          value={currentCert.issuer}
+                          onChange={(e) => {
+                            const updated = [...certs];
+                            updated[activeCertIdx] = { ...currentCert, issuer: e.target.value };
+                            setData({ ...data, certifications: updated });
+                          }}
+                          placeholder="RevoU, MySkill, ETS, dll"
+                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-bold text-forest"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-forest mb-1">Tahun Penerbitan:</label>
+                        <input
+                          type="text"
+                          value={currentCert.year}
+                          onChange={(e) => {
+                            const updated = [...certs];
+                            updated[activeCertIdx] = { ...currentCert, year: e.target.value };
+                            setData({ ...data, certifications: updated });
+                          }}
+                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-mono"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div>
+                        <label className="block text-xs font-bold text-forest mb-1">Tag Kategori Bidang:</label>
+                        <input
+                          type="text"
+                          value={currentCert.tag}
+                          onChange={(e) => {
+                            const updated = [...certs];
+                            updated[activeCertIdx] = { ...currentCert, tag: e.target.value };
+                            setData({ ...data, certifications: updated });
+                          }}
+                          placeholder="Digital Marketing, UI/UX, dll"
+                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                        />
+                      </div>
+
+                      <div className="md:col-span-2">
+                        <label className="block text-xs font-bold text-forest mb-1">🔗 Link Kredensial Online (Opsional):</label>
+                        <input
+                          type="text"
+                          value={currentCert.link || ''}
+                          onChange={(e) => {
+                            const updated = [...certs];
+                            updated[activeCertIdx] = { ...currentCert, link: e.target.value };
+                            setData({ ...data, certifications: updated });
+                          }}
+                          placeholder="https://..."
+                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-mono"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-forest mb-1">Deskripsi Kompetensi:</label>
+                      <textarea
+                        rows={2}
+                        value={currentCert.desc}
+                        onChange={(e) => {
+                          const updated = [...certs];
+                          updated[activeCertIdx] = { ...currentCert, desc: e.target.value };
+                          setData({ ...data, certifications: updated });
+                        }}
+                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs leading-relaxed"
+                      />
+                    </div>
+
+                    {/* Image Upload for Certificate */}
+                    <div className="pt-2">
+                      <ImageUploadField
+                        label="Foto / Scan Sertifikat Resmi:"
+                        value={currentCert.image}
+                        onChange={(newUrl) => {
+                          const updated = [...certs];
+                          updated[activeCertIdx] = { ...currentCert, image: newUrl };
+                          setData({ ...data, certifications: updated });
+                        }}
+                        aspectRatio="certificate"
+                        helperText="Upload gambar sertifikat resmi (rasio 4:3 atau 16:9)"
+                      />
+                    </div>
+
+                    <div className="pt-3 border-t border-[#CAD7C5]/50 flex items-center justify-between">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (certs.length <= 1) {
+                            alert('Minimal harus ada 1 sertifikat.');
+                            return;
+                          }
+                          if (window.confirm(`Hapus sertifikat "${currentCert.title}"?`)) {
+                            const updated = certs.filter((_, i) => i !== activeCertIdx);
+                            setData({ ...data, certifications: updated });
+                            setActiveCertIdx(0);
+                          }
+                        }}
+                        className="px-3 py-1.5 rounded-lg text-xs font-medium text-rose-600 hover:bg-rose-50 transition-colors"
+                      >
+                        🗑️ Hapus Sertifikat Ini
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={handleSave}
+                        className="px-5 py-2 rounded-full bg-forest text-white text-xs font-bold hover:bg-rose-dark transition-colors shadow-xs cursor-pointer"
+                      >
+                        Simpan Sertifikat Ini 💾
+                      </button>
+                    </div>
+                  </div>
+                );
+              })()}
+            </div>
+
+            <div className="pt-4 flex justify-end">
+              <button
+                onClick={handleSave}
+                className="px-8 py-3 rounded-full bg-forest text-white text-xs font-bold hover:bg-rose-dark transition-colors shadow-md cursor-pointer flex items-center gap-2"
+              >
+                <span>Simpan Semua Data Pendidikan & Sertifikasi</span>
+                <span>💾</span>
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ================================================================= */}
         {/* TAB 2: PROYEK KERJA (SELECTED WORKS) — TEKS & BUKTI FOTO           */}
         {/* ================================================================= */}
         {activeTab === 'projects' && (
@@ -631,7 +1116,7 @@ export default function AdminPortal() {
 
                 {/* Results List */}
                 <div>
-                  <label className="block text-xs font-bold text-forest mb-1">3 Metrik Hasil Capaian (Results):</label>
+                  <label className="block text-xs font-bold text-forest mb-1">🏷️ 3 Tag Sorotan / Capaian Proyek (Pill Highlights):</label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     {data.projects[activeProjectIdx].results.map((res, rIdx) => (
                       <input

@@ -91,13 +91,42 @@ export interface SkillCategory {
   description: string;
 }
 
+export interface AcademicDegree {
+  badge: string;
+  period: string;
+  degree: string;
+  institution: string;
+  gpaTitle: string;
+  gpaValue: string;
+  toeicTitle: string;
+  toeicScore: string;
+  toeicLevel: string;
+  description: string;
+  images: string[];
+}
+
+export interface CertificationItem {
+  id: string;
+  title: string;
+  issuer: string;
+  year: string;
+  tag: string;
+  badgeColor?: string;
+  image: string;
+  desc: string;
+  link?: string;
+  linkLabel?: string;
+}
+
 export interface PortfolioData {
   hero: HeroContent;
+  academic?: AcademicDegree;
   socials: SocialLinks;
   creatorAccounts: Record<string, CreatorAccount>;
   projects: ProjectDoc[];
   awards: AwardItem[];
   skills?: SkillCategory[];
+  certifications?: CertificationItem[];
 }
 
 export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
@@ -386,6 +415,19 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
       linkLabel: 'Dokumentasi Unesa ↗',
     },
   ],
+  academic: {
+    badge: '🎓 Formal Degree',
+    period: '2020 – 2024',
+    degree: 'Sarjana Terapan Sistem Informasi Bisnis (D4 SIB)',
+    institution: 'Jurusan Teknologi Informasi — Politeknik Negeri Malang',
+    gpaTitle: 'Academic Standing',
+    gpaValue: 'IPK Memuaskan / Cum Laude Honor',
+    toeicTitle: 'Global English Proficiency',
+    toeicScore: '775',
+    toeicLevel: 'Working Proficiency',
+    description: 'Mengombinasikan tata kelola proses bisnis hulu-ke-hilir, pemodelan data relasional, serta strategi penetrasi pasar dengan kemampuan komunikasi bahasa Inggris standar multinasional.',
+    images: ['/11.png', '/12.png', '/16.png'],
+  },
   skills: [
     {
       id: 'tech',
@@ -394,11 +436,14 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
       type: 'hard',
       icon: '💻',
       badgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300',
-      description: 'Keahlian dasar sistem informasi dan desain antarmuka pengguna.',
+      description: 'Keahlian sistem informasi, riset pengguna, dan perancangan prototipe antarmuka digital.',
       skills: [
         'html/css fundamental',
         'UI/UX Research',
         'Figma Prototyping',
+        'Design System',
+        'Usability Testing',
+        'Database Management',
       ],
     },
     {
@@ -408,11 +453,14 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
       type: 'hard',
       icon: '📈',
       badgeColor: 'bg-amber-100 text-amber-900 border-amber-300',
-      description: 'Penyusunan alur operasional dan pemodelan bisnis dasar.',
+      description: 'Penyusunan alur operasional, riset pasar, dan kelayakan pemodelan bisnis.',
       skills: [
         'Business Model Canvas',
         'Standard Operating Procedure (SOP)',
         'Market Research',
+        'Financial Feasibility',
+        'Inventory & Cash Reconciliation',
+        'B2B Partnership Strategy',
       ],
     },
     {
@@ -422,11 +470,14 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
       type: 'hard',
       icon: '🎬',
       badgeColor: 'bg-rose-100 text-rose-900 border-rose-300',
-      description: 'Pembuatan konten visual dan editing video media sosial.',
+      description: 'Pembuatan konten visual, video pendek media sosial, dan penceritaan brand.',
       skills: [
         'Branding',
         'CapCut & Video Editing',
         'Content Storytelling',
+        'Social Media Strategy',
+        'Visual Layout Design',
+        'Product Photography Direction',
       ],
     },
     {
@@ -441,12 +492,76 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
         'Creative & Collaborative',
         'Proactive Problem Solving',
         'Strategic Communication',
+        'Responsibility & High Ownership',
+        'Cross-Functional Collaboration',
       ],
+    },
+  ],
+  certifications: [
+    {
+      id: 'revou-dm',
+      title: 'Intro to Digital Marketing',
+      issuer: 'RevoU',
+      year: '2024',
+      tag: 'Marketing Strategy',
+      badgeColor: 'bg-rose-100 text-rose-800 border-rose-200',
+      image: '/13.png',
+      desc: 'Sertifikasi intensif perumusan digital marketing framework, strategi social media ads, riset target audiens, dan optimasi conversion funnel.',
+      link: 'https://revou.co',
+      linkLabel: 'Verifikasi RevoU ↗',
+    },
+    {
+      id: 'myskill-da',
+      title: 'Data Analysis Fundamental',
+      issuer: 'MySkill',
+      year: '2024',
+      tag: 'Business Analytics',
+      badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200',
+      image: '/9.png',
+      desc: 'Pondasi analisis data bisnis, statistik deskriptif, visualisasi grafik data interaktif, dan penarikan insight untuk pengambilan keputusan strategis.',
+      link: 'https://myskill.id',
+      linkLabel: 'Verifikasi MySkill ↗',
+    },
+    {
+      id: 'myskill-campaign',
+      title: 'Creating Marketing Campaign',
+      issuer: 'MySkill',
+      year: '2024',
+      tag: 'Brand Campaign',
+      badgeColor: 'bg-amber-100 text-amber-800 border-amber-200',
+      image: '/7.png',
+      desc: 'Perancangan pesan kampanye kreatif, copywriting terstruktur, pemilihan kanal distribusi konten, serta pengukuran KPI reach dan konversi.',
+      link: 'https://myskill.id',
+      linkLabel: 'Verifikasi MySkill ↗',
+    },
+    {
+      id: 'myskill-excel',
+      title: 'VLOOKUP & HLOOKUP Mastery',
+      issuer: 'MySkill',
+      year: '2023',
+      tag: 'Spreadsheet Modeling',
+      badgeColor: 'bg-blue-100 text-blue-800 border-blue-200',
+      image: '/15.png',
+      desc: 'Teknik pengolahan dan rekonsiliasi data kompleks skala besar menggunakan fungsi pencarian tabel dan formula lookup tingkat lanjut Microsoft Excel.',
+      link: 'https://myskill.id',
+      linkLabel: 'Verifikasi MySkill ↗',
+    },
+    {
+      id: 'toeic-ets',
+      title: 'Official TOEIC Certification (Score 775)',
+      issuer: 'ETS / ITC Indonesia',
+      year: '2024',
+      tag: 'English Proficiency',
+      badgeColor: 'bg-purple-100 text-purple-800 border-purple-200',
+      image: '/16.png',
+      desc: 'Sertifikasi kemahiran bahasa Inggris internasional dengan skor resmi 775 (Professional Working Proficiency) untuk komunikasi bisnis global.',
+      link: 'https://itc-indonesia.com',
+      linkLabel: 'Sertifikat Resmi TOEIC ↗',
     },
   ],
 };
 
-const STORAGE_KEY = 'chikal_portfolio_content_v2';
+const STORAGE_KEY = 'chikal_portfolio_content_v3';
 const EVENT_NAME = 'chikal_portfolio_updated';
 
 // Helper to get portfolio data (reads localStorage on client, or defaults)
@@ -458,11 +573,13 @@ export function getPortfolioData(): PortfolioData {
     const parsed = JSON.parse(raw);
     return {
       hero: { ...DEFAULT_PORTFOLIO_DATA.hero, ...(parsed.hero || {}) },
+      academic: parsed.academic || DEFAULT_PORTFOLIO_DATA.academic,
       socials: { ...DEFAULT_PORTFOLIO_DATA.socials, ...(parsed.socials || {}) },
       creatorAccounts: { ...DEFAULT_PORTFOLIO_DATA.creatorAccounts, ...(parsed.creatorAccounts || {}) },
       projects: parsed.projects && parsed.projects.length > 0 ? parsed.projects : DEFAULT_PORTFOLIO_DATA.projects,
       awards: parsed.awards && parsed.awards.length > 0 ? parsed.awards : DEFAULT_PORTFOLIO_DATA.awards,
       skills: parsed.skills && parsed.skills.length > 0 ? parsed.skills : DEFAULT_PORTFOLIO_DATA.skills,
+      certifications: parsed.certifications && parsed.certifications.length > 0 ? parsed.certifications : DEFAULT_PORTFOLIO_DATA.certifications,
     };
   } catch {
     return DEFAULT_PORTFOLIO_DATA;

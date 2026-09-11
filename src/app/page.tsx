@@ -370,54 +370,13 @@ export default function Home() {
     },
   ];
 
-  // Academic & Certified Professional Courses Data (MySkill, RevoU, TOEIC)
-  const certificationList = [
-    {
-      title: 'Intro to Digital Marketing',
-      issuer: 'RevoU',
-      year: '2024',
-      tag: 'Marketing Strategy',
-      badgeColor: 'bg-rose-100 text-rose-800 border-rose-200',
-      image: '/13.png',
-      desc: 'Sertifikasi intensif perumusan digital marketing framework, strategi social media ads, riset target audiens, dan optimasi conversion funnel.',
-    },
-    {
-      title: 'Data Analysis Fundamental',
-      issuer: 'MySkill',
-      year: '2024',
-      tag: 'Business Analytics',
-      badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200',
-      image: '/9.png',
-      desc: 'Pondasi analisis data bisnis, statistik deskriptif, visualisasi grafik data interaktif, dan penarikan insight untuk pengambilan keputusan strategis.',
-    },
-    {
-      title: 'Creating Marketing Campaign',
-      issuer: 'MySkill',
-      year: '2024',
-      tag: 'Brand Campaign',
-      badgeColor: 'bg-amber-100 text-amber-800 border-amber-200',
-      image: '/7.png',
-      desc: 'Perancangan pesan kampanye kreatif, copywriting terstruktur, pemilihan kanal distribusi konten, serta pengukuran KPI reach dan konversi.',
-    },
-    {
-      title: 'VLOOKUP & HLOOKUP Mastery',
-      issuer: 'MySkill',
-      year: '2023',
-      tag: 'Spreadsheet Modeling',
-      badgeColor: 'bg-blue-100 text-blue-800 border-blue-200',
-      image: '/15.png',
-      desc: 'Teknik pengolahan dan rekonsiliasi data kompleks skala besar menggunakan fungsi pencarian tabel dan formula lookup tingkat lanjut Microsoft Excel.',
-    },
-    {
-      title: 'Official TOEIC Certification (Score 775)',
-      issuer: 'ETS / ITC Indonesia',
-      year: '2024',
-      tag: 'English Proficiency',
-      badgeColor: 'bg-purple-100 text-purple-800 border-purple-200',
-      image: '/16.png',
-      desc: 'Sertifikasi kemahiran bahasa Inggris internasional dengan skor resmi 775 (Professional Working Proficiency) untuk komunikasi bisnis global.',
-    },
-  ];
+  // Academic & Formal Degree Data (synced with admin / store)
+  const academicData = portfolioData.academic || DEFAULT_PORTFOLIO_DATA.academic!;
+
+  // Academic & Certified Professional Courses Data (synced with admin / store)
+  const certificationList = (portfolioData.certifications && portfolioData.certifications.length > 0)
+    ? portfolioData.certifications
+    : (DEFAULT_PORTFOLIO_DATA.certifications || []);
 
   // Content Creator Multi-Account Data (Instagram & TikTok)
   const creatorAccounts = portfolioData.creatorAccounts || {
@@ -548,30 +507,37 @@ export default function Home() {
     },
   ];
 
-  // Skills Data (Extract exactly 3 grounded skills per domain)
+  // Skills Data (Dynamic from store / admin without arbitrary slicing)
   const skillsData = (portfolioData.skills && portfolioData.skills.length > 0)
     ? portfolioData.skills
     : (DEFAULT_PORTFOLIO_DATA.skills || []);
 
-  const itSkills = skillsData.find(s => s.id === 'tech')?.skills.slice(0, 3) || [
+  const itSkills = skillsData.find(s => s.id === 'tech')?.skills || [
     'html/css fundamental',
     'UI/UX Research',
     'Figma Prototyping',
+    'Design System',
+    'Usability Testing',
   ];
-  const bizSkills = skillsData.find(s => s.id === 'business')?.skills.slice(0, 3) || [
+  const bizSkills = skillsData.find(s => s.id === 'business')?.skills || [
     'Business Model Canvas',
     'Standard Operating Procedure (SOP)',
     'Market Research',
+    'Financial Feasibility',
+    'Inventory & Cash Reconciliation',
   ];
-  const creativeSkills = skillsData.find(s => s.id === 'creative')?.skills.slice(0, 3) || [
+  const creativeSkills = skillsData.find(s => s.id === 'creative')?.skills || [
     'Branding',
     'CapCut & Video Editing',
     'Content Storytelling',
+    'Social Media Strategy',
+    'Visual Layout Design',
   ];
-  const personalSkills = skillsData.find(s => s.id === 'soft')?.skills.slice(0, 3) || [
+  const personalSkills = skillsData.find(s => s.id === 'soft')?.skills || [
+    'Creative & Collaborative',
     'Proactive Problem Solving',
+    'Strategic Communication',
     'Responsibility & High Ownership',
-    'Strategic Communication & Collaboration',
   ];
 
   return (
@@ -629,6 +595,9 @@ export default function Home() {
 
           {/* Desktop Nav Links */}
           <div className="hidden md:flex items-center gap-6 text-xs font-semibold tracking-wider uppercase text-forest/80">
+            <a href="#academy-skills" className="hover:text-rose-dark transition-colors">
+              Academy & Skills
+            </a>
             <a href="#works" className="hover:text-rose-dark transition-colors">
               Selected Works
             </a>
@@ -638,11 +607,8 @@ export default function Home() {
             <a href="#leadership" className="hover:text-rose-dark transition-colors">
               Leadership
             </a>
-            <a href="#credentials" className="hover:text-rose-dark transition-colors">
-              Education & Certs
-            </a>
-            <a href="#skills" className="hover:text-rose-dark transition-colors">
-              Skills
+            <a href="#certifications" className="hover:text-rose-dark transition-colors">
+              Certifications
             </a>
             <a href="#creative" className="hover:text-rose-dark transition-colors">
               Creative & Content
@@ -680,6 +646,9 @@ export default function Home() {
         {/* Mobile Dropdown */}
         {mobileMenuOpen && (
           <div className="md:hidden mt-2 bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-2xl p-4 shadow-lg flex flex-col gap-3 text-sm font-medium text-forest">
+            <a href="#academy-skills" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
+              Academy & Skills
+            </a>
             <a href="#works" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
               Selected Works
             </a>
@@ -689,11 +658,8 @@ export default function Home() {
             <a href="#leadership" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
               Leadership
             </a>
-            <a href="#credentials" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
-              Education & Certs
-            </a>
-            <a href="#skills" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
-              Skills Matrix
+            <a href="#certifications" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
+              Certifications
             </a>
             <a href="#creative" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
               Creative & Content
@@ -868,9 +834,236 @@ export default function Home() {
       </div>
 
       {/* ========================================================================= */}
+      {/* SECTION: ACADEMIC BACKGROUND & SPOTLIGHT SKILLS CARD (Paired Side-by-Side) */}
+      {/* ========================================================================= */}
+      <section id="academy-skills" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
+        
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-2.5">
+            ✦ Foundations & Capabilities ✦
+          </div>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-forest mb-2.5">
+            Academic Background & Core Skills
+          </h2>
+          <p className="text-xs sm:text-sm text-forest/75 leading-relaxed font-source">
+            Kombinasi latar belakang pendidikan formal sistem informasi bisnis dan keahlian praktis lintas disiplin yang teruji.
+          </p>
+        </div>
+
+        {/* 2-Column Responsive Grid: Formal Degree on Left, Spotlight Skills on Right */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+          
+          {/* LEFT: Formal Academic & Language Anchor Card (Matching Screenshot 2) */}
+          <div className="lg:col-span-5 bg-gradient-to-br from-white via-white/95 to-[#E8EFE5]/60 border border-[#CAD7C5] rounded-[2.5rem] p-6 sm:p-8 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+            <div>
+              {/* Header Badge */}
+              <div className="flex items-center justify-between gap-2 mb-4">
+                <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-rose-blush/80 text-rose-dark border border-rose-dusty/40 uppercase tracking-wider shadow-2xs">
+                  {academicData.badge || '🎓 FORMAL DEGREE'}
+                </span>
+                <span className="text-xs font-mono font-bold text-forest/60">
+                  {academicData.period || '2020 – 2024'}
+                </span>
+              </div>
+
+              {/* Title & Institution */}
+              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest mb-1.5 group-hover:text-rose-dark transition-colors tracking-tight">
+                {academicData.degree}
+              </h3>
+              <h4 className="text-xs font-subheader text-forest/70 uppercase tracking-wide mb-6">
+                {academicData.institution}
+              </h4>
+
+              {/* Key Credentials Badges (IPK & TOEIC Score 775) */}
+              <div className="space-y-3 mb-6">
+                <div className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-white border border-[#CAD7C5]/70 shadow-2xs">
+                  <div className="w-10 h-10 rounded-xl bg-forest text-[#E8EFE5] flex items-center justify-center text-base font-bold shrink-0">
+                    🌟
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-forest/60 block">
+                      {academicData.gpaTitle || 'ACADEMIC STANDING'}
+                    </span>
+                    <span className="text-xs sm:text-sm font-bold text-forest">
+                      {academicData.gpaValue || 'IPK Memuaskan / Cum Laude Honor'}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-white border border-[#CAD7C5]/70 shadow-2xs">
+                  <div className="w-10 h-10 rounded-xl bg-rose-dark text-white flex items-center justify-center text-base font-bold shrink-0">
+                    🌐
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-rose-dark block">
+                      {academicData.toeicTitle || 'GLOBAL ENGLISH PROFICIENCY'}
+                    </span>
+                    <span className="text-xs sm:text-sm font-bold text-forest">
+                      Official TOEIC Score: <span className="text-rose-dark font-extrabold">{academicData.toeicScore || '775'}</span> ({academicData.toeicLevel || 'Working Proficiency'})
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Focus Summary */}
+              <p className="text-xs sm:text-sm text-forest/80 leading-relaxed font-source mb-6">
+                {academicData.description}
+              </p>
+            </div>
+
+            {/* Action Trigger */}
+            <button
+              onClick={() => openModal(
+                academicData.degree,
+                `${academicData.institution} (${academicData.period})`,
+                academicData.description,
+                academicData.images && academicData.images.length > 0 ? academicData.images : ['/11.png', '/12.png', '/16.png']
+              )}
+              className="w-full py-3 rounded-full bg-forest text-[#E8EFE5] hover:bg-rose-dark text-xs font-bold shadow-xs hover:shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer mt-2"
+            >
+              <span>Buka Dokumen Kelulusan & TOEIC</span>
+              <span>↗</span>
+            </button>
+          </div>
+
+          {/* RIGHT: The 1 Centered Aesthetic Spotlight Skills Card (Matching Screenshot 1) */}
+          <div className="lg:col-span-7 bg-gradient-to-b from-[#FCEEF1] via-[#F8E3E8] to-[#F3D7DE] border-2 border-rose-300/80 rounded-[2.5rem] p-6 sm:p-8 shadow-md text-forest relative overflow-hidden flex flex-col justify-between">
+            {/* Soft decorative ambient glow */}
+            <div className="absolute -top-12 -right-12 w-36 h-36 bg-white/50 rounded-full blur-2xl pointer-events-none" />
+
+            <div>
+              {/* Top Badge & Dossier Tag */}
+              <div className="flex items-center justify-between gap-2 mb-6">
+                <span className="text-[10px] font-bold px-3.5 py-1 rounded-full bg-white/90 text-rose-dark border border-rose-300 uppercase tracking-wider shadow-2xs">
+                  ★ SPOTLIGHT SKILLS CARD
+                </span>
+                <span className="text-xs font-serif italic text-rose-dark/70 font-bold tracking-wider">
+                  Dossier
+                </span>
+              </div>
+
+              {/* Technical Skills Header */}
+              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest mb-4 tracking-tight">
+                Technical Skills
+              </h3>
+
+              {/* Subdivided Domains: IT, Business, Creative — Fully dynamic from store! */}
+              <div className="space-y-4 mb-6">
+                {/* IT / Tech */}
+                <div>
+                  <span className="block text-[10px] font-bold uppercase tracking-wider text-forest/60 mb-1.5 flex items-center gap-1.5">
+                    <span>💻</span>
+                    <span>IT & Digital Systems</span>
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {itSkills.map((skill, sIdx) => (
+                      <span
+                        key={sIdx}
+                        className="inline-block px-3 py-1 rounded-full border border-forest/30 bg-white/80 text-[11px] font-medium text-forest shadow-2xs hover:border-forest transition-colors"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Business */}
+                <div>
+                  <span className="block text-[10px] font-bold uppercase tracking-wider text-forest/60 mb-1.5 flex items-center gap-1.5">
+                    <span>📈</span>
+                    <span>Business & Operations</span>
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {bizSkills.map((skill, sIdx) => (
+                      <span
+                        key={sIdx}
+                        className="inline-block px-3 py-1 rounded-full border border-forest/30 bg-white/80 text-[11px] font-medium text-forest shadow-2xs hover:border-forest transition-colors"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Creative */}
+                <div>
+                  <span className="block text-[10px] font-bold uppercase tracking-wider text-forest/60 mb-1.5 flex items-center gap-1.5">
+                    <span>🎬</span>
+                    <span>Creative & Media</span>
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {creativeSkills.map((skill, sIdx) => (
+                      <span
+                        key={sIdx}
+                        className="inline-block px-3 py-1 rounded-full border border-forest/30 bg-white/80 text-[11px] font-medium text-forest shadow-2xs hover:border-forest transition-colors"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Personal Skills Header */}
+              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest mb-3 tracking-tight">
+                Personal Skills
+              </h3>
+
+              {/* Big Pill Marquee Badge */}
+              <div className="inline-block w-full text-center px-4 py-2 rounded-full border border-forest/30 bg-white/85 text-xs font-bold text-forest shadow-2xs mb-4">
+                Creative — Openness — Teamwork
+              </div>
+
+              {/* Bulleted Strengths */}
+              <div className="space-y-2 text-xs text-forest/90 font-medium pl-1 mb-6">
+                {personalSkills.map((skill, pIdx) => (
+                  <div key={pIdx} className="flex items-center gap-2.5">
+                    <span className="w-2 h-2 rounded-full bg-rose-dark shrink-0" />
+                    <span>{skill}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Bottom QR & Connect Widget */}
+            <div className="pt-3 border-t border-rose-300/60 flex items-center justify-between gap-3 bg-white/70 p-3.5 rounded-2xl border border-rose-200/90 shadow-2xs">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-xl bg-white p-1 border border-forest/25 shadow-2xs shrink-0 flex items-center justify-center">
+                  <svg viewBox="0 0 24 24" className="w-9 h-9 text-forest" fill="currentColor">
+                    <path d="M2 2h8v8H2V2zm2 2v4h4V4H4zm10-2h8v8h-8V2zm2 2v4h4V4h-4zM2 14h8v8H2v-8zm2 2v4h4v-4H4zm14 0h4v2h-4v-2zm-4 0h2v4h-2v-4zm4 4h4v2h-4v-2zm-2-2h2v2h-2v-2zm-2 2h2v2h-2v-2zm6 0h2v2h-2v-2z" />
+                  </svg>
+                </div>
+                <div>
+                  <span className="text-[9px] font-mono uppercase text-forest/60 block font-bold tracking-wider">
+                    Portfolio Quick QR
+                  </span>
+                  <span className="text-xs font-bold text-forest">
+                    Chikal Nazmi
+                  </span>
+                </div>
+              </div>
+
+              <a
+                href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3.5 py-1.5 rounded-full border border-forest/30 bg-white text-[11px] font-bold text-rose-dark hover:bg-forest hover:text-white transition-all shadow-2xs shrink-0"
+              >
+                Scan me! 📱
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* ========================================================================= */}
       {/* SECTION 1: SELECTED STRATEGIC WORKS & CASE DOSSIER */}
       {/* ========================================================================= */}
-      <section id="works" className="max-w-6xl mx-auto px-4 sm:px-6 py-20">
+      <section id="works" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-10">
@@ -1701,331 +1894,93 @@ export default function Home() {
         </section>
 
       {/* ========================================================================= */}
-      {/* SECTION 4: ACADEMIC CREDENTIALS & PROFESSIONAL CERTIFICATIONS            */}
+      {/* SECTION: PROFESSIONAL COURSES & ACCREDITATIONS (Dedicated Section)        */}
       {/* ========================================================================= */}
-      <section id="credentials" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
+      <section id="certifications" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-3">
-            Academic & Professional Foundations
+            ✦ Verified Competencies & Licensures ✦
           </div>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-forest mb-3">
-            Education & Certified Competencies
+            Professional Courses & Accreditations
           </h2>
           <p className="text-sm sm:text-base text-forest/75 leading-relaxed font-source">
-            Fondasi akademik Sistem Informasi Bisnis, skor kemahiran bahasa Inggris internasional (TOEIC), serta lisensi pelatihan intensif industri digital.
+            Lisensi pelatihan intensif industri, sertifikasi kompetensi terakreditasi, dan pengujian standar internasional untuk mendukung kapabilitas strategis dan eksekusi bisnis.
           </p>
         </div>
 
-        {/* 2-Column Split Layout matching User Reference Style */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
-          
-          {/* LEFT: Formal Academic & Language Anchor Card (Hero Card) */}
-          <div className="lg:col-span-4 bg-gradient-to-br from-white via-white/95 to-[#E8EFE5]/60 border border-[#CAD7C5] rounded-[2rem] p-6 sm:p-7 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
-            <div>
-              {/* Header Badge */}
-              <div className="flex items-center justify-between gap-2 mb-4">
-                <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-rose-blush/80 text-rose-dark border border-rose-dusty/40 uppercase tracking-wider">
-                  🎓 Formal Degree
-                </span>
-                <span className="text-xs font-mono font-bold text-forest/60">
-                  2020 – 2024
-                </span>
-              </div>
-
-              {/* Title & Institution */}
-              <h3 className="font-serif text-2xl font-bold text-forest mb-1 group-hover:text-rose-dark transition-colors">
-                Sarjana Terapan Sistem Informasi Bisnis (D4 SIB)
-              </h3>
-              <h4 className="text-xs font-subheader text-forest/70 uppercase tracking-wide mb-5">
-                Jurusan Teknologi Informasi — Politeknik Negeri Malang
-              </h4>
-
-              {/* Key Credentials Badges (IPK & TOEIC Score 775) */}
-              <div className="space-y-2.5 mb-6">
-                <div className="flex items-center gap-3 p-3 rounded-2xl bg-white border border-[#CAD7C5]/70 shadow-xs">
-                  <div className="w-9 h-9 rounded-xl bg-forest text-[#E8EFE5] flex items-center justify-center text-sm font-bold shrink-0">
-                    🌟
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-forest/60 block">
-                      Academic Standing
-                    </span>
-                    <span className="text-xs font-bold text-forest">
-                      IPK Memuaskan / Cum Laude Honor
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3 p-3 rounded-2xl bg-white border border-[#CAD7C5]/70 shadow-xs">
-                  <div className="w-9 h-9 rounded-xl bg-rose-dark text-white flex items-center justify-center text-sm font-bold shrink-0">
-                    🌐
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-rose-dark block">
-                      Global English Proficiency
-                    </span>
-                    <span className="text-xs font-bold text-forest">
-                      Official TOEIC Score: <span className="text-rose-dark font-extrabold text-sm">775</span> (Working Proficiency)
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Focus Summary */}
-              <p className="text-xs text-forest/80 leading-relaxed font-source mb-6">
-                Mengombinasikan tata kelola proses bisnis hulu-ke-hilir, pemodelan data relasional, serta strategi penetrasi pasar dengan kemampuan komunikasi bahasa Inggris standar multinasional.
-              </p>
-            </div>
-
-            {/* Action Trigger */}
-            <button
+        {/* Wide Elongated Cards Grid (All visible at once, no sliding/horizontal scrolling needed) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
+          {certificationList.map((item, idx) => (
+            <div
+              key={idx}
               onClick={() => openModal(
-                'Sarjana Terapan Sistem Informasi Bisnis (D4 SIB)',
-                'Politeknik Negeri Malang (2020 - 2024)',
-                'Ijazah Resmi Kelulusan Sarjana Terapan Sistem Informasi Bisnis & Sertifikat Resmi Skor TOEIC 775 (International Test Center). Memadukan keahlian analitik data, integrasi sistem, dan manajemen operasional bisnis.',
-                ['/11.png', '/12.png', '/16.png']
+                item.title,
+                `${item.issuer} • ${item.year} (${item.tag})`,
+                item.desc,
+                [item.image]
               )}
-              className="w-full py-2.5 rounded-full bg-forest text-[#E8EFE5] hover:bg-rose-dark text-xs font-bold shadow-xs hover:shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-[2rem] p-4 sm:p-5 hover:shadow-lg hover:border-rose-dusty/80 hover:-translate-y-1 transition-all flex flex-col sm:flex-row items-center gap-4 sm:gap-5 group cursor-pointer"
             >
-              <span>Buka Dokumen Kelulusan & TOEIC</span>
-              <span>↗</span>
-            </button>
-          </div>
-
-          {/* RIGHT: Professional Certifications & Training Courses Gallery (Matching User Reference Layout) */}
-          <div className="lg:col-span-8 flex flex-col justify-between">
-            <div className="flex items-center justify-between mb-4 px-1">
-              <div>
-                <span className="text-[11px] font-bold uppercase tracking-widest text-rose-dark block mb-0.5">
-                  ✦ Certified Industry Training
+              {/* Left: Certificate Thumbnail Banner */}
+              <div className="relative w-full sm:w-44 md:w-48 aspect-[16/10] sm:aspect-[4/3] rounded-2xl overflow-hidden bg-forest/5 shrink-0 border border-[#CAD7C5]/60">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                <span className="absolute bottom-2 left-2 bg-white/95 backdrop-blur-xs text-forest text-[9px] font-bold px-2 py-0.5 rounded-full shadow-xs">
+                  {item.issuer} • {item.year}
                 </span>
-                <h3 className="font-serif text-xl sm:text-2xl font-bold text-forest">
-                  Professional Courses & Accreditations
-                </h3>
               </div>
-              <span className="text-xs text-forest/50 font-medium hidden sm:inline">
-                Geser ke kanan untuk melihat semua ({certificationList.length}) →
-              </span>
-            </div>
 
-            {/* Horizontal Scrollable Row of Training Cards (Just like User's 2nd Reference Image!) */}
-            <div className="flex gap-4 overflow-x-auto pb-4 pt-1 no-scrollbar select-none">
-              {certificationList.map((item, idx) => (
-                <div
-                  key={idx}
-                  onClick={() => openModal(
-                    item.title,
-                    `${item.issuer} • ${item.year} (${item.tag})`,
-                    item.desc,
-                    [item.image]
-                  )}
-                  className="min-w-[210px] sm:min-w-[230px] max-w-[240px] shrink-0 bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-[1.75rem] p-3.5 hover:shadow-lg hover:border-rose-dusty/60 hover:-translate-y-1 transition-all flex flex-col justify-between group cursor-pointer"
-                >
-                  <div>
-                    {/* Visual Card Graphic (Clean 1:1 or 4:3 with Tag) */}
-                    <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-forest/5 mb-3 border border-[#CAD7C5]/60">
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-                      
-                      {/* Issuer & Year Pill */}
-                      <span className="absolute bottom-2 left-2 bg-white/90 backdrop-blur-xs text-forest text-[9px] font-bold px-2 py-0.5 rounded-full shadow-xs">
-                        {item.issuer} • {item.year}
-                      </span>
-                    </div>
-
-                    {/* Category Tag */}
-                    <span className={`inline-block text-[9px] font-bold px-2 py-0.5 rounded-full border ${item.badgeColor} uppercase tracking-wider mb-1.5`}>
+              {/* Right: Content & Action */}
+              <div className="flex-1 flex flex-col justify-between w-full h-full min-h-[110px]">
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-1.5">
+                    <span className={`inline-block text-[9px] font-bold px-2.5 py-0.5 rounded-full border ${item.badgeColor || 'bg-rose-blush/60 text-rose-dark border-rose-dusty/50'} uppercase tracking-wider`}>
                       {item.tag}
                     </span>
-
-                    {/* Course Title (Clean, Bold, No Lengthy Description per User Request!) */}
-                    <h4 className="font-serif text-sm sm:text-base font-bold text-forest group-hover:text-rose-dark transition-colors line-clamp-2 leading-snug">
-                      {item.title}
-                    </h4>
-                  </div>
-
-                  {/* Bottom Minimal Arrow Footer (Like User's Reference Arrow Circle!) */}
-                  <div className="pt-3 mt-2 border-t border-[#CAD7C5]/40 flex items-center justify-between text-xs">
-                    <span className="text-[10px] text-forest/60 font-medium">
-                      Lihat Sertifikat
-                    </span>
-                    <span className="w-6 h-6 rounded-full bg-[#E8EFE5] text-forest group-hover:bg-rose-dark group-hover:text-white transition-colors flex items-center justify-center text-[10px] font-bold">
-                      →
+                    <span className="text-[10px] font-mono text-forest/50 font-semibold">
+                      {item.year}
                     </span>
                   </div>
+                  <h4 className="font-serif text-base font-bold text-forest group-hover:text-rose-dark transition-colors line-clamp-2 leading-snug mb-1.5">
+                    {item.title}
+                  </h4>
+                  <p className="text-xs text-forest/70 font-source line-clamp-2 leading-relaxed">
+                    {item.desc}
+                  </p>
                 </div>
-              ))}
-            </div>
 
-            {/* Trust Banner Below Cards */}
-            <div className="mt-3 p-3.5 rounded-2xl bg-[#CAD7C5]/30 border border-[#CAD7C5]/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-forest/80">
-              <div className="flex items-center gap-2">
-                <span className="text-base">📜</span>
-                <span className="font-medium text-[11px] sm:text-xs">
-                  Seluruh sertifikat diterbitkan oleh institusi terakreditasi (RevoU, MySkill, dan ETS International).
-                </span>
+                <div className="pt-3 mt-2 border-t border-[#CAD7C5]/50 flex items-center justify-between text-xs">
+                  <span className="text-[11px] font-bold text-forest/70 group-hover:text-rose-dark flex items-center gap-1 transition-colors">
+                    <span>Lihat Sertifikat Resmi</span>
+                    <span className="text-xs">↗</span>
+                  </span>
+                  <span className="w-6 h-6 rounded-full bg-[#E8EFE5] text-forest group-hover:bg-rose-dark group-hover:text-white transition-colors flex items-center justify-center text-[10px] font-bold">
+                    →
+                  </span>
+                </div>
               </div>
-              <span className="text-[11px] font-bold text-rose-dark shrink-0">
-                Klik kartu untuk pratinjau sertifikat ↗
-              </span>
             </div>
-
-          </div>
-
+          ))}
         </div>
 
-      </section>
-
-      {/* ========================================================================= */}
-      {/* SECTION 5: SKILLS SPOTLIGHT CARD (Faithful to Reference, Clean & Grounded) */}
-      {/* ========================================================================= */}
-      <section id="skills" className="max-w-4xl mx-auto px-4 sm:px-6 py-16 sm:py-20 border-t border-[#CAD7C5]/80">
-        
-        {/* Section Header */}
-        <div className="text-center max-w-xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-2.5">
-            ✦ Core Capabilities ✦
-          </div>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-forest mb-2.5">
-            Skills & Competencies
-          </h2>
-          <p className="text-xs sm:text-sm text-forest/75 leading-relaxed font-source">
-            Ringkasan keahlian teknis dan kemampuan kerja sama tim yang dipelajari dan diterapkan secara praktis.
-          </p>
-        </div>
-
-        {/* The 1 Centered Aesthetic Dossier Card (Matching User's Reference Screenshot) */}
-        <div className="max-w-md mx-auto bg-gradient-to-b from-[#FCEEF1] via-[#F8E3E8] to-[#F3D7DE] border-2 border-rose-300/80 rounded-[2.5rem] p-6 sm:p-8 shadow-lg text-forest relative overflow-hidden">
-          {/* Soft decorative ambient glow */}
-          <div className="absolute -top-12 -right-12 w-36 h-36 bg-white/50 rounded-full blur-2xl pointer-events-none" />
-
-          {/* Top Badge & Dossier Tag */}
-          <div className="flex items-center justify-between gap-2 mb-6">
-            <span className="text-[10px] font-bold px-3.5 py-1 rounded-full bg-white/90 text-rose-dark border border-rose-300 uppercase tracking-wider shadow-2xs">
-              ★ SPOTLIGHT SKILLS CARD
-            </span>
-            <span className="text-xs font-serif italic text-rose-dark/70 font-bold tracking-wider">
-              Dossier
+        {/* Trust Banner Below Cards */}
+        <div className="mt-8 p-4 rounded-2xl bg-[#CAD7C5]/25 border border-[#CAD7C5]/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-forest/80">
+          <div className="flex items-center gap-2.5">
+            <span className="text-lg">📜</span>
+            <span className="font-medium">
+              Seluruh sertifikat diterbitkan oleh institusi terakreditasi internasional & nasional (RevoU, MySkill, ETS International).
             </span>
           </div>
-
-          {/* Technical Skills Header */}
-          <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest mb-4 tracking-tight">
-            Technical Skills
-          </h3>
-
-          {/* Subdivided Domains: IT, Business, Creative — Exactly 3 skills each */}
-          <div className="space-y-4 mb-6">
-            {/* IT / Tech */}
-            <div>
-              <span className="block text-[10px] font-bold uppercase tracking-wider text-forest/60 mb-1.5 flex items-center gap-1.5">
-                <span>💻</span>
-                <span>IT & Digital Systems</span>
-              </span>
-              <div className="flex flex-wrap gap-1.5">
-                {itSkills.map((skill, sIdx) => (
-                  <span
-                    key={sIdx}
-                    className="inline-block px-3 py-1 rounded-full border border-forest/30 bg-white/80 text-[11px] font-medium text-forest shadow-2xs hover:border-forest transition-colors"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Business */}
-            <div>
-              <span className="block text-[10px] font-bold uppercase tracking-wider text-forest/60 mb-1.5 flex items-center gap-1.5">
-                <span>📈</span>
-                <span>Business & Operations</span>
-              </span>
-              <div className="flex flex-wrap gap-1.5">
-                {bizSkills.map((skill, sIdx) => (
-                  <span
-                    key={sIdx}
-                    className="inline-block px-3 py-1 rounded-full border border-forest/30 bg-white/80 text-[11px] font-medium text-forest shadow-2xs hover:border-forest transition-colors"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Creative */}
-            <div>
-              <span className="block text-[10px] font-bold uppercase tracking-wider text-forest/60 mb-1.5 flex items-center gap-1.5">
-                <span>🎬</span>
-                <span>Creative & Media</span>
-              </span>
-              <div className="flex flex-wrap gap-1.5">
-                {creativeSkills.map((skill, sIdx) => (
-                  <span
-                    key={sIdx}
-                    className="inline-block px-3 py-1 rounded-full border border-forest/30 bg-white/80 text-[11px] font-medium text-forest shadow-2xs hover:border-forest transition-colors"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Personal Skills Header */}
-          <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest mb-3 tracking-tight">
-            Personal Skills
-          </h3>
-
-          {/* Big Pill Marquee Badge */}
-          <div className="inline-block w-full text-center px-4 py-2 rounded-full border border-forest/30 bg-white/85 text-xs font-bold text-forest shadow-2xs mb-4">
-            Creative — Openness — Teamwork
-          </div>
-
-          {/* Bulleted Strengths (Only 3 realistic, grounded points) */}
-          <div className="space-y-2 text-xs text-forest/90 font-medium pl-1 mb-6">
-            {personalSkills.map((skill, pIdx) => (
-              <div key={pIdx} className="flex items-center gap-2.5">
-                <span className="w-2 h-2 rounded-full bg-rose-dark shrink-0" />
-                <span>{skill}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* Bottom QR & Connect Widget (Faithful to "Scan me!" tribute) */}
-          <div className="pt-3 border-t border-rose-300/60 flex items-center justify-between gap-3 bg-white/70 p-3.5 rounded-2xl border border-rose-200/90 shadow-2xs">
-            <div className="flex items-center gap-3">
-              {/* Stylized QR Box */}
-              <div className="w-11 h-11 rounded-xl bg-white p-1 border border-forest/25 shadow-2xs shrink-0 flex items-center justify-center">
-                <svg viewBox="0 0 24 24" className="w-9 h-9 text-forest" fill="currentColor">
-                  <path d="M2 2h8v8H2V2zm2 2v4h4V4H4zm10-2h8v8h-8V2zm2 2v4h4V4h-4zM2 14h8v8H2v-8zm2 2v4h4v-4H4zm14 0h4v2h-4v-2zm-4 0h2v4h-2v-4zm4 4h4v2h-4v-2zm-2-2h2v2h-2v-2zm-2 2h2v2h-2v-2zm6 0h2v2h-2v-2z" />
-                </svg>
-              </div>
-              <div>
-                <span className="text-[9px] font-mono uppercase text-forest/60 block font-bold tracking-wider">
-                  Portfolio Quick QR
-                </span>
-                <span className="text-xs font-bold text-forest">
-                  Chikal Nazmi
-                </span>
-              </div>
-            </div>
-
-            <a
-              href="https://wa.me/6281234567890?text=Halo%20Chikal,%20saya%20tertarik%20melihat%20portofolio%20dan%20skillset%20kamu."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-3.5 py-1.5 rounded-full border border-forest/30 bg-white text-[11px] font-bold text-rose-dark hover:bg-forest hover:text-white transition-all shadow-2xs shrink-0"
-            >
-              Scan me! 📱
-            </a>
-          </div>
-
+          <span className="text-[11px] font-bold text-rose-dark shrink-0">
+            Klik kartu manapun untuk pratinjau sertifikat beresolusi tinggi ↗
+          </span>
         </div>
 
       </section>
