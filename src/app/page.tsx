@@ -244,13 +244,20 @@ export default function Home() {
     },
   ];
 
-  const dossierProjects = (portfolioData.projects && portfolioData.projects.length > 0)
-    ? portfolioData.projects
-    : defaultDossierProjects;
+  // Work & Business Experiences (4 items: Dua Sisi Laundry, YarnUp!, Manikarumi, Digivla)
+  const experiencesList = (portfolioData.experiences && portfolioData.experiences.length > 0)
+    ? portfolioData.experiences
+    : (DEFAULT_PORTFOLIO_DATA.experiences || []);
 
+  // Campus Projects (6 items: SurveyKu, Python Automation, JTI Certify, Sales Dashboard, BMC, Campaign)
+  const projectsList = (portfolioData.projects && portfolioData.projects.length > 0)
+    ? portfolioData.projects
+    : (DEFAULT_PORTFOLIO_DATA.projects || defaultDossierProjects);
+
+  const dossierProjects = projectsList;
   const filteredDossier = activeDossierTab === 'all' 
-    ? dossierProjects 
-    : dossierProjects.filter(p => p.id === activeDossierTab);
+    ? projectsList 
+    : projectsList.filter(p => p.id === activeDossierTab);
 
   // 7 Trophy Case Awards Data
   const defaultAwardsList = [
@@ -634,12 +641,15 @@ export default function Home() {
           </a>
 
           {/* Desktop Nav Links */}
-          <div className="hidden md:flex items-center gap-6 text-xs font-semibold tracking-wider uppercase text-forest/80">
+          <div className="hidden md:flex items-center gap-5 lg:gap-6 text-xs font-semibold tracking-wider uppercase text-forest/80">
             <a href="#academy-skills" className="hover:text-rose-dark transition-colors">
               Academy & Skills
             </a>
-            <a href="#works" className="hover:text-rose-dark transition-colors">
-              Selected Works
+            <a href="#experience" className="hover:text-rose-dark transition-colors">
+              Experience
+            </a>
+            <a href="#projects" className="hover:text-rose-dark transition-colors">
+              Projects
             </a>
             <a href="#recognition" className="hover:text-rose-dark transition-colors">
               Awards (7)
@@ -689,8 +699,11 @@ export default function Home() {
             <a href="#academy-skills" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
               Academy & Skills
             </a>
-            <a href="#works" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
-              Selected Works
+            <a href="#experience" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
+              Experience
+            </a>
+            <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
+              Projects
             </a>
             <a href="#recognition" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
               Awards (7)
@@ -1101,20 +1114,144 @@ export default function Home() {
       </section>
 
       {/* ========================================================================= */}
-      {/* SECTION: MY WORK INCLUDES (Grid Portfolio Matching User Reference Layout) */}
+      {/* SECTION: WORK & BUSINESS EXPERIENCE (Pengalaman Kerja Otentik)            */}
       {/* ========================================================================= */}
-      <section id="works" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
+      <section id="experience" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-3">
-            ✦ Portfolio Dossier ✦
+            ✦ Professional Trajectory ✦
+          </div>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-forest mb-3">
+            Work & Business Experience
+          </h2>
+          <p className="text-sm sm:text-base text-forest/75 leading-relaxed font-source">
+            Pengalaman kerja nyata dalam standardisasi operasional, pertumbuhan brand mandiri, kemitraan event komersial, serta riset automasi software.
+          </p>
+        </div>
+
+        {/* 2-Grid Layout Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+          {experiencesList.map((exp) => (
+            <div
+              key={exp.id}
+              className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-3xl p-5 sm:p-6 shadow-sm hover:shadow-md hover:border-rose-dusty/50 transition-all flex flex-col justify-between group"
+            >
+              <div>
+                {/* Card Header Info */}
+                <div className="flex items-center justify-between gap-2 mb-3">
+                  <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${exp.badgeColor || 'bg-emerald-100 text-emerald-900 border-emerald-300'} uppercase tracking-wider`}>
+                    {exp.tag}
+                  </span>
+                  <span className="text-xs text-forest/60 font-medium font-mono">
+                    {exp.period}
+                  </span>
+                </div>
+
+                <h3 className="font-serif text-xl sm:text-2xl font-bold text-forest mb-3 group-hover:text-rose-dark transition-colors">
+                  {exp.title}
+                </h3>
+
+                {/* Direct Multi-Photo Mini Gallery */}
+                <div className="relative mb-4 overflow-hidden rounded-2xl border border-[#CAD7C5]/70 bg-[#E8EFE5]/40 p-1.5">
+                  <div className="grid grid-cols-12 gap-1.5 aspect-[16/9]">
+                    {/* Foto Utama (7 Kolom) */}
+                    <div className="col-span-7 relative overflow-hidden rounded-xl bg-forest/5">
+                      <img
+                        src={exp.image}
+                        alt={exp.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <span className="absolute bottom-1.5 left-1.5 bg-forest/80 backdrop-blur-xs text-white text-[9px] font-medium px-2 py-0.5 rounded-full">
+                        Dokumentasi Primer
+                      </span>
+                    </div>
+                    {/* Foto Pendukung (5 Kolom) */}
+                    <div className="col-span-5 relative overflow-hidden rounded-xl bg-forest/5">
+                      <img
+                        src={exp.extraImages?.[1] || exp.image}
+                        alt={`${exp.title} dokumentasi tambahan`}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <span className="absolute bottom-1.5 right-1.5 bg-rose-dark/85 backdrop-blur-xs text-white text-[9px] font-medium px-2 py-0.5 rounded-full">
+                        Foto Kerja
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Quick Hover Action */}
+                  <div 
+                    onClick={() => openModal(exp.title, `${exp.tag} • ${exp.period}`, exp.summary, exp.extraImages && exp.extraImages.length > 0 ? exp.extraImages : [exp.image], exp.link, exp.linkLabel)}
+                    className="absolute inset-0 bg-forest/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer"
+                  >
+                    <span className="px-3.5 py-1.5 rounded-full bg-white text-forest text-xs font-semibold shadow-md">
+                      🔍 Buka Galeri Lengkap ({exp.extraImages?.length || 1} Foto)
+                    </span>
+                  </div>
+                </div>
+
+                {/* Summary */}
+                <p className="text-xs sm:text-sm text-forest/80 leading-relaxed mb-4 font-source">
+                  {exp.summary}
+                </p>
+
+                {/* Highlights / Key Focus Tags */}
+                <div className="flex flex-wrap gap-2 mb-5 font-source">
+                  {exp.results?.map((res, rIdx) => (
+                    <span
+                      key={rIdx}
+                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FAFBF8] border border-[#CAD7C5]/70 text-[11px] font-medium text-forest shadow-2xs"
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-rose-dusty shrink-0" />
+                      <span>{res}</span>
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bottom Trigger Button & Link */}
+              <div className="pt-3 border-t border-[#CAD7C5]/50 flex flex-wrap items-center justify-between gap-2">
+                <button
+                  onClick={() => openModal(exp.title, `${exp.tag} • ${exp.period}`, exp.summary, exp.extraImages && exp.extraImages.length > 0 ? exp.extraImages : [exp.image], exp.link, exp.linkLabel)}
+                  className="inline-flex items-center gap-1 text-xs font-bold text-rose-dark hover:text-rose-berry transition-colors cursor-pointer"
+                >
+                  <span>Lihat Dokumentasi Kerja</span>
+                  <span>→</span>
+                </button>
+
+                {exp.link && (
+                  <a
+                    href={exp.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs font-bold text-forest/80 hover:text-forest transition-colors bg-[#E8EFE5] hover:bg-[#CAD7C5] px-3 py-1 rounded-full border border-[#CAD7C5]/60"
+                  >
+                    <span>{exp.linkLabel || 'Kunjungi Tautan ↗'}</span>
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </section>
+
+      {/* ========================================================================= */}
+      {/* SECTION: MY WORK INCLUDES (Campus Projects / Proyek Kampus & Akademik)    */}
+      {/* ========================================================================= */}
+      <section id="projects" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
+        
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-3">
+            ✦ Academic & Campus Projects ✦
           </div>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-forest mb-3 tracking-tight uppercase">
             MY WORK INCLUDES
           </h2>
           <p className="text-sm sm:text-base text-forest/75 leading-relaxed font-source">
-            Inisiatif proyek strategis, manajemen operasional bisnis, visual branding, dan pengembangan sistem digital. Arahkan kursor ke kartu untuk melihat ringkasan dan klik untuk membuka dokumentasi lengkap.
+            Kompilasi proyek sistem informasi, riset aplikasi, analisis data, dan strategi bisnis yang dikerjakan selama masa studi di D4 Sistem Informasi Bisnis Polinema. Arahkan kursor untuk membaca ringkasan dan klik untuk membuka dokumentasi lengkap.
           </p>
         </div>
 
@@ -1128,47 +1265,7 @@ export default function Home() {
                 : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
             }`}
           >
-            All Projects ({dossierProjects.length})
-          </button>
-          <button
-            onClick={() => setActiveDossierTab('operations')}
-            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
-              activeDossierTab === 'operations'
-                ? 'bg-rose-dark text-white shadow-sm'
-                : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
-            }`}
-          >
-            Operations & SOP
-          </button>
-          <button
-            onClick={() => setActiveDossierTab('growth')}
-            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
-              activeDossierTab === 'growth'
-                ? 'bg-rose-dark text-white shadow-sm'
-                : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
-            }`}
-          >
-            Branding & E-Commerce
-          </button>
-          <button
-            onClick={() => setActiveDossierTab('partnership')}
-            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
-              activeDossierTab === 'partnership'
-                ? 'bg-rose-dark text-white shadow-sm'
-                : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
-            }`}
-          >
-            PR & Event Placement
-          </button>
-          <button
-            onClick={() => setActiveDossierTab('data')}
-            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
-              activeDossierTab === 'data'
-                ? 'bg-rose-dark text-white shadow-sm'
-                : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
-            }`}
-          >
-            Software & Data
+            All Projects ({projectsList.length})
           </button>
           <button
             onClick={() => setActiveDossierTab('surveyku')}
@@ -1181,14 +1278,44 @@ export default function Home() {
             Web Systems
           </button>
           <button
-            onClick={() => setActiveDossierTab('campaign')}
+            onClick={() => setActiveDossierTab('media-monitor')}
             className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
-              activeDossierTab === 'campaign'
+              activeDossierTab === 'media-monitor'
                 ? 'bg-rose-dark text-white shadow-sm'
                 : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
             }`}
           >
-            Digital Marketing
+            Python Automation
+          </button>
+          <button
+            onClick={() => setActiveDossierTab('jti-certify')}
+            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
+              activeDossierTab === 'jti-certify'
+                ? 'bg-rose-dark text-white shadow-sm'
+                : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
+            }`}
+          >
+            Credential Portal
+          </button>
+          <button
+            onClick={() => setActiveDossierTab('sales-dashboard')}
+            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
+              activeDossierTab === 'sales-dashboard'
+                ? 'bg-rose-dark text-white shadow-sm'
+                : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
+            }`}
+          >
+            Business Analytics
+          </button>
+          <button
+            onClick={() => setActiveDossierTab('bpc-canvas')}
+            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
+              activeDossierTab === 'bpc-canvas'
+                ? 'bg-rose-dark text-white shadow-sm'
+                : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
+            }`}
+          >
+            BMC & Strategy
           </button>
         </div>
 
@@ -1793,8 +1920,8 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Wide Elongated Cards Grid (All visible at once, no sliding/horizontal scrolling needed) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
+        {/* Compact Vertical Cards Grid (Kembalikan ke Desain Sebelumnya, Tanpa Status Akademik) */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-4.5 items-stretch">
           {certificationList.map((item, idx) => (
             <div
               key={idx}
@@ -1804,49 +1931,43 @@ export default function Home() {
                 item.desc,
                 [item.image]
               )}
-              className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-[2rem] p-4 sm:p-5 hover:shadow-lg hover:border-rose-dusty/80 hover:-translate-y-1 transition-all flex flex-col sm:flex-row items-center gap-4 sm:gap-5 group cursor-pointer"
+              className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-[1.75rem] p-3.5 hover:shadow-lg hover:border-rose-dusty/60 hover:-translate-y-1 transition-all flex flex-col justify-between group cursor-pointer"
             >
-              {/* Left: Certificate Thumbnail Banner */}
-              <div className="relative w-full sm:w-44 md:w-48 aspect-[16/10] sm:aspect-[4/3] rounded-2xl overflow-hidden bg-forest/5 shrink-0 border border-[#CAD7C5]/60">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-                <span className="absolute bottom-2 left-2 bg-white/95 backdrop-blur-xs text-forest text-[9px] font-bold px-2 py-0.5 rounded-full shadow-xs">
-                  {item.issuer} • {item.year}
+              <div>
+                {/* Visual Card Graphic (Clean 4:3 with Tag & Issuer Pill) */}
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-forest/5 mb-3 border border-[#CAD7C5]/60">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                  
+                  {/* Issuer & Year Pill */}
+                  <span className="absolute bottom-2 left-2 bg-white/90 backdrop-blur-xs text-forest text-[9px] font-bold px-2 py-0.5 rounded-full shadow-xs">
+                    {item.issuer} • {item.year}
+                  </span>
+                </div>
+
+                {/* Category Tag */}
+                <span className={`inline-block text-[9px] font-bold px-2 py-0.5 rounded-full border ${item.badgeColor || 'bg-rose-blush/60 text-rose-dark border-rose-dusty/50'} uppercase tracking-wider mb-1.5`}>
+                  {item.tag}
                 </span>
+
+                {/* Course Title */}
+                <h4 className="font-serif text-sm font-bold text-forest group-hover:text-rose-dark transition-colors line-clamp-2 leading-snug">
+                  {item.title}
+                </h4>
               </div>
 
-              {/* Right: Content & Action */}
-              <div className="flex-1 flex flex-col justify-between w-full h-full min-h-[110px]">
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-1.5">
-                    <span className={`inline-block text-[9px] font-bold px-2.5 py-0.5 rounded-full border ${item.badgeColor || 'bg-rose-blush/60 text-rose-dark border-rose-dusty/50'} uppercase tracking-wider`}>
-                      {item.tag}
-                    </span>
-                    <span className="text-[10px] font-mono text-forest/50 font-semibold">
-                      {item.year}
-                    </span>
-                  </div>
-                  <h4 className="font-serif text-base font-bold text-forest group-hover:text-rose-dark transition-colors line-clamp-2 leading-snug mb-1.5">
-                    {item.title}
-                  </h4>
-                  <p className="text-xs text-forest/70 font-source line-clamp-2 leading-relaxed">
-                    {item.desc}
-                  </p>
-                </div>
-
-                <div className="pt-3 mt-2 border-t border-[#CAD7C5]/50 flex items-center justify-between text-xs">
-                  <span className="text-[11px] font-bold text-forest/70 group-hover:text-rose-dark flex items-center gap-1 transition-colors">
-                    <span>Lihat Sertifikat Resmi</span>
-                    <span className="text-xs">↗</span>
-                  </span>
-                  <span className="w-6 h-6 rounded-full bg-[#E8EFE5] text-forest group-hover:bg-rose-dark group-hover:text-white transition-colors flex items-center justify-center text-[10px] font-bold">
-                    →
-                  </span>
-                </div>
+              {/* Bottom Minimal Arrow Footer */}
+              <div className="pt-3 mt-2 border-t border-[#CAD7C5]/40 flex items-center justify-between text-xs">
+                <span className="text-[10px] text-forest/60 font-medium">
+                  Lihat Sertifikat
+                </span>
+                <span className="w-6 h-6 rounded-full bg-[#E8EFE5] text-forest group-hover:bg-rose-dark group-hover:text-white transition-colors flex items-center justify-center text-[10px] font-bold">
+                  →
+                </span>
               </div>
             </div>
           ))}

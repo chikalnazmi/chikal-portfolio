@@ -123,6 +123,7 @@ export interface PortfolioData {
   academic?: AcademicDegree;
   socials: SocialLinks;
   creatorAccounts: Record<string, CreatorAccount>;
+  experiences?: ProjectDoc[];
   projects: ProjectDoc[];
   awards: AwardItem[];
   skills?: SkillCategory[];
@@ -240,9 +241,9 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
       link: 'https://instagram.com/duasisi.laundry',
     },
   },
-  projects: [
+  experiences: [
     {
-      id: 'operations',
+      id: 'duasisi-ops',
       category: 'BUSINESS OPERATIONS & SOP',
       title: 'Dua Sisi Laundry — Operational Setup & SOP',
       tag: 'Business Operations',
@@ -262,7 +263,7 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
       linkLabel: 'Profil Bisnis Dua Sisi ↗',
     },
     {
-      id: 'growth',
+      id: 'yarnup-brand',
       category: 'SMALL BUSINESS & CREATIVE BRAND',
       title: 'YarnUp! Studio — Handmade Accessories',
       tag: 'Small Business Owner',
@@ -282,7 +283,7 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
       linkLabel: 'Official Store Instagram ↗',
     },
     {
-      id: 'partnership',
+      id: 'manikarumi-pr',
       category: 'PUBLIC RELATIONS & EVENT PLACEMENT',
       title: 'Manikarumi Indonesia — PR & Event Placement',
       tag: 'Public Relations Lead',
@@ -302,7 +303,7 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
       linkLabel: 'Galeri Booth Manikarumi ↗',
     },
     {
-      id: 'data',
+      id: 'digivla-intern',
       category: 'SOFTWARE ENGINEERING INTERNSHIP',
       title: 'PT Digivla Indonesia — Software Engineer Intern',
       tag: 'Software & Data Systems',
@@ -321,9 +322,11 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
       link: 'https://digivla.id',
       linkLabel: 'Portal Digivla Intelligence ↗',
     },
+  ],
+  projects: [
     {
       id: 'surveyku',
-      category: 'WEB APPLICATION & SYSTEMS',
+      category: 'CAMPUS PROJECT (D4 SIB)',
       title: 'Website SurveyKu — Academic Survey Platform',
       tag: 'Web & Systems Development',
       period: '2023 - 2024',
@@ -332,9 +335,9 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
       challenge: 'Mempermudah distribusi kuesioner dan visualisasi data hasil survei responden secara realtime.',
       strategy: 'Perancangan prototipe Figma berorientasi user-centric dan pemodelan relasional database terstruktur.',
       results: [
-        'UI/UX Prototyping',
-        'Relational DB Schema',
-        'Realtime Analytics',
+        'UI/UX Prototyping Figma',
+        'Relational Database Schema',
+        'Realtime Analytics & Feedback',
       ],
       image: '/15.png',
       extraImages: ['/15.png', '/16.png', '/13.png'],
@@ -342,19 +345,99 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
       linkLabel: 'Detail Riset SurveyKu ↗',
     },
     {
-      id: 'campaign',
-      category: 'CONTENT PLANNING & META ADS',
-      title: 'Digital Marketing & Content Growth Strategy',
-      tag: 'Social Media Strategy & Ads',
-      period: '2023 - Sekarang',
+      id: 'media-monitor',
+      category: 'ACADEMIC PYTHON AUTOMATION',
+      title: 'Media Monitoring & News Detection Automation',
+      tag: 'Python Automation & Data',
+      period: '2023',
+      badgeColor: 'bg-blue-100 text-blue-900 border-blue-300',
+      summary: 'Proyek otomasi pengenalan pola artikel berita koran cetak ke format data terstruktur menggunakan script Python dan image processing.',
+      challenge: 'Automasi ekstraksi berita cetak secara cepat dan akurat.',
+      strategy: 'Penerapan modul Python regex dan image processing pipeline.',
+      results: [
+        'Python Regex Pipeline',
+        'Data Extraction Accuracy',
+        'Dokumentasi Pengujian Sistem',
+      ],
+      image: '/9.png',
+      extraImages: ['/9.png', '/10.png', '/14.png'],
+      link: 'https://polinema.ac.id',
+      linkLabel: 'Dokumentasi Riset TI ↗',
+    },
+    {
+      id: 'jti-certify',
+      category: 'ACADEMIC CREDENTIAL PORTAL',
+      title: 'JTI Certify — Mahasiswa TI Credential System',
+      tag: 'Information Systems',
+      period: '2023',
+      badgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300',
+      summary: 'Perancangan sistem informasi portofolio dan verifikasi sertifikat prestasi akademik mahasiswa Jurusan Teknologi Informasi.',
+      challenge: 'Verifikasi keaslian sertifikat lomba dan arsip prestasi mahasiswa.',
+      strategy: 'Pembuatan skema database relasional dan antarmuka verifikasi yang aman.',
+      results: [
+        'Sistem Arsip Prestasi',
+        'Verifikasi Sertifikat Digital',
+        'Pengujian Fungsionalitas',
+      ],
+      image: '/11.png',
+      extraImages: ['/11.png', '/12.png', '/16.png'],
+      link: 'https://polinema.ac.id',
+      linkLabel: 'Portal Akademik JTI ↗',
+    },
+    {
+      id: 'sales-dashboard',
+      category: 'BUSINESS DATA MODELING',
+      title: 'Sales Performance & Business Analytics Dashboard',
+      tag: 'Business Analytics & Data',
+      period: '2023',
+      badgeColor: 'bg-amber-100 text-amber-900 border-amber-300',
+      summary: 'Pemodelan data analitik penjualan dan rekonsiliasi kas berbasis spreadsheet formula tingkat lanjut untuk visualisasi KPI bisnis.',
+      challenge: 'Membaca tren transaksi penjualan harian dan perputaran stok barang.',
+      strategy: 'Formula lookup dinamis, pivot table, dan chart performa interaktif.',
+      results: [
+        'Financial KPI Modeling',
+        'Automated Cash Reconciliation',
+        'Visual Chart Summary',
+      ],
+      image: '/14.png',
+      extraImages: ['/14.png', '/15.png', '/17.png'],
+      link: 'https://polinema.ac.id',
+      linkLabel: 'Laporan Pemodelan Bisnis ↗',
+    },
+    {
+      id: 'bpc-canvas',
+      category: 'BUSINESS PLAN & FEASIBILITY',
+      title: 'Business Model Canvas & Market Feasibility Plan',
+      tag: 'Strategic Planning & BMC',
+      period: '2024',
       badgeColor: 'bg-rose-100 text-rose-900 border-rose-300',
-      summary: 'Perencanaan kalender konten media sosial, produksi video pendek berdaya jangkau tinggi, serta eksekusi kampanye promosi digital terukur.',
-      challenge: 'Meningkatkan retensi penonton dan interaksi organik di tengah algoritma media sosial yang dinamis.',
+      summary: 'Perumusan rencana bisnis komprehensif, analisis pasar 9 blok BMC, dan proyeksi arus kas keuangan untuk kompetisi bisnis nasional.',
+      challenge: 'Menyusun strategi penetrasi pasar dengan diferensiasi nilai yang kuat.',
+      strategy: 'Riset kompetitor mendalam, customer persona, dan validasi finansial.',
+      results: [
+        '9-Block BMC Formulation',
+        'Market Penetration Strategy',
+        'Financial Projections (3Y)',
+      ],
+      image: '/12.png',
+      extraImages: ['/12.png', '/13.png', '/11.png'],
+      link: 'https://unisma.ac.id',
+      linkLabel: 'Proposal Inovasi Bisnis ↗',
+    },
+    {
+      id: 'creative-campaign',
+      category: 'CREATIVE MARKETING & E-COMMERCE',
+      title: 'E-Commerce & Digital Content Creative Strategy',
+      tag: 'Digital Marketing & Content',
+      period: '2023 - Sekarang',
+      badgeColor: 'bg-indigo-100 text-indigo-900 border-indigo-300',
+      summary: 'Perencanaan kalender konten media sosial, produksi video pendek berdaya jangkau tinggi, serta eksekusi kampanye promosi produk kreatif.',
+      challenge: 'Meningkatkan retensi penonton dan interaksi organik di platform media sosial.',
       strategy: 'Storytelling berdurasi singkat yang informatif dengan visual hooks kuat pada 3 detik pertama.',
       results: [
-        'Editorial Calendar',
-        'Visual Hook Production',
-        'Organic Reach Surge',
+        'Editorial Content Calendar',
+        'Short-Form Video Production',
+        'Organic Reach & Engagement Surge',
       ],
       image: '/17.png',
       extraImages: ['/17.png', '/1.png', '/2.png'],
@@ -601,7 +684,7 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
   ],
 };
 
-const STORAGE_KEY = 'chikal_portfolio_content_v4';
+const STORAGE_KEY = 'chikal_portfolio_content_v6';
 const EVENT_NAME = 'chikal_portfolio_updated';
 
 // Helper to get portfolio data (reads localStorage on client, or defaults)
@@ -616,6 +699,7 @@ export function getPortfolioData(): PortfolioData {
       academic: parsed.academic || DEFAULT_PORTFOLIO_DATA.academic,
       socials: { ...DEFAULT_PORTFOLIO_DATA.socials, ...(parsed.socials || {}) },
       creatorAccounts: { ...DEFAULT_PORTFOLIO_DATA.creatorAccounts, ...(parsed.creatorAccounts || {}) },
+      experiences: parsed.experiences && parsed.experiences.length > 0 ? parsed.experiences : DEFAULT_PORTFOLIO_DATA.experiences,
       projects: parsed.projects && parsed.projects.length > 0 ? parsed.projects : DEFAULT_PORTFOLIO_DATA.projects,
       awards: parsed.awards && parsed.awards.length > 0 ? parsed.awards : DEFAULT_PORTFOLIO_DATA.awards,
       skills: parsed.skills && parsed.skills.length > 0 ? parsed.skills : DEFAULT_PORTFOLIO_DATA.skills,

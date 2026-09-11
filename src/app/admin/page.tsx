@@ -15,9 +15,10 @@ export default function AdminPortal() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [pinInput, setPinInput] = useState('');
   const [pinError, setPinError] = useState(false);
-  const [activeTab, setActiveTab] = useState<'hero' | 'education' | 'projects' | 'awards' | 'skills' | 'creator' | 'socials' | 'photoguide' | 'supabase'>('hero');
+  const [activeTab, setActiveTab] = useState<'hero' | 'education' | 'experience' | 'projects' | 'awards' | 'skills' | 'creator' | 'socials' | 'photoguide' | 'supabase'>('hero');
   const [data, setData] = useState<PortfolioData>(DEFAULT_PORTFOLIO_DATA);
   const [activeCreatorKey, setActiveCreatorKey] = useState<string>('personal');
+  const [activeExperienceIdx, setActiveExperienceIdx] = useState<number>(0);
   const [activeProjectIdx, setActiveProjectIdx] = useState<number>(0);
   const [activeAwardIdx, setActiveAwardIdx] = useState<number>(0);
   const [activeSkillIdx, setActiveSkillIdx] = useState<number>(0);
@@ -220,6 +221,16 @@ export default function AdminPortal() {
             🎓 Pendidikan & Sertifikasi
           </button>
           <button
+            onClick={() => setActiveTab('experience')}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+              activeTab === 'experience'
+                ? 'bg-forest text-white shadow-sm'
+                : 'text-forest/70 hover:bg-[#E8EFE5]'
+            }`}
+          >
+            💼 Pengalaman Kerja
+          </button>
+          <button
             onClick={() => setActiveTab('projects')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === 'projects'
@@ -227,7 +238,7 @@ export default function AdminPortal() {
                 : 'text-forest/70 hover:bg-[#E8EFE5]'
             }`}
           >
-            💼 Proyek & Bukti Foto
+            📁 Proyek Kampus
           </button>
           <button
             onClick={() => setActiveTab('awards')}
@@ -961,16 +972,234 @@ export default function AdminPortal() {
         )}
 
         {/* ================================================================= */}
-        {/* TAB 2: PROYEK KERJA (SELECTED WORKS) — TEKS & BUKTI FOTO           */}
+        {/* TAB: PENGALAMAN KERJA (WORK EXPERIENCE) — TEKS & BUKTI FOTO        */}
+        {/* ================================================================= */}
+        {activeTab === 'experience' && (
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#CAD7C5] shadow-xs space-y-6">
+            <div>
+              <h2 className="font-serif text-xl font-bold text-forest">
+                Pengaturan Teks & Foto — Pengalaman Kerja Nyata & Bisnis
+              </h2>
+              <p className="text-xs text-forest/70 mt-1">
+                Pilih pengalaman kerja untuk mengedit judul peran, periode, tag, ringkasan eksekutif, fokus capaian, foto utama, dan galeri kerja.
+              </p>
+            </div>
+
+            {/* Experience Selector Tabs */}
+            <div className="flex flex-wrap gap-2 border-b border-[#CAD7C5]/70 pb-4">
+              {(data.experiences || DEFAULT_PORTFOLIO_DATA.experiences || []).map((exp, idx) => (
+                <button
+                  key={exp.id}
+                  onClick={() => setActiveExperienceIdx(idx)}
+                  className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
+                    activeExperienceIdx === idx
+                      ? 'bg-rose-dark text-white shadow-xs'
+                      : 'bg-[#E8EFE5] text-forest/80 hover:bg-[#CAD7C5]'
+                  }`}
+                >
+                  {exp.title.split('—')[0].trim()}
+                </button>
+              ))}
+            </div>
+
+            {/* Active Experience Editor */}
+            {(() => {
+              const exps = data.experiences || DEFAULT_PORTFOLIO_DATA.experiences || [];
+              const currentExp = exps[activeExperienceIdx];
+              if (!currentExp) return null;
+
+              return (
+                <div className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="md:col-span-2">
+                      <label className="block text-xs font-bold text-forest mb-1">Nama Peran & Perusahaan/Bisnis:</label>
+                      <input
+                        type="text"
+                        value={currentExp.title}
+                        onChange={(e) => {
+                          const updated = [...exps];
+                          updated[activeExperienceIdx] = { ...currentExp, title: e.target.value };
+                          setData({ ...data, experiences: updated });
+                        }}
+                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-serif font-bold text-forest"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-forest mb-1">Periode Kerja:</label>
+                      <input
+                        type="text"
+                        value={currentExp.period}
+                        onChange={(e) => {
+                          const updated = [...exps];
+                          updated[activeExperienceIdx] = { ...currentExp, period: e.target.value };
+                          setData({ ...data, experiences: updated });
+                        }}
+                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-mono"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <label className="block text-xs font-bold text-forest mb-1">Tag / Kategori Bidang:</label>
+                      <input
+                        type="text"
+                        value={currentExp.tag}
+                        onChange={(e) => {
+                          const updated = [...exps];
+                          updated[activeExperienceIdx] = { ...currentExp, tag: e.target.value };
+                          setData({ ...data, experiences: updated });
+                        }}
+                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-forest mb-1">🔗 Link Eksternal / Profil Bisnis:</label>
+                      <input
+                        type="text"
+                        value={currentExp.link || ''}
+                        onChange={(e) => {
+                          const updated = [...exps];
+                          updated[activeExperienceIdx] = { ...currentExp, link: e.target.value };
+                          setData({ ...data, experiences: updated });
+                        }}
+                        placeholder="https://... (Instagram / Web)"
+                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-mono"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-forest mb-1">Label Tombol Tautan:</label>
+                      <input
+                        type="text"
+                        value={currentExp.linkLabel || ''}
+                        onChange={(e) => {
+                          const updated = [...exps];
+                          updated[activeExperienceIdx] = { ...currentExp, linkLabel: e.target.value };
+                          setData({ ...data, experiences: updated });
+                        }}
+                        placeholder="Profil Bisnis Dua Sisi ↗"
+                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-forest mb-1">Ringkasan Pengalaman Kerja (Summary):</label>
+                    <textarea
+                      rows={2}
+                      value={currentExp.summary}
+                      onChange={(e) => {
+                        const updated = [...exps];
+                        updated[activeExperienceIdx] = { ...currentExp, summary: e.target.value };
+                        setData({ ...data, experiences: updated });
+                      }}
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs leading-relaxed"
+                    />
+                  </div>
+
+                  {/* 3 Result Badges */}
+                  <div>
+                    <label className="block text-xs font-bold text-forest mb-2">3 Poin Fokus / Capaian Kerja:</label>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      {(currentExp.results || ['', '', '']).slice(0, 3).map((res, rIdx) => (
+                        <div key={rIdx}>
+                          <label className="block text-[11px] text-forest/70 mb-1">Poin {rIdx + 1}:</label>
+                          <input
+                            type="text"
+                            value={res}
+                            onChange={(e) => {
+                              const updated = [...exps];
+                              const newResults = [...(currentExp.results || ['', '', ''])];
+                              newResults[rIdx] = e.target.value;
+                              updated[activeExperienceIdx] = { ...currentExp, results: newResults };
+                              setData({ ...data, experiences: updated });
+                            }}
+                            className="w-full px-3 py-1.5 rounded-lg bg-white border border-[#CAD7C5] text-xs"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Photos Upload */}
+                  <div className="p-4 rounded-2xl bg-[#E8EFE5]/40 border border-[#CAD7C5] space-y-4">
+                    <h3 className="text-xs font-bold text-forest uppercase tracking-wider">
+                      📸 Foto Dokumentasi Pekerjaan:
+                    </h3>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <ImageUploadField
+                        label="Foto Utama (Tampil di Kartu):"
+                        value={currentExp.image}
+                        onChange={(newUrl) => {
+                          const updated = [...exps];
+                          const newExtras = [...(currentExp.extraImages || [currentExp.image])];
+                          newExtras[0] = newUrl;
+                          updated[activeExperienceIdx] = { ...currentExp, image: newUrl, extraImages: newExtras };
+                          setData({ ...data, experiences: updated });
+                        }}
+                        aspectRatio="landscape"
+                        helperText="Foto primer untuk kartu dan preview galeri"
+                      />
+
+                      <ImageUploadField
+                        label="Foto Pendukung 1 (Kartu & Modal):"
+                        value={currentExp.extraImages?.[1] || currentExp.image}
+                        onChange={(newUrl) => {
+                          const updated = [...exps];
+                          const newExtras = [...(currentExp.extraImages || [currentExp.image])];
+                          newExtras[1] = newUrl;
+                          updated[activeExperienceIdx] = { ...currentExp, extraImages: newExtras };
+                          setData({ ...data, experiences: updated });
+                        }}
+                        aspectRatio="landscape"
+                        helperText="Foto kedua untuk kartu 2-grid"
+                      />
+
+                      <ImageUploadField
+                        label="Foto Pendukung 2 (Galeri Penuh):"
+                        value={currentExp.extraImages?.[2] || currentExp.image}
+                        onChange={(newUrl) => {
+                          const updated = [...exps];
+                          const newExtras = [...(currentExp.extraImages || [currentExp.image])];
+                          newExtras[2] = newUrl;
+                          updated[activeExperienceIdx] = { ...currentExp, extraImages: newExtras };
+                          setData({ ...data, experiences: updated });
+                        }}
+                        aspectRatio="landscape"
+                        helperText="Dokumentasi ketiga untuk galeri modal"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="pt-2 flex justify-end">
+                    <button
+                      onClick={handleSave}
+                      className="px-6 py-2.5 rounded-full bg-forest text-white text-xs font-bold hover:bg-rose-dark transition-colors shadow-sm cursor-pointer"
+                    >
+                      Simpan Perubahan Pengalaman Kerja 💾
+                    </button>
+                  </div>
+                </div>
+              );
+            })()}
+          </div>
+        )}
+
+        {/* ================================================================= */}
+        {/* TAB: PROYEK KAMPUS (CAMPUS PROJECTS) — TEKS & BUKTI FOTO           */}
         {/* ================================================================= */}
         {activeTab === 'projects' && (
           <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#CAD7C5] shadow-xs space-y-6">
             <div>
               <h2 className="font-serif text-xl font-bold text-forest">
-                Pengaturan Teks & Foto — Selected Works & Proyek Bisnis
+                Pengaturan Teks & Foto — Proyek Kampus & Akademik (MY WORK INCLUDES)
               </h2>
               <p className="text-xs text-forest/70 mt-1">
-                Pilih proyek kerja untuk mengedit judul, ringkasan, tantangan, strategi, metrik hasil, foto sampul, dan foto-foto dokumentasi pendukung.
+                Pilih proyek kampus untuk mengedit judul, ringkasan, tantangan, strategi, metrik hasil, foto sampul, dan foto-foto dokumentasi pendukung.
               </p>
             </div>
 
