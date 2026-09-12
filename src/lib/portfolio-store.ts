@@ -730,9 +730,13 @@ export async function fetchPortfolioDataFromSupabase(): Promise<PortfolioData | 
     if (storedTs) localTs = parseInt(storedTs, 10) || 0;
   } catch {}
 
-  // 1. Try server-side API first for ultra-reliable fetching
+  // 1. Try server-side API first for ultra-reliable fetching with fast timeout (3.5s max)
   try {
-    const res = await fetch('/api/portfolio', { cache: 'no-store' });
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3500);
+    const res = await fetch('/api/portfolio', { cache: 'no-store', signal: controller.signal });
+    clearTimeout(timeoutId);
+
     if (res.ok) {
       const json = await res.json();
       if (json && json.data && json.data.hero) {
@@ -756,7 +760,7 @@ export async function fetchPortfolioDataFromSupabase(): Promise<PortfolioData | 
       }
     }
   } catch (e) {
-    console.warn('API /api/portfolio fetch error:', e);
+    console.warn('API /api/portfolio fetch notice (falling back):', e);
   }
 
   // 2. Direct client-side Supabase query fallback

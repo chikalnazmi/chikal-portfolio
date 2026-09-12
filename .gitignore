@@ -44,3 +44,6 @@ next-env.d.ts
 # root screenshots
 /*.png
 
+# original master raw images backup
+/public-originals/
+

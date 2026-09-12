@@ -261,9 +261,9 @@ export default function Home() {
             {/* Trust Badges & Awards Proof Row */}
             <div className="pt-6 border-t border-sage-200/80 w-full flex items-center gap-4 flex-wrap">
               <div className="flex -space-x-2.5 overflow-hidden">
-                <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-2xs" src="/11.png" alt="Award 1" />
-                <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-2xs" src="/12.png" alt="Award 2" />
-                <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-2xs" src="/16.png" alt="Award 3" />
+                <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-2xs" src="/11.png" alt="Award 1" loading="lazy" decoding="async" />
+                <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-2xs" src="/12.png" alt="Award 2" loading="lazy" decoding="async" />
+                <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-2xs" src="/16.png" alt="Award 3" loading="lazy" decoding="async" />
               </div>
               <div>
                 <p className="text-xs sm:text-sm font-bold text-[#18181B] leading-tight flex items-center gap-1.5">
@@ -293,6 +293,7 @@ export default function Home() {
                   src={portfolioData.hero?.avatarImg || "/2.png"}
                   alt="Chikal Nazmi"
                   className="w-full h-full max-h-[480px] object-contain object-bottom select-none transition-transform duration-700 hover:scale-[1.03] drop-shadow-md z-10"
+                  decoding="async"
                 />
               </div>
 
@@ -433,6 +434,8 @@ export default function Home() {
                   src={projectsList[0]?.image || "/1.png"} 
                   alt="Sistem Manajemen Koran"
                   className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500" 
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
               <div className="flex items-center justify-between">
@@ -465,6 +468,8 @@ export default function Home() {
                   src={projectsList[1]?.image || "/3.png"} 
                   alt="Website SurveyKu"
                   className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500" 
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
               <div className="flex items-center justify-between">
@@ -497,6 +502,8 @@ export default function Home() {
                   src={projectsList[2]?.image || "/9.png"} 
                   alt="JTI Certify"
                   className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500" 
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
               <div className="flex items-center justify-between">
@@ -529,6 +536,8 @@ export default function Home() {
                   src={projectsList[3]?.image || "/17.png"} 
                   alt={projectsList[3]?.title || "Manikarumi Campaign"}
                   className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500" 
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
               <div className="flex items-center justify-between">
@@ -710,7 +719,7 @@ export default function Home() {
                 {awardsList[0]?.desc ? `${awardsList[0].title} — ${awardsList[0].desc}` : "Kemampuan analisis komprehensif dalam memadukan kelayakan bisnis, tata kelola data sistem informasi, dan presentasi meyakinkan terbukti membawakan 7 gelar juara nasional."}
               </p>
               <div className="flex items-center gap-3 mt-4">
-                <img src={awardsList[0]?.certImg || "/11.png"} alt="Award" className="w-8 h-8 rounded-full object-cover ring-2 ring-teal-100" />
+                <img src={awardsList[0]?.certImg || "/11.png"} alt="Award" className="w-8 h-8 rounded-full object-cover ring-2 ring-teal-100" loading="lazy" decoding="async" />
                 <div>
                   <h4 className="font-bold text-xs text-[#18181B]">{awardsList[0]?.title || "National Fest Business Plan Competition"}</h4>
                   <p className="text-[10px] text-teal-700">{awardsList[0]?.rank || "Juara 1 Tingkat Nasional"} {awardsList[0]?.year ? `(${awardsList[0].year})` : ""}</p>
@@ -726,7 +735,7 @@ export default function Home() {
                 {portfolioData.creatorAccounts?.manikarumi?.centerDesc || "Inisiatif kepemimpinan di Manikarumi dan GDSC Polinema mempercepat lonjakan jangkauan konten organik hingga +2.089% dengan storytelling yang memikat audiens muda."}
               </p>
               <div className="flex items-center gap-3 mt-4">
-                <img src={portfolioData.creatorAccounts?.manikarumi?.centerImg || "/17.png"} alt="Manikarumi" className="w-8 h-8 rounded-full object-cover ring-2 ring-rose-100" />
+                <img src={portfolioData.creatorAccounts?.manikarumi?.centerImg || "/17.png"} alt="Manikarumi" className="w-8 h-8 rounded-full object-cover ring-2 ring-rose-100" loading="lazy" decoding="async" />
                 <div>
                   <h4 className="font-bold text-xs text-[#18181B]">{portfolioData.creatorAccounts?.manikarumi?.name || "Commercial Content Growth"}</h4>
                   <p className="text-[10px] text-rose-700">{portfolioData.creatorAccounts?.manikarumi?.stats || "Brand Impact & Reach Surge"}</p>
@@ -796,6 +805,8 @@ export default function Home() {
                   src={project.image || "/1.png"}
                   alt={project.title}
                   className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
                   <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-4 py-2 rounded-full bg-white/95 backdrop-blur-md text-xs font-bold text-[#18181B] shadow-sm">
@@ -920,6 +931,8 @@ export default function Home() {
                     src={currentCreator.leftPhoneImg || "/4.png"}
                     alt={currentCreator.leftPhoneTitle}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div className="absolute top-2 left-2 px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-xs text-[10px] font-bold text-white">
                     {currentCreator.leftPhoneTag || "Reels"}
@@ -950,6 +963,8 @@ export default function Home() {
                     src={currentCreator.centerImg || "/3.png"}
                     alt={currentCreator.centerTitle}
                     className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-4">
                     <div>
@@ -991,6 +1006,8 @@ export default function Home() {
                     src={currentCreator.rightPhoneImg || "/5.png"}
                     alt={currentCreator.rightPhoneTitle}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div className="absolute top-2 left-2 px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-xs text-[10px] font-bold text-white">
                     {currentCreator.rightPhoneTag || "TikTok"}
@@ -1035,6 +1052,8 @@ export default function Home() {
                   src={portfolioData.hero?.avatarImg || "/2.png"}
                   alt="Chikal Portrait"
                   className="w-full h-full object-cover object-top"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
               <div className="mt-4 px-2 flex items-center justify-between">
