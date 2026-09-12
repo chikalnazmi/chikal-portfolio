@@ -194,130 +194,168 @@ export default function Home() {
       </header>
 
       {/* ========================================================================= */}
-      {/* 2. HERO SECTION (Layout, Font & Dominant Green-Teal Aura Elian Ross)       */}
+      {/* 2. HERO SECTION (2-Column Editorial Layout: Left Content, Right Photo)     */}
       {/* ========================================================================= */}
-      <section className="relative pt-6 sm:pt-10 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto overflow-hidden text-center">
+      <section className="relative pt-8 sm:pt-14 md:pt-20 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto overflow-hidden">
         
-        {/* Dominant Radiant Green-Teal Aura + Soft Rose Glow Directly Behind Portrait */}
-        <div className="absolute top-[28%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[540px] md:w-[680px] lg:w-[820px] h-[340px] sm:h-[540px] md:h-[680px] hero-teal-rose-glow rounded-full pointer-events-none z-0"></div>
-        <div className="absolute top-[48%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[260px] sm:w-[420px] md:w-[500px] h-[260px] sm:h-[420px] teal-halo-glow rounded-full pointer-events-none z-0"></div>
+        {/* Subtle Radiant Sage-Rose Glow Backdrop */}
+        <div className="absolute top-1/4 -right-20 w-[420px] sm:w-[580px] h-[420px] sm:h-[580px] hero-teal-rose-glow rounded-full pointer-events-none z-0"></div>
+        <div className="absolute top-1/3 -left-20 w-[360px] sm:w-[480px] h-[360px] sm:h-[480px] teal-halo-glow-subtle rounded-full pointer-events-none z-0"></div>
 
-        {/* Top Honor Citation (Laurel Wreath style like Elian Ross Site of the Day) */}
-        <div className="relative z-10 flex justify-center mb-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-teal-200/70 shadow-xs text-[11px] font-medium text-teal-950">
-            <span className="text-teal-600">🌿</span>
-            <span>{portfolioData.hero?.subheadline || "Management Trainee • Business Development • Creative Content Lead"}</span>
-          </div>
-        </div>
-
-        {/* Dual-Contrast Headline: Sans Bold + Slender Italic Serif */}
-        <div className="relative z-10 max-w-4xl mx-auto mb-6 sm:mb-8">
-          {portfolioData.hero?.headline ? (
-            <h1 className="font-sans font-medium text-4xl sm:text-5xl md:text-6xl lg:text-[72px] tracking-tight text-[#18181B] leading-tight">
-              {portfolioData.hero.headline}
-            </h1>
-          ) : (
-            <>
-              <h1 className="font-sans font-medium text-5xl sm:text-6xl md:text-7xl lg:text-[76px] tracking-tight text-[#18181B] leading-none">
-                Hi I&apos;m Chikal
-              </h1>
-              <span className="font-serif italic font-normal text-5xl sm:text-6xl md:text-7xl lg:text-[84px] text-[#23321E] tracking-tight block mt-1 leading-[1.05]">
-                Business &amp; Digital Strategist
-              </span>
-            </>
-          )}
-        </div>
-
-        {/* Centered Portrait Area with Floating Micro-Elements in 4 Corners */}
-        <div className="relative z-10 max-w-4xl mx-auto min-h-[380px] sm:min-h-[460px] md:min-h-[500px] flex items-center justify-center">
+        {/* Main 2-Column Grid */}
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           
-          {/* FLOATING ELEMENT 1 (Top-Left): Available for Opportunities Pill */}
-          <div className="absolute top-4 sm:top-8 left-1 sm:left-4 md:left-8 z-20 animate-soft-float">
-            <div className="bg-white/95 backdrop-blur-md border border-teal-200/80 rounded-full px-3.5 sm:px-4 py-2 shadow-xs flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-sage-500 shadow-[0_0_8px_rgba(122,148,113,0.8)] animate-pulse"></span>
-              <span className="text-[11px] sm:text-xs font-semibold text-teal-950">
-                Available for new opportunities
-              </span>
+          {/* ================= LEFT COLUMN: Kicker, Headline, Info, CTA ================= */}
+          <div className="lg:col-span-7 flex flex-col items-start text-left">
+            
+            {/* Top Kicker / Category Pill */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sage-50 border border-sage-200 shadow-2xs text-[11px] sm:text-xs font-medium text-sage-950 mb-5">
+              <span className="w-2 h-2 rounded-full bg-sage-500 animate-pulse"></span>
+              <span>{portfolioData.hero?.subheadline || "Management Trainee • Business Development • Creative Content Lead"}</span>
             </div>
-          </div>
 
-          {/* FLOATING ELEMENT 2 (Top-Right): Clean Text Statement (Elian Ross Style, NO Box) */}
-          <div className="absolute top-2 sm:top-6 right-1 sm:right-4 md:right-8 z-20 max-w-[220px] sm:max-w-[260px] text-right hidden sm:block">
-            <p className="text-xs sm:text-sm text-neutral-700 leading-relaxed font-normal">
-              {portfolioData.hero?.bio || "passionate about scaling business ventures, digital products & data-driven operations that deliver real impact."}
+            {/* Headline / Title */}
+            <div className="mb-5 max-w-2xl">
+              {portfolioData.hero?.headline ? (
+                <h1 className="font-sans font-bold text-4xl sm:text-5xl lg:text-6xl tracking-tight text-[#18181B] leading-[1.12]">
+                  {portfolioData.hero.headline}
+                </h1>
+              ) : (
+                <>
+                  <h1 className="font-sans font-bold text-4xl sm:text-5xl lg:text-[58px] tracking-tight text-[#18181B] leading-none">
+                    Hi, I&apos;m Chikal
+                  </h1>
+                  <span className="font-serif italic font-normal text-4xl sm:text-5xl lg:text-[66px] text-sage-900 tracking-tight block mt-1.5 leading-[1.1]">
+                    Business &amp; Digital Strategist
+                  </span>
+                </>
+              )}
+            </div>
+
+            {/* Info / Description Paragraph */}
+            <p className="text-base sm:text-lg text-neutral-600 leading-relaxed font-normal mb-8 max-w-xl">
+              {portfolioData.hero?.bio || "Passionate about scaling business ventures, digital products & data-driven operations that deliver real impact."}
             </p>
-          </div>
 
-          {/* FLOATING ELEMENT 3 (Bottom-Left): Social proof & 7x awards */}
-          <div className="absolute bottom-2 sm:bottom-6 left-1 sm:left-4 md:left-8 z-20">
-            <div className="bg-white/95 backdrop-blur-md border border-teal-100/90 rounded-2xl px-3.5 sm:px-4 py-2.5 shadow-sm flex items-center gap-3">
-              <div className="flex -space-x-2 overflow-hidden">
-                <img className="inline-block h-6 w-6 rounded-full ring-2 ring-white object-cover" src="/11.png" alt="Award 1" />
-                <img className="inline-block h-6 w-6 rounded-full ring-2 ring-white object-cover" src="/12.png" alt="Award 2" />
-                <img className="inline-block h-6 w-6 rounded-full ring-2 ring-white object-cover" src="/16.png" alt="Award 3" />
+            {/* CTA Action Buttons */}
+            <div className="flex items-center gap-3.5 sm:gap-4 flex-wrap mb-9">
+              <a
+                href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-[#1A2616] hover:bg-[#33452D] text-white rounded-full px-6 sm:px-7 py-3 text-sm font-semibold shadow-md hover:shadow-lg transition-all flex items-center gap-2.5 cursor-pointer group active:scale-95 whitespace-nowrap"
+              >
+                <span>✦ Chat on WhatsApp</span>
+                <span className="group-hover:translate-x-1 transition-transform">→</span>
+              </a>
+
+              <a
+                href="#projects"
+                className="bg-white hover:bg-sage-50/80 text-neutral-800 hover:text-sage-950 border border-sage-200 rounded-full px-6 py-3 text-sm font-semibold shadow-xs hover:shadow-sm transition-all flex items-center gap-2 cursor-pointer active:scale-95 whitespace-nowrap"
+              >
+                <span>Explore Works</span>
+                <span>↓</span>
+              </a>
+            </div>
+
+            {/* Trust Badges & Awards Proof Row */}
+            <div className="pt-6 border-t border-sage-200/80 w-full flex items-center gap-4 flex-wrap">
+              <div className="flex -space-x-2.5 overflow-hidden">
+                <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-2xs" src="/11.png" alt="Award 1" />
+                <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-2xs" src="/12.png" alt="Award 2" />
+                <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-2xs" src="/16.png" alt="Award 3" />
               </div>
-              <div className="text-left">
-                <p className="text-[11px] font-bold text-[#18181B] leading-tight">🏆 {portfolioData.hero?.stat1Value || "7x"} {portfolioData.hero?.stat1Label || "National Awards"}</p>
-                <p className="text-[10px] text-teal-700 font-medium leading-tight">{portfolioData.hero?.stat2Value ? `${portfolioData.hero.stat2Value} ${portfolioData.hero.stat2Label || "Reach"}` : "Business Case & IT Innovation"}</p>
+              <div>
+                <p className="text-xs sm:text-sm font-bold text-[#18181B] leading-tight flex items-center gap-1.5">
+                  <span>🏆</span>
+                  <span>{portfolioData.hero?.stat1Value || "7x"} {portfolioData.hero?.stat1Label || "National Awards"}</span>
+                </p>
+                <p className="text-[11px] sm:text-xs text-sage-700 font-medium leading-tight mt-0.5">
+                  {portfolioData.hero?.stat2Value ? `${portfolioData.hero.stat2Value} ${portfolioData.hero.stat2Label || "Reach"}` : "Business Case & IT Innovation"}
+                </p>
               </div>
             </div>
+
           </div>
 
-          {/* FLOATING ELEMENT 4 (Bottom-Right): Sleek Solid Pill Button (Elian Ross Style) */}
-          <div className="absolute bottom-2 sm:bottom-6 right-1 sm:right-4 md:right-8 z-20">
-            <a
-              href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#1A2616] hover:bg-[#33452D] text-white rounded-full px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold shadow-md hover:shadow-lg transition-all flex items-center gap-2 cursor-pointer group"
-            >
-              <span>✦ Chat on WhatsApp</span>
-              <span className="group-hover:translate-x-0.5 transition-transform">→</span>
-            </a>
-          </div>
+          {/* ================= RIGHT COLUMN: Slot Foto Pribadi ================= */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-end relative">
+            
+            {/* Ambient Halo Behind Image Card */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] teal-halo-glow rounded-full pointer-events-none z-0"></div>
 
-          {/* CENTERED SUBJECT / PORTRAIT WITH SMOOTH MASK FADE */}
-          <div className="relative w-[280px] sm:w-[360px] md:w-[420px] h-[360px] sm:h-[460px] md:h-[500px] flex items-end justify-center">
-            <img
-              src={portfolioData.hero?.avatarImg || "/2.png"}
-              alt="Chikal Nazmi"
-              className="w-full h-full object-contain object-bottom select-none transition-transform duration-500 hover:scale-[1.02] [mask-image:linear-gradient(to_bottom,black_80%,transparent_100%)]"
-            />
+            {/* Photo Frame Container */}
+            <div className="relative z-10 w-full max-w-[360px] sm:max-w-[420px] rounded-[2.5rem] bg-gradient-to-b from-sage-100/90 via-white/80 to-sage-50/70 border border-sage-200/80 p-3 sm:p-4 shadow-xl backdrop-blur-xs">
+              
+              {/* Photo Subject with Smooth Gradient & Border */}
+              <div className="relative rounded-[2rem] overflow-hidden bg-gradient-to-b from-sage-50/50 to-sage-100/40 flex items-end justify-center min-h-[380px] sm:min-h-[440px] md:min-h-[480px]">
+                <img
+                  src={portfolioData.hero?.avatarImg || "/2.png"}
+                  alt="Chikal Nazmi"
+                  className="w-full h-full max-h-[480px] object-contain object-bottom select-none transition-transform duration-700 hover:scale-[1.03] drop-shadow-md z-10"
+                />
+              </div>
+
+              {/* Floating Badge 1 (Top-Left): Academic / Status */}
+              <div className="absolute top-6 left-6 z-20 bg-white/95 backdrop-blur-md border border-sage-200/90 rounded-full px-3.5 py-1.5 shadow-md flex items-center gap-2 animate-soft-float">
+                <span className="w-2 h-2 rounded-full bg-sage-500 shadow-[0_0_8px_rgba(122,148,113,0.8)] animate-pulse"></span>
+                <span className="text-[11px] font-semibold text-sage-950">
+                  D4 SIB · Cum Laude
+                </span>
+              </div>
+
+              {/* Floating Badge 2 (Bottom-Right): Reach / Growth */}
+              <div className="absolute bottom-6 right-6 z-20 bg-white/95 backdrop-blur-md border border-sage-200/90 rounded-2xl p-3 shadow-lg text-left">
+                <div className="flex items-center gap-2.5">
+                  <span className="text-lg">📈</span>
+                  <div>
+                    <p className="text-xs font-bold text-neutral-900 leading-tight">
+                      {portfolioData.hero?.stat2Value || "10K+"} Reach
+                    </p>
+                    <p className="text-[10px] text-sage-700 font-semibold">
+                      Digital Growth
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
           </div>
 
         </div>
 
         {/* 4 Statistical Metrics Bar (Real-time from CMS Tab Hero) */}
-        <div className="relative z-10 max-w-4xl mx-auto mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 px-2">
-          <div className="bg-white/90 backdrop-blur-md rounded-2xl p-3.5 sm:p-4 border border-teal-100/90 shadow-xs hover:border-teal-300 transition-colors text-center">
-            <span className="font-serif font-bold text-2xl sm:text-3xl text-teal-950 block">
+        <div className="relative z-10 max-w-7xl mx-auto mt-12 sm:mt-16 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+          <div className="bg-white/90 backdrop-blur-md rounded-2xl p-4 border border-sage-200/80 shadow-xs hover:border-sage-400 transition-colors text-center">
+            <span className="font-serif font-bold text-2xl sm:text-3xl text-sage-950 block">
               {portfolioData.hero?.stat1Value || "7x"}
             </span>
-            <span className="text-[10px] sm:text-[11px] uppercase font-bold text-neutral-500 tracking-wider block mt-0.5">
+            <span className="text-[10px] sm:text-[11px] uppercase font-bold text-neutral-500 tracking-wider block mt-1">
               {portfolioData.hero?.stat1Label || "Penghargaan Lomba"}
             </span>
           </div>
-          <div className="bg-white/90 backdrop-blur-md rounded-2xl p-3.5 sm:p-4 border border-rose-100/90 shadow-xs hover:border-rose-300 transition-colors text-center">
+          <div className="bg-white/90 backdrop-blur-md rounded-2xl p-4 border border-sage-200/80 shadow-xs hover:border-sage-400 transition-colors text-center">
             <span className="font-serif font-bold text-2xl sm:text-3xl text-rose-900 block">
               {portfolioData.hero?.stat2Value || "10K+"}
             </span>
-            <span className="text-[10px] sm:text-[11px] uppercase font-bold text-neutral-500 tracking-wider block mt-0.5">
+            <span className="text-[10px] sm:text-[11px] uppercase font-bold text-neutral-500 tracking-wider block mt-1">
               {portfolioData.hero?.stat2Label || "Jangkauan Konten"}
             </span>
           </div>
-          <div className="bg-white/90 backdrop-blur-md rounded-2xl p-3.5 sm:p-4 border border-teal-100/90 shadow-xs hover:border-teal-300 transition-colors text-center">
-            <span className="font-serif font-bold text-2xl sm:text-3xl text-teal-950 block">
+          <div className="bg-white/90 backdrop-blur-md rounded-2xl p-4 border border-sage-200/80 shadow-xs hover:border-sage-400 transition-colors text-center">
+            <span className="font-serif font-bold text-2xl sm:text-3xl text-sage-950 block">
               {portfolioData.hero?.stat3Value || "20+"}
             </span>
-            <span className="text-[10px] sm:text-[11px] uppercase font-bold text-neutral-500 tracking-wider block mt-0.5">
+            <span className="text-[10px] sm:text-[11px] uppercase font-bold text-neutral-500 tracking-wider block mt-1">
               {portfolioData.hero?.stat3Label || "Mitra Event"}
             </span>
           </div>
-          <div className="bg-white/90 backdrop-blur-md rounded-2xl p-3.5 sm:p-4 border border-rose-100/90 shadow-xs hover:border-rose-300 transition-colors text-center">
+          <div className="bg-white/90 backdrop-blur-md rounded-2xl p-4 border border-sage-200/80 shadow-xs hover:border-sage-400 transition-colors text-center">
             <span className="font-serif font-bold text-2xl sm:text-3xl text-rose-900 block">
               {portfolioData.hero?.stat4Value || "D4 SIB"}
             </span>
-            <span className="text-[10px] sm:text-[11px] uppercase font-bold text-neutral-500 tracking-wider block mt-0.5">
+            <span className="text-[10px] sm:text-[11px] uppercase font-bold text-neutral-500 tracking-wider block mt-1">
               {portfolioData.hero?.stat4Label || "Polinema"}
             </span>
           </div>
