@@ -192,7 +192,7 @@ export default function AdminPortal() {
   // SCREEN 2: ADMIN CONTENT DASHBOARD (TEXT, PHOTOS, LINKS & METRICS)
   // --------------------------------------------------------------------------
   return (
-    <div className="min-h-screen bg-[#F8FAF7] text-neutral-900 font-source pb-24">
+    <div className="min-h-screen bg-[#FCFCFC] text-[#241C1E] font-sans antialiased pb-24">
       {/* Toast Notification */}
       {toastNotification && (
         <div className={`fixed top-6 right-6 z-50 text-white px-5 py-3.5 rounded-2xl shadow-2xl border flex items-center gap-3 animate-fade-in ${
@@ -218,7 +218,7 @@ export default function AdminPortal() {
 
       {/* Top Bar */}
       <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-rose-100/80 px-4 sm:px-8 py-3.5 shadow-xs">
-        <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
+        <div className="w-full max-w-[1560px] mx-auto flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-xl bg-[#241C1E] text-[#F4F7F2] flex items-center justify-center font-serif font-bold text-sm">
               C
@@ -274,105 +274,105 @@ export default function AdminPortal() {
         </div>
       </header>
 
-      {/* Navigation Tabs */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-8 mt-6">
-        <div className="flex flex-wrap gap-2 p-1.5 bg-white rounded-2xl border border-rose-100/80 shadow-xs">
+      {/* Navigation Tabs (Full Page Horizontal Strip) */}
+      <div className="w-full max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+        <div className="flex items-center gap-1.5 p-1.5 bg-white rounded-2xl border border-rose-100/80 shadow-xs overflow-x-auto scrollbar-none whitespace-nowrap">
           <button
             onClick={() => setActiveTab('hero')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
               activeTab === 'hero'
                 ? 'bg-[#241C1E] text-white shadow-sm'
-                : 'text-neutral-500 hover:bg-rose-50'
+                : 'text-neutral-600 hover:text-[#241C1E] hover:bg-rose-50'
             }`}
           >
             Profil & Hero
           </button>
           <button
             onClick={() => setActiveTab('education')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
               activeTab === 'education'
                 ? 'bg-[#241C1E] text-white shadow-sm'
-                : 'text-neutral-500 hover:bg-rose-50'
+                : 'text-neutral-600 hover:text-[#241C1E] hover:bg-rose-50'
             }`}
           >
             Pendidikan
           </button>
           <button
             onClick={() => setActiveTab('experience')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
               activeTab === 'experience'
                 ? 'bg-[#241C1E] text-white shadow-sm'
-                : 'text-neutral-500 hover:bg-rose-50'
+                : 'text-neutral-600 hover:text-[#241C1E] hover:bg-rose-50'
             }`}
           >
             Pengalaman
           </button>
           <button
             onClick={() => setActiveTab('projects')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
               activeTab === 'projects'
                 ? 'bg-[#241C1E] text-white shadow-sm'
-                : 'text-neutral-500 hover:bg-rose-50'
+                : 'text-neutral-600 hover:text-[#241C1E] hover:bg-rose-50'
             }`}
           >
             Proyek Kampus
           </button>
           <button
             onClick={() => setActiveTab('awards')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
               activeTab === 'awards'
                 ? 'bg-[#241C1E] text-white shadow-sm'
-                : 'text-neutral-500 hover:bg-rose-50'
+                : 'text-neutral-600 hover:text-[#241C1E] hover:bg-rose-50'
             }`}
           >
             Kejuaraan & Prestasi
           </button>
           <button
             onClick={() => setActiveTab('skills')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
               activeTab === 'skills'
                 ? 'bg-[#241C1E] text-white shadow-sm'
-                : 'text-neutral-500 hover:bg-rose-50'
+                : 'text-neutral-600 hover:text-[#241C1E] hover:bg-rose-50'
             }`}
           >
             Keahlian (Skills)
           </button>
           <button
             onClick={() => setActiveTab('creator')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
               activeTab === 'creator'
                 ? 'bg-[#241C1E] text-white shadow-sm'
-                : 'text-neutral-500 hover:bg-rose-50'
+                : 'text-neutral-600 hover:text-[#241C1E] hover:bg-rose-50'
             }`}
           >
             Creator Studio
           </button>
           <button
             onClick={() => setActiveTab('socials')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
               activeTab === 'socials'
                 ? 'bg-[#241C1E] text-white shadow-sm'
-                : 'text-neutral-500 hover:bg-rose-50'
+                : 'text-neutral-600 hover:text-[#241C1E] hover:bg-rose-50'
             }`}
           >
             Media Sosial & Kontak
           </button>
           <button
             onClick={() => setActiveTab('photoguide')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
               activeTab === 'photoguide'
                 ? 'bg-[#241C1E] text-white shadow-sm'
-                : 'text-neutral-500 hover:bg-rose-50'
+                : 'text-neutral-600 hover:text-[#241C1E] hover:bg-rose-50'
             }`}
           >
             Panduan Foto
           </button>
           <button
             onClick={() => setActiveTab('supabase')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
               activeTab === 'supabase'
                 ? 'bg-[#241C1E] text-white shadow-sm'
-                : 'text-neutral-500 hover:bg-rose-50'
+                : 'text-neutral-600 hover:text-[#241C1E] hover:bg-rose-50'
             }`}
           >
             Database Cloud
@@ -381,13 +381,13 @@ export default function AdminPortal() {
       </div>
 
       {/* Tab Content Canvas */}
-      <main className="max-w-6xl mx-auto px-4 sm:px-8 mt-6">
+      <main className="w-full max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 mt-6">
         
         {/* ================================================================= */}
         {/* TAB 1: PROFIL & TEKS UTAMA (HERO SECTION & FOTO PROFIL)           */}
         {/* ================================================================= */}
         {activeTab === 'hero' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-rose-100 shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 border border-rose-100 shadow-sm space-y-6">
             <div>
               <h2 className="font-serif text-xl font-bold text-neutral-900">
                 Pengaturan Profil & Teks Beranda (Hero Section)
@@ -397,7 +397,7 @@ export default function AdminPortal() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
               {/* Left Column: Text Fields (8 cols) */}
               <div className="lg:col-span-8 space-y-4">
                 <div>
@@ -578,7 +578,7 @@ export default function AdminPortal() {
         {/* TAB: PENDIDIKAN FORMAL (ACADEMIC) & SERTIFIKASI PROFESIONAL        */}
         {/* ================================================================= */}
         {activeTab === 'education' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-rose-100 shadow-xs space-y-8">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 border border-rose-100 shadow-sm space-y-8">
             <div>
               <h2 className="font-serif text-xl font-bold text-neutral-900">
                 Pengaturan Pendidikan Formal (D4 SIB) & Sertifikasi Profesional
@@ -1052,7 +1052,7 @@ export default function AdminPortal() {
         {/* TAB: PENGALAMAN KERJA (WORK EXPERIENCE) — TEKS & BUKTI FOTO        */}
         {/* ================================================================= */}
         {activeTab === 'experience' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-rose-100 shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 border border-rose-100 shadow-sm space-y-6">
             <div>
               <h2 className="font-serif text-xl font-bold text-neutral-900">
                 Pengaturan Teks & Foto — Pengalaman Kerja Nyata & Bisnis
@@ -1270,7 +1270,7 @@ export default function AdminPortal() {
         {/* TAB: PROYEK KAMPUS (CAMPUS PROJECTS) — TEKS & BUKTI FOTO           */}
         {/* ================================================================= */}
         {activeTab === 'projects' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-rose-100 shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 border border-rose-100 shadow-sm space-y-6">
             <div>
               <h2 className="font-serif text-xl font-bold text-neutral-900">
                 Pengaturan Teks & Foto — Proyek Kampus & Akademik (MY WORK INCLUDES)
@@ -1510,7 +1510,7 @@ export default function AdminPortal() {
         {/* TAB 3: KEJUARAAN (AWARDS) — TEKS, SERTIFIKAT & FOTO DOKUMENTASI    */}
         {/* ================================================================= */}
         {activeTab === 'awards' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-rose-100 shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 border border-rose-100 shadow-sm space-y-6">
             <div>
               <h2 className="font-serif text-xl font-bold text-neutral-900">
                 Pengaturan Kejuaraan, Sertifikat & Foto Dokumentasi Panggung
@@ -1702,7 +1702,7 @@ export default function AdminPortal() {
         {/* TAB: KEAHLIAN & KOMPETENSI (HARD SKILLS & SOFT SKILLS)            */}
         {/* ================================================================= */}
         {activeTab === 'skills' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-rose-100 shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 border border-rose-100 shadow-sm space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <h2 className="font-serif text-xl font-bold text-neutral-900">
@@ -1875,7 +1875,7 @@ export default function AdminPortal() {
         {/* TAB 4: VIDEO & CREATOR PRODUCTION (FOTO MOCKUP & ADAPTIF 2 HP)    */}
         {/* ================================================================= */}
         {activeTab === 'creator' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-rose-100 shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 border border-rose-100 shadow-sm space-y-6">
             <div>
               <h2 className="font-serif text-xl font-bold text-neutral-900">
                 Pengaturan Stage Video & Foto Mockup HP Kreator
@@ -2078,7 +2078,7 @@ export default function AdminPortal() {
         {/* TAB 5: SOSIAL MEDIA & KONTAK UTAMA                                */}
         {/* ================================================================= */}
         {activeTab === 'socials' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-rose-100 shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 border border-rose-100 shadow-sm space-y-6">
             <div>
               <h2 className="font-serif text-xl font-bold text-neutral-900">
                 Pengaturan Seluruh Sosial Media & Kontak Pribadi
@@ -2196,7 +2196,7 @@ export default function AdminPortal() {
         {/* TAB 6: PANDUAN CARA GANTI FOTO (MENGGUNAKAN FOTO SENDIRI)          */}
         {/* ================================================================= */}
         {activeTab === 'photoguide' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-rose-100 shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 border border-rose-100 shadow-sm space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 text-amber-900 font-bold text-xs">
               <span>Tips Praktis Pengelolaan Foto</span>
             </div>
@@ -2265,7 +2265,7 @@ export default function AdminPortal() {
         {/* TAB 7: SUPABASE + VERCEL (ARSITEKTUR HILMAN JTI)                  */}
         {/* ================================================================= */}
         {activeTab === 'supabase' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-rose-100 shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 border border-rose-100 shadow-sm space-y-6">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 font-bold text-xs mb-2">
