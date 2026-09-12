@@ -6,9 +6,11 @@ import {
   getPortfolioData, 
   savePortfolioData, 
   resetPortfolioData, 
+  fetchPortfolioDataFromSupabase,
   DEFAULT_PORTFOLIO_DATA,
   PortfolioData 
 } from '@/lib/portfolio-store';
+import { isSupabaseConfigured } from '@/lib/supabase';
 import ImageUploadField from '@/components/ImageUploadField';
 
 export default function AdminPortal() {
@@ -35,6 +37,11 @@ export default function AdminPortal() {
       setIsAuthenticated(true);
     }
     setData(getPortfolioData());
+    fetchPortfolioDataFromSupabase().then((remoteData) => {
+      if (remoteData) {
+        setData(remoteData);
+      }
+    });
   }, []);
 
   const handleLogin = (e: React.FormEvent) => {
@@ -163,9 +170,21 @@ export default function AdminPortal() {
               <h1 className="font-serif font-bold text-base text-forest leading-tight">
                 Chikal Content Studio
               </h1>
-              <span className="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-bold border border-emerald-200">
-                ● Studio Edit Lengkap (Teks & Foto)
-              </span>
+              <div className="flex items-center gap-1.5 mt-0.5">
+                <span className="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-bold border border-emerald-200">
+                  ● Studio Edit
+                </span>
+                {isSupabaseConfigured ? (
+                  <span className="text-[10px] text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full font-bold border border-emerald-300 flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    ☁️ Supabase Cloud Terhubung
+                  </span>
+                ) : (
+                  <span className="text-[10px] text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full font-bold border border-amber-200">
+                    💾 Mode Offline (LocalStorage)
+                  </span>
+                )}
+              </div>
             </div>
           </div>
 
@@ -2205,45 +2224,103 @@ export default function AdminPortal() {
               <span className="text-4xl hidden sm:block">⚡</span>
             </div>
 
-            <div className="p-5 rounded-2xl bg-emerald-50 border border-emerald-300">
-              <div className="flex items-center gap-2 text-emerald-900 font-bold text-xs mb-1">
-                <span>🟢</span>
-                <span>Status Saat Ini: Siap Pakai & Auto-Local Persistence</span>
+            <div className={`p-5 rounded-2xl border ${isSupabaseConfigured ? 'bg-emerald-50 border-emerald-300' : 'bg-amber-50 border-amber-300'}`}>
+              <div className="flex items-center gap-2 font-bold text-xs mb-1">
+                <span>{isSupabaseConfigured ? '🟢' : '🟡'}</span>
+                <span className={isSupabaseConfigured ? 'text-emerald-900' : 'text-amber-900'}>
+                  {isSupabaseConfigured 
+                    ? 'Status: Terhubung ke Supabase Cloud (Live Sync Aktif!)' 
+                    : 'Status: Mode Penyimpanan Lokal (Supabase belum dikonfigurasi)'}
+                </span>
               </div>
-              <p className="text-xs text-emerald-950 leading-relaxed">
-                Studio Admin ini <strong>sudah berfungsi penuh 100%</strong> menggunakan penyimpanan lokal browser (`localStorage`). Setiap kamu mengubah teks profil, foto, atau tautan di sini dan klik Simpan, websitemu langsung berubah seketika!
+              <p className="text-xs text-forest/90 leading-relaxed">
+                {isSupabaseConfigured
+                  ? 'Setiap kali kamu mengklik "Simpan Data", data otomatis tersinkronisasi ke database cloud Supabase Anda sekaligus ke browser lokal!'
+                  : 'Saat ini studio beroperasi menggunakan penyimpanan lokal browser (localStorage). Ikuti 4 langkah di bawah ini untuk menghubungkan ke database Supabase agar konten bisa diedit dari mana saja dan tersimpan aman di cloud.'}
               </p>
             </div>
 
             <div className="space-y-4 pt-2">
               <h3 className="font-serif text-base font-bold text-forest">
-                Cara Menghubungkan ke Supabase (Saat Mau Deploy ke Vercel):
+                Langkah-Langkah Menghubungkan ke Supabase:
               </h3>
 
-              <div className="space-y-3 text-xs text-forest/80 font-source">
-                <div className="p-4 rounded-xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/70">
-                  <p className="font-bold text-forest mb-1">Langkah 1: Buat Proyek di Supabase</p>
-                  <p>Buka <a href="https://supabase.com" target="_blank" rel="noopener noreferrer" className="text-rose-dark underline font-bold">supabase.com</a>, daftar gratis, lalu klik <em>New Project</em>.</p>
+              <div className="space-y-4 text-xs text-forest/80 font-source">
+                {/* Langkah 1 */}
+                <div className="p-4 rounded-xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/70 space-y-1.5">
+                  <div className="flex items-center gap-2">
+                    <span className="w-5 h-5 rounded-full bg-forest text-white flex items-center justify-center font-bold text-[10px]">1</span>
+                    <p className="font-bold text-forest text-sm">Buat Proyek Baru di Supabase</p>
+                  </div>
+                  <p>Buka <a href="https://supabase.com" target="_blank" rel="noopener noreferrer" className="text-rose-dark underline font-bold">supabase.com</a>, login / buat akun gratis, lalu klik tombol <strong>New Project</strong>.</p>
+                  <p className="text-[11px] text-forest/70">Beri nama proyek (misal: <em>chikal-portfolio</em>) dan simpan password database Anda.</p>
                 </div>
 
-                <div className="p-4 rounded-xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/70">
-                  <p className="font-bold text-forest mb-1">Langkah 2: Jalankan SQL Table di Supabase SQL Editor</p>
-                  <pre className="p-3 bg-black/85 text-emerald-400 font-mono text-[11px] rounded-lg overflow-x-auto select-all">
-{`-- Buat tabel penyimpanan konten portofolio Chikal
-create table if not exists portfolio_content (
+                {/* Langkah 2 */}
+                <div className="p-4 rounded-xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/70 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <span className="w-5 h-5 rounded-full bg-forest text-white flex items-center justify-center font-bold text-[10px]">2</span>
+                    <p className="font-bold text-forest text-sm">Jalankan SQL Schema di SQL Editor</p>
+                  </div>
+                  <p>Di dashboard Supabase proyekmu, klik menu <strong>SQL Editor</strong> di sidebar kiri, lalu klik <strong>New Query</strong>. Salin & tempel kode SQL di bawah ini, lalu klik <strong>Run</strong>:</p>
+                  <pre className="p-3 bg-black/90 text-emerald-400 font-mono text-[11px] rounded-lg overflow-x-auto select-all leading-relaxed">
+{`-- 1. Buat Tabel portfolio_content
+create table if not exists public.portfolio_content (
   id text primary key default 'main',
   content jsonb not null,
   updated_at timestamp with time zone default timezone('utc'::text, now())
-);`}
+);
+
+-- 2. Aktifkan Row Level Security (RLS)
+alter table public.portfolio_content enable row level security;
+
+-- 3. Policy agar publik bisa membaca konten portofolio
+create policy "Allow public read access"
+  on public.portfolio_content for select using (true);
+
+-- 4. Policy agar admin bisa menyimpan data
+create policy "Allow public update access"
+  on public.portfolio_content for update using (true) with check (true);
+
+create policy "Allow public insert access"
+  on public.portfolio_content for insert with check (true);
+
+-- 5. Masukkan data inisial
+insert into public.portfolio_content (id, content)
+values ('main', '{}'::jsonb)
+on conflict (id) do nothing;`}
                   </pre>
+                  <p className="text-[11px] text-emerald-800">💡 Kode SQL di atas juga tersedia di file project: <code>supabase-schema.sql</code>.</p>
                 </div>
 
-                <div className="p-4 rounded-xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/70">
-                  <p className="font-bold text-forest mb-1">Langkah 3: Pasang Environment Variables di Vercel</p>
-                  <div className="mt-2 font-mono text-[11px] bg-white p-2.5 rounded-lg border border-[#CAD7C5] space-y-1">
-                    <p className="text-forest"><code>NEXT_PUBLIC_SUPABASE_URL</code> = https://your-project.supabase.co</p>
-                    <p className="text-forest"><code>NEXT_PUBLIC_SUPABASE_ANON_KEY</code> = your-anon-key</p>
+                {/* Langkah 3 */}
+                <div className="p-4 rounded-xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/70 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <span className="w-5 h-5 rounded-full bg-forest text-white flex items-center justify-center font-bold text-[10px]">3</span>
+                    <p className="font-bold text-forest text-sm">Ambil Project URL dan Anon Key</p>
                   </div>
+                  <p>Di dashboard Supabase, klik menu <strong>Project Settings</strong> (ikon gerigi di kiri bawah) ➔ <strong>API</strong>. Salin 2 nilai berikut:</p>
+                  <ul className="list-disc pl-5 space-y-1 text-xs">
+                    <li><strong>Project URL</strong> (contoh: <code>https://xyzcompany.supabase.co</code>)</li>
+                    <li><strong>Project API Keys</strong> ➔ bagian <strong>anon / public</strong> (kunci panjang berawalan <code>ey...</code>)</li>
+                  </ul>
+                </div>
+
+                {/* Langkah 4 */}
+                <div className="p-4 rounded-xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/70 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <span className="w-5 h-5 rounded-full bg-forest text-white flex items-center justify-center font-bold text-[10px]">4</span>
+                    <p className="font-bold text-forest text-sm">Pasang di Environment Variables</p>
+                  </div>
+                  <p className="font-semibold text-forest">A. Untuk Pengujian Lokal di Laptop:</p>
+                  <p>Buat atau buka file <code>.env.local</code> di folder utama proyek, lalu isi:</p>
+                  <div className="font-mono text-[11px] bg-white p-2.5 rounded-lg border border-[#CAD7C5] space-y-1">
+                    <p className="text-forest"><code>NEXT_PUBLIC_SUPABASE_URL=https://proyek-kamu.supabase.co</code></p>
+                    <p className="text-forest"><code>NEXT_PUBLIC_SUPABASE_ANON_KEY=ey...anon_key_kamu</code></p>
+                  </div>
+
+                  <p className="font-semibold text-forest pt-1">B. Untuk Saat Website Tayang di Vercel:</p>
+                  <p>Buka dashboard proyek di <strong>Vercel</strong> ➔ <strong>Settings</strong> ➔ <strong>Environment Variables</strong>, tambahkan 2 variabel yang sama persis di atas.</p>
                 </div>
               </div>
             </div>

@@ -687,6 +687,8 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
 const STORAGE_KEY = 'chikal_portfolio_content_v6';
 const EVENT_NAME = 'chikal_portfolio_updated';
 
+import { supabase, isSupabaseConfigured } from './supabase';
+
 // Helper to get portfolio data (reads localStorage on client, or defaults)
 export function getPortfolioData(): PortfolioData {
   if (typeof window === 'undefined') return DEFAULT_PORTFOLIO_DATA;
@@ -710,14 +712,75 @@ export function getPortfolioData(): PortfolioData {
   }
 }
 
-// Helper to save portfolio data
+// Fetch from Supabase Cloud Database (if configured)
+export async function fetchPortfolioDataFromSupabase(): Promise<PortfolioData | null> {
+  if (typeof window === 'undefined' || !isSupabaseConfigured || !supabase) {
+    return null;
+  }
+  try {
+    const { data, error } = await supabase
+      .from('portfolio_content')
+      .select('content')
+      .eq('id', 'main')
+      .single();
+
+    if (error || !data || !data.content) {
+      return null;
+    }
+
+    const parsed = data.content as Partial<PortfolioData>;
+    const merged: PortfolioData = {
+      hero: { ...DEFAULT_PORTFOLIO_DATA.hero, ...(parsed.hero || {}) },
+      academic: parsed.academic || DEFAULT_PORTFOLIO_DATA.academic,
+      socials: { ...DEFAULT_PORTFOLIO_DATA.socials, ...(parsed.socials || {}) },
+      creatorAccounts: { ...DEFAULT_PORTFOLIO_DATA.creatorAccounts, ...(parsed.creatorAccounts || {}) },
+      experiences: parsed.experiences && parsed.experiences.length > 0 ? parsed.experiences : DEFAULT_PORTFOLIO_DATA.experiences,
+      projects: parsed.projects && parsed.projects.length > 0 ? parsed.projects : DEFAULT_PORTFOLIO_DATA.projects,
+      awards: parsed.awards && parsed.awards.length > 0 ? parsed.awards : DEFAULT_PORTFOLIO_DATA.awards,
+      skills: parsed.skills && parsed.skills.length > 0 ? parsed.skills : DEFAULT_PORTFOLIO_DATA.skills,
+      certifications: parsed.certifications && parsed.certifications.length > 0 ? parsed.certifications : DEFAULT_PORTFOLIO_DATA.certifications,
+    };
+
+    // Cache locally
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+      window.dispatchEvent(new CustomEvent(EVENT_NAME, { detail: merged }));
+    } catch {}
+
+    return merged;
+  } catch (err) {
+    console.warn('Supabase fetch notice:', err);
+    return null;
+  }
+}
+
+// Helper to save portfolio data (saves locally + syncs to Supabase Cloud)
 export function savePortfolioData(data: PortfolioData) {
   if (typeof window === 'undefined') return;
+  // 1. Instant local persistence for zero latency
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     window.dispatchEvent(new CustomEvent(EVENT_NAME, { detail: data }));
   } catch (e) {
     console.error('Error saving portfolio data to localStorage:', e);
+  }
+
+  // 2. Background Cloud Sync to Supabase PostgreSQL (if configured)
+  if (isSupabaseConfigured && supabase) {
+    supabase
+      .from('portfolio_content')
+      .upsert({
+        id: 'main',
+        content: data,
+        updated_at: new Date().toISOString(),
+      })
+      .then(({ error }) => {
+        if (error) {
+          console.error('Error syncing to Supabase Cloud:', error);
+        } else {
+          console.log('✅ Successfully synced to Supabase Cloud Database!');
+        }
+      });
   }
 }
 
@@ -726,6 +789,18 @@ export function resetPortfolioData() {
   if (typeof window === 'undefined') return;
   localStorage.removeItem(STORAGE_KEY);
   window.dispatchEvent(new CustomEvent(EVENT_NAME, { detail: DEFAULT_PORTFOLIO_DATA }));
+
+  // Reset in Supabase as well if configured
+  if (isSupabaseConfigured && supabase) {
+    supabase
+      .from('portfolio_content')
+      .upsert({
+        id: 'main',
+        content: DEFAULT_PORTFOLIO_DATA,
+        updated_at: new Date().toISOString(),
+      })
+      .then(() => {});
+  }
 }
 
 // Subscribe to updates in real time

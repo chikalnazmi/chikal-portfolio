@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   getPortfolioData, 
+  fetchPortfolioDataFromSupabase,
   subscribeToPortfolioUpdates, 
   DEFAULT_PORTFOLIO_DATA, 
   PortfolioData 
@@ -28,11 +29,16 @@ export default function Home() {
     linkLabel: undefined,
   });
 
-  // Dynamic portfolio store state (synced with /admin in real-time)
+  // Dynamic portfolio store state (synced with /admin and Supabase in real-time)
   const [portfolioData, setPortfolioData] = useState<PortfolioData>(DEFAULT_PORTFOLIO_DATA);
 
   useEffect(() => {
     setPortfolioData(getPortfolioData());
+    fetchPortfolioDataFromSupabase().then((remoteData) => {
+      if (remoteData) {
+        setPortfolioData(remoteData);
+      }
+    });
     const unsubscribe = subscribeToPortfolioUpdates((newData) => {
       setPortfolioData(newData);
     });
