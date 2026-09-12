@@ -23,29 +23,29 @@ const config: Config = {
           light: '#354B2F',
         },
         rose: {
-          petal: '#FBF0F4',
-          blush: '#F5D3DC',
-          dusty: '#BD5871',
-          DEFAULT: '#A6435B',
-          berry: '#781E34',
-          dark: '#4C1021',
+          petal: '#FFF5F8',
+          blush: '#FCE7F3',
+          dusty: '#F472B6',
+          DEFAULT: '#E11D48',
+          berry: '#BE185D',
+          dark: '#9D174D',
+          deep: '#4A0E23',
         },
-        charcoal: '#212B1E',
+        velvet: '#24141A',
+        charcoal: '#1E293B',
       },
       fontFamily: {
-        // Title Styling: Quincy
-        serif: ["'Quincy CF'", "'Quincy'", "var(--font-quincy)", "Georgia", "serif"],
-        title: ["'Quincy CF'", "'Quincy'", "var(--font-quincy)", "Georgia", "serif"],
+        // Modern geometric sans-serif (Elian Ross body & headers)
+        sans: ["var(--font-sans)", "'Plus Jakarta Sans'", "system-ui", "-apple-system", "sans-serif"],
         
-        // Subheader Styling: Futura
-        subheader: ["'Futura'", "'Futura-Medium'", "var(--font-futura)", "'Century Gothic'", "sans-serif"],
-        futura: ["'Futura'", "'Futura-Medium'", "var(--font-futura)", "'Century Gothic'", "sans-serif"],
+        // Luxury high-contrast editorial serif (Italic display headings)
+        serif: ["var(--font-serif)", "'Playfair Display'", "Georgia", "serif"],
+        editorial: ["var(--font-serif)", "'Playfair Display'", "Georgia", "serif"],
         
-        // Paragraph Styling: Source Sans
-        sans: ["var(--font-source-sans)", "'Source Sans 3'", "'Source Sans Pro'", "system-ui", "sans-serif"],
-        body: ["var(--font-source-sans)", "'Source Sans 3'", "'Source Sans Pro'", "system-ui", "sans-serif"],
+        // Handwritten script for kickers (/ What I do /, / Selected Works /)
+        script: ["var(--font-script)", "'Caveat'", "cursive"],
         
-        mono: ["var(--font-space-mono)", "monospace"],
+        mono: ["ui-monospace", "monospace"],
       },
       letterSpacing: {
         'subheader': '0.22em',
