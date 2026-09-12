@@ -217,12 +217,20 @@ export default function Home() {
 
         {/* Dual-Contrast Headline: Sans Bold + Slender Italic Serif */}
         <div className="relative z-10 max-w-4xl mx-auto mb-6 sm:mb-8">
-          <h1 className="font-sans font-medium text-5xl sm:text-6xl md:text-7xl lg:text-[76px] tracking-tight text-[#18181B] leading-none">
-            Hi I&apos;m Chikal
-          </h1>
-          <span className="font-serif italic font-normal text-5xl sm:text-6xl md:text-7xl lg:text-[84px] text-[#0B2321] tracking-tight block mt-1 leading-[1.05]">
-            Business &amp; Digital Strategist
-          </span>
+          {portfolioData.hero?.headline ? (
+            <h1 className="font-sans font-medium text-4xl sm:text-5xl md:text-6xl lg:text-[72px] tracking-tight text-[#18181B] leading-tight">
+              {portfolioData.hero.headline}
+            </h1>
+          ) : (
+            <>
+              <h1 className="font-sans font-medium text-5xl sm:text-6xl md:text-7xl lg:text-[76px] tracking-tight text-[#18181B] leading-none">
+                Hi I&apos;m Chikal
+              </h1>
+              <span className="font-serif italic font-normal text-5xl sm:text-6xl md:text-7xl lg:text-[84px] text-[#0B2321] tracking-tight block mt-1 leading-[1.05]">
+                Business &amp; Digital Strategist
+              </span>
+            </>
+          )}
         </div>
 
         {/* Centered Portrait Area with Floating Micro-Elements in 4 Corners */}
@@ -435,34 +443,34 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Card 4 (Large - Manikarumi & Yarn Up Campaigns) */}
+            {/* Card 4 (Large - Manikarumi & Yarn Up Campaigns / Dynamic Project 4) */}
             <div 
               onClick={() => openModal({
-                title: 'Manikarumi & Yarn Up Creative Campaign',
-                category: 'COMMERCIAL CREATIVE & CAMPAIGN',
-                description: 'Eksekusi strategi konten media sosial berdaya jangkau tinggi, fotografi katalog produk, dan optimalisasi funnel konversi penjualan produk fashion hijab.',
-                images: ['/17.png', '/18.png', '/7.png', '/8.png'],
-                link: 'https://instagram.com/chikalnazmi',
-                linkLabel: 'Lihat Instagram ↗'
+                title: projectsList[3]?.title || 'Manikarumi & Yarn Up Commercial Campaigns',
+                category: projectsList[3]?.category || 'COMMERCIAL CREATIVE & CAMPAIGN',
+                description: projectsList[3]?.summary || 'Eksekusi strategi konten media sosial berdaya jangkau tinggi, fotografi katalog produk, dan optimalisasi funnel konversi penjualan produk fashion hijab.',
+                images: projectsList[3]?.extraImages && projectsList[3]?.extraImages.length > 0 ? projectsList[3].extraImages : ['/17.png', '/18.png', '/7.png', '/8.png'],
+                link: projectsList[3]?.link || 'https://instagram.com/chikalnazmi',
+                linkLabel: projectsList[3]?.linkLabel || 'Lihat Instagram ↗'
               })}
               className="lg:col-span-7 bg-white rounded-3xl p-5 border border-rose-100/80 shadow-xs hover:shadow-md transition-all cursor-pointer group"
             >
               <div className="relative overflow-hidden rounded-2xl bg-neutral-100 h-56 sm:h-72 mb-4">
                 <img 
-                  src="/17.png" 
-                  alt="Manikarumi Campaign"
+                  src={projectsList[3]?.image || "/17.png"} 
+                  alt={projectsList[3]?.title || "Manikarumi Campaign"}
                   className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500" 
                 />
               </div>
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="font-sans font-bold text-base sm:text-lg text-[#18181B] group-hover:text-rose-700 transition-colors">
-                    Manikarumi &amp; Yarn Up Commercial Campaigns
+                    {projectsList[3]?.title || "Manikarumi & Yarn Up Commercial Campaigns"}
                   </h3>
-                  <p className="text-xs text-neutral-500 mt-0.5">Short-Form Video Production &amp; Reach Surge</p>
+                  <p className="text-xs text-neutral-500 mt-0.5">{projectsList[3]?.tag || "Short-Form Video Production & Reach Surge"}</p>
                 </div>
                 <span className="text-xs font-semibold px-3 py-1 rounded-full bg-rose-50 text-rose-800 border border-rose-200">
-                  +2,089% Reach
+                  {projectsList[3]?.results?.[0] || "+2,089% Reach"}
                 </span>
               </div>
             </div>

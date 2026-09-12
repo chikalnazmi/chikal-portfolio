@@ -26,7 +26,8 @@ export default function AdminPortal() {
   const [activeSkillIdx, setActiveSkillIdx] = useState<number>(0);
   const [activeCertIdx, setActiveCertIdx] = useState<number>(0);
   const [newSkillInput, setNewSkillInput] = useState<string>('');
-  const [saveSuccessToast, setSaveSuccessToast] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [toastNotification, setToastNotification] = useState<{ type: 'success' | 'error'; message: string; detail?: string } | null>(null);
 
   // Secret PIN (Default: chikal2026)
   const SECRET_PIN = 'chikal2026';
@@ -61,22 +62,51 @@ export default function AdminPortal() {
     setPinInput('');
   };
 
-  const handleSave = () => {
-    savePortfolioData(data);
-    setSaveSuccessToast(true);
-    setTimeout(() => {
-      setSaveSuccessToast(false);
-    }, 3500);
+  const handleSave = async () => {
+    setIsSaving(true);
+    try {
+      const res = await savePortfolioData(data);
+      if (res.success) {
+        setToastNotification({
+          type: 'success',
+          message: 'Perubahan Berhasil Disimpan!',
+          detail: 'Teks, foto, dan pengaturan portofolio telah tersinkronisasi ke Cloud Database Supabase.',
+        });
+      } else {
+        setToastNotification({
+          type: 'error',
+          message: 'Tersimpan di Browser Lokal',
+          detail: res.error || 'Gagal sinkron ke Cloud Supabase, namun tersimpan aman di browser laptop Anda.',
+        });
+      }
+    } catch (err: any) {
+      setToastNotification({
+        type: 'error',
+        message: 'Gagal Menyimpan',
+        detail: err?.message || 'Terjadi kesalahan sistem saat menyimpan data.',
+      });
+    } finally {
+      setIsSaving(false);
+      setTimeout(() => {
+        setToastNotification(null);
+      }, 4500);
+    }
   };
 
-  const handleReset = () => {
+  const handleReset = async () => {
     if (window.confirm('Yakin ingin mengembalikan seluruh konten teks, foto, dan tautan portofolio ke pengaturan bawaan?')) {
-      resetPortfolioData();
+      setIsSaving(true);
+      await resetPortfolioData();
       setData(DEFAULT_PORTFOLIO_DATA);
-      setSaveSuccessToast(true);
+      setIsSaving(false);
+      setToastNotification({
+        type: 'success',
+        message: 'Konten Direset ke Default Pabrik!',
+        detail: 'Seluruh teks dan foto telah dikembalikan ke kondisi awal.',
+      });
       setTimeout(() => {
-        setSaveSuccessToast(false);
-      }, 3500);
+        setToastNotification(null);
+      }, 4000);
     }
   };
 
@@ -149,12 +179,24 @@ export default function AdminPortal() {
   return (
     <div className="min-h-screen bg-[#F7F9F5] text-forest font-source pb-24">
       {/* Toast Notification */}
-      {saveSuccessToast && (
-        <div className="fixed top-6 right-6 z-50 bg-[#1E2E1B] text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-rose-blush/40 flex items-center gap-3 animate-fade-in">
-          <span className="text-lg">✅</span>
+      {toastNotification && (
+        <div className={`fixed top-6 right-6 z-50 text-white px-5 py-3.5 rounded-2xl shadow-2xl border flex items-center gap-3 animate-fade-in ${
+          toastNotification.type === 'success'
+            ? 'bg-[#1E2E1B] border-rose-blush/40'
+            : 'bg-rose-950 border-rose-500/50'
+        }`}>
+          <span className="text-xl">
+            {toastNotification.type === 'success' ? '✅' : '⚠️'}
+          </span>
           <div>
-            <p className="text-xs font-bold font-serif text-rose-blush">Perubahan Berhasil Disimpan!</p>
-            <p className="text-[11px] text-[#CAD7C5]">Seluruh teks dan foto di portofolio langsung terupdate.</p>
+            <p className="text-xs font-bold font-serif text-rose-blush">
+              {toastNotification.message}
+            </p>
+            {toastNotification.detail && (
+              <p className="text-[11px] text-[#CAD7C5] max-w-sm">
+                {toastNotification.detail}
+              </p>
+            )}
           </div>
         </div>
       )}
@@ -200,9 +242,10 @@ export default function AdminPortal() {
 
             <button
               onClick={handleSave}
-              className="px-5 py-1.5 rounded-full text-xs font-bold bg-rose-dark hover:bg-rose-berry text-white transition-all shadow-sm hover:shadow flex items-center gap-1.5 cursor-pointer"
+              disabled={isSaving}
+              className="px-5 py-1.5 rounded-full text-xs font-bold bg-rose-dark hover:bg-rose-berry text-white transition-all shadow-sm hover:shadow flex items-center gap-1.5 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              <span>💾 Simpan Data</span>
+              <span>{isSaving ? '⏳ Menyimpan...' : '💾 Simpan Data'}</span>
             </button>
 
             <button

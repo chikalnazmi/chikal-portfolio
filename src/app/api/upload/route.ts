@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { supabaseAdmin, supabase, isSupabaseConfigured } from '@/lib/supabase';
 
 export async function POST(req: NextRequest) {
   try {
@@ -14,15 +15,46 @@ export async function POST(req: NextRequest) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Ensure public/uploads folder exists
-    const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
-    await fs.mkdir(uploadsDir, { recursive: true });
-
     // Clean filename and make it unique with timestamp
     const cleanName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
     const filename = `${Date.now()}_${cleanName}`;
-    const filePath = path.join(uploadsDir, filename);
 
+    // 1. If Supabase is configured, upload to Supabase Storage bucket 'portfolio'
+    const client = supabaseAdmin || supabase;
+    if (isSupabaseConfigured && client) {
+      try {
+        const { data: uploadData, error: uploadErr } = await client.storage
+          .from('portfolio')
+          .upload(`uploads/${filename}`, buffer, {
+            contentType: file.type || 'image/jpeg',
+            upsert: true,
+          });
+
+        if (!uploadErr && uploadData) {
+          const { data: publicUrlData } = client.storage
+            .from('portfolio')
+            .getPublicUrl(`uploads/${filename}`);
+
+          if (publicUrlData?.publicUrl) {
+            // Also mirror to local public/uploads for local backup
+            try {
+              const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
+              await fs.mkdir(uploadsDir, { recursive: true });
+              await fs.writeFile(path.join(uploadsDir, filename), buffer);
+            } catch {}
+
+            return NextResponse.json({ success: true, url: publicUrlData.publicUrl });
+          }
+        }
+      } catch (storageErr) {
+        console.warn('Supabase storage upload fallback to local disk:', storageErr);
+      }
+    }
+
+    // 2. Fallback to local disk (public/uploads)
+    const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
+    await fs.mkdir(uploadsDir, { recursive: true });
+    const filePath = path.join(uploadsDir, filename);
     await fs.writeFile(filePath, buffer);
 
     const publicUrl = `/uploads/${filename}`;
