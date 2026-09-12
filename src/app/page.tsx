@@ -132,38 +132,33 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* 1. TOP MINIMALIST NAVIGATION                                              */}
       {/* ========================================================================= */}
-      <header className="sticky top-0 z-40 bg-[#FCFCFC]/90 backdrop-blur-md border-b border-teal-100/50 py-4 px-4 sm:px-8 lg:px-12 transition-all">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <header className="sticky top-0 z-40 bg-[#FCFCFC]/90 backdrop-blur-md border-b border-sage-200/60 py-3.5 px-4 sm:px-8 lg:px-12 transition-all">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
           
           {/* Logo in Slender Editorial Serif Italic (Like Elian Ross) */}
-          <Link href="/" className="group flex items-center gap-2">
-            <span className="font-serif italic font-normal text-2xl sm:text-3xl text-[#18181B] tracking-tight group-hover:text-teal-700 transition-colors">
+          <Link href="/" className="group flex items-center gap-2 shrink-0">
+            <span className="font-serif italic font-normal text-2xl sm:text-3xl text-[#18181B] tracking-tight whitespace-nowrap group-hover:text-sage-700 transition-colors">
               Chikal Nazmi
             </span>
           </Link>
 
-          {/* Center Honor Pill (Desktop - Laurel Wreath Style) */}
-          <div className="hidden md:flex items-center gap-2 bg-teal-50/80 border border-teal-200/70 rounded-full px-4 py-1 text-[11px] font-medium text-teal-900 shadow-xs">
-            <span className="w-1.5 h-1.5 rounded-full bg-sage-500 animate-pulse"></span>
-            <span>(Honor) {academicData.badge || "Cum Laude Graduate"} · {academicData.institution || "Polinema D4 SIB"} · GPA {academicData.gpaValue || "3.84"}</span>
-          </div>
+          {/* Desktop Navigation Links (Clean & Single Line) */}
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-xs font-medium text-neutral-600">
+            <a href="#about" className="whitespace-nowrap hover:text-sage-800 transition-colors py-1">About</a>
+            <a href="#projects" className="whitespace-nowrap hover:text-sage-800 transition-colors py-1">Selected Works</a>
+            <a href="#creator" className="whitespace-nowrap hover:text-sage-800 transition-colors py-1">Creator Studio</a>
+            <a href="#process" className="whitespace-nowrap hover:text-sage-800 transition-colors py-1">Process</a>
+            <a href="#experience" className="whitespace-nowrap hover:text-sage-800 transition-colors py-1">Experience</a>
+            <a href="#awards" className="whitespace-nowrap hover:text-sage-800 transition-colors py-1">Awards</a>
+          </nav>
 
-          {/* Right Navigation & Actions */}
-          <div className="flex items-center gap-3 sm:gap-5">
-            <nav className="hidden lg:flex items-center gap-6 text-xs font-medium text-neutral-600">
-              <a href="#about" className="hover:text-teal-700 transition-colors">About</a>
-              <a href="#projects" className="hover:text-teal-700 transition-colors">Selected Works</a>
-              <a href="#creator" className="hover:text-teal-700 transition-colors">Creator Studio</a>
-              <a href="#process" className="hover:text-teal-700 transition-colors">Process</a>
-              <a href="#experience" className="hover:text-teal-700 transition-colors">Experience</a>
-              <a href="#awards" className="hover:text-teal-700 transition-colors">Awards</a>
-            </nav>
-
+          {/* Right Actions & CTA Button */}
+          <div className="flex items-center gap-3 shrink-0">
             <a
               href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890"}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 sm:px-5 py-2 rounded-full text-xs font-semibold bg-[#1A2616] text-white hover:bg-[#33452D] transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
+              className="px-4 sm:px-5 py-2 rounded-full text-xs font-semibold bg-[#1A2616] text-white hover:bg-[#33452D] transition-all shadow-xs flex items-center gap-1.5 cursor-pointer whitespace-nowrap shrink-0 active:scale-95"
             >
               <span>✦ Let&apos;s Talk</span>
             </a>
@@ -171,7 +166,7 @@ export default function Home() {
             {/* Mobile menu button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-xl text-[#18181B] hover:bg-teal-50 transition-colors"
+              className="lg:hidden p-2 rounded-xl text-[#18181B] hover:bg-sage-100 transition-colors shrink-0"
               aria-label="Toggle menu"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -187,13 +182,13 @@ export default function Home() {
 
         {/* Mobile menu dropdown */}
         {mobileMenuOpen && (
-          <div className="lg:hidden mt-3 pt-3 border-t border-teal-100/60 flex flex-col gap-2.5 pb-2 text-xs font-medium text-neutral-600">
-            <a href="#about" onClick={() => setMobileMenuOpen(false)} className="py-1 px-2 hover:bg-teal-50 rounded-lg">About</a>
-            <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="py-1 px-2 hover:bg-teal-50 rounded-lg">Selected Works</a>
-            <a href="#creator" onClick={() => setMobileMenuOpen(false)} className="py-1 px-2 hover:bg-teal-50 rounded-lg">Creator Studio</a>
-            <a href="#process" onClick={() => setMobileMenuOpen(false)} className="py-1 px-2 hover:bg-teal-50 rounded-lg">Process</a>
-            <a href="#experience" onClick={() => setMobileMenuOpen(false)} className="py-1 px-2 hover:bg-teal-50 rounded-lg">Experience</a>
-            <a href="#awards" onClick={() => setMobileMenuOpen(false)} className="py-1 px-2 hover:bg-teal-50 rounded-lg">Awards</a>
+          <div className="lg:hidden mt-3 pt-3 border-t border-sage-200/60 flex flex-col gap-1 pb-2 text-xs font-medium text-neutral-600">
+            <a href="#about" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 hover:bg-sage-100 rounded-lg transition-colors">About</a>
+            <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 hover:bg-sage-100 rounded-lg transition-colors">Selected Works</a>
+            <a href="#creator" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 hover:bg-sage-100 rounded-lg transition-colors">Creator Studio</a>
+            <a href="#process" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 hover:bg-sage-100 rounded-lg transition-colors">Process</a>
+            <a href="#experience" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 hover:bg-sage-100 rounded-lg transition-colors">Experience</a>
+            <a href="#awards" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 hover:bg-sage-100 rounded-lg transition-colors">Awards</a>
           </div>
         )}
       </header>
