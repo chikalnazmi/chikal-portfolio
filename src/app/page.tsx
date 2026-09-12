@@ -127,52 +127,58 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FCFCFC] text-[#241C1E] font-sans antialiased selection:bg-rose-100 selection:text-rose-900 relative overflow-x-hidden">
+    <div className="min-h-screen bg-sage-linen text-[#212B1E] font-sans antialiased selection:bg-rose-blush selection:text-rose-dark relative overflow-x-hidden">
       
       {/* ========================================================================= */}
       {/* 1. TOP MINIMALIST NAVIGATION                                              */}
       {/* ========================================================================= */}
-      <header className="sticky top-0 z-40 bg-[#FCFCFC]/90 backdrop-blur-md border-b border-rose-100/60 py-3.5 sm:py-4 px-4 sm:px-8 lg:px-12 transition-all">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+            {/* ========================================================================= */}
+      {/* NAVBAR: Modern Floating Editorial Pill (Exact Version from a92721e)        */}
+      {/* ========================================================================= */}
+      <nav className="sticky top-4 z-40 max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="bg-white/85 backdrop-blur-md border border-[#CAD7C5] rounded-full px-5 py-3 shadow-sm flex items-center justify-between transition-all hover:border-rose-dusty/40">
           
-          {/* Logo in Slender Editorial Serif Italic */}
-          <Link href="/" className="group flex items-center gap-2 shrink-0">
-            <span className="font-serif italic font-normal text-2xl sm:text-3xl text-[#241C1E] tracking-tight whitespace-nowrap group-hover:text-rose-700 transition-colors">
-              Chikal Nazmi
+          {/* Brand Identity (CN Initial + Two-tier Name & Role) */}
+          <Link href="/" className="flex items-center gap-2.5 group shrink-0">
+            <span className="w-8 h-8 rounded-full bg-forest text-[#E8EFE5] flex items-center justify-center font-serif text-sm font-bold group-hover:bg-rose-dark transition-colors">
+              CN
             </span>
+            <div className="flex flex-col text-left">
+              <span className="font-serif font-bold text-sm tracking-wide text-forest group-hover:text-rose-dark transition-colors whitespace-nowrap">
+                Chikal Nazmi Mahira
+              </span>
+              <span className="text-[10px] font-medium tracking-wider uppercase text-forest/60 whitespace-nowrap">
+                Business &amp; Marketing
+              </span>
+            </div>
           </Link>
 
-          {/* Center Honor Pill (Desktop - Original Theme Model) */}
-          <div className="hidden md:flex items-center gap-2 bg-rose-50/80 border border-rose-200/60 rounded-full px-4 py-1 text-[11px] font-medium text-rose-900 whitespace-nowrap shrink-0">
-            <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
-            <span>(Honor) Cum Laude Graduate · Polinema D4 SIB</span>
+          {/* Desktop Nav Links */}
+          <div className="hidden lg:flex items-center gap-5 xl:gap-6 text-xs font-semibold tracking-wider uppercase text-forest/80">
+            <a href="#about" className="hover:text-rose-dark transition-colors whitespace-nowrap">About</a>
+            <a href="#projects" className="hover:text-rose-dark transition-colors whitespace-nowrap">Works</a>
+            <a href="#creator" className="hover:text-rose-dark transition-colors whitespace-nowrap">Creator Studio</a>
+            <a href="#process" className="hover:text-rose-dark transition-colors whitespace-nowrap">Process</a>
+            <a href="#experience" className="hover:text-rose-dark transition-colors whitespace-nowrap">Experience</a>
+            <a href="#awards" className="hover:text-rose-dark transition-colors whitespace-nowrap">Awards</a>
           </div>
 
-          {/* Right Navigation & Actions */}
-          <div className="flex items-center gap-3 sm:gap-5 shrink-0">
-            <nav className="hidden lg:flex items-center gap-6 xl:gap-7 text-xs font-medium text-[#4A3B40]">
-              <a href="#about" className="whitespace-nowrap hover:text-rose-700 transition-colors py-1">About</a>
-              <a href="#projects" className="whitespace-nowrap hover:text-rose-700 transition-colors py-1">Selected Works</a>
-              <a href="#creator" className="whitespace-nowrap hover:text-rose-700 transition-colors py-1">Creator Studio</a>
-              <a href="#process" className="whitespace-nowrap hover:text-rose-700 transition-colors py-1">Process</a>
-              <a href="#experience" className="whitespace-nowrap hover:text-rose-700 transition-colors py-1">Experience</a>
-              <a href="#awards" className="whitespace-nowrap hover:text-rose-700 transition-colors py-1">Awards</a>
-            </nav>
-
+          {/* Right Action CTA Button */}
+          <div className="flex items-center gap-3 shrink-0">
             <a
               href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890"}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 sm:px-5 py-2 rounded-full text-xs font-semibold bg-[#241C1E] text-white hover:bg-rose-950 transition-all shadow-xs flex items-center gap-1.5 cursor-pointer whitespace-nowrap shrink-0 active:scale-95"
+              className="px-4 sm:px-5 py-1.5 rounded-full text-xs font-semibold bg-rose-dark text-white hover:bg-rose-berry transition-colors shadow-sm whitespace-nowrap active:scale-95 cursor-pointer"
             >
-              <span>✦ Let&apos;s Talk</span>
+              Let&apos;s Connect ✦
             </a>
 
-            {/* Mobile menu button */}
+            {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-xl text-[#241C1E] hover:bg-rose-50 transition-colors shrink-0"
-              aria-label="Toggle menu"
+              className="lg:hidden p-2 text-forest hover:text-rose-dark cursor-pointer shrink-0"
+              aria-label="Toggle Menu"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {mobileMenuOpen ? (
@@ -185,18 +191,18 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Mobile menu dropdown */}
+        {/* Mobile Dropdown */}
         {mobileMenuOpen && (
-          <div className="lg:hidden mt-3 pt-3 border-t border-rose-100/60 flex flex-col gap-1 pb-2 text-xs font-medium text-[#4A3B40]">
+          <div className="lg:hidden mt-2 bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-2xl p-4 shadow-lg flex flex-col gap-2 text-xs font-medium text-forest">
             <a href="#about" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 hover:bg-rose-50 rounded-lg transition-colors">About</a>
-            <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 hover:bg-rose-50 rounded-lg transition-colors">Selected Works</a>
+            <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 hover:bg-rose-50 rounded-lg transition-colors">Works</a>
             <a href="#creator" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 hover:bg-rose-50 rounded-lg transition-colors">Creator Studio</a>
             <a href="#process" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 hover:bg-rose-50 rounded-lg transition-colors">Process</a>
             <a href="#experience" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 hover:bg-rose-50 rounded-lg transition-colors">Experience</a>
             <a href="#awards" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 hover:bg-rose-50 rounded-lg transition-colors">Awards</a>
           </div>
         )}
-      </header>
+      </nav>
 
       {/* ========================================================================= */}
       {/* 2. HERO SECTION (2-Column Editorial Layout: Left Content, Right Photo)     */}
@@ -204,7 +210,7 @@ export default function Home() {
       <section className="relative pt-8 sm:pt-14 md:pt-20 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto overflow-hidden">
         
         {/* Subtle Radiant Sage-Rose Glow Backdrop */}
-        <div className="absolute top-1/4 -right-20 w-[420px] sm:w-[580px] h-[420px] sm:h-[580px] pink-halo-glow rounded-full pointer-events-none z-0"></div>
+        <div className="absolute top-1/4 -right-20 w-[420px] sm:w-[580px] h-[420px] sm:h-[580px] floral-glow-hero rounded-full pointer-events-none z-0"></div>
         <div className="absolute top-1/3 -left-20 w-[360px] sm:w-[480px] h-[360px] sm:h-[480px] pink-halo-glow-subtle rounded-full pointer-events-none z-0"></div>
 
         {/* Main 2-Column Grid */}
@@ -214,23 +220,23 @@ export default function Home() {
           <div className="lg:col-span-7 flex flex-col items-start text-left">
             
             {/* Top Kicker / Category Pill */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-50/90 border border-rose-200/70 shadow-2xs text-[11px] sm:text-xs font-medium text-rose-950 mb-5">
-              <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/85 border border-[#CAD7C5] shadow-2xs text-[11px] sm:text-xs font-medium text-rose-dark mb-5">
+              <span className="w-2 h-2 rounded-full bg-rose-dusty animate-pulse"></span>
               <span>{portfolioData.hero?.subheadline || "Management Trainee • Business Development • Creative Content Lead"}</span>
             </div>
 
             {/* Headline / Title */}
             <div className="mb-5 max-w-2xl">
               {portfolioData.hero?.headline ? (
-                <h1 className="font-sans font-bold text-4xl sm:text-5xl lg:text-6xl tracking-tight text-[#241C1E] leading-[1.12]">
+                <h1 className="font-serif font-bold text-4xl sm:text-5xl lg:text-6xl tracking-tight text-forest leading-[1.15]">
                   {portfolioData.hero.headline}
                 </h1>
               ) : (
                 <>
-                  <h1 className="font-sans font-bold text-4xl sm:text-5xl lg:text-[58px] tracking-tight text-[#241C1E] leading-none">
+                  <h1 className="font-serif font-bold text-4xl sm:text-5xl lg:text-[58px] tracking-tight text-forest leading-none">
                     Hi, I&apos;m Chikal
                   </h1>
-                  <span className="font-serif italic font-normal text-4xl sm:text-5xl lg:text-[66px] text-[#24141A] tracking-tight block mt-1.5 leading-[1.1]">
+                  <span className="font-serif italic font-normal text-4xl sm:text-5xl lg:text-[66px] text-rose-dark tracking-tight block mt-1.5 leading-[1.1]">
                     Business &amp; Digital Strategist
                   </span>
                 </>
@@ -238,7 +244,7 @@ export default function Home() {
             </div>
 
             {/* Info / Description Paragraph */}
-            <p className="text-base sm:text-lg text-[#4A3B40] leading-relaxed font-normal mb-8 max-w-xl">
+            <p className="text-base sm:text-lg text-forest/80 leading-relaxed font-normal mb-8 max-w-xl">
               {portfolioData.hero?.bio || "Passionate about scaling business ventures, digital products & data-driven operations that deliver real impact."}
             </p>
 
@@ -248,7 +254,7 @@ export default function Home() {
                 href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-[#241C1E] hover:bg-rose-950 text-white rounded-full px-6 sm:px-7 py-3 text-sm font-semibold shadow-md hover:shadow-lg transition-all flex items-center gap-2.5 cursor-pointer group active:scale-95 whitespace-nowrap"
+                className="bg-forest hover:bg-forest-dark text-white rounded-full px-6 sm:px-7 py-3 text-sm font-semibold shadow-md hover:shadow-lg transition-all flex items-center gap-2.5 cursor-pointer group active:scale-95 whitespace-nowrap"
               >
                 <span>✦ Chat on WhatsApp</span>
                 <span className="group-hover:translate-x-1 transition-transform">→</span>
@@ -256,7 +262,7 @@ export default function Home() {
 
               <a
                 href="#projects"
-                className="bg-white hover:bg-rose-50/80 text-[#241C1E] hover:text-rose-950 border border-rose-200 rounded-full px-6 py-3 text-sm font-semibold shadow-xs hover:shadow-sm transition-all flex items-center gap-2 cursor-pointer active:scale-95 whitespace-nowrap"
+                className="bg-white/90 hover:bg-white text-forest hover:text-rose-dark border border-[#CAD7C5] rounded-full px-6 py-3 text-sm font-semibold shadow-xs hover:shadow-sm transition-all flex items-center gap-2 cursor-pointer active:scale-95 whitespace-nowrap"
               >
                 <span>Explore Works</span>
                 <span>↓</span>
@@ -264,18 +270,18 @@ export default function Home() {
             </div>
 
             {/* Trust Badges & Awards Proof Row */}
-            <div className="pt-6 border-t border-rose-100/80 w-full flex items-center gap-4 flex-wrap">
+            <div className="pt-6 border-t border-[#CAD7C5]/70 w-full flex items-center gap-4 flex-wrap">
               <div className="flex -space-x-2.5 overflow-hidden">
                 <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-2xs" src="/11.png" alt="Award 1" loading="lazy" decoding="async" />
                 <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-2xs" src="/12.png" alt="Award 2" loading="lazy" decoding="async" />
                 <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-2xs" src="/16.png" alt="Award 3" loading="lazy" decoding="async" />
               </div>
               <div>
-                <p className="text-xs sm:text-sm font-bold text-[#241C1E] leading-tight flex items-center gap-1.5">
-                  <span className="text-rose-700 font-serif italic text-sm">✦</span>
+                <p className="text-xs sm:text-sm font-bold text-forest leading-tight flex items-center gap-1.5">
+                  <span className="text-rose-dusty font-serif italic text-sm">✦</span>
                   <span>{portfolioData.hero?.stat1Value || "7x"} {portfolioData.hero?.stat1Label || "National Awards"}</span>
                 </p>
-                <p className="text-[11px] sm:text-xs text-[#4A3B40] font-medium leading-tight mt-0.5">
+                <p className="text-[11px] sm:text-xs text-forest/70 font-medium leading-tight mt-0.5">
                   {portfolioData.hero?.stat2Value ? `${portfolioData.hero.stat2Value} ${portfolioData.hero.stat2Label || "Reach"}` : "Business Case & IT Innovation"}
                 </p>
               </div>
@@ -290,10 +296,10 @@ export default function Home() {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] pink-halo-glow rounded-full pointer-events-none z-0"></div>
 
             {/* Photo Frame Container */}
-            <div className="relative z-10 w-full max-w-[360px] sm:max-w-[420px] rounded-[2.5rem] bg-gradient-to-b from-rose-100/90 via-white/80 to-rose-50/70 border border-rose-200/80 p-3 sm:p-4 shadow-xl backdrop-blur-xs">
+            <div className="relative z-10 w-full max-w-[360px] sm:max-w-[420px] rounded-[2.5rem] bg-white/80 border border-[#CAD7C5] rounded-[2.5rem] p-3 sm:p-4 shadow-xl backdrop-blur-xs">
               
               {/* Photo Subject with Smooth Gradient & Border */}
-              <div className="relative rounded-[2rem] overflow-hidden bg-gradient-to-b from-rose-50/50 to-rose-100/40 flex items-end justify-center min-h-[380px] sm:min-h-[440px] md:min-h-[480px]">
+              <div className="relative rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#F2F7EF]/90 to-[#E8EFE5]/70 flex items-end justify-center min-h-[380px] sm:min-h-[440px] md:min-h-[480px]">
                 <img
                   src={portfolioData.hero?.avatarImg || "/2.png"}
                   alt="Chikal Nazmi"
@@ -303,22 +309,22 @@ export default function Home() {
               </div>
 
               {/* Floating Badge 1 (Top-Left): Academic / Status */}
-              <div className="absolute top-6 left-6 z-20 bg-white/95 backdrop-blur-md border border-rose-200/90 rounded-full px-3.5 py-1.5 shadow-md flex items-center gap-2 animate-soft-float">
-                <span className="w-2 h-2 rounded-full bg-rose-500 shadow-[0_0_8px_rgba(244,114,182,0.8)] animate-pulse"></span>
-                <span className="text-[11px] font-semibold text-rose-950">
+              <div className="absolute top-6 left-6 z-20 bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-full px-3.5 py-1.5 shadow-md flex items-center gap-2 animate-soft-float">
+                <span className="w-2 h-2 rounded-full bg-rose-dusty shadow-[0_0_8px_rgba(189,88,113,0.8)] animate-pulse"></span>
+                <span className="text-[11px] font-semibold text-forest">
                   D4 SIB · Cum Laude
                 </span>
               </div>
 
               {/* Floating Badge 2 (Bottom-Right): Reach / Growth */}
-              <div className="absolute bottom-6 right-6 z-20 bg-white/95 backdrop-blur-md border border-rose-200/90 rounded-2xl p-3 shadow-lg text-left">
+              <div className="absolute bottom-6 right-6 z-20 bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-2xl p-3 shadow-lg text-left">
                 <div className="flex items-center gap-2.5">
-                  <span className="w-7 h-7 rounded-xl bg-rose-100 text-rose-800 flex items-center justify-center font-bold text-xs">↗</span>
+                  <span className="w-7 h-7 rounded-xl bg-[#F2F7EF] text-forest flex items-center justify-center font-bold text-xs">↗</span>
                   <div>
-                    <p className="text-xs font-bold text-neutral-900 leading-tight">
+                    <p className="text-xs font-bold text-forest leading-tight">
                       {portfolioData.hero?.stat2Value || "10K+"} Reach
                     </p>
-                    <p className="text-[10px] text-rose-700 font-semibold">
+                    <p className="text-[10px] text-rose-dark font-semibold">
                       Digital Growth
                     </p>
                   </div>
@@ -333,32 +339,32 @@ export default function Home() {
 
         {/* 4 Statistical Metrics Bar (Real-time from CMS Tab Hero) */}
         <div className="relative z-10 max-w-7xl mx-auto mt-12 sm:mt-16 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-          <div className="bg-white/90 backdrop-blur-md rounded-2xl p-4 border border-rose-100/80 shadow-xs hover:border-rose-300 transition-colors text-center">
-            <span className="font-serif font-bold text-2xl sm:text-3xl text-rose-950 block">
+          <div className="bg-white/85 backdrop-blur-md rounded-2xl p-4 border border-[#CAD7C5] shadow-xs hover:border-rose-dusty transition-colors text-center">
+            <span className="font-serif font-bold text-2xl sm:text-3xl text-forest block">
               {portfolioData.hero?.stat1Value || "7x"}
             </span>
             <span className="text-[10px] sm:text-[11px] uppercase font-bold text-neutral-500 tracking-wider block mt-1">
               {portfolioData.hero?.stat1Label || "Penghargaan Lomba"}
             </span>
           </div>
-          <div className="bg-white/90 backdrop-blur-md rounded-2xl p-4 border border-rose-100/80 shadow-xs hover:border-rose-300 transition-colors text-center">
-            <span className="font-serif font-bold text-2xl sm:text-3xl text-rose-900 block">
+          <div className="bg-white/85 backdrop-blur-md rounded-2xl p-4 border border-[#CAD7C5] shadow-xs hover:border-rose-dusty transition-colors text-center">
+            <span className="font-serif font-bold text-2xl sm:text-3xl text-rose-dark block">
               {portfolioData.hero?.stat2Value || "10K+"}
             </span>
             <span className="text-[10px] sm:text-[11px] uppercase font-bold text-neutral-500 tracking-wider block mt-1">
               {portfolioData.hero?.stat2Label || "Jangkauan Konten"}
             </span>
           </div>
-          <div className="bg-white/90 backdrop-blur-md rounded-2xl p-4 border border-rose-100/80 shadow-xs hover:border-rose-300 transition-colors text-center">
-            <span className="font-serif font-bold text-2xl sm:text-3xl text-rose-950 block">
+          <div className="bg-white/85 backdrop-blur-md rounded-2xl p-4 border border-[#CAD7C5] shadow-xs hover:border-rose-dusty transition-colors text-center">
+            <span className="font-serif font-bold text-2xl sm:text-3xl text-forest block">
               {portfolioData.hero?.stat3Value || "20+"}
             </span>
             <span className="text-[10px] sm:text-[11px] uppercase font-bold text-neutral-500 tracking-wider block mt-1">
               {portfolioData.hero?.stat3Label || "Mitra Event"}
             </span>
           </div>
-          <div className="bg-white/90 backdrop-blur-md rounded-2xl p-4 border border-rose-100/80 shadow-xs hover:border-rose-300 transition-colors text-center">
-            <span className="font-serif font-bold text-2xl sm:text-3xl text-rose-900 block">
+          <div className="bg-white/85 backdrop-blur-md rounded-2xl p-4 border border-[#CAD7C5] shadow-xs hover:border-rose-dusty transition-colors text-center">
+            <span className="font-serif font-bold text-2xl sm:text-3xl text-rose-dark block">
               {portfolioData.hero?.stat4Value || "D4 SIB"}
             </span>
             <span className="text-[10px] sm:text-[11px] uppercase font-bold text-neutral-500 tracking-wider block mt-1">
@@ -372,30 +378,30 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* 3. LOGO TICKER / CREDENTIAL ROW (Polinema, GDSC, Brands)                 */}
       {/* ========================================================================= */}
-      <section className="py-7 border-y border-rose-100/60 bg-white/60 overflow-hidden">
+      <section className="py-7 border-y border-[#CAD7C5]/60 bg-white/50 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between flex-wrap gap-6 sm:gap-8 opacity-80 transition-all duration-300">
-          <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-neutral-600 hover:text-rose-800 transition-colors">
-            <span className="text-rose-500">✦</span>
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-forest/75 hover:text-forest transition-colors">
+            <span className="text-rose-dusty">✦</span>
             <span>Politeknik Negeri Malang</span>
           </div>
-          <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-neutral-600 hover:text-rose-800 transition-colors">
-            <span className="text-rose-500">✦</span>
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-forest/75 hover:text-forest transition-colors">
+            <span className="text-rose-dusty">✦</span>
             <span>GDSC Google Polinema</span>
           </div>
-          <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-neutral-600 hover:text-rose-800 transition-colors">
-            <span className="text-rose-500">✦</span>
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-forest/75 hover:text-forest transition-colors">
+            <span className="text-rose-dusty">✦</span>
             <span>Manikarumi Hijab</span>
           </div>
-          <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-neutral-600 hover:text-rose-800 transition-colors">
-            <span className="text-rose-500">✦</span>
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-forest/75 hover:text-forest transition-colors">
+            <span className="text-rose-dusty">✦</span>
             <span>Yarn Up Creative</span>
           </div>
-          <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-neutral-600 hover:text-rose-800 transition-colors">
-            <span className="text-rose-500">✦</span>
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-forest/75 hover:text-forest transition-colors">
+            <span className="text-rose-dusty">✦</span>
             <span>Dua Sisi Media</span>
           </div>
-          <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-neutral-600 hover:text-rose-800 transition-colors">
-            <span className="text-rose-500">✦</span>
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-forest/75 hover:text-forest transition-colors">
+            <span className="text-rose-dusty">✦</span>
             <span>RevoU Digital Marketing</span>
           </div>
         </div>
@@ -405,12 +411,12 @@ export default function Home() {
       {/* 4. BENTO VISUAL SHOWCASE MOSAIC (Curated Project Previews)                */}
       {/* ========================================================================= */}
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="bg-gradient-to-b from-rose-50/70 via-pink-50/30 to-white rounded-4xl p-6 sm:p-10 border border-rose-100/80 shadow-xs">
+        <div className="bg-gradient-to-b from-white/95 via-[#F2F7EF]/70 to-[#E8EFE5]/40 rounded-4xl p-6 sm:p-10 border border-[#CAD7C5] shadow-xs">
           
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
             <div>
-              <span className="font-serif italic font-normal text-xl sm:text-2xl text-rose-600 block">/ Curated Portfolio /</span>
-              <h2 className="font-sans font-medium text-3xl sm:text-4xl text-[#241C1E] tracking-tight mt-1">
+              <span className="font-serif italic font-normal text-sm font-semibold tracking-wider uppercase text-rose-dark block">/ Curated Portfolio /</span>
+              <h2 className="font-serif font-bold text-3xl sm:text-4xl text-forest tracking-tight mt-1">
                 Visual Work Mosaic
               </h2>
             </div>
@@ -432,7 +438,7 @@ export default function Home() {
                 link: projectsList[0]?.link,
                 linkLabel: 'Dokumentasi Sistem ↗'
               })}
-              className="lg:col-span-7 bg-white rounded-3xl p-5 border border-rose-100/80 shadow-xs hover:shadow-md transition-all cursor-pointer group"
+              className="lg:col-span-7 bg-white rounded-3xl p-5 border border-[#CAD7C5] shadow-xs hover:border-rose-dusty/60 hover:shadow-md transition-all cursor-pointer group"
             >
               <div className="relative overflow-hidden rounded-2xl bg-neutral-100 h-56 sm:h-72 mb-4">
                 <img 
@@ -445,7 +451,7 @@ export default function Home() {
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="font-sans font-bold text-base sm:text-lg text-[#241C1E] group-hover:text-rose-700 transition-colors">
+                  <h3 className="font-sans font-bold text-base sm:text-lg text-forest group-hover:text-rose-dark transition-colors">
                     {projectsList[0]?.title || "Sistem Manajemen Pelanggan Koran"}
                   </h3>
                   <p className="text-xs text-neutral-500 mt-0.5">{projectsList[0]?.tag || "Database Relasional & Sirkulasi Otomatis"}</p>
@@ -466,7 +472,7 @@ export default function Home() {
                 link: projectsList[1]?.link,
                 linkLabel: 'Buka Prototipe ↗'
               })}
-              className="lg:col-span-5 bg-white rounded-3xl p-5 border border-rose-100/80 shadow-xs hover:shadow-md transition-all cursor-pointer group"
+              className="lg:col-span-5 bg-white rounded-3xl p-5 border border-[#CAD7C5] shadow-xs hover:border-rose-dusty/60 hover:shadow-md transition-all cursor-pointer group"
             >
               <div className="relative overflow-hidden rounded-2xl bg-neutral-100 h-56 sm:h-72 mb-4">
                 <img 
@@ -479,12 +485,12 @@ export default function Home() {
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="font-sans font-bold text-base sm:text-lg text-[#241C1E] group-hover:text-rose-800 transition-colors">
+                  <h3 className="font-sans font-bold text-base sm:text-lg text-forest group-hover:text-rose-dark transition-colors">
                     {projectsList[1]?.title || "Website SurveyKu Analytics"}
                   </h3>
                   <p className="text-xs text-neutral-500 mt-0.5">{projectsList[1]?.tag || "User Feedback & Data Modeling"}</p>
                 </div>
-                <span className="text-xs font-semibold px-3 py-1 rounded-full bg-rose-50 text-rose-800 border border-rose-200">
+                <span className="text-xs font-semibold px-3 py-1 rounded-full bg-rose-50 text-rose-dark font-serif italic border border-rose-200">
                   UX Analytics
                 </span>
               </div>
@@ -500,7 +506,7 @@ export default function Home() {
                 link: projectsList[2]?.link,
                 linkLabel: 'Verifikasi Sistem ↗'
               })}
-              className="lg:col-span-5 bg-white rounded-3xl p-5 border border-rose-100/80 shadow-xs hover:shadow-md transition-all cursor-pointer group"
+              className="lg:col-span-5 bg-white rounded-3xl p-5 border border-[#CAD7C5] shadow-xs hover:border-rose-dusty/60 hover:shadow-md transition-all cursor-pointer group"
             >
               <div className="relative overflow-hidden rounded-2xl bg-neutral-100 h-56 sm:h-72 mb-4">
                 <img 
@@ -513,7 +519,7 @@ export default function Home() {
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="font-sans font-bold text-base sm:text-lg text-[#241C1E] group-hover:text-rose-800 transition-colors">
+                  <h3 className="font-sans font-bold text-base sm:text-lg text-forest group-hover:text-rose-dark transition-colors">
                     {projectsList[2]?.title || "JTI Certify Platform"}
                   </h3>
                   <p className="text-xs text-neutral-500 mt-0.5">{projectsList[2]?.tag || "Anti-Forgery Digital Credential"}</p>
@@ -534,7 +540,7 @@ export default function Home() {
                 link: projectsList[3]?.link || 'https://instagram.com/chikalnazmi',
                 linkLabel: projectsList[3]?.linkLabel || 'Lihat Instagram ↗'
               })}
-              className="lg:col-span-7 bg-white rounded-3xl p-5 border border-rose-100/80 shadow-xs hover:shadow-md transition-all cursor-pointer group"
+              className="lg:col-span-7 bg-white rounded-3xl p-5 border border-[#CAD7C5] shadow-xs hover:border-rose-dusty/60 hover:shadow-md transition-all cursor-pointer group"
             >
               <div className="relative overflow-hidden rounded-2xl bg-neutral-100 h-56 sm:h-72 mb-4">
                 <img 
@@ -547,7 +553,7 @@ export default function Home() {
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="font-sans font-bold text-base sm:text-lg text-[#241C1E] group-hover:text-rose-700 transition-colors">
+                  <h3 className="font-sans font-bold text-base sm:text-lg text-forest group-hover:text-rose-dark transition-colors">
                     {projectsList[3]?.title || "Manikarumi & Yarn Up Commercial Campaigns"}
                   </h3>
                   <p className="text-xs text-neutral-500 mt-0.5">{projectsList[3]?.tag || "Short-Form Video Production & Reach Surge"}</p>
@@ -573,18 +579,18 @@ export default function Home() {
 
         {/* Script / Editorial Kicker */}
         <div className="relative z-10 mb-4">
-          <span className="font-serif italic font-normal text-2xl sm:text-3xl text-rose-600 block">/ What I do /</span>
+          <span className="font-serif italic font-normal text-sm font-semibold tracking-wider uppercase text-rose-dark block">/ What I do /</span>
         </div>
 
         {/* Big Bold Statement with Highlighted Words (Elian Ross Style) */}
         <div className="relative z-10 max-w-3xl mx-auto mb-12">
-          <p className="font-sans font-normal text-2xl sm:text-4xl md:text-5xl text-[#241C1E] leading-snug sm:leading-tight tracking-tight">
+          <p className="font-sans font-normal text-2xl sm:text-4xl md:text-5xl text-forest leading-snug sm:leading-tight tracking-tight">
             my focus is on blending{' '}
-            <strong className="font-semibold text-[#241C1E]">clear business strategy</strong>,{' '}
-            <strong className="font-semibold text-[#241C1E]">thoughtful operational systems</strong>, and{' '}
+            <strong className="font-semibold text-forest">clear business strategy</strong>,{' '}
+            <strong className="font-semibold text-forest">thoughtful operational systems</strong>, and{' '}
             <span className="font-serif italic font-normal text-rose-800">creative storytelling</span>{' '}
             to craft experiences that{' '}
-            <span className="underline decoration-rose-300 decoration-wavy underline-offset-8">
+            <span className="underline decoration-rose-dusty decoration-wavy underline-offset-8">
               solve real problems
             </span>.
           </p>
@@ -609,8 +615,8 @@ export default function Home() {
               <span 
                 key={sIdx}
                 className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border ${
-                  'border-rose-200/80 hover:border-rose-400'
-                } shadow-xs text-xs font-semibold text-[#241C1E] transition-colors`}
+                  'border-[#CAD7C5] hover:border-rose-dusty'
+                } shadow-xs text-xs font-semibold text-forest transition-colors`}
               >
                 <span className={`w-2 h-2 rounded-full ${
                   'bg-rose-500 shadow-[0_0_6px_rgba(244,114,182,0.7)]'
@@ -631,7 +637,7 @@ export default function Home() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="font-serif italic font-normal text-2xl sm:text-3xl text-rose-600 block">/ How I Deliver Value /</span>
-          <h2 className="font-sans font-medium text-4xl sm:text-5xl text-[#241C1E] tracking-tight mt-1">
+          <h2 className="font-sans font-medium text-4xl sm:text-5xl text-forest tracking-tight mt-1">
             Here&apos;s how it works
           </h2>
           <p className="text-xs sm:text-sm text-neutral-600 mt-3">
@@ -647,65 +653,65 @@ export default function Home() {
             <svg className="w-full h-full" viewBox="0 0 500 100" fill="none" preserveAspectRatio="none">
               <path 
                 d="M 20 50 C 120 10, 180 80, 250 30 C 320 -20, 380 90, 480 40" 
-                stroke="#F472B6" 
+                stroke="#94AB8B" 
                 strokeWidth="2.5" 
                 strokeDasharray="6 6"
                 className="opacity-70"
               />
-              <circle cx="20" cy="50" r="4" fill="#F472B6" />
-              <circle cx="250" cy="30" r="4" fill="#FB7185" />
-              <circle cx="480" cy="40" r="4" fill="#F472B6" />
+              <circle cx="20" cy="50" r="4" fill="#94AB8B" />
+              <circle cx="250" cy="30" r="4" fill="#BD5871" />
+              <circle cx="480" cy="40" r="4" fill="#94AB8B" />
             </svg>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-20">
             
             {/* Card 01 - Discover */}
-            <div className="process-card p-8 rounded-3xl bg-white border border-rose-100/90 shadow-xs flex flex-col justify-between relative group">
+            <div className="process-card p-8 rounded-3xl bg-white border border-[#CAD7C5] shadow-xs flex flex-col justify-between relative group">
               <div>
-                <span className="font-sans font-light text-5xl text-rose-200/80 group-hover:text-rose-300 transition-colors">01</span>
-                <h3 className="font-sans font-bold text-2xl text-[#241C1E] mt-4 mb-2">
+                <span className="font-sans font-light text-5xl text-rose-dusty/40 group-hover:text-rose-dusty transition-colors">01</span>
+                <h3 className="font-sans font-bold text-2xl text-forest mt-4 mb-2">
                   Discover
                 </h3>
                 <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
                   Riset pasar mendalam, wawancara pengguna (user interview), analisis kendala operasional (bottlenecks), dan pemetaan peluang bisnis nyata.
                 </p>
               </div>
-              <div className="mt-8 pt-4 border-t border-rose-100/60 flex items-center justify-between text-[11px] font-semibold text-rose-800">
+              <div className="mt-8 pt-4 border-t border-[#CAD7C5]/60 flex items-center justify-between text-[11px] font-semibold text-rose-dark">
                 <span>Market &amp; User Needs</span>
                 <span className="text-xs text-rose-700 font-mono">01 ↗</span>
               </div>
             </div>
 
             {/* Card 02 - Strategize */}
-            <div className="process-card p-8 rounded-3xl bg-white border border-rose-100/90 shadow-xs flex flex-col justify-between relative group">
+            <div className="process-card p-8 rounded-3xl bg-white border border-[#CAD7C5] shadow-xs flex flex-col justify-between relative group">
               <div>
-                <span className="font-sans font-light text-5xl text-rose-200/80 group-hover:text-rose-300 transition-colors">02</span>
-                <h3 className="font-sans font-bold text-2xl text-[#241C1E] mt-4 mb-2">
+                <span className="font-sans font-light text-5xl text-rose-dusty/40 group-hover:text-rose-dusty transition-colors">02</span>
+                <h3 className="font-sans font-bold text-2xl text-forest mt-4 mb-2">
                   Strategize
                 </h3>
                 <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
                   Merumuskan Business Model Canvas, analisis kelayakan finansial, standard operating procedure (SOP), serta konsep kreatif penceritaan brand.
                 </p>
               </div>
-              <div className="mt-8 pt-4 border-t border-rose-100/60 flex items-center justify-between text-[11px] font-semibold text-rose-800">
+              <div className="mt-8 pt-4 border-t border-[#CAD7C5]/60 flex items-center justify-between text-[11px] font-semibold text-rose-dark">
                 <span>Business Model &amp; SOP</span>
                 <span className="text-xs text-rose-700 font-mono">02 ↗</span>
               </div>
             </div>
 
             {/* Card 03 - Deliver */}
-            <div className="process-card p-8 rounded-3xl bg-white border border-rose-100/90 shadow-xs flex flex-col justify-between relative group">
+            <div className="process-card p-8 rounded-3xl bg-white border border-[#CAD7C5] shadow-xs flex flex-col justify-between relative group">
               <div>
-                <span className="font-sans font-light text-5xl text-rose-200/80 group-hover:text-rose-300 transition-colors">03</span>
-                <h3 className="font-sans font-bold text-2xl text-[#241C1E] mt-4 mb-2">
+                <span className="font-sans font-light text-5xl text-rose-dusty/40 group-hover:text-rose-dusty transition-colors">03</span>
+                <h3 className="font-sans font-bold text-2xl text-forest mt-4 mb-2">
                   Deliver
                 </h3>
                 <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
                   Eksekusi kampanye pemasaran digital, pembuatan prototipe interaktif, dan pelacakan metrik keberhasilan (KPI) yang terukur.
                 </p>
               </div>
-              <div className="mt-8 pt-4 border-t border-rose-100/60 flex items-center justify-between text-[11px] font-semibold text-rose-800">
+              <div className="mt-8 pt-4 border-t border-[#CAD7C5]/60 flex items-center justify-between text-[11px] font-semibold text-rose-dark">
                 <span>Execution &amp; KPI Reach</span>
                 <span className="text-xs text-rose-700 font-mono">03 ↗</span>
               </div>
@@ -717,32 +723,32 @@ export default function Home() {
         {/* 2 Clean Quote / Highlight Cards Underneath */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 max-w-5xl mx-auto">
           
-          <div className="bg-white p-6 sm:p-7 rounded-3xl border border-rose-100/80 shadow-xs flex items-start gap-4">
+          <div className="bg-white p-6 sm:p-7 rounded-3xl border border-[#CAD7C5] shadow-xs flex items-start gap-4">
             <span className="text-3xl text-rose-300 font-serif leading-none">“</span>
             <div>
-              <p className="text-xs sm:text-sm text-[#241C1E] italic leading-relaxed">
+              <p className="text-xs sm:text-sm text-forest italic leading-relaxed">
                 {awardsList[0]?.desc ? `${awardsList[0].title} — ${awardsList[0].desc}` : "Kemampuan analisis komprehensif dalam memadukan kelayakan bisnis, tata kelola data sistem informasi, dan presentasi meyakinkan terbukti membawakan 7 gelar juara nasional."}
               </p>
               <div className="flex items-center gap-3 mt-4">
                 <img src={awardsList[0]?.certImg || "/11.png"} alt="Award" className="w-8 h-8 rounded-full object-cover ring-2 ring-rose-100" loading="lazy" decoding="async" />
                 <div>
-                  <h4 className="font-bold text-xs text-[#241C1E]">{awardsList[0]?.title || "National Fest Business Plan Competition"}</h4>
+                  <h4 className="font-bold text-xs text-forest">{awardsList[0]?.title || "National Fest Business Plan Competition"}</h4>
                   <p className="text-[10px] text-rose-700">{awardsList[0]?.rank || "Juara 1 Tingkat Nasional"} {awardsList[0]?.year ? `(${awardsList[0].year})` : ""}</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="bg-white p-6 sm:p-7 rounded-3xl border border-rose-100/80 shadow-xs flex items-start gap-4">
+          <div className="bg-white p-6 sm:p-7 rounded-3xl border border-[#CAD7C5] shadow-xs flex items-start gap-4">
             <span className="text-3xl text-rose-300 font-serif leading-none">“</span>
             <div>
-              <p className="text-xs sm:text-sm text-[#241C1E] italic leading-relaxed">
+              <p className="text-xs sm:text-sm text-forest italic leading-relaxed">
                 {portfolioData.creatorAccounts?.manikarumi?.centerDesc || "Inisiatif kepemimpinan di Manikarumi dan GDSC Polinema mempercepat lonjakan jangkauan konten organik hingga +2.089% dengan storytelling yang memikat audiens muda."}
               </p>
               <div className="flex items-center gap-3 mt-4">
                 <img src={portfolioData.creatorAccounts?.manikarumi?.centerImg || "/17.png"} alt="Manikarumi" className="w-8 h-8 rounded-full object-cover ring-2 ring-rose-100" loading="lazy" decoding="async" />
                 <div>
-                  <h4 className="font-bold text-xs text-[#241C1E]">{portfolioData.creatorAccounts?.manikarumi?.name || "Commercial Content Growth"}</h4>
+                  <h4 className="font-bold text-xs text-forest">{portfolioData.creatorAccounts?.manikarumi?.name || "Commercial Content Growth"}</h4>
                   <p className="text-[10px] text-rose-700">{portfolioData.creatorAccounts?.manikarumi?.stats || "Brand Impact & Reach Surge"}</p>
                 </div>
               </div>
@@ -761,8 +767,8 @@ export default function Home() {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <div>
-            <span className="font-serif italic font-normal text-2xl sm:text-3xl text-rose-600 block">/ Selected Works /</span>
-            <h2 className="font-sans font-medium text-4xl sm:text-5xl text-[#241C1E] tracking-tight mt-1">
+            <span className="text-sm font-semibold tracking-wider uppercase text-rose-dark block">/ Selected Works /</span>
+            <h2 className="font-sans font-medium text-4xl sm:text-5xl text-forest tracking-tight mt-1">
               Selected Works
             </h2>
           </div>
@@ -779,8 +785,8 @@ export default function Home() {
                 onClick={() => setActiveProjectFilter(tab.id)}
                 className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                   activeProjectFilter === tab.id
-                    ? 'bg-[#241C1E] text-white shadow-xs'
-                    : 'bg-white text-[#4A3B40] border border-rose-100 hover:border-rose-300'
+                    ? 'bg-rose-dark text-white shadow-xs'
+                    : 'bg-white/80 text-forest/75 border border-[#CAD7C5] hover:border-rose-dusty'
                 }`}
               >
                 {tab.label}
@@ -802,7 +808,7 @@ export default function Home() {
                 link: project.link,
                 linkLabel: project.linkLabel || 'Buka Dokumentasi ↗'
               })}
-              className="editorial-card p-5 sm:p-6 rounded-4xl bg-white border border-rose-100/90 shadow-xs hover:shadow-lg transition-all cursor-pointer group flex flex-col justify-between"
+              className="editorial-card p-5 sm:p-6 rounded-4xl bg-white border border-[#CAD7C5] shadow-xs hover:shadow-lg transition-all cursor-pointer group flex flex-col justify-between"
             >
               {/* Project Image Container */}
               <div className="relative overflow-hidden rounded-3xl bg-neutral-100 aspect-[16/10] sm:aspect-[16/11] mb-5">
@@ -814,7 +820,7 @@ export default function Home() {
                   decoding="async"
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
-                  <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-4 py-2 rounded-full bg-white/95 backdrop-blur-md text-xs font-bold text-[#241C1E] shadow-sm">
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-4 py-2 rounded-full bg-white/95 backdrop-blur-md text-xs font-bold text-forest shadow-sm">
                     Lihat Dokumentasi &amp; Hasil ↗
                   </span>
                 </div>
@@ -823,7 +829,7 @@ export default function Home() {
               {/* Title on Left, Tag Pills on Right */}
               <div className="flex items-start justify-between gap-4 pt-1">
                 <div>
-                  <h3 className="font-sans font-bold text-lg sm:text-xl text-[#241C1E] group-hover:text-rose-800 transition-colors">
+                  <h3 className="font-sans font-bold text-lg sm:text-xl text-forest group-hover:text-rose-dark transition-colors">
                     {project.title}
                   </h3>
                   <p className="text-xs text-neutral-500 mt-1 line-clamp-1">
@@ -846,13 +852,13 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* CREATIVE MEDIA & CONTENT CREATOR SHOWCASE (CMS Video & Creator Tab)        */}
       {/* ========================================================================= */}
-      <section id="creator" className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-rose-100/60">
+      <section id="creator" className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#CAD7C5]/60">
         
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <div>
-            <span className="font-serif italic font-normal text-2xl sm:text-3xl text-rose-600 block">/ Content &amp; Media /</span>
-            <h2 className="font-sans font-medium text-4xl sm:text-5xl text-[#241C1E] tracking-tight mt-1">
+            <span className="text-sm font-semibold tracking-wider uppercase text-rose-dark block">/ Content &amp; Media /</span>
+            <h2 className="font-sans font-medium text-4xl sm:text-5xl text-forest tracking-tight mt-1">
               Creator Studio &amp; Social Growth
             </h2>
             <p className="text-xs sm:text-sm text-neutral-600 mt-2 max-w-md">
@@ -870,8 +876,8 @@ export default function Home() {
                   onClick={() => setActiveCreatorKey(accKey)}
                   className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                     activeCreatorKey === accKey
-                      ? 'bg-[#241C1E] text-white shadow-xs'
-                      : 'bg-white text-[#4A3B40] border border-rose-100 hover:border-rose-300'
+                      ? 'bg-rose-dark text-white shadow-xs'
+                      : 'bg-white/80 text-forest/75 border border-[#CAD7C5] hover:border-rose-dusty'
                   }`}
                 >
                   <span>{acc.name}</span>
@@ -883,15 +889,15 @@ export default function Home() {
 
         {/* Selected Creator Account Display */}
         {currentCreator && (
-          <div className="bg-gradient-to-b from-rose-50/70 via-pink-50/30 to-white rounded-4xl p-6 sm:p-10 border border-rose-100/80 shadow-xs">
+          <div className="bg-white/95 rounded-4xl p-6 sm:p-10 border border-[#CAD7C5] shadow-xs">
             
             {/* Account Info Bar */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-8 border-b border-rose-100/60">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-8 border-b border-[#CAD7C5]/60">
               <div>
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-rose-200/80 text-[11px] font-bold text-rose-900 mb-2">
                   <span>✦ {currentCreator.tag}</span>
                 </div>
-                <h3 className="font-sans font-bold text-2xl sm:text-3xl text-[#241C1E]">
+                <h3 className="font-sans font-bold text-2xl sm:text-3xl text-forest">
                   {currentCreator.name} <span className="font-mono font-normal text-sm sm:text-base text-rose-700">{currentCreator.handle}</span>
                 </h3>
                 <p className="text-xs text-neutral-500 mt-1">
@@ -900,7 +906,7 @@ export default function Home() {
               </div>
 
               <div className="flex items-center gap-3">
-                <span className="px-4 py-2 rounded-2xl bg-rose-50 text-rose-900 border border-rose-100 font-bold text-xs sm:text-sm">
+                <span className="px-4 py-2 rounded-2xl bg-[#F2F7EF] text-forest border border-[#CAD7C5] font-bold text-xs sm:text-sm">
                   ✦ {currentCreator.stats}
                 </span>
                 {currentCreator.link && (
@@ -908,7 +914,7 @@ export default function Home() {
                     href={currentCreator.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-2 rounded-full bg-[#241C1E] text-white text-xs font-semibold hover:bg-rose-950 transition-colors"
+                    className="px-4 py-2 rounded-full bg-rose-dark text-white text-xs font-semibold hover:bg-rose-berry transition-colors"
                   >
                     Buka Akun ↗
                   </a>
@@ -921,7 +927,7 @@ export default function Home() {
               
               {/* Left Media Card (Left Phone Mockup) */}
               <div 
-                className="md:col-span-3 bg-white rounded-3xl p-4 border border-rose-100/80 shadow-xs hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
+                className="md:col-span-3 bg-white rounded-3xl p-4 border border-[#CAD7C5] shadow-xs hover:border-rose-dusty/60 hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
                 onClick={() => openModal({
                   title: currentCreator.leftPhoneTitle || currentCreator.name,
                   category: currentCreator.leftPhoneTag || 'SOCIAL MEDIA REELS',
@@ -944,7 +950,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div>
-                  <h4 className="font-bold text-xs sm:text-sm text-[#241C1E] group-hover:text-rose-800 transition-colors">
+                  <h4 className="font-bold text-xs sm:text-sm text-forest group-hover:text-rose-dark transition-colors">
                     {currentCreator.leftPhoneTitle}
                   </h4>
                   <span className="text-[10px] text-rose-600 font-medium">Lihat Media ↗</span>
@@ -953,7 +959,7 @@ export default function Home() {
 
               {/* Center Stage Card (Center Showcase) */}
               <div 
-                className="md:col-span-6 bg-white rounded-3xl p-5 sm:p-6 border border-rose-100/90 shadow-xs hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
+                className="md:col-span-6 bg-white rounded-3xl p-5 sm:p-6 border border-[#CAD7C5] shadow-xs hover:border-rose-dusty/60 hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
                 onClick={() => openModal({
                   title: currentCreator.centerTitle || currentCreator.name,
                   category: 'CREATIVE SHOWCASE',
@@ -987,7 +993,7 @@ export default function Home() {
                   <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
                     {currentCreator.centerDesc}
                   </p>
-                  <div className="mt-4 pt-3 border-t border-rose-100/60 flex items-center justify-between text-xs font-semibold text-rose-800">
+                  <div className="mt-4 pt-3 border-t border-[#CAD7C5]/60 flex items-center justify-between text-xs font-semibold text-rose-800">
                     <span>{currentCreator.centerLink ? "Tonton Konten Pilihan ↗" : "Dokumentasi Galeri"}</span>
                     <span className="group-hover:translate-x-1 transition-transform">→</span>
                   </div>
@@ -996,7 +1002,7 @@ export default function Home() {
 
               {/* Right Media Card (Right Phone Mockup) */}
               <div 
-                className="md:col-span-3 bg-white rounded-3xl p-4 border border-rose-100/80 shadow-xs hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
+                className="md:col-span-3 bg-white rounded-3xl p-4 border border-[#CAD7C5] shadow-xs hover:border-rose-dusty/60 hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
                 onClick={() => openModal({
                   title: currentCreator.rightPhoneTitle || currentCreator.name,
                   category: currentCreator.rightPhoneTag || 'TIKTOK CONTENT',
@@ -1019,7 +1025,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div>
-                  <h4 className="font-bold text-xs sm:text-sm text-[#241C1E] group-hover:text-rose-800 transition-colors">
+                  <h4 className="font-bold text-xs sm:text-sm text-forest group-hover:text-rose-dark transition-colors">
                     {currentCreator.rightPhoneTitle}
                   </h4>
                   <span className="text-[10px] text-rose-600 font-medium">Lihat Media ↗</span>
@@ -1036,13 +1042,13 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* 8. PUSHING BOUNDARIES (About Story & Clean Career Timeline)              */}
       {/* ========================================================================= */}
-      <section id="experience" className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-rose-100/60">
+      <section id="experience" className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#CAD7C5]/60">
         
         {/* Kicker & Title (Elian Ross Style: Title Bold + Year Muted Light) */}
         <div className="mb-14">
-          <span className="font-serif italic font-normal text-2xl sm:text-3xl text-rose-600 block">/ Who Am I /</span>
-          <h2 className="font-sans font-medium text-4xl sm:text-6xl text-[#241C1E] tracking-tight mt-1">
-            Pushing Boundaries <span className="font-serif italic font-normal text-rose-900">since 2020</span>
+          <span className="text-sm font-semibold tracking-wider uppercase text-rose-dark block">/ Who Am I /</span>
+          <h2 className="font-sans font-medium text-4xl sm:text-6xl text-forest tracking-tight mt-1">
+            Pushing Boundaries <span className="font-serif italic font-normal text-rose-dark">since 2020</span>
           </h2>
         </div>
 
@@ -1051,7 +1057,7 @@ export default function Home() {
           
           {/* Left Column: Stylized Portrait Card & Social Links */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="relative overflow-hidden rounded-4xl bg-[#1F191B] p-4 sm:p-5 shadow-lg border border-rose-900/30">
+            <div className="relative overflow-hidden rounded-4xl bg-forest p-4 sm:p-5 shadow-lg border border-[#CAD7C5]/30">
               <div className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-neutral-900">
                 <img
                   src={portfolioData.hero?.avatarImg || "/2.png"}
@@ -1071,12 +1077,12 @@ export default function Home() {
             </div>
 
             {/* Social Icons Row with Rose Touch */}
-            <div className="flex items-center justify-center gap-3 p-3 bg-white rounded-full border border-rose-100/80 shadow-xs">
+            <div className="flex items-center justify-center gap-3 p-3 bg-white rounded-full border border-[#CAD7C5] shadow-xs">
               <a
                 href={portfolioData.socials?.linkedin || "https://linkedin.com"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-rose-50 text-rose-900 hover:bg-[#241C1E] hover:text-white transition-colors flex items-center justify-center text-xs font-bold"
+                className="w-9 h-9 rounded-full bg-[#F2F7EF] text-forest hover:bg-forest hover:text-white transition-colors flex items-center justify-center text-xs font-bold"
                 title="LinkedIn"
               >
                 in
@@ -1085,7 +1091,7 @@ export default function Home() {
                 href={portfolioData.socials?.instagram || "https://instagram.com/chikalnazmi"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-rose-50 text-rose-900 hover:bg-[#241C1E] hover:text-white transition-colors flex items-center justify-center text-xs font-bold"
+                className="w-9 h-9 rounded-full bg-[#F2F7EF] text-forest hover:bg-forest hover:text-white transition-colors flex items-center justify-center text-xs font-bold"
                 title="Instagram"
               >
                 ig
@@ -1094,14 +1100,14 @@ export default function Home() {
                 href={portfolioData.socials?.tiktok || "https://tiktok.com"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-rose-50 text-rose-900 hover:bg-[#241C1E] hover:text-white transition-colors flex items-center justify-center text-xs font-bold"
+                className="w-9 h-9 rounded-full bg-[#F2F7EF] text-forest hover:bg-forest hover:text-white transition-colors flex items-center justify-center text-xs font-bold"
                 title="TikTok"
               >
                 tt
               </a>
               <a
                 href={`mailto:${portfolioData.socials?.email || "chikalnazmi@gmail.com"}`}
-                className="w-9 h-9 rounded-full bg-rose-50 text-rose-900 hover:bg-[#241C1E] hover:text-white transition-colors flex items-center justify-center text-xs font-bold"
+                className="w-9 h-9 rounded-full bg-[#F2F7EF] text-forest hover:bg-forest hover:text-white transition-colors flex items-center justify-center text-xs font-bold"
                 title="Email"
               >
                 ✉
@@ -1111,7 +1117,7 @@ export default function Home() {
                   href={portfolioData.socials.youtube}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-rose-50 text-rose-900 hover:bg-[#241C1E] hover:text-white transition-colors flex items-center justify-center text-xs font-bold"
+                  className="w-9 h-9 rounded-full bg-[#F2F7EF] text-forest hover:bg-forest hover:text-white transition-colors flex items-center justify-center text-xs font-bold"
                   title="YouTube"
                 >
                   yt
@@ -1122,7 +1128,7 @@ export default function Home() {
                   href={portfolioData.socials.medium}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-rose-50 text-rose-900 hover:bg-[#241C1E] hover:text-white transition-colors flex items-center justify-center text-xs font-bold"
+                  className="w-9 h-9 rounded-full bg-[#F2F7EF] text-forest hover:bg-forest hover:text-white transition-colors flex items-center justify-center text-xs font-bold"
                   title="Medium"
                 >
                   m
@@ -1142,7 +1148,7 @@ export default function Home() {
               {experiencesList.map((exp, idx) => (
                 <div 
                   key={exp.id || idx}
-                  className="py-4 sm:py-5 border-b border-rose-100/70 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4 hover:bg-rose-50/40 px-2 rounded-xl transition-colors cursor-pointer group"
+                  className="py-4 sm:py-5 border-b border-[#CAD7C5]/60 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4 hover:bg-white/60 px-2 rounded-xl transition-colors cursor-pointer group"
                   onClick={() => openModal({
                     title: exp.title,
                     category: exp.category || 'WORK EXPERIENCE',
@@ -1153,7 +1159,7 @@ export default function Home() {
                   })}
                 >
                   <div>
-                    <h4 className="font-sans font-bold text-sm sm:text-base text-[#241C1E] group-hover:text-rose-800 transition-colors">
+                    <h4 className="font-sans font-bold text-sm sm:text-base text-forest group-hover:text-rose-dark transition-colors">
                       {exp.title}
                     </h4>
                     <p className="text-xs text-neutral-500">
@@ -1162,7 +1168,7 @@ export default function Home() {
                   </div>
 
                   <div className="flex items-center gap-3 self-start sm:self-auto">
-                    <span className="text-[11px] font-medium text-rose-800 bg-rose-50 px-2.5 py-0.5 rounded-full border border-rose-100">
+                    <span className="text-[11px] font-medium text-forest bg-[#F2F7EF] px-2.5 py-0.5 rounded-full border border-[#CAD7C5]">
                       {exp.period}
                     </span>
                     <span className="text-xs text-rose-300 group-hover:translate-x-1 transition-transform">→</span>
@@ -1172,7 +1178,7 @@ export default function Home() {
 
               {/* Education Entry */}
               <div 
-                className="py-4 sm:py-5 border-b border-rose-100/70 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4 hover:bg-rose-50/40 px-2 rounded-xl transition-colors cursor-pointer group"
+                className="py-4 sm:py-5 border-b border-[#CAD7C5]/60 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4 hover:bg-white/60 px-2 rounded-xl transition-colors cursor-pointer group"
                 onClick={() => openModal({
                   title: `${academicData.degree} · ${academicData.institution}`,
                   category: 'FORMAL EDUCATION',
@@ -1181,7 +1187,7 @@ export default function Home() {
                 })}
               >
                 <div>
-                  <h4 className="font-sans font-bold text-sm sm:text-base text-[#241C1E] group-hover:text-rose-800 transition-colors">
+                  <h4 className="font-sans font-bold text-sm sm:text-base text-forest group-hover:text-rose-dark transition-colors">
                     {academicData.degree}
                   </h4>
                   <p className="text-xs text-neutral-500">
@@ -1190,7 +1196,7 @@ export default function Home() {
                 </div>
 
                 <div className="flex items-center gap-3 self-start sm:self-auto">
-                  <span className="text-[11px] font-medium text-rose-800 bg-rose-50 px-2.5 py-0.5 rounded-full border border-rose-100">
+                  <span className="text-[11px] font-medium text-forest bg-[#F2F7EF] px-2.5 py-0.5 rounded-full border border-[#CAD7C5]">
                     {academicData.period}
                   </span>
                   <span className="text-xs text-rose-300 group-hover:translate-x-1 transition-transform">→</span>
@@ -1204,7 +1210,7 @@ export default function Home() {
                 href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs font-semibold text-rose-800 underline underline-offset-4 hover:text-rose-950 transition-colors"
+                className="text-xs font-semibold text-rose-dark underline underline-offset-4 hover:text-rose-berry transition-colors"
               >
                 Minta Dokumen Curriculum Vitae (CV) via WhatsApp ↗
               </a>
@@ -1219,13 +1225,13 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* 9. TROPHY CASE & CERTIFICATIONS (Clean Minimalist Cards)                   */}
       {/* ========================================================================= */}
-      <section id="awards" className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-rose-100/60">
+      <section id="awards" className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#CAD7C5]/60">
         
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <div>
-            <span className="font-serif italic font-normal text-2xl sm:text-3xl text-rose-600 block">/ Accreditations /</span>
-            <h2 className="font-sans font-medium text-4xl sm:text-5xl text-[#241C1E] tracking-tight mt-1">
+            <span className="text-sm font-semibold tracking-wider uppercase text-rose-dark block">/ Accreditations /</span>
+            <h2 className="font-sans font-medium text-4xl sm:text-5xl text-forest tracking-tight mt-1">
               Awards &amp; Credentials
             </h2>
           </div>
@@ -1242,8 +1248,8 @@ export default function Home() {
                 onClick={() => setActiveAwardFilter(filter.id as any)}
                 className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                   activeAwardFilter === filter.id
-                    ? 'bg-[#241C1E] text-white shadow-xs'
-                    : 'bg-white text-[#4A3B40] border border-rose-100 hover:border-rose-300'
+                    ? 'bg-rose-dark text-white shadow-xs'
+                    : 'bg-white/80 text-forest/75 border border-[#CAD7C5] hover:border-rose-dusty'
                 }`}
               >
                 {filter.label}
@@ -1265,16 +1271,16 @@ export default function Home() {
                 link: award.link,
                 linkLabel: award.linkLabel || 'Dokumentasi Resmi ↗'
               })}
-              className="editorial-card p-6 rounded-3xl bg-white border border-rose-100/80 shadow-xs hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
+              className="editorial-card p-6 rounded-3xl bg-white border border-[#CAD7C5] shadow-xs hover:border-rose-dusty/60 hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-[11px] font-bold px-3 py-1 rounded-full bg-rose-50 text-rose-900 border border-rose-100">
+                  <span className="text-[11px] font-bold px-3 py-1 rounded-full bg-[#F2F7EF] text-forest border border-[#CAD7C5]">
                     {award.rank}
                   </span>
                   <span className="text-xs text-neutral-500 font-mono">{award.year}</span>
                 </div>
-                <h4 className="font-sans font-bold text-base text-[#241C1E] group-hover:text-rose-800 transition-colors leading-snug">
+                <h4 className="font-sans font-bold text-base text-forest group-hover:text-rose-dark transition-colors leading-snug">
                   {award.title}
                 </h4>
                 <p className="text-xs text-neutral-600 mt-2 leading-relaxed">
@@ -1282,7 +1288,7 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="mt-6 pt-3 border-t border-rose-100/60 flex items-center justify-between text-xs font-semibold text-rose-700">
+              <div className="mt-6 pt-3 border-t border-[#CAD7C5]/60 flex items-center justify-between text-xs font-semibold text-rose-dark">
                 <span>Lihat Sertifikat &amp; Piala</span>
                 <span className="group-hover:translate-x-1 transition-transform">↗</span>
               </div>
@@ -1291,8 +1297,8 @@ export default function Home() {
         </div>
 
         {/* Professional Certifications Bar */}
-        <div className="mt-14 pt-10 border-t border-rose-100/80">
-          <h3 className="font-sans font-medium text-xl text-[#241C1E] mb-6">
+        <div className="mt-14 pt-10 border-t border-[#CAD7C5]">
+          <h3 className="font-sans font-medium text-xl text-forest mb-6">
             Professional Courses &amp; Certifications
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -1307,11 +1313,11 @@ export default function Home() {
                   link: cert.link,
                   linkLabel: cert.linkLabel || 'Verifikasi Kredensial ↗'
                 })}
-                className="p-4 rounded-2xl bg-white border border-rose-100/70 hover:border-rose-300 shadow-xs hover:shadow-sm transition-all cursor-pointer flex flex-col justify-between"
+                className="p-4 rounded-2xl bg-white border border-[#CAD7C5] hover:border-rose-dusty/60 shadow-xs hover:shadow-sm transition-all cursor-pointer flex flex-col justify-between"
               >
                 <div>
                   <span className="text-[10px] font-bold text-rose-800 uppercase tracking-wider">{cert.issuer}</span>
-                  <h4 className="font-bold text-xs text-[#241C1E] mt-1 leading-snug">{cert.title}</h4>
+                  <h4 className="font-bold text-xs text-forest mt-1 leading-snug">{cert.title}</h4>
                 </div>
                 <div className="mt-3 pt-2 border-t border-rose-50 flex items-center justify-between text-[10px] text-neutral-500">
                   <span>{cert.year}</span>
@@ -1328,10 +1334,10 @@ export default function Home() {
       {/* 10. CTA BANNER ("Let's Make It Happen" Persis Referensi Elian Ross)       */}
       {/* ========================================================================= */}
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="relative overflow-hidden rounded-4xl p-10 sm:p-16 text-center cta-banner-glow border border-rose-200 shadow-md">
+        <div className="relative overflow-hidden rounded-4xl p-10 sm:p-16 text-center cta-banner-glow border border-[#CAD7C5] shadow-md">
           
           <div className="relative z-10 max-w-3xl mx-auto space-y-4">
-            <h2 className="font-sans font-medium text-4xl sm:text-6xl md:text-7xl text-[#241C1E] tracking-tight leading-none">
+            <h2 className="font-sans font-medium text-4xl sm:text-6xl md:text-7xl text-forest tracking-tight leading-none">
               Let&apos;s Make It Happen
             </h2>
             <p className="text-xs sm:text-base text-rose-950/80 max-w-xl mx-auto leading-relaxed">
@@ -1342,7 +1348,7 @@ export default function Home() {
                 href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#241C1E] hover:bg-black text-white text-xs sm:text-sm font-bold uppercase tracking-wider shadow-lg hover:shadow-xl transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-forest hover:bg-forest-dark text-white text-xs sm:text-sm font-bold uppercase tracking-wider shadow-lg hover:shadow-xl transition-all cursor-pointer"
               >
                 <span>✦ GET IN TOUCH</span>
                 <span>→</span>
@@ -1356,18 +1362,18 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* 11. FOOTER & GIANT WATERMARK SIGNATURE (Instrument Serif Italic)          */}
       {/* ========================================================================= */}
-      <footer className="pt-12 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-rose-100/60 relative overflow-hidden">
+      <footer className="pt-12 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#CAD7C5]/60 relative overflow-hidden">
         
         {/* Navigation & Copyright (Elian Ross Style) */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-neutral-600 pb-12">
           <div className="flex items-center gap-6 font-medium">
-            <a href="#about" className="hover:text-rose-700 transition-colors">Home</a>
-            <a href="#about" className="hover:text-rose-700 transition-colors">About</a>
-            <a href="#projects" className="hover:text-rose-700 transition-colors">Portfolio</a>
-            <a href="#creator" className="hover:text-rose-700 transition-colors">Creator</a>
-            <a href="#process" className="hover:text-rose-700 transition-colors">Process</a>
-            <a href="#experience" className="hover:text-rose-700 transition-colors">Experience</a>
-            <a href="#awards" className="hover:text-rose-700 transition-colors">Awards</a>
+            <a href="#about" className="hover:text-rose-dark transition-colors">Home</a>
+            <a href="#about" className="hover:text-rose-dark transition-colors">About</a>
+            <a href="#projects" className="hover:text-rose-dark transition-colors">Portfolio</a>
+            <a href="#creator" className="hover:text-rose-dark transition-colors">Creator</a>
+            <a href="#process" className="hover:text-rose-dark transition-colors">Process</a>
+            <a href="#experience" className="hover:text-rose-dark transition-colors">Experience</a>
+            <a href="#awards" className="hover:text-rose-dark transition-colors">Awards</a>
           </div>
 
           <p className="text-center sm:text-right text-neutral-400">
@@ -1377,7 +1383,7 @@ export default function Home() {
 
         {/* Giant Solid Signature Typography Across Bottom (Persis Referensi Elian Ross) */}
         <div className="text-center select-none pt-4 overflow-hidden">
-          <span className="font-serif italic font-normal text-6xl sm:text-8xl md:text-9xl lg:text-[150px] xl:text-[170px] text-rose-100/70 leading-none tracking-tight block">
+          <span className="font-serif italic font-normal text-6xl sm:text-8xl md:text-9xl lg:text-[150px] xl:text-[170px] text-forest/15 leading-none tracking-tight block">
             Chikal Nazmi
           </span>
         </div>
@@ -1402,14 +1408,14 @@ export default function Home() {
                 <span className="text-[11px] font-bold text-rose-800 uppercase tracking-wider bg-rose-50 px-3 py-1 rounded-full border border-rose-100">
                   {modalData.category}
                 </span>
-                <h3 className="font-sans font-bold text-xl sm:text-2xl text-[#241C1E] mt-2">
+                <h3 className="font-sans font-bold text-xl sm:text-2xl text-forest mt-2">
                   {modalData.title}
                 </h3>
               </div>
 
               <button
                 onClick={closeModal}
-                className="w-9 h-9 rounded-full bg-rose-50 hover:bg-rose-100 text-[#241C1E] flex items-center justify-center font-bold text-sm transition-colors cursor-pointer"
+                className="w-9 h-9 rounded-full bg-rose-50 hover:bg-rose-100 text-forest flex items-center justify-center font-bold text-sm transition-colors cursor-pointer"
                 aria-label="Close modal"
               >
                 ✕
@@ -1448,7 +1454,7 @@ export default function Home() {
             {/* Modal Description */}
             <div className="space-y-2">
               <h4 className="font-bold text-xs uppercase tracking-wider text-rose-900">Ringkasan &amp; Informasi</h4>
-              <p className="text-xs sm:text-sm text-[#4A3B40] leading-relaxed">
+              <p className="text-xs sm:text-sm text-forest/75 leading-relaxed">
                 {modalData.description}
               </p>
             </div>
@@ -1460,7 +1466,7 @@ export default function Home() {
                   href={modalData.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-5 py-2 rounded-full text-xs font-bold bg-[#241C1E] text-white hover:bg-rose-900 transition-colors inline-flex items-center gap-1.5"
+                  className="px-5 py-2 rounded-full text-xs font-bold bg-rose-dark text-white hover:bg-rose-berry transition-colors inline-flex items-center gap-1.5"
                 >
                   <span>{modalData.linkLabel || 'Buka Tautan Resmi ↗'}</span>
                 </a>
@@ -1470,7 +1476,7 @@ export default function Home() {
 
               <button
                 onClick={closeModal}
-                className="px-4 py-2 rounded-full text-xs font-semibold text-[#4A3B40] hover:bg-rose-50 transition-colors"
+                className="px-4 py-2 rounded-full text-xs font-semibold text-forest/75 hover:bg-rose-50 transition-colors"
               >
                 Tutup
               </button>
