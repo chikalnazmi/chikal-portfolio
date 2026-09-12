@@ -173,8 +173,8 @@ export default function ImageUploadField({
         onDrop={onDrop}
         className={`relative rounded-2xl border-2 transition-all p-2 flex flex-col items-center justify-center overflow-hidden group ${
           isDragging
-            ? 'border-sage-600 bg-sage-100/60 scale-[1.01]'
-            : 'border-dashed border-sage-200 bg-sage-50/40 hover:border-sage-400 hover:bg-sage-50/70'
+            ? 'border-rose-500 bg-rose-50/70 scale-[1.01]'
+            : 'border-dashed border-rose-200 bg-rose-50/30 hover:border-rose-300 hover:bg-rose-50/60'
         }`}
       >
         {/* If Image Value exists, show Image Preview with Replace Button */}
@@ -197,7 +197,7 @@ export default function ImageUploadField({
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
                   disabled={isUploading}
-                  className="px-3.5 py-1.5 rounded-full bg-white text-neutral-900 text-xs font-semibold shadow-md hover:bg-sage-50 transition-all flex items-center gap-1.5 cursor-pointer"
+                  className="px-3.5 py-1.5 rounded-full bg-white text-neutral-900 text-xs font-semibold shadow-md hover:bg-rose-50 transition-all flex items-center gap-1.5 cursor-pointer"
                 >
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
                   <span>{isUploading ? 'Memproses...' : 'Ganti Foto'}</span>
@@ -219,9 +219,9 @@ export default function ImageUploadField({
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
                 disabled={isUploading}
-                className="px-3 py-1 rounded-lg bg-white border border-sage-200 text-[11px] font-semibold text-neutral-800 hover:bg-sage-50 transition-colors shadow-2xs flex items-center gap-1.5 cursor-pointer"
+                className="px-3 py-1 rounded-lg bg-white border border-rose-200 text-[11px] font-semibold text-neutral-800 hover:bg-rose-50 transition-colors shadow-2xs flex items-center gap-1.5 cursor-pointer"
               >
-                <svg className="w-3.5 h-3.5 text-sage-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+                <svg className="w-3.5 h-3.5 text-rose-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
                 <span>Pilih dari Laptop</span>
               </button>
               <span className="text-[10px] text-neutral-400 truncate max-w-[160px] font-mono">
@@ -235,8 +235,8 @@ export default function ImageUploadField({
             onClick={() => fileInputRef.current?.click()}
             className="w-full py-6 flex flex-col items-center justify-center text-center cursor-pointer space-y-2"
           >
-            <div className="w-10 h-10 rounded-full bg-white text-sage-800 flex items-center justify-center text-lg shadow-xs border border-sage-200">
-              <svg className="w-5 h-5 text-sage-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+            <div className="w-10 h-10 rounded-full bg-white text-rose-800 flex items-center justify-center text-lg shadow-xs border border-rose-200">
+              <svg className="w-5 h-5 text-rose-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
             </div>
             <div>
               <p className="text-xs font-semibold text-neutral-800">

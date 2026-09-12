@@ -118,12 +118,12 @@ export default function AdminPortal() {
   // --------------------------------------------------------------------------
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-[#1E2E1B] text-[F4F7F2] flex items-center justify-center p-4 selection:bg-rose-dusty selection:text-white">
-        <div className="max-w-md w-full bg-[#253521] border-2 border-sage-200/30 rounded-3xl p-8 shadow-2xl relative overflow-hidden">
-          <div className="absolute -top-20 -right-20 w-48 h-48 bg-[#1A2616]/20 rounded-full blur-3xl pointer-events-none" />
+      <div className="min-h-screen bg-[#140F11] text-[F4F7F2] flex items-center justify-center p-4 selection:bg-rose-dusty selection:text-white">
+        <div className="max-w-md w-full bg-[#1F191B] border-2 border-rose-100/30 rounded-3xl p-8 shadow-2xl relative overflow-hidden">
+          <div className="absolute -top-20 -right-20 w-48 h-48 bg-[#241C1E]/20 rounded-full blur-3xl pointer-events-none" />
           
           <div className="text-center mb-6">
-            <div className="w-16 h-16 rounded-2xl bg-white/10 border border-sage-200/30 flex items-center justify-center mx-auto mb-4 text-2xl shadow-inner">
+            <div className="w-16 h-16 rounded-2xl bg-white/10 border border-rose-100/30 flex items-center justify-center mx-auto mb-4 text-2xl shadow-inner">
               ✦
             </div>
             <h1 className="font-serif text-2xl font-bold text-white tracking-wide">
@@ -147,7 +147,7 @@ export default function AdminPortal() {
                   setPinError(false);
                 }}
                 placeholder="••••••••"
-                className="w-full px-4 py-3 rounded-xl bg-black/40 border border-sage-200/40 text-white placeholder-white/20 focus:outline-none focus:border-rose-blush text-center text-lg tracking-widest font-mono shadow-inner"
+                className="w-full px-4 py-3 rounded-xl bg-black/40 border border-rose-100/40 text-white placeholder-white/20 focus:outline-none focus:border-rose-blush text-center text-lg tracking-widest font-mono shadow-inner"
                 autoFocus
               />
               {pinError && (
@@ -159,7 +159,7 @@ export default function AdminPortal() {
 
             <button
               type="submit"
-              className="w-full py-3 rounded-xl bg-[#1A2616] hover:bg-[#33452D] text-white font-bold text-sm tracking-wide transition-all shadow-md active:scale-98 cursor-pointer"
+              className="w-full py-3 rounded-xl bg-[#241C1E] hover:bg-rose-950 text-white font-bold text-sm tracking-wide transition-all shadow-md active:scale-98 cursor-pointer"
             >
               Buka Studio Edit ➔
             </button>
@@ -185,7 +185,7 @@ export default function AdminPortal() {
       {toastNotification && (
         <div className={`fixed top-6 right-6 z-50 text-white px-5 py-3.5 rounded-2xl shadow-2xl border flex items-center gap-3 animate-fade-in ${
           toastNotification.type === 'success'
-            ? 'bg-[#1E2E1B] border-rose-blush/40'
+            ? 'bg-[#140F11] border-rose-blush/40'
             : 'bg-rose-950 border-rose-500/50'
         }`}>
           <span className="text-xl">
@@ -205,10 +205,10 @@ export default function AdminPortal() {
       )}
 
       {/* Top Bar */}
-      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-sage-200/80 px-4 sm:px-8 py-3.5 shadow-xs">
+      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-rose-100/80 px-4 sm:px-8 py-3.5 shadow-xs">
         <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl bg-[#1A2616] text-[#F4F7F2] flex items-center justify-center font-serif font-bold text-sm">
+            <div className="w-8 h-8 rounded-xl bg-[#241C1E] text-[#F4F7F2] flex items-center justify-center font-serif font-bold text-sm">
               C
             </div>
             <div>
@@ -237,7 +237,7 @@ export default function AdminPortal() {
             <Link
               href="/"
               target="_blank"
-              className="px-3.5 py-1.5 rounded-full text-xs font-bold bg-sage-50 text-neutral-900 hover:bg-[#1A2616] hover:text-white transition-colors flex items-center gap-1 border border-sage-200"
+              className="px-3.5 py-1.5 rounded-full text-xs font-bold bg-rose-50 text-neutral-900 hover:bg-[#241C1E] hover:text-white transition-colors flex items-center gap-1 border border-rose-100"
             >
               <span>Lihat Live</span>
               <span>↗</span>
@@ -246,14 +246,14 @@ export default function AdminPortal() {
             <button
               onClick={handleSave}
               disabled={isSaving}
-              className="px-5 py-1.5 rounded-full text-xs font-bold bg-[#1A2616] hover:bg-[#33452D] text-white transition-all shadow-sm hover:shadow flex items-center gap-1.5 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+              className="px-5 py-1.5 rounded-full text-xs font-bold bg-[#241C1E] hover:bg-rose-950 text-white transition-all shadow-sm hover:shadow flex items-center gap-1.5 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
             >
               <span>{isSaving ? 'Menyimpan...' : 'Simpan Data'}</span>
             </button>
 
             <button
               onClick={handleLogout}
-              className="px-3 py-1.5 rounded-full text-xs font-medium text-neutral-500 hover:text-sage-900 hover:bg-sage-100 transition-colors"
+              className="px-3 py-1.5 rounded-full text-xs font-medium text-neutral-500 hover:text-rose-900 hover:bg-rose-100 transition-colors"
               title="Kunci & Keluar"
             >
               Keluar
@@ -264,13 +264,13 @@ export default function AdminPortal() {
 
       {/* Navigation Tabs */}
       <div className="max-w-6xl mx-auto px-4 sm:px-8 mt-6">
-        <div className="flex flex-wrap gap-2 p-1.5 bg-white rounded-2xl border border-sage-200/80 shadow-xs">
+        <div className="flex flex-wrap gap-2 p-1.5 bg-white rounded-2xl border border-rose-100/80 shadow-xs">
           <button
             onClick={() => setActiveTab('hero')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === 'hero'
-                ? 'bg-[#1A2616] text-white shadow-sm'
-                : 'text-neutral-500 hover:bg-sage-50'
+                ? 'bg-[#241C1E] text-white shadow-sm'
+                : 'text-neutral-500 hover:bg-rose-50'
             }`}
           >
             Profil & Hero
@@ -279,8 +279,8 @@ export default function AdminPortal() {
             onClick={() => setActiveTab('education')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === 'education'
-                ? 'bg-[#1A2616] text-white shadow-sm'
-                : 'text-neutral-500 hover:bg-sage-50'
+                ? 'bg-[#241C1E] text-white shadow-sm'
+                : 'text-neutral-500 hover:bg-rose-50'
             }`}
           >
             Pendidikan
@@ -289,8 +289,8 @@ export default function AdminPortal() {
             onClick={() => setActiveTab('experience')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === 'experience'
-                ? 'bg-[#1A2616] text-white shadow-sm'
-                : 'text-neutral-500 hover:bg-sage-50'
+                ? 'bg-[#241C1E] text-white shadow-sm'
+                : 'text-neutral-500 hover:bg-rose-50'
             }`}
           >
             Pengalaman
@@ -299,8 +299,8 @@ export default function AdminPortal() {
             onClick={() => setActiveTab('projects')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === 'projects'
-                ? 'bg-[#1A2616] text-white shadow-sm'
-                : 'text-neutral-500 hover:bg-sage-50'
+                ? 'bg-[#241C1E] text-white shadow-sm'
+                : 'text-neutral-500 hover:bg-rose-50'
             }`}
           >
             Proyek Kampus
@@ -309,8 +309,8 @@ export default function AdminPortal() {
             onClick={() => setActiveTab('awards')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === 'awards'
-                ? 'bg-[#1A2616] text-white shadow-sm'
-                : 'text-neutral-500 hover:bg-sage-50'
+                ? 'bg-[#241C1E] text-white shadow-sm'
+                : 'text-neutral-500 hover:bg-rose-50'
             }`}
           >
             Kejuaraan & Prestasi
@@ -319,8 +319,8 @@ export default function AdminPortal() {
             onClick={() => setActiveTab('skills')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === 'skills'
-                ? 'bg-[#1A2616] text-white shadow-sm'
-                : 'text-neutral-500 hover:bg-sage-50'
+                ? 'bg-[#241C1E] text-white shadow-sm'
+                : 'text-neutral-500 hover:bg-rose-50'
             }`}
           >
             Keahlian (Skills)
@@ -329,8 +329,8 @@ export default function AdminPortal() {
             onClick={() => setActiveTab('creator')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === 'creator'
-                ? 'bg-[#1A2616] text-white shadow-sm'
-                : 'text-neutral-500 hover:bg-sage-50'
+                ? 'bg-[#241C1E] text-white shadow-sm'
+                : 'text-neutral-500 hover:bg-rose-50'
             }`}
           >
             Creator Studio
@@ -339,8 +339,8 @@ export default function AdminPortal() {
             onClick={() => setActiveTab('socials')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === 'socials'
-                ? 'bg-[#1A2616] text-white shadow-sm'
-                : 'text-neutral-500 hover:bg-sage-50'
+                ? 'bg-[#241C1E] text-white shadow-sm'
+                : 'text-neutral-500 hover:bg-rose-50'
             }`}
           >
             Media Sosial & Kontak
@@ -349,8 +349,8 @@ export default function AdminPortal() {
             onClick={() => setActiveTab('photoguide')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === 'photoguide'
-                ? 'bg-[#1A2616] text-white shadow-sm'
-                : 'text-neutral-500 hover:bg-sage-50'
+                ? 'bg-[#241C1E] text-white shadow-sm'
+                : 'text-neutral-500 hover:bg-rose-50'
             }`}
           >
             Panduan Foto
@@ -359,8 +359,8 @@ export default function AdminPortal() {
             onClick={() => setActiveTab('supabase')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === 'supabase'
-                ? 'bg-[#1A2616] text-white shadow-sm'
-                : 'text-neutral-500 hover:bg-sage-50'
+                ? 'bg-[#241C1E] text-white shadow-sm'
+                : 'text-neutral-500 hover:bg-rose-50'
             }`}
           >
             Database Cloud
@@ -375,7 +375,7 @@ export default function AdminPortal() {
         {/* TAB 1: PROFIL & TEKS UTAMA (HERO SECTION & FOTO PROFIL)           */}
         {/* ================================================================= */}
         {activeTab === 'hero' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-sage-200 shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-rose-100 shadow-xs space-y-6">
             <div>
               <h2 className="font-serif text-xl font-bold text-neutral-900">
                 Pengaturan Profil & Teks Beranda (Hero Section)
@@ -399,7 +399,7 @@ export default function AdminPortal() {
                       ...data,
                       hero: { ...data.hero, subheadline: e.target.value }
                     })}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs text-neutral-900"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-rose-100 text-xs text-neutral-900"
                   />
                 </div>
 
@@ -414,7 +414,7 @@ export default function AdminPortal() {
                       ...data,
                       hero: { ...data.hero, headline: e.target.value }
                     })}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs font-serif text-neutral-900"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-rose-100 text-xs font-serif text-neutral-900"
                   />
                 </div>
 
@@ -429,7 +429,7 @@ export default function AdminPortal() {
                       ...data,
                       hero: { ...data.hero, bio: e.target.value }
                     })}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs text-neutral-900 leading-relaxed"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-rose-100 text-xs text-neutral-900 leading-relaxed"
                   />
                 </div>
 
@@ -439,7 +439,7 @@ export default function AdminPortal() {
                     4 Metrik Statistik Utama:
                   </label>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    <div className="p-3 rounded-xl bg-sage-50/40 border border-sage-200/60">
+                    <div className="p-3 rounded-xl bg-rose-50/40 border border-rose-100/60">
                       <input
                         type="text"
                         value={data.hero?.stat1Value || ''}
@@ -448,7 +448,7 @@ export default function AdminPortal() {
                           hero: { ...data.hero, stat1Value: e.target.value }
                         })}
                         placeholder="7x"
-                        className="w-full text-center font-serif font-bold text-sm text-sage-900 bg-white rounded-lg border border-sage-200 py-1 mb-1"
+                        className="w-full text-center font-serif font-bold text-sm text-rose-900 bg-white rounded-lg border border-rose-100 py-1 mb-1"
                       />
                       <input
                         type="text"
@@ -462,7 +462,7 @@ export default function AdminPortal() {
                       />
                     </div>
 
-                    <div className="p-3 rounded-xl bg-sage-50/40 border border-sage-200/60">
+                    <div className="p-3 rounded-xl bg-rose-50/40 border border-rose-100/60">
                       <input
                         type="text"
                         value={data.hero?.stat2Value || ''}
@@ -471,7 +471,7 @@ export default function AdminPortal() {
                           hero: { ...data.hero, stat2Value: e.target.value }
                         })}
                         placeholder="+2.089%"
-                        className="w-full text-center font-serif font-bold text-sm text-sage-900 bg-white rounded-lg border border-sage-200 py-1 mb-1"
+                        className="w-full text-center font-serif font-bold text-sm text-rose-900 bg-white rounded-lg border border-rose-100 py-1 mb-1"
                       />
                       <input
                         type="text"
@@ -485,7 +485,7 @@ export default function AdminPortal() {
                       />
                     </div>
 
-                    <div className="p-3 rounded-xl bg-sage-50/40 border border-sage-200/60">
+                    <div className="p-3 rounded-xl bg-rose-50/40 border border-rose-100/60">
                       <input
                         type="text"
                         value={data.hero?.stat3Value || ''}
@@ -494,7 +494,7 @@ export default function AdminPortal() {
                           hero: { ...data.hero, stat3Value: e.target.value }
                         })}
                         placeholder="20+"
-                        className="w-full text-center font-serif font-bold text-sm text-neutral-900 bg-white rounded-lg border border-sage-200 py-1 mb-1"
+                        className="w-full text-center font-serif font-bold text-sm text-neutral-900 bg-white rounded-lg border border-rose-100 py-1 mb-1"
                       />
                       <input
                         type="text"
@@ -508,7 +508,7 @@ export default function AdminPortal() {
                       />
                     </div>
 
-                    <div className="p-3 rounded-xl bg-sage-50/40 border border-sage-200/60">
+                    <div className="p-3 rounded-xl bg-rose-50/40 border border-rose-100/60">
                       <input
                         type="text"
                         value={data.hero?.stat4Value || ''}
@@ -517,7 +517,7 @@ export default function AdminPortal() {
                           hero: { ...data.hero, stat4Value: e.target.value }
                         })}
                         placeholder="D4 SIB"
-                        className="w-full text-center font-serif font-bold text-sm text-neutral-900 bg-white rounded-lg border border-sage-200 py-1 mb-1"
+                        className="w-full text-center font-serif font-bold text-sm text-neutral-900 bg-white rounded-lg border border-rose-100 py-1 mb-1"
                       />
                       <input
                         type="text"
@@ -535,7 +535,7 @@ export default function AdminPortal() {
               </div>
 
               {/* Right Column: Avatar Photo Edit & Live Preview (4 cols) */}
-              <div className="lg:col-span-4 p-5 rounded-2xl bg-sage-50/40 border border-sage-200 flex flex-col justify-start gap-4">
+              <div className="lg:col-span-4 p-5 rounded-2xl bg-rose-50/40 border border-rose-100 flex flex-col justify-start gap-4">
                 <div>
                   <ImageUploadField
                     label="Foto Profil Utama (Avatar Hero):"
@@ -551,10 +551,10 @@ export default function AdminPortal() {
               </div>
             </div>
 
-            <div className="pt-4 border-t border-sage-200/60 flex justify-end">
+            <div className="pt-4 border-t border-rose-100/60 flex justify-end">
               <button
                 onClick={handleSave}
-                className="px-6 py-2.5 rounded-full bg-[#1A2616] text-white text-xs font-bold hover:bg-[#1A2616] transition-colors shadow-sm cursor-pointer"
+                className="px-6 py-2.5 rounded-full bg-[#241C1E] text-white text-xs font-bold hover:bg-[#241C1E] transition-colors shadow-sm cursor-pointer"
               >
                 Simpan Profil & Teks Utama ✦
               </button>
@@ -566,7 +566,7 @@ export default function AdminPortal() {
         {/* TAB: PENDIDIKAN FORMAL (ACADEMIC) & SERTIFIKASI PROFESIONAL        */}
         {/* ================================================================= */}
         {activeTab === 'education' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-sage-200 shadow-xs space-y-8">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-rose-100 shadow-xs space-y-8">
             <div>
               <h2 className="font-serif text-xl font-bold text-neutral-900">
                 Pengaturan Pendidikan Formal (D4 SIB) & Sertifikasi Profesional
@@ -577,15 +577,15 @@ export default function AdminPortal() {
             </div>
 
             {/* SECTION A: FORMAL ACADEMIC DEGREE */}
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-[F4F7F2]/40 to-white border border-sage-200 space-y-5">
-              <div className="flex items-center justify-between border-b border-sage-200/70 pb-3">
+            <div className="p-6 rounded-2xl bg-gradient-to-br from-[F4F7F2]/40 to-white border border-rose-100 space-y-5">
+              <div className="flex items-center justify-between border-b border-rose-100/70 pb-3">
                 <div className="flex items-center gap-2">
-                  <span className="text-sage-700 font-serif italic text-xl">✦</span>
+                  <span className="text-rose-700 font-serif italic text-xl">✦</span>
                   <h3 className="font-serif font-bold text-base text-neutral-900">
                     1. Latar Belakang Akademik Formal (Degree Card)
                   </h3>
                 </div>
-                <span className="text-xs font-mono bg-white text-neutral-900 px-3 py-1 rounded-full border border-sage-200 font-bold">
+                <span className="text-xs font-mono bg-white text-neutral-900 px-3 py-1 rounded-full border border-rose-100 font-bold">
                   Ditampilkan di Beranda Sebelah Spotlight Skills
                 </span>
               </div>
@@ -604,7 +604,7 @@ export default function AdminPortal() {
                       }
                     })}
                     placeholder="Sarjana Terapan Sistem Informasi Bisnis (D4 SIB)"
-                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-serif font-bold text-neutral-900"
+                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs font-serif font-bold text-neutral-900"
                   />
                 </div>
 
@@ -621,7 +621,7 @@ export default function AdminPortal() {
                       }
                     })}
                     placeholder="2020 – 2024"
-                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-mono"
+                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs font-mono"
                   />
                 </div>
               </div>
@@ -640,7 +640,7 @@ export default function AdminPortal() {
                       }
                     })}
                     placeholder="Jurusan Teknologi Informasi — Politeknik Negeri Malang"
-                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs"
+                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs"
                   />
                 </div>
 
@@ -657,14 +657,14 @@ export default function AdminPortal() {
                       }
                     })}
                     placeholder="FORMAL DEGREE"
-                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-bold text-sage-900"
+                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs font-bold text-rose-900"
                   />
                 </div>
               </div>
 
               {/* Standing & TOEIC Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-4 rounded-xl bg-white border border-sage-200/80 space-y-2">
+                <div className="p-4 rounded-xl bg-white border border-rose-100/80 space-y-2">
                   <label className="block text-[11px] font-bold text-neutral-900 uppercase tracking-wider">
                     Prestasi Akademik (GPA):
                   </label>
@@ -679,7 +679,7 @@ export default function AdminPortal() {
                       }
                     })}
                     placeholder="ACADEMIC STANDING"
-                    className="w-full px-3 py-1.5 rounded-lg bg-sage-50/30 border border-sage-200 text-[11px] uppercase font-bold text-neutral-500"
+                    className="w-full px-3 py-1.5 rounded-lg bg-rose-50/30 border border-rose-100 text-[11px] uppercase font-bold text-neutral-500"
                   />
                   <input
                     type="text"
@@ -692,12 +692,12 @@ export default function AdminPortal() {
                       }
                     })}
                     placeholder="IPK Memuaskan / Cum Laude Honor"
-                    className="w-full px-3 py-1.5 rounded-lg bg-white border border-sage-200 text-xs font-bold text-neutral-900"
+                    className="w-full px-3 py-1.5 rounded-lg bg-white border border-rose-100 text-xs font-bold text-neutral-900"
                   />
                 </div>
 
-                <div className="p-4 rounded-xl bg-white border border-sage-200/80 space-y-2">
-                  <label className="block text-[11px] font-bold text-sage-900 uppercase tracking-wider">
+                <div className="p-4 rounded-xl bg-white border border-rose-100/80 space-y-2">
+                  <label className="block text-[11px] font-bold text-rose-900 uppercase tracking-wider">
                     Kemahiran Bahasa Internasional (TOEIC):
                   </label>
                   <div className="grid grid-cols-2 gap-2">
@@ -712,7 +712,7 @@ export default function AdminPortal() {
                         }
                       })}
                       placeholder="Skor: 775"
-                      className="w-full px-3 py-1.5 rounded-lg bg-white border border-sage-200 text-xs font-extrabold text-sage-900"
+                      className="w-full px-3 py-1.5 rounded-lg bg-white border border-rose-100 text-xs font-extrabold text-rose-900"
                     />
                     <input
                       type="text"
@@ -725,7 +725,7 @@ export default function AdminPortal() {
                         }
                       })}
                       placeholder="Working Proficiency"
-                      className="w-full px-3 py-1.5 rounded-lg bg-white border border-sage-200 text-xs font-bold text-neutral-900"
+                      className="w-full px-3 py-1.5 rounded-lg bg-white border border-rose-100 text-xs font-bold text-neutral-900"
                     />
                   </div>
                   <input
@@ -739,7 +739,7 @@ export default function AdminPortal() {
                       }
                     })}
                     placeholder="GLOBAL ENGLISH PROFICIENCY"
-                    className="w-full px-3 py-1.5 rounded-lg bg-sage-50/30 border border-sage-200 text-[11px] uppercase font-bold text-neutral-500"
+                    className="w-full px-3 py-1.5 rounded-lg bg-rose-50/30 border border-rose-100 text-[11px] uppercase font-bold text-neutral-500"
                   />
                 </div>
               </div>
@@ -756,7 +756,7 @@ export default function AdminPortal() {
                       description: e.target.value
                     }
                   })}
-                  className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs leading-relaxed"
+                  className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs leading-relaxed"
                 />
               </div>
 
@@ -822,10 +822,10 @@ export default function AdminPortal() {
             </div>
 
             {/* SECTION B: PROFESSIONAL CERTIFICATIONS LIST */}
-            <div className="p-6 rounded-2xl bg-sage-50/30 border border-sage-200 space-y-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-sage-200/70 pb-3">
+            <div className="p-6 rounded-2xl bg-rose-50/30 border border-rose-100 space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-rose-100/70 pb-3">
                 <div className="flex items-center gap-2">
-                  <span className="text-sage-700 font-serif italic text-xl">✦</span>
+                  <span className="text-rose-700 font-serif italic text-xl">✦</span>
                   <div>
                     <h3 className="font-serif font-bold text-base text-neutral-900">
                       2. Daftar Sertifikasi Pelatihan Profesional ({data.certifications?.length || 0})
@@ -846,7 +846,7 @@ export default function AdminPortal() {
                       issuer: 'Lembaga Penerbit',
                       year: '2024',
                       tag: 'Bidang Keahlian',
-                      badgeColor: 'bg-sage-100/80 text-sage-900 border-rose-dusty/40',
+                      badgeColor: 'bg-rose-100/80 text-rose-900 border-rose-dusty/40',
                       image: '/11.png',
                       desc: 'Deskripsi kompetensi dan materi yang dipelajari dalam pelatihan ini.',
                       link: ''
@@ -855,7 +855,7 @@ export default function AdminPortal() {
                     setData({ ...data, certifications: updated });
                     setActiveCertIdx(updated.length - 1);
                   }}
-                  className="px-4 py-1.5 rounded-full text-xs font-bold bg-[#1A2616] text-white hover:bg-[#33452D] transition-colors shadow-2xs shrink-0 cursor-pointer"
+                  className="px-4 py-1.5 rounded-full text-xs font-bold bg-[#241C1E] text-white hover:bg-rose-950 transition-colors shadow-2xs shrink-0 cursor-pointer"
                 >
                   + Tambah Sertifikat Baru
                 </button>
@@ -869,8 +869,8 @@ export default function AdminPortal() {
                     onClick={() => setActiveCertIdx(cIdx)}
                     className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
                       activeCertIdx === cIdx
-                        ? 'bg-[#1A2616] text-white shadow-xs'
-                        : 'bg-white text-neutral-600 border border-sage-200 hover:bg-[D2DEC9]'
+                        ? 'bg-[#241C1E] text-white shadow-xs'
+                        : 'bg-white text-neutral-600 border border-rose-100 hover:bg-[D2DEC9]'
                     }`}
                   >
                     {c.issuer} ({c.year})
@@ -885,7 +885,7 @@ export default function AdminPortal() {
                 if (!currentCert) return null;
 
                 return (
-                  <div className="p-5 rounded-2xl bg-white border border-sage-200 space-y-4 shadow-2xs">
+                  <div className="p-5 rounded-2xl bg-white border border-rose-100 space-y-4 shadow-2xs">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                       <div className="md:col-span-2">
                         <label className="block text-xs font-bold text-neutral-900 mb-1">Judul Sertifikasi / Pelatihan:</label>
@@ -897,7 +897,7 @@ export default function AdminPortal() {
                             updated[activeCertIdx] = { ...currentCert, title: e.target.value };
                             setData({ ...data, certifications: updated });
                           }}
-                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-serif font-bold text-neutral-900"
+                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs font-serif font-bold text-neutral-900"
                         />
                       </div>
 
@@ -912,7 +912,7 @@ export default function AdminPortal() {
                             setData({ ...data, certifications: updated });
                           }}
                           placeholder="RevoU, MySkill, ETS, dll"
-                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-bold text-neutral-900"
+                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs font-bold text-neutral-900"
                         />
                       </div>
 
@@ -926,7 +926,7 @@ export default function AdminPortal() {
                             updated[activeCertIdx] = { ...currentCert, year: e.target.value };
                             setData({ ...data, certifications: updated });
                           }}
-                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-mono"
+                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs font-mono"
                         />
                       </div>
                     </div>
@@ -943,7 +943,7 @@ export default function AdminPortal() {
                             setData({ ...data, certifications: updated });
                           }}
                           placeholder="Digital Marketing, UI/UX, dll"
-                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs"
+                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs"
                         />
                       </div>
 
@@ -958,7 +958,7 @@ export default function AdminPortal() {
                             setData({ ...data, certifications: updated });
                           }}
                           placeholder="https://..."
-                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-mono"
+                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs font-mono"
                         />
                       </div>
                     </div>
@@ -973,7 +973,7 @@ export default function AdminPortal() {
                           updated[activeCertIdx] = { ...currentCert, desc: e.target.value };
                           setData({ ...data, certifications: updated });
                         }}
-                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs leading-relaxed"
+                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs leading-relaxed"
                       />
                     </div>
 
@@ -992,7 +992,7 @@ export default function AdminPortal() {
                       />
                     </div>
 
-                    <div className="pt-3 border-t border-sage-200/50 flex items-center justify-between">
+                    <div className="pt-3 border-t border-rose-100/50 flex items-center justify-between">
                       <button
                         type="button"
                         onClick={() => {
@@ -1014,7 +1014,7 @@ export default function AdminPortal() {
                       <button
                         type="button"
                         onClick={handleSave}
-                        className="px-5 py-2 rounded-full bg-[#1A2616] text-white text-xs font-bold hover:bg-[#1A2616] transition-colors shadow-xs cursor-pointer"
+                        className="px-5 py-2 rounded-full bg-[#241C1E] text-white text-xs font-bold hover:bg-[#241C1E] transition-colors shadow-xs cursor-pointer"
                       >
                         Simpan Sertifikat Ini ✦
                       </button>
@@ -1027,7 +1027,7 @@ export default function AdminPortal() {
             <div className="pt-4 flex justify-end">
               <button
                 onClick={handleSave}
-                className="px-8 py-3 rounded-full bg-[#1A2616] text-white text-xs font-bold hover:bg-[#1A2616] transition-colors shadow-md cursor-pointer flex items-center gap-2"
+                className="px-8 py-3 rounded-full bg-[#241C1E] text-white text-xs font-bold hover:bg-[#241C1E] transition-colors shadow-md cursor-pointer flex items-center gap-2"
               >
                 <span>Simpan Semua Data Pendidikan & Sertifikasi</span>
                 <span>✦</span>
@@ -1040,7 +1040,7 @@ export default function AdminPortal() {
         {/* TAB: PENGALAMAN KERJA (WORK EXPERIENCE) — TEKS & BUKTI FOTO        */}
         {/* ================================================================= */}
         {activeTab === 'experience' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-sage-200 shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-rose-100 shadow-xs space-y-6">
             <div>
               <h2 className="font-serif text-xl font-bold text-neutral-900">
                 Pengaturan Teks & Foto — Pengalaman Kerja Nyata & Bisnis
@@ -1051,15 +1051,15 @@ export default function AdminPortal() {
             </div>
 
             {/* Experience Selector Tabs */}
-            <div className="flex flex-wrap gap-2 border-b border-sage-200/70 pb-4">
+            <div className="flex flex-wrap gap-2 border-b border-rose-100/70 pb-4">
               {(data.experiences || DEFAULT_PORTFOLIO_DATA.experiences || []).map((exp, idx) => (
                 <button
                   key={exp.id}
                   onClick={() => setActiveExperienceIdx(idx)}
                   className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
                     activeExperienceIdx === idx
-                      ? 'bg-[#1A2616] text-white shadow-xs'
-                      : 'bg-sage-50 text-neutral-600 hover:bg-[D2DEC9]'
+                      ? 'bg-[#241C1E] text-white shadow-xs'
+                      : 'bg-rose-50 text-neutral-600 hover:bg-[D2DEC9]'
                   }`}
                 >
                   {exp.title.split('—')[0].trim()}
@@ -1086,7 +1086,7 @@ export default function AdminPortal() {
                           updated[activeExperienceIdx] = { ...currentExp, title: e.target.value };
                           setData({ ...data, experiences: updated });
                         }}
-                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-serif font-bold text-neutral-900"
+                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs font-serif font-bold text-neutral-900"
                       />
                     </div>
 
@@ -1100,7 +1100,7 @@ export default function AdminPortal() {
                           updated[activeExperienceIdx] = { ...currentExp, period: e.target.value };
                           setData({ ...data, experiences: updated });
                         }}
-                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-mono"
+                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs font-mono"
                       />
                     </div>
                   </div>
@@ -1116,7 +1116,7 @@ export default function AdminPortal() {
                           updated[activeExperienceIdx] = { ...currentExp, tag: e.target.value };
                           setData({ ...data, experiences: updated });
                         }}
-                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs"
+                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs"
                       />
                     </div>
 
@@ -1131,7 +1131,7 @@ export default function AdminPortal() {
                           setData({ ...data, experiences: updated });
                         }}
                         placeholder="https://... (Instagram / Web)"
-                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-mono"
+                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs font-mono"
                       />
                     </div>
 
@@ -1146,7 +1146,7 @@ export default function AdminPortal() {
                           setData({ ...data, experiences: updated });
                         }}
                         placeholder="Profil Bisnis Dua Sisi ↗"
-                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs"
+                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs"
                       />
                     </div>
                   </div>
@@ -1161,7 +1161,7 @@ export default function AdminPortal() {
                         updated[activeExperienceIdx] = { ...currentExp, summary: e.target.value };
                         setData({ ...data, experiences: updated });
                       }}
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs leading-relaxed"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs leading-relaxed"
                     />
                   </div>
 
@@ -1182,7 +1182,7 @@ export default function AdminPortal() {
                               updated[activeExperienceIdx] = { ...currentExp, results: newResults };
                               setData({ ...data, experiences: updated });
                             }}
-                            className="w-full px-3 py-1.5 rounded-lg bg-white border border-sage-200 text-xs"
+                            className="w-full px-3 py-1.5 rounded-lg bg-white border border-rose-100 text-xs"
                           />
                         </div>
                       ))}
@@ -1190,7 +1190,7 @@ export default function AdminPortal() {
                   </div>
 
                   {/* Photos Upload */}
-                  <div className="p-4 rounded-2xl bg-sage-50/40 border border-sage-200 space-y-4">
+                  <div className="p-4 rounded-2xl bg-rose-50/40 border border-rose-100 space-y-4">
                     <h3 className="text-xs font-bold text-neutral-900 uppercase tracking-wider">
                       Foto Dokumentasi Pekerjaan:
                     </h3>
@@ -1243,7 +1243,7 @@ export default function AdminPortal() {
                   <div className="pt-2 flex justify-end">
                     <button
                       onClick={handleSave}
-                      className="px-6 py-2.5 rounded-full bg-[#1A2616] text-white text-xs font-bold hover:bg-[#1A2616] transition-colors shadow-sm cursor-pointer"
+                      className="px-6 py-2.5 rounded-full bg-[#241C1E] text-white text-xs font-bold hover:bg-[#241C1E] transition-colors shadow-sm cursor-pointer"
                     >
                       Simpan Perubahan Pengalaman Kerja ✦
                     </button>
@@ -1258,7 +1258,7 @@ export default function AdminPortal() {
         {/* TAB: PROYEK KAMPUS (CAMPUS PROJECTS) — TEKS & BUKTI FOTO           */}
         {/* ================================================================= */}
         {activeTab === 'projects' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-sage-200 shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-rose-100 shadow-xs space-y-6">
             <div>
               <h2 className="font-serif text-xl font-bold text-neutral-900">
                 Pengaturan Teks & Foto — Proyek Kampus & Akademik (MY WORK INCLUDES)
@@ -1269,15 +1269,15 @@ export default function AdminPortal() {
             </div>
 
             {/* Project Selector Tabs */}
-            <div className="flex flex-wrap gap-2 border-b border-sage-200/70 pb-4">
+            <div className="flex flex-wrap gap-2 border-b border-rose-100/70 pb-4">
               {data.projects.map((p, idx) => (
                 <button
                   key={p.id}
                   onClick={() => setActiveProjectIdx(idx)}
                   className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
                     activeProjectIdx === idx
-                      ? 'bg-[#1A2616] text-white shadow-xs'
-                      : 'bg-sage-50 text-neutral-600 hover:bg-[D2DEC9]'
+                      ? 'bg-[#241C1E] text-white shadow-xs'
+                      : 'bg-rose-50 text-neutral-600 hover:bg-[D2DEC9]'
                   }`}
                 >
                   {p.title.split('—')[0].trim()}
@@ -1299,7 +1299,7 @@ export default function AdminPortal() {
                         updated[activeProjectIdx].title = e.target.value;
                         setData({ ...data, projects: updated });
                       }}
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-serif font-bold text-neutral-900"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs font-serif font-bold text-neutral-900"
                     />
                   </div>
 
@@ -1313,7 +1313,7 @@ export default function AdminPortal() {
                         updated[activeProjectIdx].period = e.target.value;
                         setData({ ...data, projects: updated });
                       }}
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs"
                     />
                   </div>
                 </div>
@@ -1329,7 +1329,7 @@ export default function AdminPortal() {
                         updated[activeProjectIdx].tag = e.target.value;
                         setData({ ...data, projects: updated });
                       }}
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs"
                     />
                   </div>
 
@@ -1344,7 +1344,7 @@ export default function AdminPortal() {
                         setData({ ...data, projects: updated });
                       }}
                       placeholder="https://... (kosongkan jika tidak ada)"
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-mono"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs font-mono"
                     />
                   </div>
 
@@ -1359,7 +1359,7 @@ export default function AdminPortal() {
                         setData({ ...data, projects: updated });
                       }}
                       placeholder="Profil Bisnis Dua Sisi ↗"
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs"
                     />
                   </div>
                 </div>
@@ -1374,7 +1374,7 @@ export default function AdminPortal() {
                       updated[activeProjectIdx].summary = e.target.value;
                       setData({ ...data, projects: updated });
                     }}
-                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs leading-relaxed"
+                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs leading-relaxed"
                   />
                 </div>
 
@@ -1389,7 +1389,7 @@ export default function AdminPortal() {
                         updated[activeProjectIdx].challenge = e.target.value;
                         setData({ ...data, projects: updated });
                       }}
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs"
                     />
                   </div>
 
@@ -1403,7 +1403,7 @@ export default function AdminPortal() {
                         updated[activeProjectIdx].strategy = e.target.value;
                         setData({ ...data, projects: updated });
                       }}
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs"
                     />
                   </div>
                 </div>
@@ -1422,19 +1422,19 @@ export default function AdminPortal() {
                           updated[activeProjectIdx].results[rIdx] = e.target.value;
                           setData({ ...data, projects: updated });
                         }}
-                        className="w-full px-3 py-2 rounded-xl bg-white border border-sage-200 text-xs"
+                        className="w-full px-3 py-2 rounded-xl bg-white border border-rose-100 text-xs"
                       />
                     ))}
                   </div>
                 </div>
 
                 {/* Photos & Documentation Section */}
-                <div className="p-5 rounded-2xl bg-sage-50/40 border border-sage-200 space-y-4">
+                <div className="p-5 rounded-2xl bg-rose-50/40 border border-rose-100 space-y-4">
                   <div className="flex items-center justify-between">
                     <h4 className="font-serif font-bold text-sm text-neutral-900">
                       Foto Sampul & Bukti Dokumentasi Proyek
                     </h4>
-                    <span className="text-[11px] text-sage-900 font-medium">
+                    <span className="text-[11px] text-rose-900 font-medium">
                       Bisa langsung upload file dari laptop
                     </span>
                   </div>
@@ -1484,7 +1484,7 @@ export default function AdminPortal() {
                 <div className="pt-2 flex justify-end">
                   <button
                     onClick={handleSave}
-                    className="px-6 py-2.5 rounded-full bg-[#1A2616] text-white text-xs font-bold hover:bg-[#1A2616] transition-colors shadow-sm cursor-pointer"
+                    className="px-6 py-2.5 rounded-full bg-[#241C1E] text-white text-xs font-bold hover:bg-[#241C1E] transition-colors shadow-sm cursor-pointer"
                   >
                     Simpan Perubahan Proyek ✦
                   </button>
@@ -1498,7 +1498,7 @@ export default function AdminPortal() {
         {/* TAB 3: KEJUARAAN (AWARDS) — TEKS, SERTIFIKAT & FOTO DOKUMENTASI    */}
         {/* ================================================================= */}
         {activeTab === 'awards' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-sage-200 shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-rose-100 shadow-xs space-y-6">
             <div>
               <h2 className="font-serif text-xl font-bold text-neutral-900">
                 Pengaturan Kejuaraan, Sertifikat & Foto Dokumentasi Panggung
@@ -1509,15 +1509,15 @@ export default function AdminPortal() {
             </div>
 
             {/* Award Selector Tabs */}
-            <div className="flex flex-wrap gap-2 border-b border-sage-200/70 pb-4">
+            <div className="flex flex-wrap gap-2 border-b border-rose-100/70 pb-4">
               {data.awards.map((award, idx) => (
                 <button
                   key={idx}
                   onClick={() => setActiveAwardIdx(idx)}
                   className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
                     activeAwardIdx === idx
-                      ? 'bg-[#1A2616] text-white shadow-xs'
-                      : 'bg-sage-50 text-neutral-600 hover:bg-[D2DEC9]'
+                      ? 'bg-[#241C1E] text-white shadow-xs'
+                      : 'bg-rose-50 text-neutral-600 hover:bg-[D2DEC9]'
                   }`}
                 >
                   {award.rank} ({award.year})
@@ -1539,7 +1539,7 @@ export default function AdminPortal() {
                         updated[activeAwardIdx].title = e.target.value;
                         setData({ ...data, awards: updated });
                       }}
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-serif font-bold text-neutral-900"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs font-serif font-bold text-neutral-900"
                     />
                   </div>
 
@@ -1554,7 +1554,7 @@ export default function AdminPortal() {
                         setData({ ...data, awards: updated });
                       }}
                       placeholder="1st Winner, Top 5 Finalist, dll"
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-bold text-sage-900"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs font-bold text-rose-900"
                     />
                   </div>
 
@@ -1568,7 +1568,7 @@ export default function AdminPortal() {
                         updated[activeAwardIdx].year = e.target.value;
                         setData({ ...data, awards: updated });
                       }}
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-mono"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs font-mono"
                     />
                   </div>
                 </div>
@@ -1584,7 +1584,7 @@ export default function AdminPortal() {
                         updated[activeAwardIdx].organizer = e.target.value;
                         setData({ ...data, awards: updated });
                       }}
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs"
                     />
                   </div>
 
@@ -1599,7 +1599,7 @@ export default function AdminPortal() {
                         setData({ ...data, awards: updated });
                       }}
                       placeholder="https://..."
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-mono"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs font-mono"
                     />
                   </div>
 
@@ -1614,7 +1614,7 @@ export default function AdminPortal() {
                         setData({ ...data, awards: updated });
                       }}
                       placeholder="Liputan Berita Kampus ↗"
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs"
                     />
                   </div>
                 </div>
@@ -1629,17 +1629,17 @@ export default function AdminPortal() {
                       updated[activeAwardIdx].desc = e.target.value;
                       setData({ ...data, awards: updated });
                     }}
-                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs leading-relaxed"
+                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs leading-relaxed"
                   />
                 </div>
 
                 {/* Photos: Certificate and Event Image */}
-                <div className="p-5 rounded-2xl bg-sage-50/40 border border-sage-200 space-y-4">
+                <div className="p-5 rounded-2xl bg-rose-50/40 border border-rose-100 space-y-4">
                   <div className="flex items-center justify-between">
                     <h4 className="font-serif font-bold text-sm text-neutral-900">
                       Foto Sertifikat & Dokumentasi Panggung Kejuaraan
                     </h4>
-                    <span className="text-[11px] text-sage-900 font-medium">
+                    <span className="text-[11px] text-rose-900 font-medium">
                       Bisa langsung upload file dari laptop
                     </span>
                   </div>
@@ -1676,7 +1676,7 @@ export default function AdminPortal() {
                 <div className="pt-2 flex justify-end">
                   <button
                     onClick={handleSave}
-                    className="px-6 py-2.5 rounded-full bg-[#1A2616] text-white text-xs font-bold hover:bg-[#1A2616] transition-colors shadow-sm cursor-pointer"
+                    className="px-6 py-2.5 rounded-full bg-[#241C1E] text-white text-xs font-bold hover:bg-[#241C1E] transition-colors shadow-sm cursor-pointer"
                   >
                     Simpan Perubahan Kejuaraan ✦
                   </button>
@@ -1690,7 +1690,7 @@ export default function AdminPortal() {
         {/* TAB: KEAHLIAN & KOMPETENSI (HARD SKILLS & SOFT SKILLS)            */}
         {/* ================================================================= */}
         {activeTab === 'skills' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-sage-200 shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-rose-100 shadow-xs space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <h2 className="font-serif text-xl font-bold text-neutral-900">
@@ -1701,21 +1701,21 @@ export default function AdminPortal() {
                 </p>
               </div>
 
-              <span className="text-xs font-mono bg-sage-50 text-neutral-900 font-bold px-3 py-1.5 rounded-full border border-sage-200">
+              <span className="text-xs font-mono bg-rose-50 text-neutral-900 font-bold px-3 py-1.5 rounded-full border border-rose-100">
                 {data.skills?.reduce((acc, cat) => acc + cat.skills.length, 0) || 0} Total Skills
               </span>
             </div>
 
             {/* Category Selector Tabs */}
-            <div className="flex flex-wrap gap-2 border-b border-sage-200/70 pb-4">
+            <div className="flex flex-wrap gap-2 border-b border-rose-100/70 pb-4">
               {data.skills?.map((cat, idx) => (
                 <button
                   key={cat.id}
                   onClick={() => setActiveSkillIdx(idx)}
                   className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 ${
                     activeSkillIdx === idx
-                      ? 'bg-[#1A2616] text-white shadow-xs'
-                      : 'bg-sage-50 text-neutral-600 hover:bg-[D2DEC9]'
+                      ? 'bg-[#241C1E] text-white shadow-xs'
+                      : 'bg-rose-50 text-neutral-600 hover:bg-[D2DEC9]'
                   }`}
                 >
                   <span>{cat.icon}</span>
@@ -1739,7 +1739,7 @@ export default function AdminPortal() {
                         updated[activeSkillIdx].title = e.target.value;
                         setData({ ...data, skills: updated });
                       }}
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-serif font-bold text-neutral-900"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs font-serif font-bold text-neutral-900"
                     />
                   </div>
 
@@ -1753,7 +1753,7 @@ export default function AdminPortal() {
                         updated[activeSkillIdx].subtitle = e.target.value;
                         setData({ ...data, skills: updated });
                       }}
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs"
                     />
                   </div>
                 </div>
@@ -1768,12 +1768,12 @@ export default function AdminPortal() {
                       updated[activeSkillIdx].description = e.target.value;
                       setData({ ...data, skills: updated });
                     }}
-                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs leading-relaxed"
+                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs leading-relaxed"
                   />
                 </div>
 
                 {/* Pill Badges Management Area */}
-                <div className="p-5 rounded-2xl bg-sage-50/40 border border-sage-200 space-y-4">
+                <div className="p-5 rounded-2xl bg-rose-50/40 border border-rose-100 space-y-4">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
                       <h4 className="font-serif font-bold text-sm text-neutral-900">
@@ -1800,7 +1800,7 @@ export default function AdminPortal() {
                             updated[activeSkillIdx].skills = updated[activeSkillIdx].skills.filter((_, i) => i !== sIdx);
                             setData({ ...data, skills: updated });
                           }}
-                          className="w-4 h-4 rounded-full bg-sage-100 text-sage-900 hover:bg-[#1A2616] hover:text-white flex items-center justify-center text-[10px] font-bold transition-colors cursor-pointer"
+                          className="w-4 h-4 rounded-full bg-rose-100 text-rose-900 hover:bg-[#241C1E] hover:text-white flex items-center justify-center text-[10px] font-bold transition-colors cursor-pointer"
                           title="Hapus skill ini"
                         >
                           ✕
@@ -1810,7 +1810,7 @@ export default function AdminPortal() {
                   </div>
 
                   {/* Add New Skill Input */}
-                  <div className="pt-3 border-t border-sage-200/60 flex items-center gap-2">
+                  <div className="pt-3 border-t border-rose-100/60 flex items-center gap-2">
                     <input
                       type="text"
                       value={newSkillInput}
@@ -1827,7 +1827,7 @@ export default function AdminPortal() {
                         }
                       }}
                       placeholder="Ketik nama skill baru lalu tekan Enter / klik Tambah..."
-                      className="flex-1 px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-medium text-neutral-900 shadow-inner"
+                      className="flex-1 px-3.5 py-2 rounded-xl bg-white border border-rose-100 text-xs font-medium text-neutral-900 shadow-inner"
                     />
                     <button
                       type="button"
@@ -1839,7 +1839,7 @@ export default function AdminPortal() {
                           setNewSkillInput('');
                         }
                       }}
-                      className="px-4 py-2 rounded-xl bg-[#1A2616] hover:bg-[#1A2616] text-white text-xs font-bold transition-all shadow-xs shrink-0 cursor-pointer"
+                      className="px-4 py-2 rounded-xl bg-[#241C1E] hover:bg-[#241C1E] text-white text-xs font-bold transition-all shadow-xs shrink-0 cursor-pointer"
                     >
                       + Tambah Skill
                     </button>
@@ -1849,7 +1849,7 @@ export default function AdminPortal() {
                 <div className="pt-2 flex justify-end">
                   <button
                     onClick={handleSave}
-                    className="px-6 py-2.5 rounded-full bg-[#1A2616] text-white text-xs font-bold hover:bg-[#1A2616] transition-colors shadow-sm cursor-pointer"
+                    className="px-6 py-2.5 rounded-full bg-[#241C1E] text-white text-xs font-bold hover:bg-[#241C1E] transition-colors shadow-sm cursor-pointer"
                   >
                     Simpan Perubahan Keahlian ✦
                   </button>
@@ -1863,7 +1863,7 @@ export default function AdminPortal() {
         {/* TAB 4: VIDEO & CREATOR PRODUCTION (FOTO MOCKUP & ADAPTIF 2 HP)    */}
         {/* ================================================================= */}
         {activeTab === 'creator' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-sage-200 shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-rose-100 shadow-xs space-y-6">
             <div>
               <h2 className="font-serif text-xl font-bold text-neutral-900">
                 Pengaturan Stage Video & Foto Mockup HP Kreator
@@ -1874,15 +1874,15 @@ export default function AdminPortal() {
             </div>
 
             {/* Account Selector Pill */}
-            <div className="flex flex-wrap gap-2 border-b border-sage-200/70 pb-4">
+            <div className="flex flex-wrap gap-2 border-b border-rose-100/70 pb-4">
               {Object.keys(data.creatorAccounts).map((key) => (
                 <button
                   key={key}
                   onClick={() => setActiveCreatorKey(key)}
                   className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
                     activeCreatorKey === key
-                      ? 'bg-[#1A2616] text-white shadow-xs'
-                      : 'bg-sage-50 text-neutral-600 hover:bg-[D2DEC9]'
+                      ? 'bg-[#241C1E] text-white shadow-xs'
+                      : 'bg-rose-50 text-neutral-600 hover:bg-[D2DEC9]'
                   }`}
                 >
                   {data.creatorAccounts[key].name}
@@ -1918,8 +1918,8 @@ export default function AdminPortal() {
                     }}
                     className={`px-5 py-2 rounded-full text-xs font-bold transition-all shrink-0 cursor-pointer ${
                       data.creatorAccounts[activeCreatorKey].hasCenterStage
-                        ? 'bg-[#1A2616] text-white'
-                        : 'bg-[#1A2616] text-white'
+                        ? 'bg-[#241C1E] text-white'
+                        : 'bg-[#241C1E] text-white'
                     }`}
                   >
                     {data.creatorAccounts[activeCreatorKey].hasCenterStage 
@@ -1943,7 +1943,7 @@ export default function AdminPortal() {
                         setData({ ...data, creatorAccounts: updated });
                       }}
                       placeholder="https://www.youtube.com/@chikalnazmi"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs font-mono"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-rose-100 text-xs font-mono"
                     />
                   </div>
 
@@ -1959,7 +1959,7 @@ export default function AdminPortal() {
                         updated[activeCreatorKey].stats = e.target.value;
                         setData({ ...data, creatorAccounts: updated });
                       }}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-rose-100 text-xs"
                     />
                   </div>
 
@@ -1975,7 +1975,7 @@ export default function AdminPortal() {
                         updated[activeCreatorKey].centerTitle = e.target.value;
                         setData({ ...data, creatorAccounts: updated });
                       }}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-rose-100 text-xs"
                     />
                   </div>
 
@@ -1991,18 +1991,18 @@ export default function AdminPortal() {
                         updated[activeCreatorKey].centerDesc = e.target.value;
                         setData({ ...data, creatorAccounts: updated });
                       }}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-rose-100 text-xs"
                     />
                   </div>
                 </div>
 
                 {/* Photos & Mockup Images with Live Preview */}
-                <div className="p-5 rounded-2xl bg-sage-50/40 border border-sage-200 space-y-4">
+                <div className="p-5 rounded-2xl bg-rose-50/40 border border-rose-100 space-y-4">
                   <div className="flex items-center justify-between">
                     <h4 className="font-serif font-bold text-sm text-neutral-900">
                       Foto Mockup HP Kiri, Layar Tengah & HP Kanan
                     </h4>
-                    <span className="text-[11px] text-sage-900 font-medium">
+                    <span className="text-[11px] text-rose-900 font-medium">
                       Bisa langsung upload file dari laptop
                     </span>
                   </div>
@@ -2052,7 +2052,7 @@ export default function AdminPortal() {
                 <div className="pt-2 flex justify-end">
                   <button
                     onClick={handleSave}
-                    className="px-6 py-2.5 rounded-full bg-[#1A2616] text-white text-xs font-bold hover:bg-[#1A2616] transition-colors shadow-sm cursor-pointer"
+                    className="px-6 py-2.5 rounded-full bg-[#241C1E] text-white text-xs font-bold hover:bg-[#241C1E] transition-colors shadow-sm cursor-pointer"
                   >
                     Simpan Perubahan Creator Studio ✦
                   </button>
@@ -2066,7 +2066,7 @@ export default function AdminPortal() {
         {/* TAB 5: SOSIAL MEDIA & KONTAK UTAMA                                */}
         {/* ================================================================= */}
         {activeTab === 'socials' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-sage-200 shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-rose-100 shadow-xs space-y-6">
             <div>
               <h2 className="font-serif text-xl font-bold text-neutral-900">
                 Pengaturan Seluruh Sosial Media & Kontak Pribadi
@@ -2077,8 +2077,8 @@ export default function AdminPortal() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <div className="p-4 rounded-2xl bg-sage-50/40 border border-sage-200/60 space-y-2">
-                <span className="text-xs font-bold text-sage-900">Instagram</span>
+              <div className="p-4 rounded-2xl bg-rose-50/40 border border-rose-100/60 space-y-2">
+                <span className="text-xs font-bold text-rose-900">Instagram</span>
                 <input
                   type="text"
                   value={data.socials.instagram}
@@ -2086,11 +2086,11 @@ export default function AdminPortal() {
                     ...data,
                     socials: { ...data.socials, instagram: e.target.value }
                   })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs text-neutral-900 font-mono"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-rose-100 text-xs text-neutral-900 font-mono"
                 />
               </div>
 
-              <div className="p-4 rounded-2xl bg-sage-50/40 border border-sage-200/60 space-y-2">
+              <div className="p-4 rounded-2xl bg-rose-50/40 border border-rose-100/60 space-y-2">
                 <span className="text-xs font-bold text-neutral-900">TikTok</span>
                 <input
                   type="text"
@@ -2099,11 +2099,11 @@ export default function AdminPortal() {
                     ...data,
                     socials: { ...data.socials, tiktok: e.target.value }
                   })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs text-neutral-900 font-mono"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-rose-100 text-xs text-neutral-900 font-mono"
                 />
               </div>
 
-              <div className="p-4 rounded-2xl bg-sage-50/40 border border-sage-200/60 space-y-2">
+              <div className="p-4 rounded-2xl bg-rose-50/40 border border-rose-100/60 space-y-2">
                 <span className="text-xs font-bold text-red-700">YouTube Channel</span>
                 <input
                   type="text"
@@ -2112,11 +2112,11 @@ export default function AdminPortal() {
                     ...data,
                     socials: { ...data.socials, youtube: e.target.value }
                   })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs text-neutral-900 font-mono"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-rose-100 text-xs text-neutral-900 font-mono"
                 />
               </div>
 
-              <div className="p-4 rounded-2xl bg-sage-50/40 border border-sage-200/60 space-y-2">
+              <div className="p-4 rounded-2xl bg-rose-50/40 border border-rose-100/60 space-y-2">
                 <span className="text-xs font-bold text-neutral-900">Medium</span>
                 <input
                   type="text"
@@ -2125,11 +2125,11 @@ export default function AdminPortal() {
                     ...data,
                     socials: { ...data.socials, medium: e.target.value }
                   })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs text-neutral-900 font-mono"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-rose-100 text-xs text-neutral-900 font-mono"
                 />
               </div>
 
-              <div className="p-4 rounded-2xl bg-sage-50/40 border border-sage-200/60 space-y-2">
+              <div className="p-4 rounded-2xl bg-rose-50/40 border border-rose-100/60 space-y-2">
                 <span className="text-xs font-bold text-neutral-900">Email</span>
                 <input
                   type="email"
@@ -2138,11 +2138,11 @@ export default function AdminPortal() {
                     ...data,
                     socials: { ...data.socials, email: e.target.value }
                   })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs text-neutral-900 font-mono"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-rose-100 text-xs text-neutral-900 font-mono"
                 />
               </div>
 
-              <div className="p-4 rounded-2xl bg-sage-50/40 border border-sage-200/60 space-y-2">
+              <div className="p-4 rounded-2xl bg-rose-50/40 border border-rose-100/60 space-y-2">
                 <span className="text-xs font-bold text-emerald-800">WhatsApp Langsung</span>
                 <input
                   type="text"
@@ -2151,11 +2151,11 @@ export default function AdminPortal() {
                     ...data,
                     socials: { ...data.socials, whatsapp: e.target.value }
                   })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs text-neutral-900 font-mono"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-rose-100 text-xs text-neutral-900 font-mono"
                 />
               </div>
 
-              <div className="col-span-1 md:col-span-2 p-4 rounded-2xl bg-sage-50/40 border border-sage-200/60 space-y-2">
+              <div className="col-span-1 md:col-span-2 p-4 rounded-2xl bg-rose-50/40 border border-rose-100/60 space-y-2">
                 <span className="text-xs font-bold text-blue-800">LinkedIn</span>
                 <input
                   type="text"
@@ -2164,7 +2164,7 @@ export default function AdminPortal() {
                     ...data,
                     socials: { ...data.socials, linkedin: e.target.value }
                   })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs text-neutral-900 font-mono"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-rose-100 text-xs text-neutral-900 font-mono"
                 />
               </div>
             </div>
@@ -2172,7 +2172,7 @@ export default function AdminPortal() {
             <div className="pt-4 flex justify-end">
               <button
                 onClick={handleSave}
-                className="px-6 py-2.5 rounded-full bg-[#1A2616] text-white text-xs font-bold hover:bg-[#1A2616] transition-colors shadow-sm cursor-pointer"
+                className="px-6 py-2.5 rounded-full bg-[#241C1E] text-white text-xs font-bold hover:bg-[#241C1E] transition-colors shadow-sm cursor-pointer"
               >
                 Simpan Perubahan Sosial Media ✦
               </button>
@@ -2184,7 +2184,7 @@ export default function AdminPortal() {
         {/* TAB 6: PANDUAN CARA GANTI FOTO (MENGGUNAKAN FOTO SENDIRI)          */}
         {/* ================================================================= */}
         {activeTab === 'photoguide' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-sage-200 shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-rose-100 shadow-xs space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 text-amber-900 font-bold text-xs">
               <span>Tips Praktis Pengelolaan Foto</span>
             </div>
@@ -2199,7 +2199,7 @@ export default function AdminPortal() {
               {/* Cara 1: Langsung Upload dari Laptop (FITUR UTAMA) */}
               <div className="p-5 rounded-2xl bg-emerald-50/70 border-2 border-emerald-300 space-y-3 shadow-xs">
                 <div className="flex items-center gap-2">
-                  <span className="w-7 h-7 rounded-full bg-[#1A2616] text-white flex items-center justify-center font-bold text-xs">✦</span>
+                  <span className="w-7 h-7 rounded-full bg-[#241C1E] text-white flex items-center justify-center font-bold text-xs">✦</span>
                   <h4 className="font-bold text-sm text-neutral-900">Cara 1: Langsung Upload dari Laptop (Paling Praktis)</h4>
                 </div>
                 <p className="text-xs text-neutral-600 leading-relaxed">
@@ -2215,15 +2215,15 @@ export default function AdminPortal() {
               </div>
 
               {/* Cara 2: Menggunakan Folder Public */}
-              <div className="p-5 rounded-2xl bg-sage-50/50 border border-sage-200 space-y-3">
+              <div className="p-5 rounded-2xl bg-rose-50/50 border border-rose-100 space-y-3">
                 <div className="flex items-center gap-2">
-                  <span className="w-7 h-7 rounded-full bg-[#1A2616] text-white flex items-center justify-center font-bold text-xs">2</span>
+                  <span className="w-7 h-7 rounded-full bg-[#241C1E] text-white flex items-center justify-center font-bold text-xs">2</span>
                   <h4 className="font-bold text-sm text-neutral-900">Cara 2: Folder <code>public/</code></h4>
                 </div>
                 <p className="text-xs text-neutral-600 leading-relaxed">
                   Bila ingin mengorganisir file secara manual di proyek:
                 </p>
-                <div className="text-xs text-neutral-900/75 space-y-1 bg-white p-3 rounded-xl border border-sage-200/60">
+                <div className="text-xs text-neutral-900/75 space-y-1 bg-white p-3 rounded-xl border border-rose-100/60">
                   <p>1. Simpan foto ke folder <code>public/</code> (contoh: <code>foto-wisuda.jpg</code>).</p>
                   <p>2. Klik <em>&ldquo;Tautan / Path Manual&rdquo;</em> di bawah foto.</p>
                   <p>3. Ketik <code>/foto-wisuda.jpg</code>.</p>
@@ -2231,15 +2231,15 @@ export default function AdminPortal() {
               </div>
 
               {/* Cara 3: Menggunakan Link URL Gambar Online */}
-              <div className="p-5 rounded-2xl bg-sage-50/50 border border-sage-200 space-y-3">
+              <div className="p-5 rounded-2xl bg-rose-50/50 border border-rose-100 space-y-3">
                 <div className="flex items-center gap-2">
-                  <span className="w-7 h-7 rounded-full bg-[#1A2616] text-white flex items-center justify-center font-bold text-xs">3</span>
+                  <span className="w-7 h-7 rounded-full bg-[#241C1E] text-white flex items-center justify-center font-bold text-xs">3</span>
                   <h4 className="font-bold text-sm text-neutral-900">Cara 3: Link Gambar Online (URL)</h4>
                 </div>
                 <p className="text-xs text-neutral-600 leading-relaxed">
                   Jika foto sudah tersimpan di web hosting / cloud:
                 </p>
-                <div className="text-xs text-neutral-900/75 space-y-1 bg-white p-3 rounded-xl border border-sage-200/60">
+                <div className="text-xs text-neutral-900/75 space-y-1 bg-white p-3 rounded-xl border border-rose-100/60">
                   <p>1. Copy link URL langsung gambarnya (misal Unsplash/Cloudinary).</p>
                   <p>2. Buka <em>&ldquo;Tautan / Path Manual&rdquo;</em> dan tempel URL.</p>
                   <p>3. Klik Simpan Data.</p>
@@ -2253,7 +2253,7 @@ export default function AdminPortal() {
         {/* TAB 7: SUPABASE + VERCEL (ARSITEKTUR HILMAN JTI)                  */}
         {/* ================================================================= */}
         {activeTab === 'supabase' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-sage-200 shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-rose-100 shadow-xs space-y-6">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 font-bold text-xs mb-2">
@@ -2267,7 +2267,7 @@ export default function AdminPortal() {
                 </p>
               </div>
 
-              <span className="text-3xl text-sage-600 hidden sm:block">✦</span>
+              <span className="text-3xl text-rose-600 hidden sm:block">✦</span>
             </div>
 
             <div className={`p-5 rounded-2xl border ${isSupabaseConfigured ? 'bg-emerald-50 border-emerald-300' : 'bg-amber-50 border-amber-300'}`}>
@@ -2293,19 +2293,19 @@ export default function AdminPortal() {
 
               <div className="space-y-4 text-xs text-neutral-600 font-source">
                 {/* Langkah 1 */}
-                <div className="p-4 rounded-xl bg-sage-50/40 border border-sage-200/70 space-y-1.5">
+                <div className="p-4 rounded-xl bg-rose-50/40 border border-rose-100/70 space-y-1.5">
                   <div className="flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-full bg-[#1A2616] text-white flex items-center justify-center font-bold text-[10px]">1</span>
+                    <span className="w-5 h-5 rounded-full bg-[#241C1E] text-white flex items-center justify-center font-bold text-[10px]">1</span>
                     <p className="font-bold text-neutral-900 text-sm">Buat Proyek Baru di Supabase</p>
                   </div>
-                  <p>Buka <a href="https://supabase.com" target="_blank" rel="noopener noreferrer" className="text-sage-900 underline font-bold">supabase.com</a>, login / buat akun gratis, lalu klik tombol <strong>New Project</strong>.</p>
+                  <p>Buka <a href="https://supabase.com" target="_blank" rel="noopener noreferrer" className="text-rose-900 underline font-bold">supabase.com</a>, login / buat akun gratis, lalu klik tombol <strong>New Project</strong>.</p>
                   <p className="text-[11px] text-neutral-500">Beri nama proyek (misal: <em>chikal-portfolio</em>) dan simpan password database Anda.</p>
                 </div>
 
                 {/* Langkah 2 */}
-                <div className="p-4 rounded-xl bg-sage-50/40 border border-sage-200/70 space-y-2">
+                <div className="p-4 rounded-xl bg-rose-50/40 border border-rose-100/70 space-y-2">
                   <div className="flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-full bg-[#1A2616] text-white flex items-center justify-center font-bold text-[10px]">2</span>
+                    <span className="w-5 h-5 rounded-full bg-[#241C1E] text-white flex items-center justify-center font-bold text-[10px]">2</span>
                     <p className="font-bold text-neutral-900 text-sm">Jalankan SQL Schema di SQL Editor</p>
                   </div>
                   <p>Di dashboard Supabase proyekmu, klik menu <strong>SQL Editor</strong> di sidebar kiri, lalu klik <strong>New Query</strong>. Salin & tempel kode SQL di bawah ini, lalu klik <strong>Run</strong>:</p>
@@ -2340,9 +2340,9 @@ on conflict (id) do nothing;`}
                 </div>
 
                 {/* Langkah 3 */}
-                <div className="p-4 rounded-xl bg-sage-50/40 border border-sage-200/70 space-y-2">
+                <div className="p-4 rounded-xl bg-rose-50/40 border border-rose-100/70 space-y-2">
                   <div className="flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-full bg-[#1A2616] text-white flex items-center justify-center font-bold text-[10px]">3</span>
+                    <span className="w-5 h-5 rounded-full bg-[#241C1E] text-white flex items-center justify-center font-bold text-[10px]">3</span>
                     <p className="font-bold text-neutral-900 text-sm">Ambil Project URL dan Anon Key</p>
                   </div>
                   <p>Di dashboard Supabase, klik menu <strong>Project Settings</strong> (ikon gerigi di kiri bawah) ➔ <strong>API</strong>. Salin 2 nilai berikut:</p>
@@ -2353,14 +2353,14 @@ on conflict (id) do nothing;`}
                 </div>
 
                 {/* Langkah 4 */}
-                <div className="p-4 rounded-xl bg-sage-50/40 border border-sage-200/70 space-y-2">
+                <div className="p-4 rounded-xl bg-rose-50/40 border border-rose-100/70 space-y-2">
                   <div className="flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-full bg-[#1A2616] text-white flex items-center justify-center font-bold text-[10px]">4</span>
+                    <span className="w-5 h-5 rounded-full bg-[#241C1E] text-white flex items-center justify-center font-bold text-[10px]">4</span>
                     <p className="font-bold text-neutral-900 text-sm">Pasang di Environment Variables</p>
                   </div>
                   <p className="font-semibold text-neutral-900">A. Untuk Pengujian Lokal di Laptop:</p>
                   <p>Buat atau buka file <code>.env.local</code> di folder utama proyek, lalu isi:</p>
-                  <div className="font-mono text-[11px] bg-white p-2.5 rounded-lg border border-sage-200 space-y-1">
+                  <div className="font-mono text-[11px] bg-white p-2.5 rounded-lg border border-rose-100 space-y-1">
                     <p className="text-neutral-900"><code>NEXT_PUBLIC_SUPABASE_URL=https://proyek-kamu.supabase.co</code></p>
                     <p className="text-neutral-900"><code>NEXT_PUBLIC_SUPABASE_ANON_KEY=ey...anon_key_kamu</code></p>
                   </div>
@@ -2371,13 +2371,13 @@ on conflict (id) do nothing;`}
               </div>
             </div>
 
-            <div className="pt-6 border-t border-sage-200/60 flex items-center justify-between">
+            <div className="pt-6 border-t border-rose-100/60 flex items-center justify-between">
               <span className="text-xs text-neutral-500 italic">
                 Ingin membatalkan semua editan dan kembali ke data asli?
               </span>
               <button
                 onClick={handleReset}
-                className="px-4 py-2 rounded-full text-xs font-bold text-sage-900 hover:bg-sage-100/60 border border-rose-dusty/40 transition-colors cursor-pointer"
+                className="px-4 py-2 rounded-full text-xs font-bold text-rose-900 hover:bg-rose-100/60 border border-rose-dusty/40 transition-colors cursor-pointer"
               >
                 Reset ke Data Default Pabrik
               </button>

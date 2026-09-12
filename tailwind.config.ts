@@ -42,25 +42,10 @@ const config: Config = {
           deep: '#4A0E23',
         },
         velvet: {
-          DEFAULT: '#18181B',
-          teal: '#1A2616',
+          DEFAULT: '#241C1E',
           rose: '#24141A',
         },
         charcoal: '#1E293B',
-        // Remap teal classes to refined sage tones for full theme consistency
-        teal: {
-          50: '#F4F7F2',
-          100: '#E8EFE5',
-          200: '#D2DEC9',
-          300: '#B6CAA9',
-          400: '#94AB8B',
-          500: '#7A9471',
-          600: '#5E7755',
-          700: '#475D3F',
-          800: '#33452D',
-          900: '#23321E',
-          deep: '#1A2616',
-        },
       },
       fontFamily: {
         // Modern geometric sans-serif (Elian Ross body & headers: Outfit)
