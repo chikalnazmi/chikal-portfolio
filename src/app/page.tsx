@@ -10,6 +10,18 @@ import {
   PortfolioData 
 } from '@/lib/portfolio-store';
 
+// Floating Petal Particles for Warm Botanical Aesthetic
+const PETAL_PARTICLES = [
+  { left: '4%', delay: '0s', size: 18, duration: '14s' },
+  { left: '16%', delay: '3.8s', size: 22, duration: '18s' },
+  { left: '29%', delay: '1.2s', size: 16, duration: '15s' },
+  { left: '44%', delay: '5.5s', size: 20, duration: '20s' },
+  { left: '58%', delay: '2.3s', size: 24, duration: '16s' },
+  { left: '72%', delay: '4.8s', size: 18, duration: '19s' },
+  { left: '85%', delay: '0.9s', size: 22, duration: '17s' },
+  { left: '94%', delay: '6.5s', size: 16, duration: '21s' },
+];
+
 export default function Home() {
   // Modal state for certificates and documentation
   const [modalData, setModalData] = useState<{
@@ -128,6 +140,31 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-sage-linen text-[#212B1E] font-sans antialiased selection:bg-rose-blush selection:text-rose-dark relative overflow-x-hidden">
+      
+      {/* Floating Falling Flower Petals */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-20" aria-hidden="true">
+        {PETAL_PARTICLES.map((p, idx) => (
+          <div
+            key={idx}
+            className="petal-particle"
+            style={{
+              left: p.left,
+              top: '-50px',
+              animationDelay: p.delay,
+              animationDuration: p.duration,
+            }}
+          >
+            <svg width={p.size} height={p.size} viewBox="0 0 24 24" fill="none">
+              <path
+                d="M12 2C12 2 15 6 18 10C21 14 20 18 17 21C14 24 10 24 7 21C4 18 3 14 6 10C9 6 12 2 12 2Z"
+                fill="#F7C6D0"
+                opacity="0.85"
+              />
+              <circle cx="12" cy="14" r="2.5" fill="#ECA2B3" opacity="0.9" />
+            </svg>
+          </div>
+        ))}
+      </div>
       
       {/* ========================================================================= */}
       {/* 1. TOP MINIMALIST NAVIGATION                                              */}

@@ -159,3 +159,35 @@
 .animate-marquee:hover {
   animation-play-state: paused;
 }
+
+/* ========================================================================= */
+/* FLOATING FALLING PETALS ANIMATION                                         */
+/* ========================================================================= */
+@keyframes floatPetal {
+  0% {
+    transform: translateY(-50px) translateX(0px) rotate(0deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.85;
+  }
+  50% {
+    transform: translateY(50vh) translateX(45px) rotate(180deg);
+    opacity: 0.9;
+  }
+  85% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(105vh) translateX(90px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.petal-particle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 25;
+  animation: floatPetal 16s linear infinite;
+  will-change: transform, opacity;
+}
