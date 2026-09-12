@@ -1,31 +1,24 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Playfair_Display, Caveat } from "next/font/google";
+import { Outfit, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 
-// Modern geometric sans-serif for clean, readable layout (like Elian Ross reference)
-const plusJakarta = Plus_Jakarta_Sans({ 
+// Modern geometric sans-serif (Elian Ross body, headings, and pills)
+const outfit = Outfit({ 
   weight: ["300", "400", "500", "600", "700", "800"],
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 });
 
-// Luxury high-contrast editorial serif with gorgeous italics
-const playfair = Playfair_Display({ 
-  weight: ["400", "500", "600", "700", "800"],
+// Slender, luxury high-contrast editorial serif (Elian Ross title, kickers, and giant footer)
+const instrumentSerif = Instrument_Serif({ 
+  weight: "400",
   subsets: ["latin"],
   variable: "--font-serif",
   display: "swap",
   style: ["normal", "italic"],
 });
 
-// Playful handwritten script for editorial kickers & doodle accents
-const caveat = Caveat({
-  weight: ["400", "600", "700"],
-  subsets: ["latin"],
-  variable: "--font-script",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "Chikal Nazmi Mahira | Business Development & Digital Strategist",
@@ -38,10 +31,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`scroll-smooth ${plusJakarta.variable} ${playfair.variable} ${caveat.variable}`}>
-      <body className="bg-[#FCFCFC] text-[#241C1E] font-sans antialiased selection:bg-rose-100 selection:text-rose-900">
+    <html lang="id" className={`scroll-smooth ${outfit.variable} ${instrumentSerif.variable}`}>
+      <body className="bg-[#FCFCFC] text-[#18181B] font-sans antialiased selection:bg-teal-100 selection:text-teal-900">
         {children}
       </body>
     </html>
   );
 }
+

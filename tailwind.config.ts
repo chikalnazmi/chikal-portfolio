@@ -31,19 +31,37 @@ const config: Config = {
           dark: '#9D174D',
           deep: '#4A0E23',
         },
-        velvet: '#24141A',
+        velvet: {
+          DEFAULT: '#18181B',
+          teal: '#0D2825',
+          rose: '#24141A',
+        },
         charcoal: '#1E293B',
+        // Fresh green-teal accent tokens
+        teal: {
+          50: '#F0FDFA',
+          100: '#CCFBF1',
+          200: '#99F6E4',
+          300: '#5EEAD4',
+          400: '#2DD4BF',
+          500: '#14B8A6',
+          600: '#0D9488',
+          700: '#0F766E',
+          800: '#115E59',
+          900: '#134E4A',
+          deep: '#0B2321',
+        },
       },
       fontFamily: {
-        // Modern geometric sans-serif (Elian Ross body & headers)
-        sans: ["var(--font-sans)", "'Plus Jakarta Sans'", "system-ui", "-apple-system", "sans-serif"],
+        // Modern geometric sans-serif (Elian Ross body & headers: Outfit)
+        sans: ["var(--font-sans)", "'Outfit'", "'Plus Jakarta Sans'", "system-ui", "-apple-system", "sans-serif"],
         
-        // Luxury high-contrast editorial serif (Italic display headings)
-        serif: ["var(--font-serif)", "'Playfair Display'", "Georgia", "serif"],
-        editorial: ["var(--font-serif)", "'Playfair Display'", "Georgia", "serif"],
+        // Luxury high-contrast editorial serif (Elian Ross headings & footer: Instrument Serif)
+        serif: ["var(--font-serif)", "'Instrument Serif'", "'Playfair Display'", "Georgia", "serif"],
+        editorial: ["var(--font-serif)", "'Instrument Serif'", "'Playfair Display'", "Georgia", "serif"],
         
-        // Handwritten script for kickers (/ What I do /, / Selected Works /)
-        script: ["var(--font-script)", "'Caveat'", "cursive"],
+        // Secondary script/display
+        script: ["var(--font-serif)", "'Instrument Serif'", "cursive", "serif"],
         
         mono: ["ui-monospace", "monospace"],
       },
