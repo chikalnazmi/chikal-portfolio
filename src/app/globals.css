@@ -28,7 +28,7 @@
   }
 }
 
-/* Custom Scrollbar in Fresh Emerald-Teal and Rose Tones */
+/* Custom Scrollbar in Calming Sage Green and Rose Tones */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -38,12 +38,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #14B8A6;
+  background: #94AB8B;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #0D9488;
+  background: #5E7755;
 }
 
 /* Typography Utility Classes */
@@ -51,13 +51,13 @@
   font-family: var(--font-serif), 'Instrument Serif', Georgia, serif;
 }
 
-/* Radiant Green Teal + Girly Pink Halo Glows (Elian Ross Radiant Aesthetic) */
+/* Radiant Sage Green + Soft Rose Halo Glows (Calm Organic Editorial Aesthetic) */
 .hero-teal-rose-glow {
   background: radial-gradient(
     ellipse 85% 65% at 50% 10%,
-    rgba(52, 211, 153, 0.48) 0%,
-    rgba(45, 212, 191, 0.36) 30%,
-    rgba(244, 114, 182, 0.22) 58%,
+    rgba(148, 171, 139, 0.45) 0%,
+    rgba(182, 202, 169, 0.35) 30%,
+    rgba(252, 231, 243, 0.3) 58%,
     rgba(252, 252, 252, 0) 80%
   );
   filter: blur(55px);
@@ -66,9 +66,9 @@
 .teal-halo-glow {
   background: radial-gradient(
     circle at 50% 45%,
-    rgba(16, 185, 129, 0.42) 0%,
-    rgba(45, 212, 191, 0.28) 32%,
-    rgba(244, 114, 182, 0.18) 60%,
+    rgba(122, 148, 113, 0.4) 0%,
+    rgba(182, 202, 169, 0.28) 32%,
+    rgba(252, 231, 243, 0.2) 60%,
     transparent 75%
   );
   filter: blur(48px);
@@ -77,8 +77,8 @@
 .teal-halo-glow-subtle {
   background: radial-gradient(
     ellipse at 50% 50%,
-    rgba(20, 184, 166, 0.22) 0%,
-    rgba(244, 114, 182, 0.14) 45%,
+    rgba(148, 171, 139, 0.25) 0%,
+    rgba(252, 231, 243, 0.15) 45%,
     transparent 70%
   );
   filter: blur(60px);
@@ -88,39 +88,39 @@
 .editorial-card {
   background: #FFFFFF;
   border-radius: 28px;
-  border: 1px solid rgba(20, 184, 166, 0.18);
-  box-shadow: 0 10px 30px -10px rgba(13, 148, 136, 0.06), 0 2px 8px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(148, 171, 139, 0.22);
+  box-shadow: 0 10px 30px -10px rgba(71, 93, 63, 0.05), 0 2px 8px rgba(0, 0, 0, 0.02);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
 }
 
 .editorial-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 20px 40px -12px rgba(13, 148, 136, 0.14), 0 0 24px rgba(244, 114, 182, 0.12);
-  border-color: rgba(20, 184, 166, 0.45);
+  box-shadow: 0 20px 40px -12px rgba(71, 93, 63, 0.12), 0 0 24px rgba(244, 114, 182, 0.1);
+  border-color: rgba(148, 171, 139, 0.5);
 }
 
 /* Clean Process Card (Here's how it works) */
 .process-card {
   background: #FFFFFF;
   border-radius: 24px;
-  border: 1px solid rgba(20, 184, 166, 0.2);
-  box-shadow: 0 12px 32px -8px rgba(15, 118, 110, 0.05);
+  border: 1px solid rgba(148, 171, 139, 0.22);
+  box-shadow: 0 12px 32px -8px rgba(71, 93, 63, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .process-card:hover {
   transform: translateY(-6px) rotate(-0.5deg);
-  box-shadow: 0 24px 48px -12px rgba(13, 148, 136, 0.16);
-  border-color: rgba(20, 184, 166, 0.5);
+  box-shadow: 0 24px 48px -12px rgba(71, 93, 63, 0.14);
+  border-color: rgba(148, 171, 139, 0.55);
 }
 
-/* Glowing Bottom CTA Banner (Lush Teal + Rose Gradient) */
+/* Glowing Bottom CTA Banner (Lush Sage + Rose Gradient) */
 .cta-banner-glow {
   background: radial-gradient(
     ellipse 90% 80% at 50% 50%,
-    #A7F3D0 0%,
-    #5EEAD4 25%,
-    #FCE7F3 65%,
+    #E8EFE5 0%,
+    #D2DEC9 30%,
+    #FCE7F3 70%,
     #F472B6 95%
   );
 }

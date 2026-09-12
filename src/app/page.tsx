@@ -127,7 +127,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FCFCFC] text-[#18181B] font-sans antialiased selection:bg-teal-100 selection:text-teal-900 relative overflow-x-hidden">
+    <div className="min-h-screen bg-[#FCFCFC] text-[#18181B] font-sans antialiased selection:bg-sage-100 selection:text-sage-900 relative overflow-x-hidden">
       
       {/* ========================================================================= */}
       {/* 1. TOP MINIMALIST NAVIGATION                                              */}
@@ -144,7 +144,7 @@ export default function Home() {
 
           {/* Center Honor Pill (Desktop - Laurel Wreath Style) */}
           <div className="hidden md:flex items-center gap-2 bg-teal-50/80 border border-teal-200/70 rounded-full px-4 py-1 text-[11px] font-medium text-teal-900 shadow-xs">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span className="w-1.5 h-1.5 rounded-full bg-sage-500 animate-pulse"></span>
             <span>(Honor) {academicData.badge || "Cum Laude Graduate"} · {academicData.institution || "Polinema D4 SIB"} · GPA {academicData.gpaValue || "3.84"}</span>
           </div>
 
@@ -163,7 +163,7 @@ export default function Home() {
               href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890"}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 sm:px-5 py-2 rounded-full text-xs font-semibold bg-[#0B2321] text-white hover:bg-[#134E4A] transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
+              className="px-4 sm:px-5 py-2 rounded-full text-xs font-semibold bg-[#1A2616] text-white hover:bg-[#33452D] transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
             >
               <span>✦ Let&apos;s Talk</span>
             </a>
@@ -226,7 +226,7 @@ export default function Home() {
               <h1 className="font-sans font-medium text-5xl sm:text-6xl md:text-7xl lg:text-[76px] tracking-tight text-[#18181B] leading-none">
                 Hi I&apos;m Chikal
               </h1>
-              <span className="font-serif italic font-normal text-5xl sm:text-6xl md:text-7xl lg:text-[84px] text-[#0B2321] tracking-tight block mt-1 leading-[1.05]">
+              <span className="font-serif italic font-normal text-5xl sm:text-6xl md:text-7xl lg:text-[84px] text-[#23321E] tracking-tight block mt-1 leading-[1.05]">
                 Business &amp; Digital Strategist
               </span>
             </>
@@ -239,7 +239,7 @@ export default function Home() {
           {/* FLOATING ELEMENT 1 (Top-Left): Available for Opportunities Pill */}
           <div className="absolute top-4 sm:top-8 left-1 sm:left-4 md:left-8 z-20 animate-soft-float">
             <div className="bg-white/95 backdrop-blur-md border border-teal-200/80 rounded-full px-3.5 sm:px-4 py-2 shadow-xs flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)] animate-pulse"></span>
+              <span className="w-2.5 h-2.5 rounded-full bg-sage-500 shadow-[0_0_8px_rgba(122,148,113,0.8)] animate-pulse"></span>
               <span className="text-[11px] sm:text-xs font-semibold text-teal-950">
                 Available for new opportunities
               </span>
@@ -274,7 +274,7 @@ export default function Home() {
               href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890"}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#0B2321] hover:bg-[#134E4A] text-white rounded-full px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold shadow-md hover:shadow-lg transition-all flex items-center gap-2 cursor-pointer group"
+              className="bg-[#1A2616] hover:bg-[#33452D] text-white rounded-full px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold shadow-md hover:shadow-lg transition-all flex items-center gap-2 cursor-pointer group"
             >
               <span>✦ Chat on WhatsApp</span>
               <span className="group-hover:translate-x-0.5 transition-transform">→</span>
@@ -566,7 +566,7 @@ export default function Home() {
                 } shadow-xs text-xs font-semibold text-[#18181B] transition-colors`}
               >
                 <span className={`w-2 h-2 rounded-full ${
-                  isRose ? 'bg-rose-500' : isCyan ? 'bg-teal-500 shadow-[0_0_6px_rgba(20,184,166,0.7)]' : 'bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.7)]'
+                  isRose ? 'bg-rose-500' : isCyan ? 'bg-sage-400 shadow-[0_0_6px_rgba(148,171,139,0.7)]' : 'bg-sage-500 shadow-[0_0_6px_rgba(122,148,113,0.7)]'
                 }`}></span>
                 <span>{skill.name}</span>
               </span>
@@ -600,14 +600,14 @@ export default function Home() {
             <svg className="w-full h-full" viewBox="0 0 500 100" fill="none" preserveAspectRatio="none">
               <path 
                 d="M 20 50 C 120 10, 180 80, 250 30 C 320 -20, 380 90, 480 40" 
-                stroke="#10B981" 
+                stroke="#7A9471" 
                 strokeWidth="2.5" 
                 strokeDasharray="6 6"
                 className="opacity-70"
               />
-              <circle cx="20" cy="50" r="4" fill="#10B981" />
-              <circle cx="250" cy="30" r="4" fill="#14B8A6" />
-              <circle cx="480" cy="40" r="4" fill="#10B981" />
+              <circle cx="20" cy="50" r="4" fill="#7A9471" />
+              <circle cx="250" cy="30" r="4" fill="#94AB8B" />
+              <circle cx="480" cy="40" r="4" fill="#7A9471" />
             </svg>
           </div>
 
@@ -732,7 +732,7 @@ export default function Home() {
                 onClick={() => setActiveProjectFilter(tab.id)}
                 className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                   activeProjectFilter === tab.id
-                    ? 'bg-[#0B2321] text-white shadow-xs'
+                    ? 'bg-[#1A2616] text-white shadow-xs'
                     : 'bg-white text-neutral-600 border border-teal-100 hover:border-teal-300'
                 }`}
               >
@@ -821,7 +821,7 @@ export default function Home() {
                   onClick={() => setActiveCreatorKey(accKey)}
                   className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                     activeCreatorKey === accKey
-                      ? 'bg-[#0B2321] text-white shadow-xs'
+                      ? 'bg-[#1A2616] text-white shadow-xs'
                       : 'bg-white text-neutral-600 border border-teal-100 hover:border-teal-300'
                   }`}
                 >
@@ -859,7 +859,7 @@ export default function Home() {
                     href={currentCreator.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-2 rounded-full bg-[#0B2321] text-white text-xs font-semibold hover:bg-[#134E4A] transition-colors"
+                    className="px-4 py-2 rounded-full bg-[#1A2616] text-white text-xs font-semibold hover:bg-[#33452D] transition-colors"
                   >
                     Buka Akun ↗
                   </a>
@@ -996,7 +996,7 @@ export default function Home() {
           
           {/* Left Column: Stylized Portrait Card & Social Links */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="relative overflow-hidden rounded-4xl bg-[#0B2321] p-4 sm:p-5 shadow-lg border border-teal-900/40">
+            <div className="relative overflow-hidden rounded-4xl bg-[#1A2616] p-4 sm:p-5 shadow-lg border border-sage-800/40">
               <div className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-neutral-900">
                 <img
                   src={portfolioData.hero?.avatarImg || "/2.png"}
@@ -1019,7 +1019,7 @@ export default function Home() {
                 href={portfolioData.socials?.linkedin || "https://linkedin.com"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-teal-50 text-teal-900 hover:bg-[#0B2321] hover:text-white transition-colors flex items-center justify-center text-xs font-bold"
+                className="w-9 h-9 rounded-full bg-teal-50 text-teal-900 hover:bg-[#1A2616] hover:text-white transition-colors flex items-center justify-center text-xs font-bold"
                 title="LinkedIn"
               >
                 in
@@ -1028,7 +1028,7 @@ export default function Home() {
                 href={portfolioData.socials?.instagram || "https://instagram.com/chikalnazmi"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-rose-50 text-rose-900 hover:bg-[#0B2321] hover:text-white transition-colors flex items-center justify-center text-xs font-bold"
+                className="w-9 h-9 rounded-full bg-rose-50 text-rose-900 hover:bg-[#1A2616] hover:text-white transition-colors flex items-center justify-center text-xs font-bold"
                 title="Instagram"
               >
                 ig
@@ -1037,14 +1037,14 @@ export default function Home() {
                 href={portfolioData.socials?.tiktok || "https://tiktok.com"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-teal-50 text-teal-900 hover:bg-[#0B2321] hover:text-white transition-colors flex items-center justify-center text-xs font-bold"
+                className="w-9 h-9 rounded-full bg-teal-50 text-teal-900 hover:bg-[#1A2616] hover:text-white transition-colors flex items-center justify-center text-xs font-bold"
                 title="TikTok"
               >
                 tt
               </a>
               <a
                 href={`mailto:${portfolioData.socials?.email || "chikalnazmi@gmail.com"}`}
-                className="w-9 h-9 rounded-full bg-rose-50 text-rose-900 hover:bg-[#0B2321] hover:text-white transition-colors flex items-center justify-center text-xs font-bold"
+                className="w-9 h-9 rounded-full bg-rose-50 text-rose-900 hover:bg-[#1A2616] hover:text-white transition-colors flex items-center justify-center text-xs font-bold"
                 title="Email"
               >
                 ✉
@@ -1054,7 +1054,7 @@ export default function Home() {
                   href={portfolioData.socials.youtube}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-rose-50 text-rose-900 hover:bg-[#0B2321] hover:text-white transition-colors flex items-center justify-center text-xs font-bold"
+                  className="w-9 h-9 rounded-full bg-rose-50 text-rose-900 hover:bg-[#1A2616] hover:text-white transition-colors flex items-center justify-center text-xs font-bold"
                   title="YouTube"
                 >
                   yt
@@ -1065,7 +1065,7 @@ export default function Home() {
                   href={portfolioData.socials.medium}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-teal-50 text-teal-900 hover:bg-[#0B2321] hover:text-white transition-colors flex items-center justify-center text-xs font-bold"
+                  className="w-9 h-9 rounded-full bg-teal-50 text-teal-900 hover:bg-[#1A2616] hover:text-white transition-colors flex items-center justify-center text-xs font-bold"
                   title="Medium"
                 >
                   m
@@ -1185,7 +1185,7 @@ export default function Home() {
                 onClick={() => setActiveAwardFilter(filter.id as any)}
                 className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                   activeAwardFilter === filter.id
-                    ? 'bg-[#0B2321] text-white shadow-xs'
+                    ? 'bg-[#1A2616] text-white shadow-xs'
                     : 'bg-white text-neutral-600 border border-teal-100 hover:border-teal-300'
                 }`}
               >
@@ -1274,7 +1274,7 @@ export default function Home() {
         <div className="relative overflow-hidden rounded-4xl p-10 sm:p-16 text-center cta-banner-glow border border-teal-200/80 shadow-md">
           
           <div className="relative z-10 max-w-3xl mx-auto space-y-4">
-            <h2 className="font-sans font-medium text-4xl sm:text-6xl md:text-7xl text-[#0B2321] tracking-tight leading-none">
+            <h2 className="font-sans font-medium text-4xl sm:text-6xl md:text-7xl text-[#23321E] tracking-tight leading-none">
               Let&apos;s Make It Happen
             </h2>
             <p className="text-xs sm:text-base text-teal-950/80 max-w-xl mx-auto leading-relaxed">
@@ -1285,7 +1285,7 @@ export default function Home() {
                 href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#0B2321] hover:bg-black text-white text-xs sm:text-sm font-bold uppercase tracking-wider shadow-lg hover:shadow-xl transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#1A2616] hover:bg-black text-white text-xs sm:text-sm font-bold uppercase tracking-wider shadow-lg hover:shadow-xl transition-all cursor-pointer"
               >
                 <span>✦ GET IN TOUCH</span>
                 <span>→</span>
@@ -1320,7 +1320,7 @@ export default function Home() {
 
         {/* Giant Solid Signature Typography Across Bottom (Persis Referensi Elian Ross) */}
         <div className="text-center select-none pt-4 overflow-hidden">
-          <span className="font-serif italic font-normal text-6xl sm:text-8xl md:text-9xl lg:text-[150px] xl:text-[170px] text-[#0B2321] leading-none tracking-tight block">
+          <span className="font-serif italic font-normal text-6xl sm:text-8xl md:text-9xl lg:text-[150px] xl:text-[170px] text-[#23321E] leading-none tracking-tight block">
             Chikal Nazmi
           </span>
         </div>
