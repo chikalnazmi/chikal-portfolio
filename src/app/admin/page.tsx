@@ -118,25 +118,25 @@ export default function AdminPortal() {
   // --------------------------------------------------------------------------
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-[#1E2E1B] text-[#E8EFE5] flex items-center justify-center p-4 selection:bg-rose-dusty selection:text-white">
-        <div className="max-w-md w-full bg-[#253521] border-2 border-[#CAD7C5]/30 rounded-3xl p-8 shadow-2xl relative overflow-hidden">
-          <div className="absolute -top-20 -right-20 w-48 h-48 bg-rose-dark/20 rounded-full blur-3xl pointer-events-none" />
+      <div className="min-h-screen bg-[#1E2E1B] text-[F4F7F2] flex items-center justify-center p-4 selection:bg-rose-dusty selection:text-white">
+        <div className="max-w-md w-full bg-[#253521] border-2 border-sage-200/30 rounded-3xl p-8 shadow-2xl relative overflow-hidden">
+          <div className="absolute -top-20 -right-20 w-48 h-48 bg-[#1A2616]/20 rounded-full blur-3xl pointer-events-none" />
           
           <div className="text-center mb-6">
-            <div className="w-16 h-16 rounded-2xl bg-white/10 border border-[#CAD7C5]/30 flex items-center justify-center mx-auto mb-4 text-2xl shadow-inner">
-              🔐
+            <div className="w-16 h-16 rounded-2xl bg-white/10 border border-sage-200/30 flex items-center justify-center mx-auto mb-4 text-2xl shadow-inner">
+              ✦
             </div>
             <h1 className="font-serif text-2xl font-bold text-white tracking-wide">
               Chikal Content Studio
             </h1>
-            <p className="text-xs text-[#CAD7C5]/80 mt-1 font-source">
+            <p className="text-xs text-[D2DEC9]/80 mt-1 font-source">
               Pusat pengelolaan teks, foto dokumentasi, dan tautan portofolio Chikal Nazmi.
             </p>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="block text-xs font-mono text-[#CAD7C5] mb-1.5 uppercase tracking-wider">
+              <label className="block text-xs font-mono text-[D2DEC9] mb-1.5 uppercase tracking-wider">
                 Masukkan PIN Rahasia
               </label>
               <input
@@ -147,19 +147,19 @@ export default function AdminPortal() {
                   setPinError(false);
                 }}
                 placeholder="••••••••"
-                className="w-full px-4 py-3 rounded-xl bg-black/40 border border-[#CAD7C5]/40 text-white placeholder-white/20 focus:outline-none focus:border-rose-blush text-center text-lg tracking-widest font-mono shadow-inner"
+                className="w-full px-4 py-3 rounded-xl bg-black/40 border border-sage-200/40 text-white placeholder-white/20 focus:outline-none focus:border-rose-blush text-center text-lg tracking-widest font-mono shadow-inner"
                 autoFocus
               />
               {pinError && (
                 <p className="text-rose-300 text-xs mt-2 text-center font-medium animate-shake">
-                  ❌ PIN salah. Hubungi pemilik untuk akses.
+                  PIN salah. Hubungi pemilik untuk akses.
                 </p>
               )}
             </div>
 
             <button
               type="submit"
-              className="w-full py-3 rounded-xl bg-rose-dark hover:bg-rose-berry text-white font-bold text-sm tracking-wide transition-all shadow-md active:scale-98 cursor-pointer"
+              className="w-full py-3 rounded-xl bg-[#1A2616] hover:bg-[#33452D] text-white font-bold text-sm tracking-wide transition-all shadow-md active:scale-98 cursor-pointer"
             >
               Buka Studio Edit ➔
             </button>
@@ -180,7 +180,7 @@ export default function AdminPortal() {
   // SCREEN 2: ADMIN CONTENT DASHBOARD (TEXT, PHOTOS, LINKS & METRICS)
   // --------------------------------------------------------------------------
   return (
-    <div className="min-h-screen bg-[#F7F9F5] text-forest font-source pb-24">
+    <div className="min-h-screen bg-[#F8FAF7] text-neutral-900 font-source pb-24">
       {/* Toast Notification */}
       {toastNotification && (
         <div className={`fixed top-6 right-6 z-50 text-white px-5 py-3.5 rounded-2xl shadow-2xl border flex items-center gap-3 animate-fade-in ${
@@ -189,14 +189,14 @@ export default function AdminPortal() {
             : 'bg-rose-950 border-rose-500/50'
         }`}>
           <span className="text-xl">
-            {toastNotification.type === 'success' ? '✅' : '⚠️'}
+            {toastNotification.type === 'success' ? '✦' : '!'}
           </span>
           <div>
             <p className="text-xs font-bold font-serif text-rose-blush">
               {toastNotification.message}
             </p>
             {toastNotification.detail && (
-              <p className="text-[11px] text-[#CAD7C5] max-w-sm">
+              <p className="text-[11px] text-[D2DEC9] max-w-sm">
                 {toastNotification.detail}
               </p>
             )}
@@ -205,14 +205,14 @@ export default function AdminPortal() {
       )}
 
       {/* Top Bar */}
-      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-[#CAD7C5]/80 px-4 sm:px-8 py-3.5 shadow-xs">
+      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-sage-200/80 px-4 sm:px-8 py-3.5 shadow-xs">
         <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl bg-forest text-[#E8EFE5] flex items-center justify-center font-serif font-bold text-sm">
+            <div className="w-8 h-8 rounded-xl bg-[#1A2616] text-[#F4F7F2] flex items-center justify-center font-serif font-bold text-sm">
               C
             </div>
             <div>
-              <h1 className="font-serif font-bold text-base text-forest leading-tight">
+              <h1 className="font-serif font-bold text-base text-neutral-900 leading-tight">
                 Chikal Content Studio
               </h1>
               <div className="flex items-center gap-1.5 mt-0.5">
@@ -222,11 +222,11 @@ export default function AdminPortal() {
                 {isSupabaseConfigured ? (
                   <span className="text-[10px] text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full font-bold border border-emerald-300 flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    ☁️ Supabase Cloud Terhubung
+                    Supabase Cloud Terhubung
                   </span>
                 ) : (
                   <span className="text-[10px] text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full font-bold border border-amber-200">
-                    💾 Mode Offline (LocalStorage)
+                    Mode Offline (LocalStorage)
                   </span>
                 )}
               </div>
@@ -237,26 +237,26 @@ export default function AdminPortal() {
             <Link
               href="/"
               target="_blank"
-              className="px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#E8EFE5] text-forest hover:bg-forest hover:text-white transition-colors flex items-center gap-1 border border-[#CAD7C5]"
+              className="px-3.5 py-1.5 rounded-full text-xs font-bold bg-sage-50 text-neutral-900 hover:bg-[#1A2616] hover:text-white transition-colors flex items-center gap-1 border border-sage-200"
             >
-              <span>👁️ Lihat Live</span>
+              <span>Lihat Live</span>
               <span>↗</span>
             </Link>
 
             <button
               onClick={handleSave}
               disabled={isSaving}
-              className="px-5 py-1.5 rounded-full text-xs font-bold bg-rose-dark hover:bg-rose-berry text-white transition-all shadow-sm hover:shadow flex items-center gap-1.5 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+              className="px-5 py-1.5 rounded-full text-xs font-bold bg-[#1A2616] hover:bg-[#33452D] text-white transition-all shadow-sm hover:shadow flex items-center gap-1.5 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              <span>{isSaving ? '⏳ Menyimpan...' : '💾 Simpan Data'}</span>
+              <span>{isSaving ? 'Menyimpan...' : 'Simpan Data'}</span>
             </button>
 
             <button
               onClick={handleLogout}
-              className="px-3 py-1.5 rounded-full text-xs font-medium text-forest/70 hover:text-rose-dark hover:bg-rose-blush/40 transition-colors"
+              className="px-3 py-1.5 rounded-full text-xs font-medium text-neutral-500 hover:text-sage-900 hover:bg-sage-100 transition-colors"
               title="Kunci & Keluar"
             >
-              🔒 Keluar
+              Keluar
             </button>
           </div>
         </div>
@@ -264,106 +264,106 @@ export default function AdminPortal() {
 
       {/* Navigation Tabs */}
       <div className="max-w-6xl mx-auto px-4 sm:px-8 mt-6">
-        <div className="flex flex-wrap gap-2 p-1.5 bg-white rounded-2xl border border-[#CAD7C5]/80 shadow-xs">
+        <div className="flex flex-wrap gap-2 p-1.5 bg-white rounded-2xl border border-sage-200/80 shadow-xs">
           <button
             onClick={() => setActiveTab('hero')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === 'hero'
-                ? 'bg-forest text-white shadow-sm'
-                : 'text-forest/70 hover:bg-[#E8EFE5]'
+                ? 'bg-[#1A2616] text-white shadow-sm'
+                : 'text-neutral-500 hover:bg-sage-50'
             }`}
           >
-            🏠 Profil & Teks Utama
+            Profil & Hero
           </button>
           <button
             onClick={() => setActiveTab('education')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === 'education'
-                ? 'bg-forest text-white shadow-sm'
-                : 'text-forest/70 hover:bg-[#E8EFE5]'
+                ? 'bg-[#1A2616] text-white shadow-sm'
+                : 'text-neutral-500 hover:bg-sage-50'
             }`}
           >
-            🎓 Pendidikan & Sertifikasi
+            Pendidikan
           </button>
           <button
             onClick={() => setActiveTab('experience')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === 'experience'
-                ? 'bg-forest text-white shadow-sm'
-                : 'text-forest/70 hover:bg-[#E8EFE5]'
+                ? 'bg-[#1A2616] text-white shadow-sm'
+                : 'text-neutral-500 hover:bg-sage-50'
             }`}
           >
-            💼 Pengalaman Kerja
+            Pengalaman
           </button>
           <button
             onClick={() => setActiveTab('projects')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === 'projects'
-                ? 'bg-forest text-white shadow-sm'
-                : 'text-forest/70 hover:bg-[#E8EFE5]'
+                ? 'bg-[#1A2616] text-white shadow-sm'
+                : 'text-neutral-500 hover:bg-sage-50'
             }`}
           >
-            📁 Proyek Kampus
+            Proyek Kampus
           </button>
           <button
             onClick={() => setActiveTab('awards')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === 'awards'
-                ? 'bg-forest text-white shadow-sm'
-                : 'text-forest/70 hover:bg-[#E8EFE5]'
+                ? 'bg-[#1A2616] text-white shadow-sm'
+                : 'text-neutral-500 hover:bg-sage-50'
             }`}
           >
-            🏆 Kejuaraan & Sertifikat
+            Kejuaraan & Prestasi
           </button>
           <button
             onClick={() => setActiveTab('skills')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === 'skills'
-                ? 'bg-forest text-white shadow-sm'
-                : 'text-forest/70 hover:bg-[#E8EFE5]'
+                ? 'bg-[#1A2616] text-white shadow-sm'
+                : 'text-neutral-500 hover:bg-sage-50'
             }`}
           >
-            ⚡ Keahlian (Skills)
+            Keahlian (Skills)
           </button>
           <button
             onClick={() => setActiveTab('creator')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === 'creator'
-                ? 'bg-forest text-white shadow-sm'
-                : 'text-forest/70 hover:bg-[#E8EFE5]'
+                ? 'bg-[#1A2616] text-white shadow-sm'
+                : 'text-neutral-500 hover:bg-sage-50'
             }`}
           >
-            🎬 Video & Creator Stage
+            Creator Studio
           </button>
           <button
             onClick={() => setActiveTab('socials')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === 'socials'
-                ? 'bg-forest text-white shadow-sm'
-                : 'text-forest/70 hover:bg-[#E8EFE5]'
+                ? 'bg-[#1A2616] text-white shadow-sm'
+                : 'text-neutral-500 hover:bg-sage-50'
             }`}
           >
-            📱 Media Sosial & Kontak
+            Media Sosial & Kontak
           </button>
           <button
             onClick={() => setActiveTab('photoguide')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === 'photoguide'
-                ? 'bg-amber-700 text-white shadow-sm'
-                : 'text-amber-800 hover:bg-amber-50'
+                ? 'bg-[#1A2616] text-white shadow-sm'
+                : 'text-neutral-500 hover:bg-sage-50'
             }`}
           >
-            📸 Panduan Ganti Foto
+            Panduan Foto
           </button>
           <button
             onClick={() => setActiveTab('supabase')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === 'supabase'
-                ? 'bg-emerald-800 text-white shadow-sm'
-                : 'text-emerald-800 hover:bg-emerald-50'
+                ? 'bg-[#1A2616] text-white shadow-sm'
+                : 'text-neutral-500 hover:bg-sage-50'
             }`}
           >
-            ☁️ Supabase + Vercel
+            Database Cloud
           </button>
         </div>
       </div>
@@ -375,12 +375,12 @@ export default function AdminPortal() {
         {/* TAB 1: PROFIL & TEKS UTAMA (HERO SECTION & FOTO PROFIL)           */}
         {/* ================================================================= */}
         {activeTab === 'hero' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#CAD7C5] shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-sage-200 shadow-xs space-y-6">
             <div>
-              <h2 className="font-serif text-xl font-bold text-forest">
+              <h2 className="font-serif text-xl font-bold text-neutral-900">
                 Pengaturan Profil & Teks Beranda (Hero Section)
               </h2>
-              <p className="text-xs text-forest/70 mt-1">
+              <p className="text-xs text-neutral-500 mt-1">
                 Kamu bisa mengubah judul utama, biografi perkenalan diri, 4 metrik statistik, dan foto profil utama.
               </p>
             </div>
@@ -389,7 +389,7 @@ export default function AdminPortal() {
               {/* Left Column: Text Fields (8 cols) */}
               <div className="lg:col-span-8 space-y-4">
                 <div>
-                  <label className="block text-xs font-bold text-forest mb-1">
+                  <label className="block text-xs font-bold text-neutral-900 mb-1">
                     Pill Ketersediaan Karir (Status Bar):
                   </label>
                   <input
@@ -399,12 +399,12 @@ export default function AdminPortal() {
                       ...data,
                       hero: { ...data.hero, subheadline: e.target.value }
                     })}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-[#CAD7C5] text-xs text-forest"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs text-neutral-900"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-forest mb-1">
+                  <label className="block text-xs font-bold text-neutral-900 mb-1">
                     Kalimat Headline Utama (Judul Besar):
                   </label>
                   <textarea
@@ -414,12 +414,12 @@ export default function AdminPortal() {
                       ...data,
                       hero: { ...data.hero, headline: e.target.value }
                     })}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-[#CAD7C5] text-xs font-serif text-forest"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs font-serif text-neutral-900"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-forest mb-1">
+                  <label className="block text-xs font-bold text-neutral-900 mb-1">
                     Paragraf Biografi / Pengenalan Diri:
                   </label>
                   <textarea
@@ -429,17 +429,17 @@ export default function AdminPortal() {
                       ...data,
                       hero: { ...data.hero, bio: e.target.value }
                     })}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-[#CAD7C5] text-xs text-forest leading-relaxed"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs text-neutral-900 leading-relaxed"
                   />
                 </div>
 
                 {/* 4 Statistical Metrics */}
                 <div className="pt-2">
-                  <label className="block text-xs font-bold text-forest mb-2">
+                  <label className="block text-xs font-bold text-neutral-900 mb-2">
                     4 Metrik Statistik Utama:
                   </label>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    <div className="p-3 rounded-xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/60">
+                    <div className="p-3 rounded-xl bg-sage-50/40 border border-sage-200/60">
                       <input
                         type="text"
                         value={data.hero?.stat1Value || ''}
@@ -448,7 +448,7 @@ export default function AdminPortal() {
                           hero: { ...data.hero, stat1Value: e.target.value }
                         })}
                         placeholder="7x"
-                        className="w-full text-center font-serif font-bold text-sm text-rose-dark bg-white rounded-lg border border-[#CAD7C5] py-1 mb-1"
+                        className="w-full text-center font-serif font-bold text-sm text-sage-900 bg-white rounded-lg border border-sage-200 py-1 mb-1"
                       />
                       <input
                         type="text"
@@ -458,11 +458,11 @@ export default function AdminPortal() {
                           hero: { ...data.hero, stat1Label: e.target.value }
                         })}
                         placeholder="National Awards"
-                        className="w-full text-center text-[10px] uppercase font-bold text-forest/70 bg-transparent"
+                        className="w-full text-center text-[10px] uppercase font-bold text-neutral-500 bg-transparent"
                       />
                     </div>
 
-                    <div className="p-3 rounded-xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/60">
+                    <div className="p-3 rounded-xl bg-sage-50/40 border border-sage-200/60">
                       <input
                         type="text"
                         value={data.hero?.stat2Value || ''}
@@ -471,7 +471,7 @@ export default function AdminPortal() {
                           hero: { ...data.hero, stat2Value: e.target.value }
                         })}
                         placeholder="+2.089%"
-                        className="w-full text-center font-serif font-bold text-sm text-rose-dark bg-white rounded-lg border border-[#CAD7C5] py-1 mb-1"
+                        className="w-full text-center font-serif font-bold text-sm text-sage-900 bg-white rounded-lg border border-sage-200 py-1 mb-1"
                       />
                       <input
                         type="text"
@@ -481,11 +481,11 @@ export default function AdminPortal() {
                           hero: { ...data.hero, stat2Label: e.target.value }
                         })}
                         placeholder="Reels Reach Surge"
-                        className="w-full text-center text-[10px] uppercase font-bold text-forest/70 bg-transparent"
+                        className="w-full text-center text-[10px] uppercase font-bold text-neutral-500 bg-transparent"
                       />
                     </div>
 
-                    <div className="p-3 rounded-xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/60">
+                    <div className="p-3 rounded-xl bg-sage-50/40 border border-sage-200/60">
                       <input
                         type="text"
                         value={data.hero?.stat3Value || ''}
@@ -494,7 +494,7 @@ export default function AdminPortal() {
                           hero: { ...data.hero, stat3Value: e.target.value }
                         })}
                         placeholder="20+"
-                        className="w-full text-center font-serif font-bold text-sm text-forest bg-white rounded-lg border border-[#CAD7C5] py-1 mb-1"
+                        className="w-full text-center font-serif font-bold text-sm text-neutral-900 bg-white rounded-lg border border-sage-200 py-1 mb-1"
                       />
                       <input
                         type="text"
@@ -504,11 +504,11 @@ export default function AdminPortal() {
                           hero: { ...data.hero, stat3Label: e.target.value }
                         })}
                         placeholder="Event Partners"
-                        className="w-full text-center text-[10px] uppercase font-bold text-forest/70 bg-transparent"
+                        className="w-full text-center text-[10px] uppercase font-bold text-neutral-500 bg-transparent"
                       />
                     </div>
 
-                    <div className="p-3 rounded-xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/60">
+                    <div className="p-3 rounded-xl bg-sage-50/40 border border-sage-200/60">
                       <input
                         type="text"
                         value={data.hero?.stat4Value || ''}
@@ -517,7 +517,7 @@ export default function AdminPortal() {
                           hero: { ...data.hero, stat4Value: e.target.value }
                         })}
                         placeholder="D4 SIB"
-                        className="w-full text-center font-serif font-bold text-sm text-forest bg-white rounded-lg border border-[#CAD7C5] py-1 mb-1"
+                        className="w-full text-center font-serif font-bold text-sm text-neutral-900 bg-white rounded-lg border border-sage-200 py-1 mb-1"
                       />
                       <input
                         type="text"
@@ -527,7 +527,7 @@ export default function AdminPortal() {
                           hero: { ...data.hero, stat4Label: e.target.value }
                         })}
                         placeholder="Polinema Honor"
-                        className="w-full text-center text-[10px] uppercase font-bold text-forest/70 bg-transparent"
+                        className="w-full text-center text-[10px] uppercase font-bold text-neutral-500 bg-transparent"
                       />
                     </div>
                   </div>
@@ -535,7 +535,7 @@ export default function AdminPortal() {
               </div>
 
               {/* Right Column: Avatar Photo Edit & Live Preview (4 cols) */}
-              <div className="lg:col-span-4 p-5 rounded-2xl bg-[#E8EFE5]/40 border border-[#CAD7C5] flex flex-col justify-start gap-4">
+              <div className="lg:col-span-4 p-5 rounded-2xl bg-sage-50/40 border border-sage-200 flex flex-col justify-start gap-4">
                 <div>
                   <ImageUploadField
                     label="Foto Profil Utama (Avatar Hero):"
@@ -551,12 +551,12 @@ export default function AdminPortal() {
               </div>
             </div>
 
-            <div className="pt-4 border-t border-[#CAD7C5]/60 flex justify-end">
+            <div className="pt-4 border-t border-sage-200/60 flex justify-end">
               <button
                 onClick={handleSave}
-                className="px-6 py-2.5 rounded-full bg-forest text-white text-xs font-bold hover:bg-rose-dark transition-colors shadow-sm cursor-pointer"
+                className="px-6 py-2.5 rounded-full bg-[#1A2616] text-white text-xs font-bold hover:bg-[#1A2616] transition-colors shadow-sm cursor-pointer"
               >
-                Simpan Profil & Teks Utama 💾
+                Simpan Profil & Teks Utama ✦
               </button>
             </div>
           </div>
@@ -566,33 +566,33 @@ export default function AdminPortal() {
         {/* TAB: PENDIDIKAN FORMAL (ACADEMIC) & SERTIFIKASI PROFESIONAL        */}
         {/* ================================================================= */}
         {activeTab === 'education' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#CAD7C5] shadow-xs space-y-8">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-sage-200 shadow-xs space-y-8">
             <div>
-              <h2 className="font-serif text-xl font-bold text-forest">
+              <h2 className="font-serif text-xl font-bold text-neutral-900">
                 Pengaturan Pendidikan Formal (D4 SIB) & Sertifikasi Profesional
               </h2>
-              <p className="text-xs text-forest/70 mt-1">
+              <p className="text-xs text-neutral-500 mt-1">
                 Ubah gelar sarjana, institusi, IPK, skor tes TOEIC, berkas ijazah resmi, serta daftar sertifikat kursus profesional industri.
               </p>
             </div>
 
             {/* SECTION A: FORMAL ACADEMIC DEGREE */}
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-[#E8EFE5]/40 to-white border border-[#CAD7C5] space-y-5">
-              <div className="flex items-center justify-between border-b border-[#CAD7C5]/70 pb-3">
+            <div className="p-6 rounded-2xl bg-gradient-to-br from-[F4F7F2]/40 to-white border border-sage-200 space-y-5">
+              <div className="flex items-center justify-between border-b border-sage-200/70 pb-3">
                 <div className="flex items-center gap-2">
-                  <span className="text-xl">🎓</span>
-                  <h3 className="font-serif font-bold text-base text-forest">
+                  <span className="text-sage-700 font-serif italic text-xl">✦</span>
+                  <h3 className="font-serif font-bold text-base text-neutral-900">
                     1. Latar Belakang Akademik Formal (Degree Card)
                   </h3>
                 </div>
-                <span className="text-xs font-mono bg-white text-forest px-3 py-1 rounded-full border border-[#CAD7C5] font-bold">
+                <span className="text-xs font-mono bg-white text-neutral-900 px-3 py-1 rounded-full border border-sage-200 font-bold">
                   Ditampilkan di Beranda Sebelah Spotlight Skills
                 </span>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="md:col-span-2">
-                  <label className="block text-xs font-bold text-forest mb-1">Nama Gelar Akademik:</label>
+                  <label className="block text-xs font-bold text-neutral-900 mb-1">Nama Gelar Akademik:</label>
                   <input
                     type="text"
                     value={data.academic?.degree || ''}
@@ -604,12 +604,12 @@ export default function AdminPortal() {
                       }
                     })}
                     placeholder="Sarjana Terapan Sistem Informasi Bisnis (D4 SIB)"
-                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-serif font-bold text-forest"
+                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-serif font-bold text-neutral-900"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-forest mb-1">Periode Studi:</label>
+                  <label className="block text-xs font-bold text-neutral-900 mb-1">Periode Studi:</label>
                   <input
                     type="text"
                     value={data.academic?.period || ''}
@@ -621,14 +621,14 @@ export default function AdminPortal() {
                       }
                     })}
                     placeholder="2020 – 2024"
-                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-mono"
+                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-mono"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="md:col-span-2">
-                  <label className="block text-xs font-bold text-forest mb-1">Jurusan & Institusi Kampus:</label>
+                  <label className="block text-xs font-bold text-neutral-900 mb-1">Jurusan & Institusi Kampus:</label>
                   <input
                     type="text"
                     value={data.academic?.institution || ''}
@@ -640,12 +640,12 @@ export default function AdminPortal() {
                       }
                     })}
                     placeholder="Jurusan Teknologi Informasi — Politeknik Negeri Malang"
-                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-forest mb-1">Label Badge Atas:</label>
+                  <label className="block text-xs font-bold text-neutral-900 mb-1">Label Badge Atas:</label>
                   <input
                     type="text"
                     value={data.academic?.badge || ''}
@@ -656,17 +656,17 @@ export default function AdminPortal() {
                         badge: e.target.value
                       }
                     })}
-                    placeholder="🎓 FORMAL DEGREE"
-                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-bold text-rose-dark"
+                    placeholder="FORMAL DEGREE"
+                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-bold text-sage-900"
                   />
                 </div>
               </div>
 
               {/* Standing & TOEIC Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-4 rounded-xl bg-white border border-[#CAD7C5]/80 space-y-2">
-                  <label className="block text-[11px] font-bold text-forest uppercase tracking-wider">
-                    🌟 Prestasi Akademik (GPA):
+                <div className="p-4 rounded-xl bg-white border border-sage-200/80 space-y-2">
+                  <label className="block text-[11px] font-bold text-neutral-900 uppercase tracking-wider">
+                    Prestasi Akademik (GPA):
                   </label>
                   <input
                     type="text"
@@ -679,7 +679,7 @@ export default function AdminPortal() {
                       }
                     })}
                     placeholder="ACADEMIC STANDING"
-                    className="w-full px-3 py-1.5 rounded-lg bg-[#E8EFE5]/30 border border-[#CAD7C5] text-[11px] uppercase font-bold text-forest/70"
+                    className="w-full px-3 py-1.5 rounded-lg bg-sage-50/30 border border-sage-200 text-[11px] uppercase font-bold text-neutral-500"
                   />
                   <input
                     type="text"
@@ -692,13 +692,13 @@ export default function AdminPortal() {
                       }
                     })}
                     placeholder="IPK Memuaskan / Cum Laude Honor"
-                    className="w-full px-3 py-1.5 rounded-lg bg-white border border-[#CAD7C5] text-xs font-bold text-forest"
+                    className="w-full px-3 py-1.5 rounded-lg bg-white border border-sage-200 text-xs font-bold text-neutral-900"
                   />
                 </div>
 
-                <div className="p-4 rounded-xl bg-white border border-[#CAD7C5]/80 space-y-2">
-                  <label className="block text-[11px] font-bold text-rose-dark uppercase tracking-wider">
-                    🌐 Kemahiran Bahasa Internasional (TOEIC):
+                <div className="p-4 rounded-xl bg-white border border-sage-200/80 space-y-2">
+                  <label className="block text-[11px] font-bold text-sage-900 uppercase tracking-wider">
+                    Kemahiran Bahasa Internasional (TOEIC):
                   </label>
                   <div className="grid grid-cols-2 gap-2">
                     <input
@@ -712,7 +712,7 @@ export default function AdminPortal() {
                         }
                       })}
                       placeholder="Skor: 775"
-                      className="w-full px-3 py-1.5 rounded-lg bg-white border border-[#CAD7C5] text-xs font-extrabold text-rose-dark"
+                      className="w-full px-3 py-1.5 rounded-lg bg-white border border-sage-200 text-xs font-extrabold text-sage-900"
                     />
                     <input
                       type="text"
@@ -725,7 +725,7 @@ export default function AdminPortal() {
                         }
                       })}
                       placeholder="Working Proficiency"
-                      className="w-full px-3 py-1.5 rounded-lg bg-white border border-[#CAD7C5] text-xs font-bold text-forest"
+                      className="w-full px-3 py-1.5 rounded-lg bg-white border border-sage-200 text-xs font-bold text-neutral-900"
                     />
                   </div>
                   <input
@@ -739,13 +739,13 @@ export default function AdminPortal() {
                       }
                     })}
                     placeholder="GLOBAL ENGLISH PROFICIENCY"
-                    className="w-full px-3 py-1.5 rounded-lg bg-[#E8EFE5]/30 border border-[#CAD7C5] text-[11px] uppercase font-bold text-forest/70"
+                    className="w-full px-3 py-1.5 rounded-lg bg-sage-50/30 border border-sage-200 text-[11px] uppercase font-bold text-neutral-500"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-forest mb-1">Deskripsi Ringkasan Keilmuan:</label>
+                <label className="block text-xs font-bold text-neutral-900 mb-1">Deskripsi Ringkasan Keilmuan:</label>
                 <textarea
                   rows={3}
                   value={data.academic?.description || ''}
@@ -756,14 +756,14 @@ export default function AdminPortal() {
                       description: e.target.value
                     }
                   })}
-                  className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs leading-relaxed"
+                  className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs leading-relaxed"
                 />
               </div>
 
               {/* Academic Certificate Images (Ijazah / Transkrip / TOEIC) */}
               <div className="pt-2">
-                <label className="block text-xs font-bold text-forest mb-3">
-                  📄 Berkas Dokumen Kelulusan & TOEIC (Dibuka Saat Tombol Diklik):
+                <label className="block text-xs font-bold text-neutral-900 mb-3">
+                  Berkas Dokumen Kelulusan & TOEIC (Dibuka Saat Tombol Diklik):
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <ImageUploadField
@@ -822,15 +822,15 @@ export default function AdminPortal() {
             </div>
 
             {/* SECTION B: PROFESSIONAL CERTIFICATIONS LIST */}
-            <div className="p-6 rounded-2xl bg-[#E8EFE5]/30 border border-[#CAD7C5] space-y-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#CAD7C5]/70 pb-3">
+            <div className="p-6 rounded-2xl bg-sage-50/30 border border-sage-200 space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-sage-200/70 pb-3">
                 <div className="flex items-center gap-2">
-                  <span className="text-xl">📜</span>
+                  <span className="text-sage-700 font-serif italic text-xl">✦</span>
                   <div>
-                    <h3 className="font-serif font-bold text-base text-forest">
+                    <h3 className="font-serif font-bold text-base text-neutral-900">
                       2. Daftar Sertifikasi Pelatihan Profesional ({data.certifications?.length || 0})
                     </h3>
-                    <p className="text-[11px] text-forest/70">
+                    <p className="text-[11px] text-neutral-500">
                       Tersaji dalam format kartu memanjang tanpa perlu digeser di section &quot;Professional Courses &amp; Accreditations&quot;.
                     </p>
                   </div>
@@ -846,7 +846,7 @@ export default function AdminPortal() {
                       issuer: 'Lembaga Penerbit',
                       year: '2024',
                       tag: 'Bidang Keahlian',
-                      badgeColor: 'bg-rose-blush/80 text-rose-dark border-rose-dusty/40',
+                      badgeColor: 'bg-sage-100/80 text-sage-900 border-rose-dusty/40',
                       image: '/11.png',
                       desc: 'Deskripsi kompetensi dan materi yang dipelajari dalam pelatihan ini.',
                       link: ''
@@ -855,9 +855,9 @@ export default function AdminPortal() {
                     setData({ ...data, certifications: updated });
                     setActiveCertIdx(updated.length - 1);
                   }}
-                  className="px-4 py-1.5 rounded-full text-xs font-bold bg-rose-dark text-white hover:bg-rose-berry transition-colors shadow-2xs shrink-0 cursor-pointer"
+                  className="px-4 py-1.5 rounded-full text-xs font-bold bg-[#1A2616] text-white hover:bg-[#33452D] transition-colors shadow-2xs shrink-0 cursor-pointer"
                 >
-                  ➕ Tambah Sertifikat Baru
+                  + Tambah Sertifikat Baru
                 </button>
               </div>
 
@@ -869,8 +869,8 @@ export default function AdminPortal() {
                     onClick={() => setActiveCertIdx(cIdx)}
                     className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
                       activeCertIdx === cIdx
-                        ? 'bg-rose-dark text-white shadow-xs'
-                        : 'bg-white text-forest/80 border border-[#CAD7C5] hover:bg-[#CAD7C5]'
+                        ? 'bg-[#1A2616] text-white shadow-xs'
+                        : 'bg-white text-neutral-600 border border-sage-200 hover:bg-[D2DEC9]'
                     }`}
                   >
                     {c.issuer} ({c.year})
@@ -885,10 +885,10 @@ export default function AdminPortal() {
                 if (!currentCert) return null;
 
                 return (
-                  <div className="p-5 rounded-2xl bg-white border border-[#CAD7C5] space-y-4 shadow-2xs">
+                  <div className="p-5 rounded-2xl bg-white border border-sage-200 space-y-4 shadow-2xs">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                       <div className="md:col-span-2">
-                        <label className="block text-xs font-bold text-forest mb-1">Judul Sertifikasi / Pelatihan:</label>
+                        <label className="block text-xs font-bold text-neutral-900 mb-1">Judul Sertifikasi / Pelatihan:</label>
                         <input
                           type="text"
                           value={currentCert.title}
@@ -897,12 +897,12 @@ export default function AdminPortal() {
                             updated[activeCertIdx] = { ...currentCert, title: e.target.value };
                             setData({ ...data, certifications: updated });
                           }}
-                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-serif font-bold text-forest"
+                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-serif font-bold text-neutral-900"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-xs font-bold text-forest mb-1">Lembaga Penerbit (Issuer):</label>
+                        <label className="block text-xs font-bold text-neutral-900 mb-1">Lembaga Penerbit (Issuer):</label>
                         <input
                           type="text"
                           value={currentCert.issuer}
@@ -912,12 +912,12 @@ export default function AdminPortal() {
                             setData({ ...data, certifications: updated });
                           }}
                           placeholder="RevoU, MySkill, ETS, dll"
-                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-bold text-forest"
+                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-bold text-neutral-900"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-xs font-bold text-forest mb-1">Tahun Penerbitan:</label>
+                        <label className="block text-xs font-bold text-neutral-900 mb-1">Tahun Penerbitan:</label>
                         <input
                           type="text"
                           value={currentCert.year}
@@ -926,14 +926,14 @@ export default function AdminPortal() {
                             updated[activeCertIdx] = { ...currentCert, year: e.target.value };
                             setData({ ...data, certifications: updated });
                           }}
-                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-mono"
+                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-mono"
                         />
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <div>
-                        <label className="block text-xs font-bold text-forest mb-1">Tag Kategori Bidang:</label>
+                        <label className="block text-xs font-bold text-neutral-900 mb-1">Tag Kategori Bidang:</label>
                         <input
                           type="text"
                           value={currentCert.tag}
@@ -943,12 +943,12 @@ export default function AdminPortal() {
                             setData({ ...data, certifications: updated });
                           }}
                           placeholder="Digital Marketing, UI/UX, dll"
-                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs"
                         />
                       </div>
 
                       <div className="md:col-span-2">
-                        <label className="block text-xs font-bold text-forest mb-1">🔗 Link Kredensial Online (Opsional):</label>
+                        <label className="block text-xs font-bold text-neutral-900 mb-1">Link Kredensial Online (Opsional):</label>
                         <input
                           type="text"
                           value={currentCert.link || ''}
@@ -958,13 +958,13 @@ export default function AdminPortal() {
                             setData({ ...data, certifications: updated });
                           }}
                           placeholder="https://..."
-                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-mono"
+                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-mono"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold text-forest mb-1">Deskripsi Kompetensi:</label>
+                      <label className="block text-xs font-bold text-neutral-900 mb-1">Deskripsi Kompetensi:</label>
                       <textarea
                         rows={2}
                         value={currentCert.desc}
@@ -973,7 +973,7 @@ export default function AdminPortal() {
                           updated[activeCertIdx] = { ...currentCert, desc: e.target.value };
                           setData({ ...data, certifications: updated });
                         }}
-                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs leading-relaxed"
+                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs leading-relaxed"
                       />
                     </div>
 
@@ -992,7 +992,7 @@ export default function AdminPortal() {
                       />
                     </div>
 
-                    <div className="pt-3 border-t border-[#CAD7C5]/50 flex items-center justify-between">
+                    <div className="pt-3 border-t border-sage-200/50 flex items-center justify-between">
                       <button
                         type="button"
                         onClick={() => {
@@ -1008,15 +1008,15 @@ export default function AdminPortal() {
                         }}
                         className="px-3 py-1.5 rounded-lg text-xs font-medium text-rose-600 hover:bg-rose-50 transition-colors"
                       >
-                        🗑️ Hapus Sertifikat Ini
+                        Hapus Sertifikat Ini
                       </button>
 
                       <button
                         type="button"
                         onClick={handleSave}
-                        className="px-5 py-2 rounded-full bg-forest text-white text-xs font-bold hover:bg-rose-dark transition-colors shadow-xs cursor-pointer"
+                        className="px-5 py-2 rounded-full bg-[#1A2616] text-white text-xs font-bold hover:bg-[#1A2616] transition-colors shadow-xs cursor-pointer"
                       >
-                        Simpan Sertifikat Ini 💾
+                        Simpan Sertifikat Ini ✦
                       </button>
                     </div>
                   </div>
@@ -1027,10 +1027,10 @@ export default function AdminPortal() {
             <div className="pt-4 flex justify-end">
               <button
                 onClick={handleSave}
-                className="px-8 py-3 rounded-full bg-forest text-white text-xs font-bold hover:bg-rose-dark transition-colors shadow-md cursor-pointer flex items-center gap-2"
+                className="px-8 py-3 rounded-full bg-[#1A2616] text-white text-xs font-bold hover:bg-[#1A2616] transition-colors shadow-md cursor-pointer flex items-center gap-2"
               >
                 <span>Simpan Semua Data Pendidikan & Sertifikasi</span>
-                <span>💾</span>
+                <span>✦</span>
               </button>
             </div>
           </div>
@@ -1040,26 +1040,26 @@ export default function AdminPortal() {
         {/* TAB: PENGALAMAN KERJA (WORK EXPERIENCE) — TEKS & BUKTI FOTO        */}
         {/* ================================================================= */}
         {activeTab === 'experience' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#CAD7C5] shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-sage-200 shadow-xs space-y-6">
             <div>
-              <h2 className="font-serif text-xl font-bold text-forest">
+              <h2 className="font-serif text-xl font-bold text-neutral-900">
                 Pengaturan Teks & Foto — Pengalaman Kerja Nyata & Bisnis
               </h2>
-              <p className="text-xs text-forest/70 mt-1">
+              <p className="text-xs text-neutral-500 mt-1">
                 Pilih pengalaman kerja untuk mengedit judul peran, periode, tag, ringkasan eksekutif, fokus capaian, foto utama, dan galeri kerja.
               </p>
             </div>
 
             {/* Experience Selector Tabs */}
-            <div className="flex flex-wrap gap-2 border-b border-[#CAD7C5]/70 pb-4">
+            <div className="flex flex-wrap gap-2 border-b border-sage-200/70 pb-4">
               {(data.experiences || DEFAULT_PORTFOLIO_DATA.experiences || []).map((exp, idx) => (
                 <button
                   key={exp.id}
                   onClick={() => setActiveExperienceIdx(idx)}
                   className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
                     activeExperienceIdx === idx
-                      ? 'bg-rose-dark text-white shadow-xs'
-                      : 'bg-[#E8EFE5] text-forest/80 hover:bg-[#CAD7C5]'
+                      ? 'bg-[#1A2616] text-white shadow-xs'
+                      : 'bg-sage-50 text-neutral-600 hover:bg-[D2DEC9]'
                   }`}
                 >
                   {exp.title.split('—')[0].trim()}
@@ -1077,7 +1077,7 @@ export default function AdminPortal() {
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="md:col-span-2">
-                      <label className="block text-xs font-bold text-forest mb-1">Nama Peran & Perusahaan/Bisnis:</label>
+                      <label className="block text-xs font-bold text-neutral-900 mb-1">Nama Peran & Perusahaan/Bisnis:</label>
                       <input
                         type="text"
                         value={currentExp.title}
@@ -1086,12 +1086,12 @@ export default function AdminPortal() {
                           updated[activeExperienceIdx] = { ...currentExp, title: e.target.value };
                           setData({ ...data, experiences: updated });
                         }}
-                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-serif font-bold text-forest"
+                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-serif font-bold text-neutral-900"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold text-forest mb-1">Periode Kerja:</label>
+                      <label className="block text-xs font-bold text-neutral-900 mb-1">Periode Kerja:</label>
                       <input
                         type="text"
                         value={currentExp.period}
@@ -1100,14 +1100,14 @@ export default function AdminPortal() {
                           updated[activeExperienceIdx] = { ...currentExp, period: e.target.value };
                           setData({ ...data, experiences: updated });
                         }}
-                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-mono"
+                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-mono"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
-                      <label className="block text-xs font-bold text-forest mb-1">Tag / Kategori Bidang:</label>
+                      <label className="block text-xs font-bold text-neutral-900 mb-1">Tag / Kategori Bidang:</label>
                       <input
                         type="text"
                         value={currentExp.tag}
@@ -1116,12 +1116,12 @@ export default function AdminPortal() {
                           updated[activeExperienceIdx] = { ...currentExp, tag: e.target.value };
                           setData({ ...data, experiences: updated });
                         }}
-                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold text-forest mb-1">🔗 Link Eksternal / Profil Bisnis:</label>
+                      <label className="block text-xs font-bold text-neutral-900 mb-1">Link Eksternal / Profil Bisnis:</label>
                       <input
                         type="text"
                         value={currentExp.link || ''}
@@ -1131,12 +1131,12 @@ export default function AdminPortal() {
                           setData({ ...data, experiences: updated });
                         }}
                         placeholder="https://... (Instagram / Web)"
-                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-mono"
+                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-mono"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold text-forest mb-1">Label Tombol Tautan:</label>
+                      <label className="block text-xs font-bold text-neutral-900 mb-1">Label Tombol Tautan:</label>
                       <input
                         type="text"
                         value={currentExp.linkLabel || ''}
@@ -1146,13 +1146,13 @@ export default function AdminPortal() {
                           setData({ ...data, experiences: updated });
                         }}
                         placeholder="Profil Bisnis Dua Sisi ↗"
-                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-forest mb-1">Ringkasan Pengalaman Kerja (Summary):</label>
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">Ringkasan Pengalaman Kerja (Summary):</label>
                     <textarea
                       rows={2}
                       value={currentExp.summary}
@@ -1161,17 +1161,17 @@ export default function AdminPortal() {
                         updated[activeExperienceIdx] = { ...currentExp, summary: e.target.value };
                         setData({ ...data, experiences: updated });
                       }}
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs leading-relaxed"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs leading-relaxed"
                     />
                   </div>
 
                   {/* 3 Result Badges */}
                   <div>
-                    <label className="block text-xs font-bold text-forest mb-2">3 Poin Fokus / Capaian Kerja:</label>
+                    <label className="block text-xs font-bold text-neutral-900 mb-2">3 Poin Fokus / Capaian Kerja:</label>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                       {(currentExp.results || ['', '', '']).slice(0, 3).map((res, rIdx) => (
                         <div key={rIdx}>
-                          <label className="block text-[11px] text-forest/70 mb-1">Poin {rIdx + 1}:</label>
+                          <label className="block text-[11px] text-neutral-500 mb-1">Poin {rIdx + 1}:</label>
                           <input
                             type="text"
                             value={res}
@@ -1182,7 +1182,7 @@ export default function AdminPortal() {
                               updated[activeExperienceIdx] = { ...currentExp, results: newResults };
                               setData({ ...data, experiences: updated });
                             }}
-                            className="w-full px-3 py-1.5 rounded-lg bg-white border border-[#CAD7C5] text-xs"
+                            className="w-full px-3 py-1.5 rounded-lg bg-white border border-sage-200 text-xs"
                           />
                         </div>
                       ))}
@@ -1190,9 +1190,9 @@ export default function AdminPortal() {
                   </div>
 
                   {/* Photos Upload */}
-                  <div className="p-4 rounded-2xl bg-[#E8EFE5]/40 border border-[#CAD7C5] space-y-4">
-                    <h3 className="text-xs font-bold text-forest uppercase tracking-wider">
-                      📸 Foto Dokumentasi Pekerjaan:
+                  <div className="p-4 rounded-2xl bg-sage-50/40 border border-sage-200 space-y-4">
+                    <h3 className="text-xs font-bold text-neutral-900 uppercase tracking-wider">
+                      Foto Dokumentasi Pekerjaan:
                     </h3>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -1243,9 +1243,9 @@ export default function AdminPortal() {
                   <div className="pt-2 flex justify-end">
                     <button
                       onClick={handleSave}
-                      className="px-6 py-2.5 rounded-full bg-forest text-white text-xs font-bold hover:bg-rose-dark transition-colors shadow-sm cursor-pointer"
+                      className="px-6 py-2.5 rounded-full bg-[#1A2616] text-white text-xs font-bold hover:bg-[#1A2616] transition-colors shadow-sm cursor-pointer"
                     >
-                      Simpan Perubahan Pengalaman Kerja 💾
+                      Simpan Perubahan Pengalaman Kerja ✦
                     </button>
                   </div>
                 </div>
@@ -1258,26 +1258,26 @@ export default function AdminPortal() {
         {/* TAB: PROYEK KAMPUS (CAMPUS PROJECTS) — TEKS & BUKTI FOTO           */}
         {/* ================================================================= */}
         {activeTab === 'projects' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#CAD7C5] shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-sage-200 shadow-xs space-y-6">
             <div>
-              <h2 className="font-serif text-xl font-bold text-forest">
+              <h2 className="font-serif text-xl font-bold text-neutral-900">
                 Pengaturan Teks & Foto — Proyek Kampus & Akademik (MY WORK INCLUDES)
               </h2>
-              <p className="text-xs text-forest/70 mt-1">
+              <p className="text-xs text-neutral-500 mt-1">
                 Pilih proyek kampus untuk mengedit judul, ringkasan, tantangan, strategi, metrik hasil, foto sampul, dan foto-foto dokumentasi pendukung.
               </p>
             </div>
 
             {/* Project Selector Tabs */}
-            <div className="flex flex-wrap gap-2 border-b border-[#CAD7C5]/70 pb-4">
+            <div className="flex flex-wrap gap-2 border-b border-sage-200/70 pb-4">
               {data.projects.map((p, idx) => (
                 <button
                   key={p.id}
                   onClick={() => setActiveProjectIdx(idx)}
                   className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
                     activeProjectIdx === idx
-                      ? 'bg-rose-dark text-white shadow-xs'
-                      : 'bg-[#E8EFE5] text-forest/80 hover:bg-[#CAD7C5]'
+                      ? 'bg-[#1A2616] text-white shadow-xs'
+                      : 'bg-sage-50 text-neutral-600 hover:bg-[D2DEC9]'
                   }`}
                 >
                   {p.title.split('—')[0].trim()}
@@ -1290,7 +1290,7 @@ export default function AdminPortal() {
               <div className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="md:col-span-2">
-                    <label className="block text-xs font-bold text-forest mb-1">Judul Proyek:</label>
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">Judul Proyek:</label>
                     <input
                       type="text"
                       value={data.projects[activeProjectIdx].title}
@@ -1299,12 +1299,12 @@ export default function AdminPortal() {
                         updated[activeProjectIdx].title = e.target.value;
                         setData({ ...data, projects: updated });
                       }}
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-serif font-bold text-forest"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-serif font-bold text-neutral-900"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-forest mb-1">Periode / Waktu:</label>
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">Periode / Waktu:</label>
                     <input
                       type="text"
                       value={data.projects[activeProjectIdx].period}
@@ -1313,14 +1313,14 @@ export default function AdminPortal() {
                         updated[activeProjectIdx].period = e.target.value;
                         setData({ ...data, projects: updated });
                       }}
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-forest mb-1">Tag / Peran:</label>
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">Tag / Peran:</label>
                     <input
                       type="text"
                       value={data.projects[activeProjectIdx].tag}
@@ -1329,12 +1329,12 @@ export default function AdminPortal() {
                         updated[activeProjectIdx].tag = e.target.value;
                         setData({ ...data, projects: updated });
                       }}
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-forest mb-1">🔗 Link Eksternal / Berita:</label>
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">Link Eksternal / Berita:</label>
                     <input
                       type="text"
                       value={data.projects[activeProjectIdx].link || ''}
@@ -1344,12 +1344,12 @@ export default function AdminPortal() {
                         setData({ ...data, projects: updated });
                       }}
                       placeholder="https://... (kosongkan jika tidak ada)"
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-mono"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-mono"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-forest mb-1">Label Tombol Tautan:</label>
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">Label Tombol Tautan:</label>
                     <input
                       type="text"
                       value={data.projects[activeProjectIdx].linkLabel || ''}
@@ -1359,13 +1359,13 @@ export default function AdminPortal() {
                         setData({ ...data, projects: updated });
                       }}
                       placeholder="Profil Bisnis Dua Sisi ↗"
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-forest mb-1">Ringkasan Eksekutif (Summary):</label>
+                  <label className="block text-xs font-bold text-neutral-900 mb-1">Ringkasan Eksekutif (Summary):</label>
                   <textarea
                     rows={2}
                     value={data.projects[activeProjectIdx].summary}
@@ -1374,13 +1374,13 @@ export default function AdminPortal() {
                       updated[activeProjectIdx].summary = e.target.value;
                       setData({ ...data, projects: updated });
                     }}
-                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs leading-relaxed"
+                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs leading-relaxed"
                   />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-forest mb-1">Tantangan Bisnis (Challenge):</label>
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">Tantangan Bisnis (Challenge):</label>
                     <textarea
                       rows={2}
                       value={data.projects[activeProjectIdx].challenge}
@@ -1389,12 +1389,12 @@ export default function AdminPortal() {
                         updated[activeProjectIdx].challenge = e.target.value;
                         setData({ ...data, projects: updated });
                       }}
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-forest mb-1">Strategi & Solusi (Strategy):</label>
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">Strategi & Solusi (Strategy):</label>
                     <textarea
                       rows={2}
                       value={data.projects[activeProjectIdx].strategy}
@@ -1403,14 +1403,14 @@ export default function AdminPortal() {
                         updated[activeProjectIdx].strategy = e.target.value;
                         setData({ ...data, projects: updated });
                       }}
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs"
                     />
                   </div>
                 </div>
 
                 {/* Results List */}
                 <div>
-                  <label className="block text-xs font-bold text-forest mb-1">🏷️ 3 Tag Sorotan / Capaian Proyek (Pill Highlights):</label>
+                  <label className="block text-xs font-bold text-neutral-900 mb-1">3 Tag Sorotan / Capaian Proyek:</label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     {data.projects[activeProjectIdx].results.map((res, rIdx) => (
                       <input
@@ -1422,20 +1422,20 @@ export default function AdminPortal() {
                           updated[activeProjectIdx].results[rIdx] = e.target.value;
                           setData({ ...data, projects: updated });
                         }}
-                        className="w-full px-3 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                        className="w-full px-3 py-2 rounded-xl bg-white border border-sage-200 text-xs"
                       />
                     ))}
                   </div>
                 </div>
 
                 {/* Photos & Documentation Section */}
-                <div className="p-5 rounded-2xl bg-[#E8EFE5]/40 border border-[#CAD7C5] space-y-4">
+                <div className="p-5 rounded-2xl bg-sage-50/40 border border-sage-200 space-y-4">
                   <div className="flex items-center justify-between">
-                    <h4 className="font-serif font-bold text-sm text-forest">
-                      🖼️ Foto Sampul & Bukti Dokumentasi Proyek
+                    <h4 className="font-serif font-bold text-sm text-neutral-900">
+                      Foto Sampul & Bukti Dokumentasi Proyek
                     </h4>
-                    <span className="text-[11px] text-rose-dark font-medium">
-                      Bisa langsung upload file dari laptop 📁
+                    <span className="text-[11px] text-sage-900 font-medium">
+                      Bisa langsung upload file dari laptop
                     </span>
                   </div>
 
@@ -1484,9 +1484,9 @@ export default function AdminPortal() {
                 <div className="pt-2 flex justify-end">
                   <button
                     onClick={handleSave}
-                    className="px-6 py-2.5 rounded-full bg-forest text-white text-xs font-bold hover:bg-rose-dark transition-colors shadow-sm cursor-pointer"
+                    className="px-6 py-2.5 rounded-full bg-[#1A2616] text-white text-xs font-bold hover:bg-[#1A2616] transition-colors shadow-sm cursor-pointer"
                   >
-                    Simpan Perubahan Proyek 💾
+                    Simpan Perubahan Proyek ✦
                   </button>
                 </div>
               </div>
@@ -1498,26 +1498,26 @@ export default function AdminPortal() {
         {/* TAB 3: KEJUARAAN (AWARDS) — TEKS, SERTIFIKAT & FOTO DOKUMENTASI    */}
         {/* ================================================================= */}
         {activeTab === 'awards' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#CAD7C5] shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-sage-200 shadow-xs space-y-6">
             <div>
-              <h2 className="font-serif text-xl font-bold text-forest">
+              <h2 className="font-serif text-xl font-bold text-neutral-900">
                 Pengaturan Kejuaraan, Sertifikat & Foto Dokumentasi Panggung
               </h2>
-              <p className="text-xs text-forest/70 mt-1">
+              <p className="text-xs text-neutral-500 mt-1">
                 Ubah judul lomba, penyelenggara, deskripsi kemenangan, foto sertifikat resmi, foto panggung penghargaan, dan link publikasi berita.
               </p>
             </div>
 
             {/* Award Selector Tabs */}
-            <div className="flex flex-wrap gap-2 border-b border-[#CAD7C5]/70 pb-4">
+            <div className="flex flex-wrap gap-2 border-b border-sage-200/70 pb-4">
               {data.awards.map((award, idx) => (
                 <button
                   key={idx}
                   onClick={() => setActiveAwardIdx(idx)}
                   className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
                     activeAwardIdx === idx
-                      ? 'bg-rose-dark text-white shadow-xs'
-                      : 'bg-[#E8EFE5] text-forest/80 hover:bg-[#CAD7C5]'
+                      ? 'bg-[#1A2616] text-white shadow-xs'
+                      : 'bg-sage-50 text-neutral-600 hover:bg-[D2DEC9]'
                   }`}
                 >
                   {award.rank} ({award.year})
@@ -1530,7 +1530,7 @@ export default function AdminPortal() {
               <div className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div className="md:col-span-2">
-                    <label className="block text-xs font-bold text-forest mb-1">Judul Kompetisi / Penghargaan:</label>
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">Judul Kompetisi / Penghargaan:</label>
                     <input
                       type="text"
                       value={data.awards[activeAwardIdx].title}
@@ -1539,12 +1539,12 @@ export default function AdminPortal() {
                         updated[activeAwardIdx].title = e.target.value;
                         setData({ ...data, awards: updated });
                       }}
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-serif font-bold text-forest"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-serif font-bold text-neutral-900"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-forest mb-1">Gelar / Peringkat (Rank):</label>
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">Gelar / Peringkat (Rank):</label>
                     <input
                       type="text"
                       value={data.awards[activeAwardIdx].rank}
@@ -1554,12 +1554,12 @@ export default function AdminPortal() {
                         setData({ ...data, awards: updated });
                       }}
                       placeholder="1st Winner, Top 5 Finalist, dll"
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-bold text-rose-dark"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-bold text-sage-900"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-forest mb-1">Tahun Penyelenggaraan:</label>
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">Tahun Penyelenggaraan:</label>
                     <input
                       type="text"
                       value={data.awards[activeAwardIdx].year}
@@ -1568,14 +1568,14 @@ export default function AdminPortal() {
                         updated[activeAwardIdx].year = e.target.value;
                         setData({ ...data, awards: updated });
                       }}
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-mono"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-mono"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-forest mb-1">Penyelenggara Institusi:</label>
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">Penyelenggara Institusi:</label>
                     <input
                       type="text"
                       value={data.awards[activeAwardIdx].organizer}
@@ -1584,12 +1584,12 @@ export default function AdminPortal() {
                         updated[activeAwardIdx].organizer = e.target.value;
                         setData({ ...data, awards: updated });
                       }}
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-forest mb-1">🔗 Link Berita / Warta (Opsional):</label>
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">Link Berita / Warta (Opsional):</label>
                     <input
                       type="text"
                       value={data.awards[activeAwardIdx].link || ''}
@@ -1599,12 +1599,12 @@ export default function AdminPortal() {
                         setData({ ...data, awards: updated });
                       }}
                       placeholder="https://..."
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-mono"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-mono"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-forest mb-1">Label Tombol Tautan:</label>
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">Label Tombol Tautan:</label>
                     <input
                       type="text"
                       value={data.awards[activeAwardIdx].linkLabel || ''}
@@ -1614,13 +1614,13 @@ export default function AdminPortal() {
                         setData({ ...data, awards: updated });
                       }}
                       placeholder="Liputan Berita Kampus ↗"
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-forest mb-1">Deskripsi Kemenangan / Inovasi:</label>
+                  <label className="block text-xs font-bold text-neutral-900 mb-1">Deskripsi Kemenangan / Inovasi:</label>
                   <textarea
                     rows={3}
                     value={data.awards[activeAwardIdx].desc}
@@ -1629,18 +1629,18 @@ export default function AdminPortal() {
                       updated[activeAwardIdx].desc = e.target.value;
                       setData({ ...data, awards: updated });
                     }}
-                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs leading-relaxed"
+                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs leading-relaxed"
                   />
                 </div>
 
                 {/* Photos: Certificate and Event Image */}
-                <div className="p-5 rounded-2xl bg-[#E8EFE5]/40 border border-[#CAD7C5] space-y-4">
+                <div className="p-5 rounded-2xl bg-sage-50/40 border border-sage-200 space-y-4">
                   <div className="flex items-center justify-between">
-                    <h4 className="font-serif font-bold text-sm text-forest">
-                      📜 Foto Sertifikat & Dokumentasi Panggung Kejuaraan
+                    <h4 className="font-serif font-bold text-sm text-neutral-900">
+                      Foto Sertifikat & Dokumentasi Panggung Kejuaraan
                     </h4>
-                    <span className="text-[11px] text-rose-dark font-medium">
-                      Bisa langsung upload file dari laptop 📁
+                    <span className="text-[11px] text-sage-900 font-medium">
+                      Bisa langsung upload file dari laptop
                     </span>
                   </div>
 
@@ -1676,9 +1676,9 @@ export default function AdminPortal() {
                 <div className="pt-2 flex justify-end">
                   <button
                     onClick={handleSave}
-                    className="px-6 py-2.5 rounded-full bg-forest text-white text-xs font-bold hover:bg-rose-dark transition-colors shadow-sm cursor-pointer"
+                    className="px-6 py-2.5 rounded-full bg-[#1A2616] text-white text-xs font-bold hover:bg-[#1A2616] transition-colors shadow-sm cursor-pointer"
                   >
-                    Simpan Perubahan Kejuaraan 💾
+                    Simpan Perubahan Kejuaraan ✦
                   </button>
                 </div>
               </div>
@@ -1690,32 +1690,32 @@ export default function AdminPortal() {
         {/* TAB: KEAHLIAN & KOMPETENSI (HARD SKILLS & SOFT SKILLS)            */}
         {/* ================================================================= */}
         {activeTab === 'skills' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#CAD7C5] shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-sage-200 shadow-xs space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
-                <h2 className="font-serif text-xl font-bold text-forest">
+                <h2 className="font-serif text-xl font-bold text-neutral-900">
                   Pengaturan Keahlian (Hard Skills & Soft Skills)
                 </h2>
-                <p className="text-xs text-forest/70 mt-1">
+                <p className="text-xs text-neutral-500 mt-1">
                   Kelola daftar keahlian berdasarkan kategori: IT & Digital Systems, Bisnis & Manajemen Strategis, Konten Kreator, dan Personal Mastery.
                 </p>
               </div>
 
-              <span className="text-xs font-mono bg-[#E8EFE5] text-forest font-bold px-3 py-1.5 rounded-full border border-[#CAD7C5]">
+              <span className="text-xs font-mono bg-sage-50 text-neutral-900 font-bold px-3 py-1.5 rounded-full border border-sage-200">
                 {data.skills?.reduce((acc, cat) => acc + cat.skills.length, 0) || 0} Total Skills
               </span>
             </div>
 
             {/* Category Selector Tabs */}
-            <div className="flex flex-wrap gap-2 border-b border-[#CAD7C5]/70 pb-4">
+            <div className="flex flex-wrap gap-2 border-b border-sage-200/70 pb-4">
               {data.skills?.map((cat, idx) => (
                 <button
                   key={cat.id}
                   onClick={() => setActiveSkillIdx(idx)}
                   className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 ${
                     activeSkillIdx === idx
-                      ? 'bg-rose-dark text-white shadow-xs'
-                      : 'bg-[#E8EFE5] text-forest/80 hover:bg-[#CAD7C5]'
+                      ? 'bg-[#1A2616] text-white shadow-xs'
+                      : 'bg-sage-50 text-neutral-600 hover:bg-[D2DEC9]'
                   }`}
                 >
                   <span>{cat.icon}</span>
@@ -1730,7 +1730,7 @@ export default function AdminPortal() {
               <div className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="md:col-span-2">
-                    <label className="block text-xs font-bold text-forest mb-1">Nama Kategori Keahlian:</label>
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">Nama Kategori Keahlian:</label>
                     <input
                       type="text"
                       value={data.skills[activeSkillIdx].title}
@@ -1739,12 +1739,12 @@ export default function AdminPortal() {
                         updated[activeSkillIdx].title = e.target.value;
                         setData({ ...data, skills: updated });
                       }}
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-serif font-bold text-forest"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-serif font-bold text-neutral-900"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-forest mb-1">Tipe / Subtitle:</label>
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">Tipe / Subtitle:</label>
                     <input
                       type="text"
                       value={data.skills[activeSkillIdx].subtitle}
@@ -1753,13 +1753,13 @@ export default function AdminPortal() {
                         updated[activeSkillIdx].subtitle = e.target.value;
                         setData({ ...data, skills: updated });
                       }}
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-forest mb-1">Deskripsi Ringkas Kategori:</label>
+                  <label className="block text-xs font-bold text-neutral-900 mb-1">Deskripsi Ringkas Kategori:</label>
                   <textarea
                     rows={2}
                     value={data.skills[activeSkillIdx].description}
@@ -1768,18 +1768,18 @@ export default function AdminPortal() {
                       updated[activeSkillIdx].description = e.target.value;
                       setData({ ...data, skills: updated });
                     }}
-                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs leading-relaxed"
+                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs leading-relaxed"
                   />
                 </div>
 
                 {/* Pill Badges Management Area */}
-                <div className="p-5 rounded-2xl bg-[#E8EFE5]/40 border border-[#CAD7C5] space-y-4">
+                <div className="p-5 rounded-2xl bg-sage-50/40 border border-sage-200 space-y-4">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
-                      <h4 className="font-serif font-bold text-sm text-forest">
-                        🏷️ Daftar Pill Badge Keahlian ({data.skills[activeSkillIdx].skills.length})
+                      <h4 className="font-serif font-bold text-sm text-neutral-900">
+                        Daftar Badge Keahlian ({data.skills[activeSkillIdx].skills.length})
                       </h4>
-                      <p className="text-[11px] text-forest/70">
+                      <p className="text-[11px] text-neutral-500">
                         Klik tombol tanda silang ✕ pada pill untuk menghapus, atau gunakan formulir di bawah untuk menambah skill baru.
                       </p>
                     </div>
@@ -1790,7 +1790,7 @@ export default function AdminPortal() {
                     {data.skills[activeSkillIdx].skills.map((skill, sIdx) => (
                       <span
                         key={sIdx}
-                        className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-forest/30 bg-white text-xs font-semibold text-forest shadow-2xs hover:border-rose-dark transition-all"
+                        className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-forest/30 bg-white text-xs font-semibold text-neutral-900 shadow-2xs hover:border-sage-700 transition-all"
                       >
                         <span>{skill}</span>
                         <button
@@ -1800,7 +1800,7 @@ export default function AdminPortal() {
                             updated[activeSkillIdx].skills = updated[activeSkillIdx].skills.filter((_, i) => i !== sIdx);
                             setData({ ...data, skills: updated });
                           }}
-                          className="w-4 h-4 rounded-full bg-rose-blush text-rose-dark hover:bg-rose-dark hover:text-white flex items-center justify-center text-[10px] font-bold transition-colors cursor-pointer"
+                          className="w-4 h-4 rounded-full bg-sage-100 text-sage-900 hover:bg-[#1A2616] hover:text-white flex items-center justify-center text-[10px] font-bold transition-colors cursor-pointer"
                           title="Hapus skill ini"
                         >
                           ✕
@@ -1810,7 +1810,7 @@ export default function AdminPortal() {
                   </div>
 
                   {/* Add New Skill Input */}
-                  <div className="pt-3 border-t border-[#CAD7C5]/60 flex items-center gap-2">
+                  <div className="pt-3 border-t border-sage-200/60 flex items-center gap-2">
                     <input
                       type="text"
                       value={newSkillInput}
@@ -1827,7 +1827,7 @@ export default function AdminPortal() {
                         }
                       }}
                       placeholder="Ketik nama skill baru lalu tekan Enter / klik Tambah..."
-                      className="flex-1 px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-medium text-forest shadow-inner"
+                      className="flex-1 px-3.5 py-2 rounded-xl bg-white border border-sage-200 text-xs font-medium text-neutral-900 shadow-inner"
                     />
                     <button
                       type="button"
@@ -1839,7 +1839,7 @@ export default function AdminPortal() {
                           setNewSkillInput('');
                         }
                       }}
-                      className="px-4 py-2 rounded-xl bg-forest hover:bg-rose-dark text-white text-xs font-bold transition-all shadow-xs shrink-0 cursor-pointer"
+                      className="px-4 py-2 rounded-xl bg-[#1A2616] hover:bg-[#1A2616] text-white text-xs font-bold transition-all shadow-xs shrink-0 cursor-pointer"
                     >
                       + Tambah Skill
                     </button>
@@ -1849,9 +1849,9 @@ export default function AdminPortal() {
                 <div className="pt-2 flex justify-end">
                   <button
                     onClick={handleSave}
-                    className="px-6 py-2.5 rounded-full bg-forest text-white text-xs font-bold hover:bg-rose-dark transition-colors shadow-sm cursor-pointer"
+                    className="px-6 py-2.5 rounded-full bg-[#1A2616] text-white text-xs font-bold hover:bg-[#1A2616] transition-colors shadow-sm cursor-pointer"
                   >
-                    Simpan Perubahan Keahlian 💾
+                    Simpan Perubahan Keahlian ✦
                   </button>
                 </div>
               </div>
@@ -1863,26 +1863,26 @@ export default function AdminPortal() {
         {/* TAB 4: VIDEO & CREATOR PRODUCTION (FOTO MOCKUP & ADAPTIF 2 HP)    */}
         {/* ================================================================= */}
         {activeTab === 'creator' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#CAD7C5] shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-sage-200 shadow-xs space-y-6">
             <div>
-              <h2 className="font-serif text-xl font-bold text-forest">
+              <h2 className="font-serif text-xl font-bold text-neutral-900">
                 Pengaturan Stage Video & Foto Mockup HP Kreator
               </h2>
-              <p className="text-xs text-forest/70 mt-1">
+              <p className="text-xs text-neutral-500 mt-1">
                 Atur tautan video YouTube di tengah, toggle adaptif (apakah 2 HP saja atau 3 perangkat), dan ubah foto-foto pada layar mockup.
               </p>
             </div>
 
             {/* Account Selector Pill */}
-            <div className="flex flex-wrap gap-2 border-b border-[#CAD7C5]/70 pb-4">
+            <div className="flex flex-wrap gap-2 border-b border-sage-200/70 pb-4">
               {Object.keys(data.creatorAccounts).map((key) => (
                 <button
                   key={key}
                   onClick={() => setActiveCreatorKey(key)}
                   className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
                     activeCreatorKey === key
-                      ? 'bg-rose-dark text-white shadow-xs'
-                      : 'bg-[#E8EFE5] text-forest/80 hover:bg-[#CAD7C5]'
+                      ? 'bg-[#1A2616] text-white shadow-xs'
+                      : 'bg-sage-50 text-neutral-600 hover:bg-[D2DEC9]'
                   }`}
                 >
                   {data.creatorAccounts[key].name}
@@ -1899,13 +1899,13 @@ export default function AdminPortal() {
                     <span className="text-[10px] uppercase font-bold text-amber-900 bg-amber-200/70 px-2 py-0.5 rounded-full tracking-wider">
                       Fitur Adaptif Stage Tengah
                     </span>
-                    <h4 className="font-bold text-sm text-forest mt-1">
+                    <h4 className="font-bold text-sm text-neutral-900 mt-1">
                       Tampilkan Video / Mockup Landscape di Tengah?
                     </h4>
-                    <p className="text-xs text-forest/70 mt-0.5">
+                    <p className="text-xs text-neutral-500 mt-0.5">
                       {data.creatorAccounts[activeCreatorKey].hasCenterStage 
-                        ? '✅ Aktif: Menampilkan 3 perangkat (HP Kiri + Video Landscape Tengah + HP Kanan).'
-                        : '📱 Mode 2 HP: Belum ada video landscape (seperti Dua Sisi Laundry), sehingga hanya menampilkan 2 HP di tengah secara rapi & seimbang.'
+                        ? '✦ Aktif: Menampilkan 3 perangkat (HP Kiri + Video Landscape Tengah + HP Kanan).'
+                        : 'Mode 2 HP: Belum ada video landscape (seperti Dua Sisi Laundry), sehingga hanya menampilkan 2 HP di tengah secara rapi & seimbang.'
                       }
                     </p>
                   </div>
@@ -1918,8 +1918,8 @@ export default function AdminPortal() {
                     }}
                     className={`px-5 py-2 rounded-full text-xs font-bold transition-all shrink-0 cursor-pointer ${
                       data.creatorAccounts[activeCreatorKey].hasCenterStage
-                        ? 'bg-forest text-white'
-                        : 'bg-rose-dark text-white'
+                        ? 'bg-[#1A2616] text-white'
+                        : 'bg-[#1A2616] text-white'
                     }`}
                   >
                     {data.creatorAccounts[activeCreatorKey].hasCenterStage 
@@ -1931,7 +1931,7 @@ export default function AdminPortal() {
                 {/* Form fields */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-forest mb-1">
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">
                       Tautan Video YouTube / Link Destinasi Tengah:
                     </label>
                     <input
@@ -1943,12 +1943,12 @@ export default function AdminPortal() {
                         setData({ ...data, creatorAccounts: updated });
                       }}
                       placeholder="https://www.youtube.com/@chikalnazmi"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-[#CAD7C5] text-xs font-mono"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs font-mono"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-forest mb-1">
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">
                       Highlight Stats Banner:
                     </label>
                     <input
@@ -1959,12 +1959,12 @@ export default function AdminPortal() {
                         updated[activeCreatorKey].stats = e.target.value;
                         setData({ ...data, creatorAccounts: updated });
                       }}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-forest mb-1">
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">
                       Judul Kartu Tengah:
                     </label>
                     <input
@@ -1975,12 +1975,12 @@ export default function AdminPortal() {
                         updated[activeCreatorKey].centerTitle = e.target.value;
                         setData({ ...data, creatorAccounts: updated });
                       }}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-forest mb-1">
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">
                       Deskripsi Konten:
                     </label>
                     <input
@@ -1991,19 +1991,19 @@ export default function AdminPortal() {
                         updated[activeCreatorKey].centerDesc = e.target.value;
                         setData({ ...data, creatorAccounts: updated });
                       }}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs"
                     />
                   </div>
                 </div>
 
                 {/* Photos & Mockup Images with Live Preview */}
-                <div className="p-5 rounded-2xl bg-[#E8EFE5]/40 border border-[#CAD7C5] space-y-4">
+                <div className="p-5 rounded-2xl bg-sage-50/40 border border-sage-200 space-y-4">
                   <div className="flex items-center justify-between">
-                    <h4 className="font-serif font-bold text-sm text-forest">
-                      📱 Foto Mockup HP Kiri, Layar Tengah & HP Kanan
+                    <h4 className="font-serif font-bold text-sm text-neutral-900">
+                      Foto Mockup HP Kiri, Layar Tengah & HP Kanan
                     </h4>
-                    <span className="text-[11px] text-rose-dark font-medium">
-                      Bisa langsung upload file dari laptop 📁
+                    <span className="text-[11px] text-sage-900 font-medium">
+                      Bisa langsung upload file dari laptop
                     </span>
                   </div>
 
@@ -2052,9 +2052,9 @@ export default function AdminPortal() {
                 <div className="pt-2 flex justify-end">
                   <button
                     onClick={handleSave}
-                    className="px-6 py-2.5 rounded-full bg-forest text-white text-xs font-bold hover:bg-rose-dark transition-colors shadow-sm cursor-pointer"
+                    className="px-6 py-2.5 rounded-full bg-[#1A2616] text-white text-xs font-bold hover:bg-[#1A2616] transition-colors shadow-sm cursor-pointer"
                   >
-                    Simpan Perubahan Creator Studio 💾
+                    Simpan Perubahan Creator Studio ✦
                   </button>
                 </div>
               </div>
@@ -2066,19 +2066,19 @@ export default function AdminPortal() {
         {/* TAB 5: SOSIAL MEDIA & KONTAK UTAMA                                */}
         {/* ================================================================= */}
         {activeTab === 'socials' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#CAD7C5] shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-sage-200 shadow-xs space-y-6">
             <div>
-              <h2 className="font-serif text-xl font-bold text-forest">
+              <h2 className="font-serif text-xl font-bold text-neutral-900">
                 Pengaturan Seluruh Sosial Media & Kontak Pribadi
               </h2>
-              <p className="text-xs text-forest/70 mt-1">
+              <p className="text-xs text-neutral-500 mt-1">
                 Ubah link dan akun kamu di sini. Semua perubahan akan langsung aktif di bagian Footer & Kontak portofolio.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <div className="p-4 rounded-2xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/60 space-y-2">
-                <span className="text-xs font-bold text-rose-dark">📷 Instagram</span>
+              <div className="p-4 rounded-2xl bg-sage-50/40 border border-sage-200/60 space-y-2">
+                <span className="text-xs font-bold text-sage-900">Instagram</span>
                 <input
                   type="text"
                   value={data.socials.instagram}
@@ -2086,12 +2086,12 @@ export default function AdminPortal() {
                     ...data,
                     socials: { ...data.socials, instagram: e.target.value }
                   })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-[#CAD7C5] text-xs text-forest font-mono"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs text-neutral-900 font-mono"
                 />
               </div>
 
-              <div className="p-4 rounded-2xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/60 space-y-2">
-                <span className="text-xs font-bold text-forest">🎵 TikTok</span>
+              <div className="p-4 rounded-2xl bg-sage-50/40 border border-sage-200/60 space-y-2">
+                <span className="text-xs font-bold text-neutral-900">TikTok</span>
                 <input
                   type="text"
                   value={data.socials.tiktok}
@@ -2099,12 +2099,12 @@ export default function AdminPortal() {
                     ...data,
                     socials: { ...data.socials, tiktok: e.target.value }
                   })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-[#CAD7C5] text-xs text-forest font-mono"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs text-neutral-900 font-mono"
                 />
               </div>
 
-              <div className="p-4 rounded-2xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/60 space-y-2">
-                <span className="text-xs font-bold text-red-700">▶ YouTube Channel</span>
+              <div className="p-4 rounded-2xl bg-sage-50/40 border border-sage-200/60 space-y-2">
+                <span className="text-xs font-bold text-red-700">YouTube Channel</span>
                 <input
                   type="text"
                   value={data.socials.youtube}
@@ -2112,12 +2112,12 @@ export default function AdminPortal() {
                     ...data,
                     socials: { ...data.socials, youtube: e.target.value }
                   })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-[#CAD7C5] text-xs text-forest font-mono"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs text-neutral-900 font-mono"
                 />
               </div>
 
-              <div className="p-4 rounded-2xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/60 space-y-2">
-                <span className="text-xs font-bold text-forest">✍️ Medium</span>
+              <div className="p-4 rounded-2xl bg-sage-50/40 border border-sage-200/60 space-y-2">
+                <span className="text-xs font-bold text-neutral-900">Medium</span>
                 <input
                   type="text"
                   value={data.socials.medium}
@@ -2125,12 +2125,12 @@ export default function AdminPortal() {
                     ...data,
                     socials: { ...data.socials, medium: e.target.value }
                   })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-[#CAD7C5] text-xs text-forest font-mono"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs text-neutral-900 font-mono"
                 />
               </div>
 
-              <div className="p-4 rounded-2xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/60 space-y-2">
-                <span className="text-xs font-bold text-forest">✉️ Email</span>
+              <div className="p-4 rounded-2xl bg-sage-50/40 border border-sage-200/60 space-y-2">
+                <span className="text-xs font-bold text-neutral-900">Email</span>
                 <input
                   type="email"
                   value={data.socials.email}
@@ -2138,12 +2138,12 @@ export default function AdminPortal() {
                     ...data,
                     socials: { ...data.socials, email: e.target.value }
                   })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-[#CAD7C5] text-xs text-forest font-mono"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs text-neutral-900 font-mono"
                 />
               </div>
 
-              <div className="p-4 rounded-2xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/60 space-y-2">
-                <span className="text-xs font-bold text-emerald-800">💬 WhatsApp Langsung</span>
+              <div className="p-4 rounded-2xl bg-sage-50/40 border border-sage-200/60 space-y-2">
+                <span className="text-xs font-bold text-emerald-800">WhatsApp Langsung</span>
                 <input
                   type="text"
                   value={data.socials.whatsapp}
@@ -2151,12 +2151,12 @@ export default function AdminPortal() {
                     ...data,
                     socials: { ...data.socials, whatsapp: e.target.value }
                   })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-[#CAD7C5] text-xs text-forest font-mono"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs text-neutral-900 font-mono"
                 />
               </div>
 
-              <div className="col-span-1 md:col-span-2 p-4 rounded-2xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/60 space-y-2">
-                <span className="text-xs font-bold text-blue-800">💼 LinkedIn</span>
+              <div className="col-span-1 md:col-span-2 p-4 rounded-2xl bg-sage-50/40 border border-sage-200/60 space-y-2">
+                <span className="text-xs font-bold text-blue-800">LinkedIn</span>
                 <input
                   type="text"
                   value={data.socials.linkedin}
@@ -2164,7 +2164,7 @@ export default function AdminPortal() {
                     ...data,
                     socials: { ...data.socials, linkedin: e.target.value }
                   })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-[#CAD7C5] text-xs text-forest font-mono"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-sage-200 text-xs text-neutral-900 font-mono"
                 />
               </div>
             </div>
@@ -2172,9 +2172,9 @@ export default function AdminPortal() {
             <div className="pt-4 flex justify-end">
               <button
                 onClick={handleSave}
-                className="px-6 py-2.5 rounded-full bg-forest text-white text-xs font-bold hover:bg-rose-dark transition-colors shadow-sm cursor-pointer"
+                className="px-6 py-2.5 rounded-full bg-[#1A2616] text-white text-xs font-bold hover:bg-[#1A2616] transition-colors shadow-sm cursor-pointer"
               >
-                Simpan Perubahan Sosial Media 💾
+                Simpan Perubahan Sosial Media ✦
               </button>
             </div>
           </div>
@@ -2184,14 +2184,14 @@ export default function AdminPortal() {
         {/* TAB 6: PANDUAN CARA GANTI FOTO (MENGGUNAKAN FOTO SENDIRI)          */}
         {/* ================================================================= */}
         {activeTab === 'photoguide' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#CAD7C5] shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-sage-200 shadow-xs space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 text-amber-900 font-bold text-xs">
-              <span>📸 Tips Praktis Pengelolaan Foto</span>
+              <span>Tips Praktis Pengelolaan Foto</span>
             </div>
-            <h2 className="font-serif text-2xl font-bold text-forest">
+            <h2 className="font-serif text-2xl font-bold text-neutral-900">
               Bagaimana Cara Mengganti Foto dengan Foto Sendiri?
             </h2>
-            <p className="text-xs text-forest/70 leading-relaxed max-w-2xl">
+            <p className="text-xs text-neutral-500 leading-relaxed max-w-2xl">
               Di sistem portofolio ini, kamu punya <strong>2 cara super mudah</strong> untuk menampilkan foto aslimu (foto wisuda, foto dokumentasi lomba, foto produk, sertifikat, dll):
             </p>
 
@@ -2199,31 +2199,31 @@ export default function AdminPortal() {
               {/* Cara 1: Langsung Upload dari Laptop (FITUR UTAMA) */}
               <div className="p-5 rounded-2xl bg-emerald-50/70 border-2 border-emerald-300 space-y-3 shadow-xs">
                 <div className="flex items-center gap-2">
-                  <span className="w-7 h-7 rounded-full bg-emerald-700 text-white flex items-center justify-center font-bold text-xs">⭐</span>
-                  <h4 className="font-bold text-sm text-forest">Cara 1: Langsung Upload dari Laptop (Paling Praktis)</h4>
+                  <span className="w-7 h-7 rounded-full bg-[#1A2616] text-white flex items-center justify-center font-bold text-xs">✦</span>
+                  <h4 className="font-bold text-sm text-neutral-900">Cara 1: Langsung Upload dari Laptop (Paling Praktis)</h4>
                 </div>
-                <p className="text-xs text-forest/80 leading-relaxed">
+                <p className="text-xs text-neutral-600 leading-relaxed">
                   Sekarang kamu <strong>tidak perlu mengetik nama file atau memindah manual</strong>.
                 </p>
-                <div className="text-xs text-forest/85 space-y-1.5 bg-white p-3.5 rounded-xl border border-emerald-200">
+                <div className="text-xs text-neutral-900/85 space-y-1.5 bg-white p-3.5 rounded-xl border border-emerald-200">
                   <p className="font-bold text-emerald-800">Langkah-langkah:</p>
-                  <p>1. Klik tombol <strong>&ldquo;📁 Pilih dari Laptop&rdquo;</strong> atau seret langsung file fotomu ke kotak garis putus-putus.</p>
+                  <p>1. Klik tombol <strong>&ldquo;Pilih dari Laptop&rdquo;</strong> atau seret langsung file fotomu ke kotak garis putus-putus.</p>
                   <p>2. Foto otomatis dikompres agar website tetap super cepat dan ringan.</p>
                   <p>3. Preview langsung muncul seketika!</p>
-                  <p>4. Klik tombol <strong>&ldquo;💾 Simpan Data&rdquo;</strong> di pojok kanan atas.</p>
+                  <p>4. Klik tombol <strong>&ldquo;Simpan Data&rdquo;</strong> di pojok kanan atas.</p>
                 </div>
               </div>
 
               {/* Cara 2: Menggunakan Folder Public */}
-              <div className="p-5 rounded-2xl bg-[#E8EFE5]/50 border border-[#CAD7C5] space-y-3">
+              <div className="p-5 rounded-2xl bg-sage-50/50 border border-sage-200 space-y-3">
                 <div className="flex items-center gap-2">
-                  <span className="w-7 h-7 rounded-full bg-forest text-white flex items-center justify-center font-bold text-xs">2</span>
-                  <h4 className="font-bold text-sm text-forest">Cara 2: Folder <code>public/</code></h4>
+                  <span className="w-7 h-7 rounded-full bg-[#1A2616] text-white flex items-center justify-center font-bold text-xs">2</span>
+                  <h4 className="font-bold text-sm text-neutral-900">Cara 2: Folder <code>public/</code></h4>
                 </div>
-                <p className="text-xs text-forest/80 leading-relaxed">
+                <p className="text-xs text-neutral-600 leading-relaxed">
                   Bila ingin mengorganisir file secara manual di proyek:
                 </p>
-                <div className="text-xs text-forest/75 space-y-1 bg-white p-3 rounded-xl border border-[#CAD7C5]/60">
+                <div className="text-xs text-neutral-900/75 space-y-1 bg-white p-3 rounded-xl border border-sage-200/60">
                   <p>1. Simpan foto ke folder <code>public/</code> (contoh: <code>foto-wisuda.jpg</code>).</p>
                   <p>2. Klik <em>&ldquo;Tautan / Path Manual&rdquo;</em> di bawah foto.</p>
                   <p>3. Ketik <code>/foto-wisuda.jpg</code>.</p>
@@ -2231,15 +2231,15 @@ export default function AdminPortal() {
               </div>
 
               {/* Cara 3: Menggunakan Link URL Gambar Online */}
-              <div className="p-5 rounded-2xl bg-[#E8EFE5]/50 border border-[#CAD7C5] space-y-3">
+              <div className="p-5 rounded-2xl bg-sage-50/50 border border-sage-200 space-y-3">
                 <div className="flex items-center gap-2">
-                  <span className="w-7 h-7 rounded-full bg-rose-dark text-white flex items-center justify-center font-bold text-xs">3</span>
-                  <h4 className="font-bold text-sm text-forest">Cara 3: Link Gambar Online (URL)</h4>
+                  <span className="w-7 h-7 rounded-full bg-[#1A2616] text-white flex items-center justify-center font-bold text-xs">3</span>
+                  <h4 className="font-bold text-sm text-neutral-900">Cara 3: Link Gambar Online (URL)</h4>
                 </div>
-                <p className="text-xs text-forest/80 leading-relaxed">
+                <p className="text-xs text-neutral-600 leading-relaxed">
                   Jika foto sudah tersimpan di web hosting / cloud:
                 </p>
-                <div className="text-xs text-forest/75 space-y-1 bg-white p-3 rounded-xl border border-[#CAD7C5]/60">
+                <div className="text-xs text-neutral-900/75 space-y-1 bg-white p-3 rounded-xl border border-sage-200/60">
                   <p>1. Copy link URL langsung gambarnya (misal Unsplash/Cloudinary).</p>
                   <p>2. Buka <em>&ldquo;Tautan / Path Manual&rdquo;</em> dan tempel URL.</p>
                   <p>3. Klik Simpan Data.</p>
@@ -2253,33 +2253,33 @@ export default function AdminPortal() {
         {/* TAB 7: SUPABASE + VERCEL (ARSITEKTUR HILMAN JTI)                  */}
         {/* ================================================================= */}
         {activeTab === 'supabase' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#CAD7C5] shadow-xs space-y-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-sage-200 shadow-xs space-y-6">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 font-bold text-xs mb-2">
-                  <span>💡 Rekomendasi Hilman JTI Polinema</span>
+                  <span>Rekomendasi Konfigurasi Database</span>
                 </div>
-                <h2 className="font-serif text-2xl font-bold text-forest">
+                <h2 className="font-serif text-2xl font-bold text-neutral-900">
                   Arsitektur Vercel + Supabase Cloud Database
                 </h2>
-                <p className="text-xs text-forest/70 mt-1 max-w-2xl leading-relaxed">
+                <p className="text-xs text-neutral-500 mt-1 max-w-2xl leading-relaxed">
                   Frontend dihosting di Vercel (sangat cepat & gratis), sedangkan data tersimpan di Supabase (PostgreSQL gratis).
                 </p>
               </div>
 
-              <span className="text-4xl hidden sm:block">⚡</span>
+              <span className="text-3xl text-sage-600 hidden sm:block">✦</span>
             </div>
 
             <div className={`p-5 rounded-2xl border ${isSupabaseConfigured ? 'bg-emerald-50 border-emerald-300' : 'bg-amber-50 border-amber-300'}`}>
               <div className="flex items-center gap-2 font-bold text-xs mb-1">
-                <span>{isSupabaseConfigured ? '🟢' : '🟡'}</span>
+                <span>{isSupabaseConfigured ? 'Terhubung' : 'Belum Terhubung'}</span>
                 <span className={isSupabaseConfigured ? 'text-emerald-900' : 'text-amber-900'}>
                   {isSupabaseConfigured 
                     ? 'Status: Terhubung ke Supabase Cloud (Live Sync Aktif!)' 
                     : 'Status: Mode Penyimpanan Lokal (Supabase belum dikonfigurasi)'}
                 </span>
               </div>
-              <p className="text-xs text-forest/90 leading-relaxed">
+              <p className="text-xs text-neutral-900/90 leading-relaxed">
                 {isSupabaseConfigured
                   ? 'Setiap kali kamu mengklik "Simpan Data", data otomatis tersinkronisasi ke database cloud Supabase Anda sekaligus ke browser lokal!'
                   : 'Saat ini studio beroperasi menggunakan penyimpanan lokal browser (localStorage). Ikuti 4 langkah di bawah ini untuk menghubungkan ke database Supabase agar konten bisa diedit dari mana saja dan tersimpan aman di cloud.'}
@@ -2287,26 +2287,26 @@ export default function AdminPortal() {
             </div>
 
             <div className="space-y-4 pt-2">
-              <h3 className="font-serif text-base font-bold text-forest">
+              <h3 className="font-serif text-base font-bold text-neutral-900">
                 Langkah-Langkah Menghubungkan ke Supabase:
               </h3>
 
-              <div className="space-y-4 text-xs text-forest/80 font-source">
+              <div className="space-y-4 text-xs text-neutral-600 font-source">
                 {/* Langkah 1 */}
-                <div className="p-4 rounded-xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/70 space-y-1.5">
+                <div className="p-4 rounded-xl bg-sage-50/40 border border-sage-200/70 space-y-1.5">
                   <div className="flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-full bg-forest text-white flex items-center justify-center font-bold text-[10px]">1</span>
-                    <p className="font-bold text-forest text-sm">Buat Proyek Baru di Supabase</p>
+                    <span className="w-5 h-5 rounded-full bg-[#1A2616] text-white flex items-center justify-center font-bold text-[10px]">1</span>
+                    <p className="font-bold text-neutral-900 text-sm">Buat Proyek Baru di Supabase</p>
                   </div>
-                  <p>Buka <a href="https://supabase.com" target="_blank" rel="noopener noreferrer" className="text-rose-dark underline font-bold">supabase.com</a>, login / buat akun gratis, lalu klik tombol <strong>New Project</strong>.</p>
-                  <p className="text-[11px] text-forest/70">Beri nama proyek (misal: <em>chikal-portfolio</em>) dan simpan password database Anda.</p>
+                  <p>Buka <a href="https://supabase.com" target="_blank" rel="noopener noreferrer" className="text-sage-900 underline font-bold">supabase.com</a>, login / buat akun gratis, lalu klik tombol <strong>New Project</strong>.</p>
+                  <p className="text-[11px] text-neutral-500">Beri nama proyek (misal: <em>chikal-portfolio</em>) dan simpan password database Anda.</p>
                 </div>
 
                 {/* Langkah 2 */}
-                <div className="p-4 rounded-xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/70 space-y-2">
+                <div className="p-4 rounded-xl bg-sage-50/40 border border-sage-200/70 space-y-2">
                   <div className="flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-full bg-forest text-white flex items-center justify-center font-bold text-[10px]">2</span>
-                    <p className="font-bold text-forest text-sm">Jalankan SQL Schema di SQL Editor</p>
+                    <span className="w-5 h-5 rounded-full bg-[#1A2616] text-white flex items-center justify-center font-bold text-[10px]">2</span>
+                    <p className="font-bold text-neutral-900 text-sm">Jalankan SQL Schema di SQL Editor</p>
                   </div>
                   <p>Di dashboard Supabase proyekmu, klik menu <strong>SQL Editor</strong> di sidebar kiri, lalu klik <strong>New Query</strong>. Salin & tempel kode SQL di bawah ini, lalu klik <strong>Run</strong>:</p>
                   <pre className="p-3 bg-black/90 text-emerald-400 font-mono text-[11px] rounded-lg overflow-x-auto select-all leading-relaxed">
@@ -2336,14 +2336,14 @@ insert into public.portfolio_content (id, content)
 values ('main', '{}'::jsonb)
 on conflict (id) do nothing;`}
                   </pre>
-                  <p className="text-[11px] text-emerald-800">💡 Kode SQL di atas juga tersedia di file project: <code>supabase-schema.sql</code>.</p>
+                  <p className="text-[11px] text-emerald-800">Kode SQL di atas juga tersedia di file project: <code>supabase-schema.sql</code>.</p>
                 </div>
 
                 {/* Langkah 3 */}
-                <div className="p-4 rounded-xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/70 space-y-2">
+                <div className="p-4 rounded-xl bg-sage-50/40 border border-sage-200/70 space-y-2">
                   <div className="flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-full bg-forest text-white flex items-center justify-center font-bold text-[10px]">3</span>
-                    <p className="font-bold text-forest text-sm">Ambil Project URL dan Anon Key</p>
+                    <span className="w-5 h-5 rounded-full bg-[#1A2616] text-white flex items-center justify-center font-bold text-[10px]">3</span>
+                    <p className="font-bold text-neutral-900 text-sm">Ambil Project URL dan Anon Key</p>
                   </div>
                   <p>Di dashboard Supabase, klik menu <strong>Project Settings</strong> (ikon gerigi di kiri bawah) ➔ <strong>API</strong>. Salin 2 nilai berikut:</p>
                   <ul className="list-disc pl-5 space-y-1 text-xs">
@@ -2353,31 +2353,31 @@ on conflict (id) do nothing;`}
                 </div>
 
                 {/* Langkah 4 */}
-                <div className="p-4 rounded-xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/70 space-y-2">
+                <div className="p-4 rounded-xl bg-sage-50/40 border border-sage-200/70 space-y-2">
                   <div className="flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-full bg-forest text-white flex items-center justify-center font-bold text-[10px]">4</span>
-                    <p className="font-bold text-forest text-sm">Pasang di Environment Variables</p>
+                    <span className="w-5 h-5 rounded-full bg-[#1A2616] text-white flex items-center justify-center font-bold text-[10px]">4</span>
+                    <p className="font-bold text-neutral-900 text-sm">Pasang di Environment Variables</p>
                   </div>
-                  <p className="font-semibold text-forest">A. Untuk Pengujian Lokal di Laptop:</p>
+                  <p className="font-semibold text-neutral-900">A. Untuk Pengujian Lokal di Laptop:</p>
                   <p>Buat atau buka file <code>.env.local</code> di folder utama proyek, lalu isi:</p>
-                  <div className="font-mono text-[11px] bg-white p-2.5 rounded-lg border border-[#CAD7C5] space-y-1">
-                    <p className="text-forest"><code>NEXT_PUBLIC_SUPABASE_URL=https://proyek-kamu.supabase.co</code></p>
-                    <p className="text-forest"><code>NEXT_PUBLIC_SUPABASE_ANON_KEY=ey...anon_key_kamu</code></p>
+                  <div className="font-mono text-[11px] bg-white p-2.5 rounded-lg border border-sage-200 space-y-1">
+                    <p className="text-neutral-900"><code>NEXT_PUBLIC_SUPABASE_URL=https://proyek-kamu.supabase.co</code></p>
+                    <p className="text-neutral-900"><code>NEXT_PUBLIC_SUPABASE_ANON_KEY=ey...anon_key_kamu</code></p>
                   </div>
 
-                  <p className="font-semibold text-forest pt-1">B. Untuk Saat Website Tayang di Vercel:</p>
+                  <p className="font-semibold text-neutral-900 pt-1">B. Untuk Saat Website Tayang di Vercel:</p>
                   <p>Buka dashboard proyek di <strong>Vercel</strong> ➔ <strong>Settings</strong> ➔ <strong>Environment Variables</strong>, tambahkan 2 variabel yang sama persis di atas.</p>
                 </div>
               </div>
             </div>
 
-            <div className="pt-6 border-t border-[#CAD7C5]/60 flex items-center justify-between">
-              <span className="text-xs text-forest/60 italic">
+            <div className="pt-6 border-t border-sage-200/60 flex items-center justify-between">
+              <span className="text-xs text-neutral-500 italic">
                 Ingin membatalkan semua editan dan kembali ke data asli?
               </span>
               <button
                 onClick={handleReset}
-                className="px-4 py-2 rounded-full text-xs font-bold text-rose-dark hover:bg-rose-blush/60 border border-rose-dusty/40 transition-colors cursor-pointer"
+                className="px-4 py-2 rounded-full text-xs font-bold text-sage-900 hover:bg-sage-100/60 border border-rose-dusty/40 transition-colors cursor-pointer"
               >
                 Reset ke Data Default Pabrik
               </button>

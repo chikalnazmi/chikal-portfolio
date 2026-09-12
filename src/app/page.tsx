@@ -267,7 +267,7 @@ export default function Home() {
               </div>
               <div>
                 <p className="text-xs sm:text-sm font-bold text-[#18181B] leading-tight flex items-center gap-1.5">
-                  <span>🏆</span>
+                  <span className="text-sage-700 font-serif italic text-sm">✦</span>
                   <span>{portfolioData.hero?.stat1Value || "7x"} {portfolioData.hero?.stat1Label || "National Awards"}</span>
                 </p>
                 <p className="text-[11px] sm:text-xs text-sage-700 font-medium leading-tight mt-0.5">
@@ -308,7 +308,7 @@ export default function Home() {
               {/* Floating Badge 2 (Bottom-Right): Reach / Growth */}
               <div className="absolute bottom-6 right-6 z-20 bg-white/95 backdrop-blur-md border border-sage-200/90 rounded-2xl p-3 shadow-lg text-left">
                 <div className="flex items-center gap-2.5">
-                  <span className="text-lg">📈</span>
+                  <span className="w-7 h-7 rounded-xl bg-sage-100 text-sage-800 flex items-center justify-center font-bold text-xs">↗</span>
                   <div>
                     <p className="text-xs font-bold text-neutral-900 leading-tight">
                       {portfolioData.hero?.stat2Value || "10K+"} Reach
@@ -370,27 +370,27 @@ export default function Home() {
       <section className="py-7 border-y border-teal-100/50 bg-white/60 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between flex-wrap gap-6 sm:gap-8 opacity-80 transition-all duration-300">
           <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-neutral-600 hover:text-teal-800 transition-colors">
-            <span>🎓</span>
+            <span className="text-sage-600">✦</span>
             <span>Politeknik Negeri Malang</span>
           </div>
           <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-neutral-600 hover:text-teal-800 transition-colors">
-            <span>🌐</span>
+            <span className="text-sage-600">✦</span>
             <span>GDSC Google Polinema</span>
           </div>
           <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-neutral-600 hover:text-rose-800 transition-colors">
-            <span>🌸</span>
+            <span className="text-rose-500">✦</span>
             <span>Manikarumi Hijab</span>
           </div>
           <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-neutral-600 hover:text-rose-800 transition-colors">
-            <span>🧶</span>
+            <span className="text-rose-500">✦</span>
             <span>Yarn Up Creative</span>
           </div>
           <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-neutral-600 hover:text-teal-800 transition-colors">
-            <span>🎬</span>
+            <span className="text-sage-600">✦</span>
             <span>Dua Sisi Media</span>
           </div>
           <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-neutral-600 hover:text-teal-800 transition-colors">
-            <span>🚀</span>
+            <span className="text-sage-600">✦</span>
             <span>RevoU Digital Marketing</span>
           </div>
         </div>
@@ -668,7 +668,7 @@ export default function Home() {
               </div>
               <div className="mt-8 pt-4 border-t border-teal-100/60 flex items-center justify-between text-[11px] font-semibold text-teal-800">
                 <span>Market &amp; User Needs</span>
-                <span>🔍</span>
+                <span className="text-xs text-teal-600 font-mono">01 ↗</span>
               </div>
             </div>
 
@@ -685,7 +685,7 @@ export default function Home() {
               </div>
               <div className="mt-8 pt-4 border-t border-teal-100/60 flex items-center justify-between text-[11px] font-semibold text-teal-800">
                 <span>Business Model &amp; SOP</span>
-                <span>📐</span>
+                <span className="text-xs text-teal-600 font-mono">02 ↗</span>
               </div>
             </div>
 
@@ -702,7 +702,7 @@ export default function Home() {
               </div>
               <div className="mt-8 pt-4 border-t border-teal-100/60 flex items-center justify-between text-[11px] font-semibold text-teal-800">
                 <span>Execution &amp; KPI Reach</span>
-                <span>🚀</span>
+                <span className="text-xs text-teal-600 font-mono">03 ↗</span>
               </div>
             </div>
 
@@ -810,7 +810,7 @@ export default function Home() {
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
                   <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-4 py-2 rounded-full bg-white/95 backdrop-blur-md text-xs font-bold text-[#18181B] shadow-sm">
-                    🔍 Lihat Dokumentasi &amp; Hasil
+                    Lihat Dokumentasi &amp; Hasil ↗
                   </span>
                 </div>
               </div>
@@ -884,7 +884,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-8 border-b border-teal-100/60">
               <div>
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-rose-200/80 text-[11px] font-bold text-rose-900 mb-2">
-                  <span>🎬 {currentCreator.tag}</span>
+                  <span>✦ {currentCreator.tag}</span>
                 </div>
                 <h3 className="font-sans font-bold text-2xl sm:text-3xl text-[#18181B]">
                   {currentCreator.name} <span className="font-mono font-normal text-sm sm:text-base text-teal-700">{currentCreator.handle}</span>
@@ -896,7 +896,7 @@ export default function Home() {
 
               <div className="flex items-center gap-3">
                 <span className="px-4 py-2 rounded-2xl bg-emerald-50 text-emerald-900 border border-emerald-200 font-bold text-xs sm:text-sm">
-                  📈 {currentCreator.stats}
+                  ✦ {currentCreator.stats}
                 </span>
                 {currentCreator.link && (
                   <a
@@ -969,7 +969,7 @@ export default function Home() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-4">
                     <div>
                       <span className="text-[10px] font-bold uppercase tracking-wider text-rose-200">
-                        ⭐ Highlight Spotlight
+                        Featured Spotlight
                       </span>
                       <h4 className="font-serif italic font-normal text-xl sm:text-2xl text-white">
                         {currentCreator.centerTitle}
@@ -1228,9 +1228,9 @@ export default function Home() {
           <div className="flex flex-wrap gap-2">
             {[
               { id: 'all', label: 'All Honors' },
-              { id: '1st', label: '🥇 1st Place' },
-              { id: '2nd', label: '🥈 2nd Place' },
-              { id: 'top5', label: '⭐ Finalist & Speaker' },
+              { id: '1st', label: '1st Place' },
+              { id: '2nd', label: '2nd Place' },
+              { id: 'top5', label: 'Finalist & Speaker' },
             ].map(filter => (
               <button
                 key={filter.id}

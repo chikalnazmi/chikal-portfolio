@@ -173,8 +173,8 @@ export default function ImageUploadField({
         onDrop={onDrop}
         className={`relative rounded-2xl border-2 transition-all p-2 flex flex-col items-center justify-center overflow-hidden group ${
           isDragging
-            ? 'border-rose-dark bg-rose-blush/40 scale-[1.01]'
-            : 'border-dashed border-[#CAD7C5] bg-[#E8EFE5]/30 hover:border-forest/50'
+            ? 'border-sage-600 bg-sage-100/60 scale-[1.01]'
+            : 'border-dashed border-sage-200 bg-sage-50/40 hover:border-sage-400 hover:bg-sage-50/70'
         }`}
       >
         {/* If Image Value exists, show Image Preview with Replace Button */}
@@ -192,20 +192,20 @@ export default function ImageUploadField({
               />
 
               {/* Hover overlay with quick action buttons */}
-              <div className="absolute inset-0 bg-forest/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 p-2">
+              <div className="absolute inset-0 bg-neutral-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 p-2">
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
                   disabled={isUploading}
-                  className="px-3.5 py-1.5 rounded-full bg-white text-forest text-xs font-bold shadow-md hover:bg-rose-blush hover:text-rose-dark transition-all flex items-center gap-1 cursor-pointer"
+                  className="px-3.5 py-1.5 rounded-full bg-white text-neutral-900 text-xs font-semibold shadow-md hover:bg-sage-50 transition-all flex items-center gap-1.5 cursor-pointer"
                 >
-                  <span>📤</span>
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
                   <span>{isUploading ? 'Memproses...' : 'Ganti Foto'}</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => onChange('')}
-                  className="px-3 py-1.5 rounded-full bg-red-600 text-white text-xs font-bold shadow-md hover:bg-red-700 transition-all cursor-pointer"
+                  className="px-3 py-1.5 rounded-full bg-red-600 text-white text-xs font-semibold shadow-md hover:bg-red-700 transition-all cursor-pointer"
                   title="Hapus Foto"
                 >
                   ✕
@@ -219,11 +219,12 @@ export default function ImageUploadField({
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
                 disabled={isUploading}
-                className="px-3 py-1 rounded-lg bg-white border border-[#CAD7C5] text-[11px] font-bold text-forest hover:bg-rose-blush hover:text-rose-dark transition-colors shadow-2xs flex items-center gap-1 cursor-pointer"
+                className="px-3 py-1 rounded-lg bg-white border border-sage-200 text-[11px] font-semibold text-neutral-800 hover:bg-sage-50 transition-colors shadow-2xs flex items-center gap-1.5 cursor-pointer"
               >
-                <span>📁 Pilih dari Laptop</span>
+                <svg className="w-3.5 h-3.5 text-sage-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+                <span>Pilih dari Laptop</span>
               </button>
-              <span className="text-[10px] text-forest/50 truncate max-w-[160px] font-mono">
+              <span className="text-[10px] text-neutral-400 truncate max-w-[160px] font-mono">
                 {value.startsWith('data:') ? 'Foto Lokal (Base64)' : value}
               </span>
             </div>
@@ -232,16 +233,16 @@ export default function ImageUploadField({
           /* Empty State Dropzone */
           <div
             onClick={() => fileInputRef.current?.click()}
-            className="w-full py-6 flex flex-col items-center justify-center text-center cursor-pointer space-y-1.5"
+            className="w-full py-6 flex flex-col items-center justify-center text-center cursor-pointer space-y-2"
           >
-            <div className="w-10 h-10 rounded-full bg-white text-forest flex items-center justify-center text-lg shadow-xs border border-[#CAD7C5]">
-              {isUploading ? '⏳' : '📤'}
+            <div className="w-10 h-10 rounded-full bg-white text-sage-800 flex items-center justify-center text-lg shadow-xs border border-sage-200">
+              <svg className="w-5 h-5 text-sage-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
             </div>
             <div>
-              <p className="text-xs font-bold text-forest">
+              <p className="text-xs font-semibold text-neutral-800">
                 {isUploading ? 'Sedang Memproses Foto...' : 'Klik untuk Upload Foto dari Laptop'}
               </p>
-              <p className="text-[10px] text-forest/60">
+              <p className="text-[10px] text-neutral-500 mt-0.5">
                 atau seret & jatuhkan (drag and drop) file foto ke sini
               </p>
             </div>
