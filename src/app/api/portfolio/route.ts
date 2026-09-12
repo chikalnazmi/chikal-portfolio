@@ -35,6 +35,7 @@ export async function GET() {
       return NextResponse.json({
         source: 'auto-seeded',
         isSupabaseConnected: true,
+        updatedAt: new Date().toISOString(),
         data: mergedContent
       });
     }

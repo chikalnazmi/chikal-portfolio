@@ -58,6 +58,9 @@ export default function Home() {
   // Active image index in modal
   const [activeModalImgIdx, setActiveModalImgIdx] = useState(0);
 
+  // Active creator key for Creator Stage
+  const [activeCreatorKey, setActiveCreatorKey] = useState<string>('personal');
+
   // Derived lists from store
   const experiencesList = (portfolioData.experiences && portfolioData.experiences.length > 0)
     ? portfolioData.experiences
@@ -76,6 +79,9 @@ export default function Home() {
   const certificationList = (portfolioData.certifications && portfolioData.certifications.length > 0)
     ? portfolioData.certifications
     : DEFAULT_PORTFOLIO_DATA.certifications!;
+
+  const creatorAccounts = portfolioData.creatorAccounts || DEFAULT_PORTFOLIO_DATA.creatorAccounts;
+  const currentCreator = creatorAccounts[activeCreatorKey] || Object.values(creatorAccounts)[0];
 
   // Filtered projects
   const filteredProjects = activeProjectFilter === 'all'
@@ -139,7 +145,7 @@ export default function Home() {
           {/* Center Honor Pill (Desktop - Laurel Wreath Style) */}
           <div className="hidden md:flex items-center gap-2 bg-teal-50/80 border border-teal-200/70 rounded-full px-4 py-1 text-[11px] font-medium text-teal-900 shadow-xs">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span>(Honor) Cum Laude Graduate · Polinema D4 SIB · GPA 3.84</span>
+            <span>(Honor) {academicData.badge || "Cum Laude Graduate"} · {academicData.institution || "Polinema D4 SIB"} · GPA {academicData.gpaValue || "3.84"}</span>
           </div>
 
           {/* Right Navigation & Actions */}
@@ -147,6 +153,7 @@ export default function Home() {
             <nav className="hidden lg:flex items-center gap-6 text-xs font-medium text-neutral-600">
               <a href="#about" className="hover:text-teal-700 transition-colors">About</a>
               <a href="#projects" className="hover:text-teal-700 transition-colors">Selected Works</a>
+              <a href="#creator" className="hover:text-teal-700 transition-colors">Creator Studio</a>
               <a href="#process" className="hover:text-teal-700 transition-colors">Process</a>
               <a href="#experience" className="hover:text-teal-700 transition-colors">Experience</a>
               <a href="#awards" className="hover:text-teal-700 transition-colors">Awards</a>
@@ -160,14 +167,6 @@ export default function Home() {
             >
               <span>✦ Let&apos;s Talk</span>
             </a>
-
-            <Link
-              href="/admin"
-              title="Studio CMS"
-              className="w-8 h-8 rounded-full border border-teal-200/80 flex items-center justify-center text-xs text-teal-800 hover:bg-teal-50 transition-colors"
-            >
-              🔒
-            </Link>
 
             {/* Mobile menu button */}
             <button
@@ -191,6 +190,7 @@ export default function Home() {
           <div className="lg:hidden mt-3 pt-3 border-t border-teal-100/60 flex flex-col gap-2.5 pb-2 text-xs font-medium text-neutral-600">
             <a href="#about" onClick={() => setMobileMenuOpen(false)} className="py-1 px-2 hover:bg-teal-50 rounded-lg">About</a>
             <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="py-1 px-2 hover:bg-teal-50 rounded-lg">Selected Works</a>
+            <a href="#creator" onClick={() => setMobileMenuOpen(false)} className="py-1 px-2 hover:bg-teal-50 rounded-lg">Creator Studio</a>
             <a href="#process" onClick={() => setMobileMenuOpen(false)} className="py-1 px-2 hover:bg-teal-50 rounded-lg">Process</a>
             <a href="#experience" onClick={() => setMobileMenuOpen(false)} className="py-1 px-2 hover:bg-teal-50 rounded-lg">Experience</a>
             <a href="#awards" onClick={() => setMobileMenuOpen(false)} className="py-1 px-2 hover:bg-teal-50 rounded-lg">Awards</a>
@@ -262,8 +262,8 @@ export default function Home() {
                 <img className="inline-block h-6 w-6 rounded-full ring-2 ring-white object-cover" src="/16.png" alt="Award 3" />
               </div>
               <div className="text-left">
-                <p className="text-[11px] font-bold text-[#18181B] leading-tight">🏆 7x National Awards</p>
-                <p className="text-[10px] text-teal-700 font-medium leading-tight">Business Case &amp; IT Innovation</p>
+                <p className="text-[11px] font-bold text-[#18181B] leading-tight">🏆 {portfolioData.hero?.stat1Value || "7x"} {portfolioData.hero?.stat1Label || "National Awards"}</p>
+                <p className="text-[10px] text-teal-700 font-medium leading-tight">{portfolioData.hero?.stat2Value ? `${portfolioData.hero.stat2Value} ${portfolioData.hero.stat2Label || "Reach"}` : "Business Case & IT Innovation"}</p>
               </div>
             </div>
           </div>
@@ -290,6 +290,42 @@ export default function Home() {
             />
           </div>
 
+        </div>
+
+        {/* 4 Statistical Metrics Bar (Real-time from CMS Tab Hero) */}
+        <div className="relative z-10 max-w-4xl mx-auto mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 px-2">
+          <div className="bg-white/90 backdrop-blur-md rounded-2xl p-3.5 sm:p-4 border border-teal-100/90 shadow-xs hover:border-teal-300 transition-colors text-center">
+            <span className="font-serif font-bold text-2xl sm:text-3xl text-teal-950 block">
+              {portfolioData.hero?.stat1Value || "7x"}
+            </span>
+            <span className="text-[10px] sm:text-[11px] uppercase font-bold text-neutral-500 tracking-wider block mt-0.5">
+              {portfolioData.hero?.stat1Label || "Penghargaan Lomba"}
+            </span>
+          </div>
+          <div className="bg-white/90 backdrop-blur-md rounded-2xl p-3.5 sm:p-4 border border-rose-100/90 shadow-xs hover:border-rose-300 transition-colors text-center">
+            <span className="font-serif font-bold text-2xl sm:text-3xl text-rose-900 block">
+              {portfolioData.hero?.stat2Value || "10K+"}
+            </span>
+            <span className="text-[10px] sm:text-[11px] uppercase font-bold text-neutral-500 tracking-wider block mt-0.5">
+              {portfolioData.hero?.stat2Label || "Jangkauan Konten"}
+            </span>
+          </div>
+          <div className="bg-white/90 backdrop-blur-md rounded-2xl p-3.5 sm:p-4 border border-teal-100/90 shadow-xs hover:border-teal-300 transition-colors text-center">
+            <span className="font-serif font-bold text-2xl sm:text-3xl text-teal-950 block">
+              {portfolioData.hero?.stat3Value || "20+"}
+            </span>
+            <span className="text-[10px] sm:text-[11px] uppercase font-bold text-neutral-500 tracking-wider block mt-0.5">
+              {portfolioData.hero?.stat3Label || "Mitra Event"}
+            </span>
+          </div>
+          <div className="bg-white/90 backdrop-blur-md rounded-2xl p-3.5 sm:p-4 border border-rose-100/90 shadow-xs hover:border-rose-300 transition-colors text-center">
+            <span className="font-serif font-bold text-2xl sm:text-3xl text-rose-900 block">
+              {portfolioData.hero?.stat4Value || "D4 SIB"}
+            </span>
+            <span className="text-[10px] sm:text-[11px] uppercase font-bold text-neutral-500 tracking-wider block mt-0.5">
+              {portfolioData.hero?.stat4Label || "Polinema"}
+            </span>
+          </div>
         </div>
 
       </section>
@@ -371,7 +407,7 @@ export default function Home() {
                   <h3 className="font-sans font-bold text-base sm:text-lg text-[#18181B] group-hover:text-teal-700 transition-colors">
                     {projectsList[0]?.title || "Sistem Manajemen Pelanggan Koran"}
                   </h3>
-                  <p className="text-xs text-neutral-500 mt-0.5">Database Relasional &amp; Sirkulasi Otomatis</p>
+                  <p className="text-xs text-neutral-500 mt-0.5">{projectsList[0]?.tag || "Database Relasional & Sirkulasi Otomatis"}</p>
                 </div>
                 <span className="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
                   Polinema D4 SIB
@@ -403,7 +439,7 @@ export default function Home() {
                   <h3 className="font-sans font-bold text-base sm:text-lg text-[#18181B] group-hover:text-teal-700 transition-colors">
                     {projectsList[1]?.title || "Website SurveyKu Analytics"}
                   </h3>
-                  <p className="text-xs text-neutral-500 mt-0.5">User Feedback &amp; Data Modeling</p>
+                  <p className="text-xs text-neutral-500 mt-0.5">{projectsList[1]?.tag || "User Feedback & Data Modeling"}</p>
                 </div>
                 <span className="text-xs font-semibold px-3 py-1 rounded-full bg-teal-50 text-teal-800 border border-teal-200">
                   UX Analytics
@@ -435,7 +471,7 @@ export default function Home() {
                   <h3 className="font-sans font-bold text-base sm:text-lg text-[#18181B] group-hover:text-teal-700 transition-colors">
                     {projectsList[2]?.title || "JTI Certify Platform"}
                   </h3>
-                  <p className="text-xs text-neutral-500 mt-0.5">Anti-Forgery Digital Credential</p>
+                  <p className="text-xs text-neutral-500 mt-0.5">{projectsList[2]?.tag || "Anti-Forgery Digital Credential"}</p>
                 </div>
                 <span className="text-xs font-semibold px-3 py-1 rounded-full bg-purple-50 text-purple-800 border border-purple-200">
                   Polinema JTI
@@ -508,31 +544,34 @@ export default function Home() {
         </div>
 
         {/* Floating Skill Pills Around the Statement with Green-Teal & Rose accents */}
-        <div className="relative z-10 flex flex-wrap justify-center gap-2.5 sm:gap-3 max-w-2xl mx-auto">
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-teal-200/80 shadow-xs text-xs font-semibold text-[#18181B] hover:border-teal-400 transition-colors">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.7)]"></span>
-            <span>Business Model Canvas</span>
-          </span>
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-teal-200/80 shadow-xs text-xs font-semibold text-[#18181B] hover:border-teal-400 transition-colors">
-            <span className="w-2 h-2 rounded-full bg-teal-500 shadow-[0_0_6px_rgba(20,184,166,0.7)]"></span>
-            <span>UI/UX &amp; Market Research</span>
-          </span>
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-rose-200/80 shadow-xs text-xs font-semibold text-[#18181B] hover:border-rose-400 transition-colors">
-            <span className="w-2 h-2 rounded-full bg-rose-500"></span>
-            <span>SOP &amp; Operational Flow</span>
-          </span>
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-teal-200/80 shadow-xs text-xs font-semibold text-[#18181B] hover:border-teal-400 transition-colors">
-            <span className="w-2 h-2 rounded-full bg-cyan-500"></span>
-            <span>Figma Prototyping</span>
-          </span>
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-rose-200/80 shadow-xs text-xs font-semibold text-[#18181B] hover:border-rose-400 transition-colors">
-            <span className="w-2 h-2 rounded-full bg-pink-500"></span>
-            <span>Short-Form Video &amp; CapCut</span>
-          </span>
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-teal-200/80 shadow-xs text-xs font-semibold text-[#18181B] hover:border-teal-400 transition-colors">
-            <span className="w-2 h-2 rounded-full bg-emerald-600"></span>
-            <span>B2B Partnerships Strategy</span>
-          </span>
+        <div className="relative z-10 flex flex-wrap justify-center gap-2.5 sm:gap-3 max-w-3xl mx-auto">
+          {((portfolioData.skills && portfolioData.skills.length > 0)
+            ? portfolioData.skills.flatMap(cat => cat.skills.map(s => ({ name: s, type: cat.type })))
+            : [
+                { name: 'Business Model Canvas', type: 'hard' },
+                { name: 'UI/UX & Market Research', type: 'hard' },
+                { name: 'SOP & Operational Flow', type: 'hard' },
+                { name: 'Figma Prototyping', type: 'hard' },
+                { name: 'Short-Form Video & CapCut', type: 'hard' },
+                { name: 'B2B Partnerships Strategy', type: 'hard' }
+              ]
+          ).slice(0, 15).map((skill, sIdx) => {
+            const isRose = skill.type === 'soft' || sIdx % 3 === 2;
+            const isCyan = sIdx % 3 === 1;
+            return (
+              <span 
+                key={sIdx}
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border ${
+                  isRose ? 'border-rose-200/80 hover:border-rose-400' : 'border-teal-200/80 hover:border-teal-400'
+                } shadow-xs text-xs font-semibold text-[#18181B] transition-colors`}
+              >
+                <span className={`w-2 h-2 rounded-full ${
+                  isRose ? 'bg-rose-500' : isCyan ? 'bg-teal-500 shadow-[0_0_6px_rgba(20,184,166,0.7)]' : 'bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.7)]'
+                }`}></span>
+                <span>{skill.name}</span>
+              </span>
+            );
+          })}
         </div>
 
       </section>
@@ -635,13 +674,13 @@ export default function Home() {
             <span className="text-3xl text-teal-400 font-serif leading-none">“</span>
             <div>
               <p className="text-xs sm:text-sm text-[#18181B] italic leading-relaxed">
-                Kemampuan analisis komprehensif dalam memadukan kelayakan bisnis, tata kelola data sistem informasi, dan presentasi meyakinkan terbukti membawakan 7 gelar juara nasional.
+                {awardsList[0]?.desc ? `${awardsList[0].title} — ${awardsList[0].desc}` : "Kemampuan analisis komprehensif dalam memadukan kelayakan bisnis, tata kelola data sistem informasi, dan presentasi meyakinkan terbukti membawakan 7 gelar juara nasional."}
               </p>
               <div className="flex items-center gap-3 mt-4">
-                <img src="/11.png" alt="Award" className="w-8 h-8 rounded-full object-cover ring-2 ring-teal-100" />
+                <img src={awardsList[0]?.certImg || "/11.png"} alt="Award" className="w-8 h-8 rounded-full object-cover ring-2 ring-teal-100" />
                 <div>
-                  <h4 className="font-bold text-xs text-[#18181B]">National Fest Business Plan Competition</h4>
-                  <p className="text-[10px] text-teal-700">Juara 1 Tingkat Nasional 2024</p>
+                  <h4 className="font-bold text-xs text-[#18181B]">{awardsList[0]?.title || "National Fest Business Plan Competition"}</h4>
+                  <p className="text-[10px] text-teal-700">{awardsList[0]?.rank || "Juara 1 Tingkat Nasional"} {awardsList[0]?.year ? `(${awardsList[0].year})` : ""}</p>
                 </div>
               </div>
             </div>
@@ -651,13 +690,13 @@ export default function Home() {
             <span className="text-3xl text-rose-300 font-serif leading-none">“</span>
             <div>
               <p className="text-xs sm:text-sm text-[#18181B] italic leading-relaxed">
-                Inisiatif kepemimpinan di Manikarumi dan GDSC Polinema mempercepat lonjakan jangkauan konten organik hingga +2.089% dengan storytelling yang memikat audiens muda.
+                {portfolioData.creatorAccounts?.manikarumi?.centerDesc || "Inisiatif kepemimpinan di Manikarumi dan GDSC Polinema mempercepat lonjakan jangkauan konten organik hingga +2.089% dengan storytelling yang memikat audiens muda."}
               </p>
               <div className="flex items-center gap-3 mt-4">
-                <img src="/17.png" alt="Manikarumi" className="w-8 h-8 rounded-full object-cover ring-2 ring-rose-100" />
+                <img src={portfolioData.creatorAccounts?.manikarumi?.centerImg || "/17.png"} alt="Manikarumi" className="w-8 h-8 rounded-full object-cover ring-2 ring-rose-100" />
                 <div>
-                  <h4 className="font-bold text-xs text-[#18181B]">Commercial Content Growth</h4>
-                  <p className="text-[10px] text-rose-700">Brand Impact &amp; Reach Surge</p>
+                  <h4 className="font-bold text-xs text-[#18181B]">{portfolioData.creatorAccounts?.manikarumi?.name || "Commercial Content Growth"}</h4>
+                  <p className="text-[10px] text-rose-700">{portfolioData.creatorAccounts?.manikarumi?.stats || "Brand Impact & Reach Surge"}</p>
                 </div>
               </div>
             </div>
@@ -756,6 +795,190 @@ export default function Home() {
       </section>
 
       {/* ========================================================================= */}
+      {/* CREATIVE MEDIA & CONTENT CREATOR SHOWCASE (CMS Video & Creator Tab)        */}
+      {/* ========================================================================= */}
+      <section id="creator" className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-teal-100/50">
+        
+        {/* Section Header */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+          <div>
+            <span className="font-serif italic font-normal text-2xl sm:text-3xl text-teal-600 block">/ Content &amp; Media /</span>
+            <h2 className="font-sans font-medium text-4xl sm:text-5xl text-[#18181B] tracking-tight mt-1">
+              Creator Studio &amp; Social Growth
+            </h2>
+            <p className="text-xs sm:text-sm text-neutral-600 mt-2 max-w-md">
+              Produksi video pendek bernuansa sinematik, visual merchandising ritel festival, dan kurasi katalog produk yang mendorong interaksi audiens.
+            </p>
+          </div>
+
+          {/* Account Switcher Tabs (From CMS data.creatorAccounts) */}
+          <div className="flex flex-wrap gap-2">
+            {Object.keys(portfolioData.creatorAccounts || {}).map((accKey) => {
+              const acc = portfolioData.creatorAccounts[accKey];
+              return (
+                <button
+                  key={accKey}
+                  onClick={() => setActiveCreatorKey(accKey)}
+                  className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                    activeCreatorKey === accKey
+                      ? 'bg-[#0B2321] text-white shadow-xs'
+                      : 'bg-white text-neutral-600 border border-teal-100 hover:border-teal-300'
+                  }`}
+                >
+                  <span>{acc.name}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Selected Creator Account Display */}
+        {currentCreator && (
+          <div className="bg-gradient-to-b from-rose-50/30 via-white to-teal-50/30 rounded-4xl p-6 sm:p-10 border border-rose-100/80 shadow-xs">
+            
+            {/* Account Info Bar */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-8 border-b border-teal-100/60">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-rose-200/80 text-[11px] font-bold text-rose-900 mb-2">
+                  <span>🎬 {currentCreator.tag}</span>
+                </div>
+                <h3 className="font-sans font-bold text-2xl sm:text-3xl text-[#18181B]">
+                  {currentCreator.name} <span className="font-mono font-normal text-sm sm:text-base text-teal-700">{currentCreator.handle}</span>
+                </h3>
+                <p className="text-xs text-neutral-500 mt-1">
+                  Platform: {currentCreator.platforms}
+                </p>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <span className="px-4 py-2 rounded-2xl bg-emerald-50 text-emerald-900 border border-emerald-200 font-bold text-xs sm:text-sm">
+                  📈 {currentCreator.stats}
+                </span>
+                {currentCreator.link && (
+                  <a
+                    href={currentCreator.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 rounded-full bg-[#0B2321] text-white text-xs font-semibold hover:bg-[#134E4A] transition-colors"
+                  >
+                    Buka Akun ↗
+                  </a>
+                )}
+              </div>
+            </div>
+
+            {/* Media Gallery / Phone Mockups + Center Stage */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mt-8 items-stretch">
+              
+              {/* Left Media Card (Left Phone Mockup) */}
+              <div 
+                className="md:col-span-3 bg-white rounded-3xl p-4 border border-teal-100/80 shadow-xs hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
+                onClick={() => openModal({
+                  title: currentCreator.leftPhoneTitle || currentCreator.name,
+                  category: currentCreator.leftPhoneTag || 'SOCIAL MEDIA REELS',
+                  description: `${currentCreator.name} — ${currentCreator.leftPhoneTitle}. Platform: ${currentCreator.platforms}.`,
+                  images: [currentCreator.leftPhoneImg || '/1.png'],
+                  link: currentCreator.leftPhoneLink || currentCreator.link,
+                  linkLabel: 'Buka Konten ↗'
+                })}
+              >
+                <div className="relative overflow-hidden rounded-2xl bg-neutral-100 aspect-[9/16] max-h-[320px] mb-3">
+                  <img
+                    src={currentCreator.leftPhoneImg || "/4.png"}
+                    alt={currentCreator.leftPhoneTitle}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-2 left-2 px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-xs text-[10px] font-bold text-white">
+                    {currentCreator.leftPhoneTag || "Reels"}
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-bold text-xs sm:text-sm text-[#18181B] group-hover:text-teal-700 transition-colors">
+                    {currentCreator.leftPhoneTitle}
+                  </h4>
+                  <span className="text-[10px] text-teal-600 font-medium">Lihat Media ↗</span>
+                </div>
+              </div>
+
+              {/* Center Stage Card (Center Showcase) */}
+              <div 
+                className="md:col-span-6 bg-white rounded-3xl p-5 sm:p-6 border border-rose-100/90 shadow-xs hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
+                onClick={() => openModal({
+                  title: currentCreator.centerTitle || currentCreator.name,
+                  category: 'CREATIVE SHOWCASE',
+                  description: currentCreator.centerDesc,
+                  images: [currentCreator.centerImg || '/2.png'],
+                  link: currentCreator.centerLink || currentCreator.link,
+                  linkLabel: 'Lihat Video / Katalog ↗'
+                })}
+              >
+                <div className="relative overflow-hidden rounded-2xl bg-neutral-100 aspect-[16/10] sm:aspect-[16/11] mb-4">
+                  <img
+                    src={currentCreator.centerImg || "/3.png"}
+                    alt={currentCreator.centerTitle}
+                    className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-4">
+                    <div>
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-rose-200">
+                        ⭐ Highlight Spotlight
+                      </span>
+                      <h4 className="font-serif italic font-normal text-xl sm:text-2xl text-white">
+                        {currentCreator.centerTitle}
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
+                    {currentCreator.centerDesc}
+                  </p>
+                  <div className="mt-4 pt-3 border-t border-rose-100/60 flex items-center justify-between text-xs font-semibold text-rose-800">
+                    <span>{currentCreator.centerLink ? "Tonton Konten Pilihan ↗" : "Dokumentasi Galeri"}</span>
+                    <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Media Card (Right Phone Mockup) */}
+              <div 
+                className="md:col-span-3 bg-white rounded-3xl p-4 border border-teal-100/80 shadow-xs hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
+                onClick={() => openModal({
+                  title: currentCreator.rightPhoneTitle || currentCreator.name,
+                  category: currentCreator.rightPhoneTag || 'TIKTOK CONTENT',
+                  description: `${currentCreator.name} — ${currentCreator.rightPhoneTitle}. Platform: ${currentCreator.platforms}.`,
+                  images: [currentCreator.rightPhoneImg || '/1.png'],
+                  link: currentCreator.rightPhoneLink || currentCreator.link,
+                  linkLabel: 'Buka Konten ↗'
+                })}
+              >
+                <div className="relative overflow-hidden rounded-2xl bg-neutral-100 aspect-[9/16] max-h-[320px] mb-3">
+                  <img
+                    src={currentCreator.rightPhoneImg || "/5.png"}
+                    alt={currentCreator.rightPhoneTitle}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-2 left-2 px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-xs text-[10px] font-bold text-white">
+                    {currentCreator.rightPhoneTag || "TikTok"}
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-bold text-xs sm:text-sm text-[#18181B] group-hover:text-teal-700 transition-colors">
+                    {currentCreator.rightPhoneTitle}
+                  </h4>
+                  <span className="text-[10px] text-teal-600 font-medium">Lihat Media ↗</span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        )}
+
+      </section>
+
+      {/* ========================================================================= */}
       {/* 8. PUSHING BOUNDARIES (About Story & Clean Career Timeline)              */}
       {/* ========================================================================= */}
       <section id="experience" className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-teal-100/50">
@@ -826,13 +1049,35 @@ export default function Home() {
               >
                 ✉
               </a>
+              {portfolioData.socials?.youtube && (
+                <a
+                  href={portfolioData.socials.youtube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-full bg-rose-50 text-rose-900 hover:bg-[#0B2321] hover:text-white transition-colors flex items-center justify-center text-xs font-bold"
+                  title="YouTube"
+                >
+                  yt
+                </a>
+              )}
+              {portfolioData.socials?.medium && (
+                <a
+                  href={portfolioData.socials.medium}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-full bg-teal-50 text-teal-900 hover:bg-[#0B2321] hover:text-white transition-colors flex items-center justify-center text-xs font-bold"
+                  title="Medium"
+                >
+                  m
+                </a>
+              )}
             </div>
           </div>
 
           {/* Right Column: Narrative Story & Clean Horizontal Career Rows */}
           <div className="lg:col-span-7 space-y-8">
             <p className="text-sm sm:text-base text-neutral-700 leading-relaxed font-normal">
-              Lulusan <strong>Sarjana Terapan Sistem Informasi Bisnis (D4 SIB) Politeknik Negeri Malang</strong> dengan predikat <em>Cum Laude</em> dan sertifikasi internasional TOEIC 775. Berfokus pada perancangan model bisnis, tata kelola data sistem informasi, serta optimalisasi strategi media komersial yang terbukti memperluas pangsa pasar dan memenangkan kompetisi nasional.
+              Lulusan <strong>{academicData.degree || "Sarjana Terapan Sistem Informasi Bisnis (D4 SIB)"} {academicData.institution || "Politeknik Negeri Malang"}</strong> dengan predikat <em>{academicData.badge || "Cum Laude"} (IPK {academicData.gpaValue || "3.84"})</em>{academicData.toeicScore ? ` serta sertifikasi internasional TOEIC ${academicData.toeicScore} (${academicData.toeicLevel || "Working Proficiency"})` : ""}. {academicData.description || "Berfokus pada perancangan model bisnis, tata kelola data sistem informasi, serta optimalisasi strategi media komersial yang terbukti memperluas pangsa pasar dan memenangkan kompetisi nasional."}
             </p>
 
             {/* Clean Timeline Rows (Elian Ross Style) */}
@@ -844,8 +1089,10 @@ export default function Home() {
                   onClick={() => openModal({
                     title: exp.title,
                     category: exp.category || 'WORK EXPERIENCE',
-                    description: exp.summary,
+                    description: `${exp.summary}${exp.results && exp.results.length > 0 ? `\n\nFokus & Capaian:\n• ${exp.results.join('\n• ')}` : ''}`,
                     images: exp.extraImages && exp.extraImages.length > 0 ? exp.extraImages : [exp.image || '/1.png'],
+                    link: exp.link,
+                    linkLabel: exp.linkLabel || 'Profil Bisnis ↗'
                   })}
                 >
                   <div>
@@ -1060,10 +1307,10 @@ export default function Home() {
             <a href="#about" className="hover:text-teal-700 transition-colors">Home</a>
             <a href="#about" className="hover:text-teal-700 transition-colors">About</a>
             <a href="#projects" className="hover:text-teal-700 transition-colors">Portfolio</a>
+            <a href="#creator" className="hover:text-teal-700 transition-colors">Creator</a>
             <a href="#process" className="hover:text-teal-700 transition-colors">Process</a>
             <a href="#experience" className="hover:text-teal-700 transition-colors">Experience</a>
             <a href="#awards" className="hover:text-teal-700 transition-colors">Awards</a>
-            <Link href="/admin" className="hover:text-teal-700 transition-colors font-bold">Studio CMS</Link>
           </div>
 
           <p className="text-center sm:text-right text-neutral-400">
