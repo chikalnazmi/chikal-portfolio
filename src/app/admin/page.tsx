@@ -66,6 +66,9 @@ export default function AdminPortal() {
     setIsSaving(true);
     try {
       const res = await savePortfolioData(data);
+      if (res.data) {
+        setData(res.data);
+      }
       if (res.success) {
         setToastNotification({
           type: 'success',

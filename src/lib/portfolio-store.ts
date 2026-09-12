@@ -799,8 +799,129 @@ export async function fetchPortfolioDataFromSupabase(): Promise<PortfolioData | 
   }
 }
 
+async function uploadDataUrl(dataUrl: string, prefix = 'photo'): Promise<string> {
+  if (!dataUrl || !dataUrl.startsWith('data:image/')) return dataUrl;
+  try {
+    const res = await fetch(dataUrl);
+    const blob = await res.blob();
+    const ext = blob.type.split('/')[1] || 'jpg';
+    const filename = `${prefix}_${Date.now()}_${Math.random().toString(36).substring(2, 7)}.${ext}`;
+    const file = new File([blob], filename, { type: blob.type });
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const uploadRes = await fetch('/api/upload', {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (uploadRes.ok) {
+      const json = await uploadRes.json();
+      if (json.url) return json.url;
+    }
+  } catch (err) {
+    console.warn('Could not upload base64 image to storage:', err);
+  }
+  return dataUrl;
+}
+
+export async function sanitizeAndUploadAllImages(data: PortfolioData): Promise<PortfolioData> {
+  const cloned: PortfolioData = JSON.parse(JSON.stringify(data));
+
+  // 1. Hero Avatar
+  if (cloned.hero?.avatarImg && cloned.hero.avatarImg.startsWith('data:image/')) {
+    cloned.hero.avatarImg = await uploadDataUrl(cloned.hero.avatarImg, 'hero_avatar');
+  }
+
+  // 2. Academic Images
+  if (cloned.academic?.images && Array.isArray(cloned.academic.images)) {
+    for (let i = 0; i < cloned.academic.images.length; i++) {
+      if (cloned.academic.images[i]?.startsWith('data:image/')) {
+        cloned.academic.images[i] = await uploadDataUrl(cloned.academic.images[i], `academic_${i}`);
+      }
+    }
+  }
+
+  // 3. Creator Accounts
+  if (cloned.creatorAccounts) {
+    for (const key of Object.keys(cloned.creatorAccounts)) {
+      const acc = cloned.creatorAccounts[key];
+      if (acc.centerImg?.startsWith('data:image/')) {
+        acc.centerImg = await uploadDataUrl(acc.centerImg, `creator_${key}_center`);
+      }
+      if (acc.leftPhoneImg?.startsWith('data:image/')) {
+        acc.leftPhoneImg = await uploadDataUrl(acc.leftPhoneImg, `creator_${key}_left`);
+      }
+      if (acc.rightPhoneImg?.startsWith('data:image/')) {
+        acc.rightPhoneImg = await uploadDataUrl(acc.rightPhoneImg, `creator_${key}_right`);
+      }
+    }
+  }
+
+  // 4. Experiences
+  if (cloned.experiences && Array.isArray(cloned.experiences)) {
+    for (let i = 0; i < cloned.experiences.length; i++) {
+      const exp = cloned.experiences[i];
+      if (exp.image?.startsWith('data:image/')) {
+        exp.image = await uploadDataUrl(exp.image, `exp_${i}`);
+      }
+      if (exp.extraImages && Array.isArray(exp.extraImages)) {
+        for (let j = 0; j < exp.extraImages.length; j++) {
+          if (exp.extraImages[j]?.startsWith('data:image/')) {
+            exp.extraImages[j] = await uploadDataUrl(exp.extraImages[j], `exp_${i}_extra_${j}`);
+          }
+        }
+      }
+    }
+  }
+
+  // 5. Projects
+  if (cloned.projects && Array.isArray(cloned.projects)) {
+    for (let i = 0; i < cloned.projects.length; i++) {
+      const proj = cloned.projects[i];
+      if (proj.image?.startsWith('data:image/')) {
+        proj.image = await uploadDataUrl(proj.image, `proj_${i}`);
+      }
+      if (proj.extraImages && Array.isArray(proj.extraImages)) {
+        for (let j = 0; j < proj.extraImages.length; j++) {
+          if (proj.extraImages[j]?.startsWith('data:image/')) {
+            proj.extraImages[j] = await uploadDataUrl(proj.extraImages[j], `proj_${i}_extra_${j}`);
+          }
+        }
+      }
+    }
+  }
+
+  // 6. Awards
+  if (cloned.awards && Array.isArray(cloned.awards)) {
+    for (let i = 0; i < cloned.awards.length; i++) {
+      const aw = cloned.awards[i];
+      if (aw.certImg?.startsWith('data:image/')) {
+        aw.certImg = await uploadDataUrl(aw.certImg, `award_${i}_cert`);
+      }
+      if (aw.eventImg?.startsWith('data:image/')) {
+        aw.eventImg = await uploadDataUrl(aw.eventImg, `award_${i}_event`);
+      }
+    }
+  }
+
+  // 7. Certifications
+  if (cloned.certifications && Array.isArray(cloned.certifications)) {
+    for (let i = 0; i < cloned.certifications.length; i++) {
+      const cert = cloned.certifications[i];
+      if (cert.image?.startsWith('data:image/')) {
+        cert.image = await uploadDataUrl(cert.image, `cert_${i}`);
+      }
+    }
+  }
+
+  return cloned;
+}
+
 export interface SaveResult {
   success: boolean;
+  data?: PortfolioData;
   message?: string;
   error?: string;
 }
@@ -808,21 +929,23 @@ export interface SaveResult {
 // Helper to save portfolio data (saves locally + awaits sync to Supabase Cloud)
 export async function savePortfolioData(data: PortfolioData): Promise<SaveResult> {
   if (typeof window === 'undefined') {
-    return { success: false, error: 'Window not defined' };
+    return { success: false, data, error: 'Window not defined' };
   }
 
+  // 1. Auto-upload any embedded base64 images so payload is lightweight (<20KB) and never hits 413
+  const cleanData = await sanitizeAndUploadAllImages(data);
   const nowTs = Date.now();
 
-  // 1. Instant local persistence for zero latency
+  // 2. Instant local persistence for zero latency
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(cleanData));
     localStorage.setItem(STORAGE_TS_KEY, nowTs.toString());
-    window.dispatchEvent(new CustomEvent(EVENT_NAME, { detail: data }));
+    window.dispatchEvent(new CustomEvent(EVENT_NAME, { detail: cleanData }));
   } catch (e: any) {
     console.error('Error saving portfolio data to localStorage:', e);
   }
 
-  // 2. Cloud Sync via API and direct Supabase
+  // 3. Cloud Sync via API and direct Supabase
   let apiSuccess = false;
   let errorMsg = '';
 
@@ -830,7 +953,7 @@ export async function savePortfolioData(data: PortfolioData): Promise<SaveResult
     const res = await fetch('/api/portfolio', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
+      body: JSON.stringify(cleanData),
     });
 
     if (res.ok) {
@@ -850,7 +973,7 @@ export async function savePortfolioData(data: PortfolioData): Promise<SaveResult
         .from('portfolio_content')
         .upsert({
           id: 'main',
-          content: data,
+          content: cleanData,
           updated_at: new Date(nowTs).toISOString(),
         });
 
@@ -869,6 +992,7 @@ export async function savePortfolioData(data: PortfolioData): Promise<SaveResult
   if (apiSuccess) {
     return {
       success: true,
+      data: cleanData,
       message: 'Perubahan berhasil disimpan ke Cloud Database Supabase!',
     };
   }
@@ -876,6 +1000,7 @@ export async function savePortfolioData(data: PortfolioData): Promise<SaveResult
   // If both failed to connect to cloud, but saved locally
   return {
     success: false,
+    data: cleanData,
     error: errorMsg || 'Gagal tersambung ke database Supabase Cloud. Data tersimpan di browser.',
   };
 }

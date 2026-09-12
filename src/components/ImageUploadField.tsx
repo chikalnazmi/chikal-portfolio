@@ -30,8 +30,8 @@ export default function ImageUploadField({
   if (aspectRatio === 'certificate') aspectClass = 'aspect-[4/3]';
   if (aspectRatio === 'phone') aspectClass = 'aspect-[9/16]';
 
-  // Helper to compress large photos on the client before saving
-  const compressImage = (file: File): Promise<string> => {
+  // Helper to compress large photos on client to a lightweight Blob before uploading
+  const compressToBlob = (file: File): Promise<Blob> => {
     return new Promise((resolve) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -59,14 +59,17 @@ export default function ImageUploadField({
           const ctx = canvas.getContext('2d');
           if (ctx) {
             ctx.drawImage(img, 0, 0, width, height);
-            resolve(canvas.toDataURL('image/jpeg', 0.86));
+            canvas.toBlob((blob) => {
+              if (blob) resolve(blob);
+              else resolve(file);
+            }, 'image/jpeg', 0.85);
           } else {
-            resolve(e.target?.result as string);
+            resolve(file);
           }
         };
-        img.onerror = () => resolve(e.target?.result as string);
+        img.onerror = () => resolve(file);
       };
-      reader.onerror = () => resolve('');
+      reader.onerror = () => resolve(file);
     });
   };
 
@@ -77,12 +80,17 @@ export default function ImageUploadField({
     }
 
     setIsUploading(true);
-    setStatusMessage('Mengoptimasi & memproses foto...');
+    setStatusMessage('Mengoptimasi & mengupload foto ke Cloud...');
 
     try {
-      // 1. Try uploading to local server API first
+      // 1. Compress to optimized lightweight blob (~150KB - 350KB)
+      const compressedBlob = await compressToBlob(file);
+      const cleanBaseName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_').replace(/\.[^/.]+$/, "") || 'photo';
+      const uploadFile = new File([compressedBlob], `${cleanBaseName}.jpg`, { type: 'image/jpeg' });
+
+      // 2. Upload to server API / Supabase Storage
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append('file', uploadFile);
 
       const res = await fetch('/api/upload', {
         method: 'POST',
@@ -93,27 +101,19 @@ export default function ImageUploadField({
         const json = await res.json();
         if (json.url) {
           onChange(json.url);
-          setStatusMessage('✅ Foto berhasil diupload ke server!');
-          setTimeout(() => setStatusMessage(null), 3000);
+          setStatusMessage('✅ Foto berhasil tersimpan di Cloud!');
+          setTimeout(() => setStatusMessage(null), 3500);
           setIsUploading(false);
           return;
         }
+      } else {
+        const errJson = await res.json().catch(() => ({}));
+        throw new Error(errJson.error || `Upload gagal dengan status ${res.status}`);
       }
-    } catch {
-      // If server API is not available or read-only (e.g. static host/Vercel serverless), proceed to base64 fallback
-    }
-
-    // 2. Fallback: Compress to optimized Data URL
-    try {
-      const compressedDataUrl = await compressImage(file);
-      if (compressedDataUrl) {
-        onChange(compressedDataUrl);
-        setStatusMessage('✅ Foto berhasil dipasang & dioptimasi!');
-        setTimeout(() => setStatusMessage(null), 3000);
-      }
-    } catch (err) {
-      console.error(err);
-      setStatusMessage('Gagal memproses foto.');
+    } catch (err: any) {
+      console.error('Upload processing error:', err);
+      setStatusMessage(`⚠️ Gagal upload: ${err?.message || 'Koneksi terganggu'}`);
+      setTimeout(() => setStatusMessage(null), 4500);
     } finally {
       setIsUploading(false);
     }
