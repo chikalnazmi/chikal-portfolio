@@ -712,11 +712,43 @@ export function getPortfolioData(): PortfolioData {
   }
 }
 
-// Fetch from Supabase Cloud Database (if configured)
+// Fetch from Supabase Cloud Database (via server API or direct Supabase client)
 export async function fetchPortfolioDataFromSupabase(): Promise<PortfolioData | null> {
-  if (typeof window === 'undefined' || !isSupabaseConfigured || !supabase) {
+  if (typeof window === 'undefined') {
     return null;
   }
+
+  // 1. Try server-side API first for ultra-reliable fetching
+  try {
+    const res = await fetch('/api/portfolio', { cache: 'no-store' });
+    if (res.ok) {
+      const json = await res.json();
+      if (json && json.data && json.data.hero) {
+        const merged: PortfolioData = {
+          hero: { ...DEFAULT_PORTFOLIO_DATA.hero, ...(json.data.hero || {}) },
+          academic: json.data.academic || DEFAULT_PORTFOLIO_DATA.academic,
+          socials: { ...DEFAULT_PORTFOLIO_DATA.socials, ...(json.data.socials || {}) },
+          creatorAccounts: { ...DEFAULT_PORTFOLIO_DATA.creatorAccounts, ...(json.data.creatorAccounts || {}) },
+          experiences: json.data.experiences && json.data.experiences.length > 0 ? json.data.experiences : DEFAULT_PORTFOLIO_DATA.experiences,
+          projects: json.data.projects && json.data.projects.length > 0 ? json.data.projects : DEFAULT_PORTFOLIO_DATA.projects,
+          awards: json.data.awards && json.data.awards.length > 0 ? json.data.awards : DEFAULT_PORTFOLIO_DATA.awards,
+          skills: json.data.skills && json.data.skills.length > 0 ? json.data.skills : DEFAULT_PORTFOLIO_DATA.skills,
+          certifications: json.data.certifications && json.data.certifications.length > 0 ? json.data.certifications : DEFAULT_PORTFOLIO_DATA.certifications,
+        };
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+          window.dispatchEvent(new CustomEvent(EVENT_NAME, { detail: merged }));
+        } catch {}
+        return merged;
+      }
+    }
+  } catch {}
+
+  // 2. Direct client-side Supabase query fallback
+  if (!isSupabaseConfigured || !supabase) {
+    return null;
+  }
+
   try {
     const { data, error } = await supabase
       .from('portfolio_content')
@@ -765,7 +797,15 @@ export function savePortfolioData(data: PortfolioData) {
     console.error('Error saving portfolio data to localStorage:', e);
   }
 
-  // 2. Background Cloud Sync to Supabase PostgreSQL (if configured)
+  // 2. Background Cloud Sync via API and direct Supabase
+  try {
+    fetch('/api/portfolio', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    }).catch(() => {});
+  } catch {}
+
   if (isSupabaseConfigured && supabase) {
     supabase
       .from('portfolio_content')
