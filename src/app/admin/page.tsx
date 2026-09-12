@@ -32,6 +32,8 @@ export default function AdminPortal() {
   // Secret PIN (Default: chikal2026)
   const SECRET_PIN = 'chikal2026';
 
+  const [isCloudConnected, setIsCloudConnected] = useState<boolean>(isSupabaseConfigured);
+
   useEffect(() => {
     const authSession = sessionStorage.getItem('chikal_admin_session');
     if (authSession === 'authenticated') {
@@ -43,6 +45,16 @@ export default function AdminPortal() {
         setData(remoteData);
       }
     });
+
+    // Check live server-side Supabase connectivity
+    fetch('/api/portfolio')
+      .then((res) => res.json())
+      .then((resJson) => {
+        if (resJson && resJson.isSupabaseConnected) {
+          setIsCloudConnected(true);
+        }
+      })
+      .catch(() => {});
   }, []);
 
   const handleLogin = (e: React.FormEvent) => {
@@ -219,7 +231,7 @@ export default function AdminPortal() {
                 <span className="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-bold border border-emerald-200">
                   ● Studio Edit
                 </span>
-                {isSupabaseConfigured ? (
+                {isCloudConnected || isSupabaseConfigured ? (
                   <span className="text-[10px] text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full font-bold border border-emerald-300 flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                     Supabase Cloud Terhubung
