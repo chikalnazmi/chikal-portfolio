@@ -452,7 +452,7 @@ export default function Home() {
           
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
             <div>
-              <span className="font-serif italic font-normal text-sm font-semibold tracking-wider uppercase text-rose-dark block">/ Curated Portfolio /</span>
+              <span className="font-script text-2xl sm:text-3xl text-rose-dark block">/ Curated Portfolio /</span>
               <h2 className="font-serif font-bold text-3xl sm:text-4xl text-forest tracking-tight mt-1">
                 Visual Work Mosaic
               </h2>
@@ -616,7 +616,7 @@ export default function Home() {
 
         {/* Script / Editorial Kicker */}
         <div className="relative z-10 mb-4">
-          <span className="font-serif italic font-normal text-sm font-semibold tracking-wider uppercase text-rose-dark block">/ What I do /</span>
+          <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ What I do /</span>
         </div>
 
         {/* Big Bold Statement with Highlighted Words (Elian Ross Style) */}
@@ -673,7 +673,7 @@ export default function Home() {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="font-serif italic font-normal text-2xl sm:text-3xl text-rose-600 block">/ How I Deliver Value /</span>
+          <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ How I Deliver Value /</span>
           <h2 className="font-sans font-medium text-4xl sm:text-5xl text-forest tracking-tight mt-1">
             Here&apos;s how it works
           </h2>
@@ -804,7 +804,7 @@ export default function Home() {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <div>
-            <span className="text-sm font-semibold tracking-wider uppercase text-rose-dark block">/ Selected Works /</span>
+            <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ Selected Works /</span>
             <h2 className="font-sans font-medium text-4xl sm:text-5xl text-forest tracking-tight mt-1">
               Selected Works
             </h2>
@@ -894,7 +894,7 @@ export default function Home() {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <div>
-            <span className="text-sm font-semibold tracking-wider uppercase text-rose-dark block">/ Content &amp; Media /</span>
+            <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ Content &amp; Media /</span>
             <h2 className="font-sans font-medium text-4xl sm:text-5xl text-forest tracking-tight mt-1">
               Creator Studio &amp; Social Growth
             </h2>
@@ -1083,7 +1083,7 @@ export default function Home() {
         
         {/* Kicker & Title (Elian Ross Style: Title Bold + Year Muted Light) */}
         <div className="mb-14">
-          <span className="text-sm font-semibold tracking-wider uppercase text-rose-dark block">/ Who Am I /</span>
+          <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ Who Am I /</span>
           <h2 className="font-sans font-medium text-4xl sm:text-6xl text-forest tracking-tight mt-1">
             Pushing Boundaries <span className="font-serif italic font-normal text-rose-dark">since 2020</span>
           </h2>
@@ -1267,7 +1267,7 @@ export default function Home() {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <div>
-            <span className="text-sm font-semibold tracking-wider uppercase text-rose-dark block">/ Accreditations /</span>
+            <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ Accreditations /</span>
             <h2 className="font-sans font-medium text-4xl sm:text-5xl text-forest tracking-tight mt-1">
               Awards &amp; Credentials
             </h2>

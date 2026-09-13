@@ -48,8 +48,13 @@
 
 /* Typography Utility Classes */
 .font-editorial {
-  font-family: var(--font-serif), 'Instrument Serif', Georgia, serif;
+  font-family: var(--font-serif), 'Playfair Display', Georgia, serif;
 }
+
+.font-script {
+  font-family: var(--font-script), 'Caveat', cursive;
+}
+
 
 /* Sage Linen Organic Textured Background */
 .bg-sage-linen {
