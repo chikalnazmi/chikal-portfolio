@@ -665,6 +665,9 @@ export default function Home() {
             <a href="#creative" className="hover:text-rose-dark transition-colors">
               Creative & Content
             </a>
+            <a href="#hobbies" className="hover:text-rose-dark transition-colors">
+              Hobbies
+            </a>
           </div>
 
           {/* Action CTA */}
@@ -719,6 +722,9 @@ export default function Home() {
             <a href="#creative" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
               Creative & Content
             </a>
+            <a href="#hobbies" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
+              Hobbies
+            </a>
             <a
               href="https://wa.me/6281234567890"
               target="_blank"
@@ -734,20 +740,20 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* HERO SECTION: Asymmetric Editorial Split (No Hilman Blueprint) */}
       {/* ========================================================================= */}
-      <section id="hero" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8 sm:pt-8 sm:pb-10 lg:pt-10 lg:pb-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+      <section id="hero" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-5 pb-6 sm:pt-6 sm:pb-8 lg:pt-8 lg:pb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
           
           {/* Left Column: Narrative, Typography & Direct Metrics (7 Cols) */}
           <div className="lg:col-span-7 flex flex-col items-start">
             
             {/* Live Availability Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-[#CAD7C5] text-forest text-xs font-medium mb-3 shadow-xs">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-forest text-xs font-medium mb-2.5 shadow-xs">
               <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
               <span>{portfolioData.hero?.subheadline || 'Available for Management Trainee & BizDev Roles'}</span>
             </div>
 
             {/* Editorial Headline */}
-            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold leading-[1.15] text-forest tracking-normal mb-3.5">
+            <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold leading-[1.15] text-forest tracking-normal mb-2.5">
               {portfolioData.hero?.headline || (
                 <>
                   Cultivating Growth through{' '}
@@ -760,7 +766,7 @@ export default function Home() {
             </h1>
 
             {/* Value Proposition Subtext */}
-            <p className="text-sm sm:text-base text-forest/85 leading-relaxed font-normal max-w-xl mb-5">
+            <p className="text-xs sm:text-sm text-forest/85 leading-relaxed font-normal max-w-xl mb-4">
               {portfolioData.hero?.bio || (
                 <>
                   Halo, saya <span className="font-semibold text-forest">Chikal Nazmi Mahira</span>. Mahasiswi / Lulusan D4 Sistem Informasi Bisnis Politeknik Negeri Malang yang berfokus pada operasional bisnis, public relations, dan pembuatan konten kreatif.
@@ -769,26 +775,26 @@ export default function Home() {
             </p>
 
             {/* Metrics Ribbon (Clean Statistical Grid) */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 w-full max-w-xl mb-5">
-              <div className="bg-white/70 border border-[#CAD7C5] rounded-xl p-3 text-center">
-                <span className="block font-serif text-2xl font-bold text-rose-dark">{portfolioData.hero?.stat1Value || '7x'}</span>
-                <span className="text-[11px] text-forest/70 uppercase tracking-wider font-medium">{portfolioData.hero?.stat1Label || 'National Awards'}</span>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5 w-full max-w-xl mb-4">
+              <div className="bg-white/70 border border-[#CAD7C5] rounded-xl p-2.5 text-center">
+                <span className="block font-serif text-xl sm:text-2xl font-bold text-rose-dark">{portfolioData.hero?.stat1Value || '7x'}</span>
+                <span className="text-[10px] text-forest/70 uppercase tracking-wider font-medium">{portfolioData.hero?.stat1Label || 'National Awards'}</span>
               </div>
-              <div className="bg-white/70 border border-[#CAD7C5] rounded-xl p-3 text-center">
-                <span className="block font-serif text-2xl font-bold text-rose-dark">{portfolioData.hero?.stat2Value || '+2.089%'}</span>
-                <span className="text-[11px] text-forest/70 uppercase tracking-wider font-medium">{portfolioData.hero?.stat2Label || 'Reels Reach Surge'}</span>
+              <div className="bg-white/70 border border-[#CAD7C5] rounded-xl p-2.5 text-center">
+                <span className="block font-serif text-xl sm:text-2xl font-bold text-rose-dark">{portfolioData.hero?.stat2Value || '+2.089%'}</span>
+                <span className="text-[10px] text-forest/70 uppercase tracking-wider font-medium">{portfolioData.hero?.stat2Label || 'Reels Reach Surge'}</span>
               </div>
-              <div className="bg-white/70 border border-[#CAD7C5] rounded-xl p-3 text-center">
-                <span className="block font-serif text-2xl font-bold text-forest">{portfolioData.hero?.stat3Value || '20+'}</span>
-                <span className="text-[11px] text-forest/70 uppercase tracking-wider font-medium">{portfolioData.hero?.stat3Label || 'Event Partners'}</span>
+              <div className="bg-white/70 border border-[#CAD7C5] rounded-xl p-2.5 text-center">
+                <span className="block font-serif text-xl sm:text-2xl font-bold text-forest">{portfolioData.hero?.stat3Value || '20+'}</span>
+                <span className="text-[10px] text-forest/70 uppercase tracking-wider font-medium">{portfolioData.hero?.stat3Label || 'Event Partners'}</span>
               </div>
-              <div className="bg-white/70 border border-[#CAD7C5] rounded-xl p-3 text-center">
-                <span className="block font-serif text-2xl font-bold text-forest">
+              <div className="bg-white/70 border border-[#CAD7C5] rounded-xl p-2.5 text-center">
+                <span className="block font-serif text-xl sm:text-2xl font-bold text-forest">
                   {portfolioData.hero?.stat4Value && portfolioData.hero.stat4Value !== 'D4 SIB'
                     ? portfolioData.hero.stat4Value
                     : '775'}
                 </span>
-                <span className="text-[11px] text-forest/70 uppercase tracking-wider font-medium">
+                <span className="text-[10px] text-forest/70 uppercase tracking-wider font-medium">
                   {portfolioData.hero?.stat4Label && portfolioData.hero.stat4Label !== 'Polinema' && portfolioData.hero.stat4Label !== 'Polinema Honor'
                     ? portfolioData.hero.stat4Label
                     : 'Skor Resmi TOEIC'}
@@ -797,17 +803,17 @@ export default function Home() {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="flex flex-wrap items-center gap-3">
               <a
                 href="#projects"
-                className="px-6 py-3 rounded-full text-sm font-semibold bg-rose-dark text-white hover:bg-rose-berry transition-all shadow-md hover:shadow-lg flex items-center gap-2"
+                className="px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-rose-dark text-white hover:bg-rose-berry transition-all shadow-xs hover:shadow-md flex items-center gap-2"
               >
                 <span>Explore Selected Works</span>
                 <span>↓</span>
               </a>
               <a
                 href="mailto:chikalnazmi@gmail.com"
-                className="px-6 py-3 rounded-full text-sm font-semibold bg-white/80 border border-[#CAD7C5] text-forest hover:bg-white hover:border-rose-dusty transition-all flex items-center gap-2"
+                className="px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-white/80 border border-[#CAD7C5] text-forest hover:bg-white hover:border-rose-dusty transition-all flex items-center gap-2"
               >
                 <span>Email Inquiries</span>
                 <span>→</span>
@@ -818,34 +824,34 @@ export default function Home() {
 
           {/* Right Column: Modern Arch Frame Portrait & Strategic Highlights (5 Cols) */}
           <div className="lg:col-span-5 flex justify-center items-center">
-            <div className="relative w-full max-w-[280px] sm:max-w-[320px]">
+            <div className="relative w-full max-w-[240px] sm:max-w-[270px]">
               
               {/* Modern Arch Frame Container */}
-              <div className="relative bg-[#CAD7C5]/30 p-2.5 rounded-t-[160px] rounded-b-[32px] border-2 border-[#CAD7C5] shadow-xl">
-                <div className="relative w-full aspect-[4/5] rounded-t-[150px] rounded-b-[24px] overflow-hidden bg-forest/10">
+              <div className="relative bg-[#CAD7C5]/30 p-2 rounded-t-[140px] rounded-b-[28px] border-2 border-[#CAD7C5] shadow-lg">
+                <div className="relative w-full aspect-[4/5] rounded-t-[130px] rounded-b-[20px] overflow-hidden bg-forest/10">
                   <img
                     src={portfolioData.hero?.avatarImg || '/2.png'}
                     alt="Chikal Nazmi Mahira"
                     className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700"
                   />
                   {/* Subtle gradient overlay at bottom */}
-                  <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-forest/50 to-transparent pointer-events-none" />
+                  <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-forest/50 to-transparent pointer-events-none" />
                 </div>
               </div>
 
               {/* Floating Pill: Strategic Strengths */}
-              <div className="absolute -bottom-6 -left-4 sm:-left-6 bg-white/95 backdrop-blur-md border border-[#CAD7C5] p-3.5 rounded-2xl shadow-lg max-w-[240px]">
-                <div className="flex items-center gap-2 mb-1.5">
-                  <span className="w-2 h-2 rounded-full bg-rose-dark" />
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-rose-dark">Key Competencies</span>
+              <div className="absolute -bottom-5 -left-3 sm:-left-5 bg-white/95 backdrop-blur-md border border-[#CAD7C5] p-2.5 sm:p-3 rounded-xl shadow-md max-w-[220px]">
+                <div className="flex items-center gap-1.5 mb-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-rose-dark" />
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-rose-dark">Key Competencies</span>
                 </div>
-                <p className="text-xs text-forest font-medium leading-snug">
+                <p className="text-[11px] text-forest font-medium leading-snug">
                   Data-Driven Marketing • Operational SOPs • Cross-Functional Leadership
                 </p>
               </div>
 
               {/* Botanical Monogram Stamp */}
-              <div className="absolute -top-3 -right-3 w-12 h-12 rounded-full bg-rose-blush border border-rose-dusty/50 flex items-center justify-center text-rose-dark font-serif font-bold text-xs shadow-md rotate-12">
+              <div className="absolute -top-2.5 -right-2.5 w-10 h-10 rounded-full bg-rose-blush border border-rose-dusty/50 flex items-center justify-center text-rose-dark font-serif font-bold text-xs shadow-sm rotate-12">
                 CNM
               </div>
 
@@ -895,12 +901,12 @@ export default function Home() {
       {/* SECTION: ACADEMIC BACKGROUND & SPOTLIGHT SKILLS CARD (Paired Side-by-Side) */}
       {/* ========================================================================= */}
       <BotanicalDivider />
-      <section id="academy-skills" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-14">
+      <section id="academy-skills" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
-          <span className="font-script text-3xl sm:text-4xl text-rose-dark block mb-1">/ Foundations & Capabilities /</span>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-forest tracking-normal mb-2.5">
+        <div className="text-center max-w-2xl mx-auto mb-4 sm:mb-5">
+          <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-0.5">/ Foundations & Capabilities /</span>
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-forest tracking-normal mb-1.5">
             Academic Background & Core Skills
           </h2>
           <p className="text-xs sm:text-sm text-forest/75 leading-relaxed font-source">
@@ -909,88 +915,88 @@ export default function Home() {
         </div>
 
         {/* 2-Column Balanced Responsive Grid: Formal Degree on Left, Core Skills Matrix on Right */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 items-stretch">
           
           {/* LEFT: Formal Academic & Language Credentials Card */}
-          <div className="bg-white/95 border border-[#CAD7C5] rounded-[2rem] p-6 sm:p-8 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+          <div className="bg-white/95 border border-[#CAD7C5] rounded-2xl p-4 sm:p-5 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group">
             <div>
               {/* Header Badges */}
-              <div className="flex items-center justify-between gap-2 mb-4">
-                <span className="text-[11px] font-bold px-3.5 py-1 rounded-full bg-rose-blush/90 text-rose-dark border border-rose-dusty/40 uppercase tracking-wider shadow-2xs">
+              <div className="flex items-center justify-between gap-2 mb-2">
+                <span className="text-[10px] font-bold px-3 py-0.5 rounded-full bg-rose-blush/90 text-rose-dark border border-rose-dusty/40 uppercase tracking-wider shadow-2xs">
                   {academicData.badge?.replace('', '').trim() || 'FORMAL DEGREE'}
                 </span>
-                <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-[#F4F7F2] text-forest/80 border border-[#CAD7C5]">
+                <span className="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-[#F4F7F2] text-forest/80 border border-[#CAD7C5]">
                   {academicData.period || '2020 – 2024'}
                 </span>
               </div>
 
               {/* Title & Institution */}
-              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest mt-3 mb-1.5 group-hover:text-rose-dark transition-colors tracking-tight">
+              <h3 className="font-serif text-xl sm:text-2xl font-bold text-forest mt-1.5 mb-1 group-hover:text-rose-dark transition-colors tracking-tight">
                 {academicData.degree}
               </h3>
-              <h4 className="text-xs sm:text-sm font-semibold text-forest/75 uppercase tracking-wide mb-6">
+              <h4 className="text-xs sm:text-sm font-semibold text-forest/75 uppercase tracking-wide mb-3">
                 {academicData.institution}
               </h4>
 
               {/* High-Visibility Credential Cards (GPA & TOEIC) */}
-              <div className="space-y-3.5 mb-6">
+              <div className="space-y-2.5 mb-3">
                 {/* GPA / Cum Laude Highlight */}
-                <div className="p-4 rounded-2xl bg-[#F4F7F2]/90 border border-[#CAD7C5] shadow-2xs flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-3.5">
-                    <div className="w-12 h-12 rounded-xl bg-forest text-[#E8EFE5] flex flex-col items-center justify-center font-mono font-bold shrink-0 shadow-2xs">
-                      <span className="text-xs font-bold leading-none">GPA</span>
-                      <span className="text-[9px] text-white/70 leading-none mt-1">HONOR</span>
+                <div className="p-3 rounded-xl bg-[#F4F7F2]/90 border border-[#CAD7C5] shadow-2xs flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-forest text-[#E8EFE5] flex flex-col items-center justify-center font-mono font-bold shrink-0 shadow-2xs">
+                      <span className="text-[11px] font-bold leading-none">GPA</span>
+                      <span className="text-[8px] text-white/70 leading-none mt-0.5">HONOR</span>
                     </div>
                     <div>
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-forest/60 block mb-0.5">
+                      <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-forest/60 block leading-tight">
                         {academicData.gpaTitle || 'ACADEMIC STANDING'}
                       </span>
-                      <span className="text-sm sm:text-base font-serif font-bold text-forest block">
+                      <span className="text-xs sm:text-sm font-serif font-bold text-forest block leading-snug">
                         {academicData.gpaValue || 'IPK Memuaskan / Cum Laude Honor'}
                       </span>
-                      <span className="text-[11px] text-forest/70">
+                      <span className="text-[10px] text-forest/70 leading-tight">
                         Kurikulum Terapan Sistem Informasi & Bisnis
                       </span>
                     </div>
                   </div>
-                  <span className="hidden sm:inline-flex px-2.5 py-1 rounded-md bg-forest/10 text-forest text-[11px] font-bold uppercase tracking-wider shrink-0">
+                  <span className="hidden sm:inline-flex px-2 py-0.5 rounded-md bg-forest/10 text-forest text-[10px] font-bold uppercase tracking-wider shrink-0">
                     Cum Laude
                   </span>
                 </div>
 
                 {/* TOEIC Official Score 775 Highlight */}
-                <div className="p-4 rounded-2xl bg-rose-50/60 border border-rose-200/90 shadow-2xs flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-3.5">
-                    <div className="w-12 h-12 rounded-xl bg-rose-dark text-white flex flex-col items-center justify-center font-mono font-bold shrink-0 shadow-2xs">
-                      <span className="text-xs font-bold leading-none">EN</span>
-                      <span className="text-[9px] text-rose-100 leading-none mt-1">{academicData.toeicScore || '775'}</span>
+                <div className="p-3 rounded-xl bg-rose-50/60 border border-rose-200/90 shadow-2xs flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-rose-dark text-white flex flex-col items-center justify-center font-mono font-bold shrink-0 shadow-2xs">
+                      <span className="text-[11px] font-bold leading-none">EN</span>
+                      <span className="text-[8px] text-rose-100 leading-none mt-0.5">{academicData.toeicScore || '775'}</span>
                     </div>
                     <div>
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-rose-dark/70 block mb-0.5">
+                      <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-rose-dark/70 block leading-tight">
                         {academicData.toeicTitle || 'GLOBAL ENGLISH PROFICIENCY'}
                       </span>
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm sm:text-base font-serif font-bold text-forest">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-xs sm:text-sm font-serif font-bold text-forest leading-snug">
                           Official TOEIC: <span className="text-rose-dark font-extrabold">{academicData.toeicScore || '775'}</span>
                         </span>
                       </div>
-                      <span className="text-[11px] text-forest/70">
+                      <span className="text-[10px] text-forest/70 leading-tight">
                         {academicData.toeicLevel || 'Working Proficiency'} • ETS International
                       </span>
                     </div>
                   </div>
-                  <span className="hidden sm:inline-flex px-2.5 py-1 rounded-md bg-rose-blush text-rose-dark text-[11px] font-bold uppercase tracking-wider shrink-0 border border-rose-dusty/30">
+                  <span className="hidden sm:inline-flex px-2 py-0.5 rounded-md bg-rose-blush text-rose-dark text-[10px] font-bold uppercase tracking-wider shrink-0 border border-rose-dusty/30">
                     Certified
                   </span>
                 </div>
               </div>
 
               {/* Focus Summary */}
-              <div className="p-4 rounded-2xl bg-[#F9FBF8] border border-[#CAD7C5]/70 mb-6">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-forest/60 block mb-1">
+              <div className="p-3 rounded-xl bg-[#F9FBF8] border border-[#CAD7C5]/70 mb-3">
+                <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-forest/60 block mb-0.5">
                   Focus & Academic Core
                 </span>
-                <p className="text-xs sm:text-sm text-forest/80 leading-relaxed font-source">
+                <p className="text-xs text-forest/80 leading-relaxed font-source">
                   {academicData.description}
                 </p>
               </div>
@@ -1004,7 +1010,7 @@ export default function Home() {
                 academicData.description,
                 academicData.images && academicData.images.length > 0 ? academicData.images : ['/11.png', '/12.png', '/16.png']
               )}
-              className="w-full py-3.5 px-6 rounded-2xl bg-forest text-[#E8EFE5] hover:bg-rose-dark text-xs sm:text-sm font-bold shadow-xs hover:shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer mt-2"
+              className="w-full py-2.5 px-4 rounded-xl bg-forest text-[#E8EFE5] hover:bg-rose-dark text-xs sm:text-sm font-bold shadow-2xs hover:shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer mt-1"
             >
               <span>Buka Dokumen Kelulusan & TOEIC</span>
               <span>↗</span>
@@ -1012,42 +1018,42 @@ export default function Home() {
           </div>
 
           {/* RIGHT: Core Competencies & Skills Matrix Card */}
-          <div className="bg-white/95 border border-[#CAD7C5] rounded-[2rem] p-6 sm:p-8 shadow-sm hover:shadow-md transition-all text-forest relative flex flex-col justify-between group">
+          <div className="bg-white/95 border border-[#CAD7C5] rounded-2xl p-4 sm:p-5 shadow-xs hover:shadow-md transition-all text-forest relative flex flex-col justify-between group">
             <div>
               {/* Top Badges */}
-              <div className="flex items-center justify-between gap-2 mb-4">
-                <span className="text-[11px] font-bold px-3.5 py-1 rounded-full bg-rose-blush/90 text-rose-dark border border-rose-dusty/40 uppercase tracking-wider shadow-2xs">
+              <div className="flex items-center justify-between gap-2 mb-2">
+                <span className="text-[10px] font-bold px-3 py-0.5 rounded-full bg-rose-blush/90 text-rose-dark border border-rose-dusty/40 uppercase tracking-wider shadow-2xs">
                   CORE COMPETENCIES MATRIX
                 </span>
-                <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-[#F4F7F2] text-forest/80 border border-[#CAD7C5]">
+                <span className="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-[#F4F7F2] text-forest/80 border border-[#CAD7C5]">
                   Dossier
                 </span>
               </div>
 
               {/* Heading */}
-              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest mt-3 mb-1.5 tracking-tight">
+              <h3 className="font-serif text-xl sm:text-2xl font-bold text-forest mt-1.5 mb-0.5 tracking-tight">
                 Technical & Domain Expertise
               </h3>
-              <p className="text-xs sm:text-sm text-forest/70 mb-5 font-source">
+              <p className="text-xs text-forest/70 mb-3 font-source">
                 Keahlian praktis yang siap diaplikasikan dalam lingkungan kerja profesional.
               </p>
 
               {/* Subdivided Domains: IT, Business, Creative */}
-              <div className="space-y-4 mb-5">
+              <div className="space-y-2.5 mb-3">
                 {/* IT / Tech */}
                 <div>
-                  <div className="flex items-center justify-between gap-2 mb-2">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-forest/80 flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-forest shrink-0" />
+                  <div className="flex items-center justify-between gap-2 mb-1.5">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-forest/80 flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-forest shrink-0" />
                       <span>IT & Digital Systems</span>
                     </span>
-                    <span className="text-[10px] font-mono text-forest/50">{itSkills.length} Skills</span>
+                    <span className="text-[9px] font-mono text-forest/50">{itSkills.length} Skills</span>
                   </div>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5">
                     {itSkills.map((skill, sIdx) => (
                       <span
                         key={sIdx}
-                        className="px-3 py-1.5 rounded-xl bg-[#F4F7F2] border border-[#CAD7C5] text-xs font-semibold text-forest shadow-2xs hover:bg-forest hover:text-white hover:border-forest transition-all cursor-default"
+                        className="px-2.5 py-1 rounded-lg bg-[#F4F7F2] border border-[#CAD7C5] text-xs font-semibold text-forest shadow-2xs hover:bg-forest hover:text-white hover:border-forest transition-all cursor-default"
                       >
                         {skill}
                       </span>
@@ -1057,18 +1063,18 @@ export default function Home() {
 
                 {/* Business */}
                 <div>
-                  <div className="flex items-center justify-between gap-2 mb-2">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-forest/80 flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-amber-600 shrink-0" />
+                  <div className="flex items-center justify-between gap-2 mb-1.5">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-forest/80 flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-600 shrink-0" />
                       <span>Business & Operations</span>
                     </span>
-                    <span className="text-[10px] font-mono text-forest/50">{bizSkills.length} Skills</span>
+                    <span className="text-[9px] font-mono text-forest/50">{bizSkills.length} Skills</span>
                   </div>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5">
                     {bizSkills.map((skill, sIdx) => (
                       <span
                         key={sIdx}
-                        className="px-3 py-1.5 rounded-xl bg-[#F4F7F2] border border-[#CAD7C5] text-xs font-semibold text-forest shadow-2xs hover:bg-forest hover:text-white hover:border-forest transition-all cursor-default"
+                        className="px-2.5 py-1 rounded-lg bg-[#F4F7F2] border border-[#CAD7C5] text-xs font-semibold text-forest shadow-2xs hover:bg-forest hover:text-white hover:border-forest transition-all cursor-default"
                       >
                         {skill}
                       </span>
@@ -1078,18 +1084,18 @@ export default function Home() {
 
                 {/* Creative */}
                 <div>
-                  <div className="flex items-center justify-between gap-2 mb-2">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-forest/80 flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-rose-dark shrink-0" />
+                  <div className="flex items-center justify-between gap-2 mb-1.5">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-forest/80 flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-rose-dark shrink-0" />
                       <span>Creative & Media</span>
                     </span>
-                    <span className="text-[10px] font-mono text-forest/50">{creativeSkills.length} Skills</span>
+                    <span className="text-[9px] font-mono text-forest/50">{creativeSkills.length} Skills</span>
                   </div>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5">
                     {creativeSkills.map((skill, sIdx) => (
                       <span
                         key={sIdx}
-                        className="px-3 py-1.5 rounded-xl bg-[#F4F7F2] border border-[#CAD7C5] text-xs font-semibold text-forest shadow-2xs hover:bg-forest hover:text-white hover:border-forest transition-all cursor-default"
+                        className="px-2.5 py-1 rounded-lg bg-[#F4F7F2] border border-[#CAD7C5] text-xs font-semibold text-forest shadow-2xs hover:bg-forest hover:text-white hover:border-forest transition-all cursor-default"
                       >
                         {skill}
                       </span>
@@ -1099,19 +1105,19 @@ export default function Home() {
               </div>
 
               {/* Personal Skills / Leadership Strengths */}
-              <div className="pt-3 border-t border-[#CAD7C5]/60 mb-5">
-                <div className="flex items-center justify-between gap-2 mb-2.5">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-forest/80 flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-purple-600 shrink-0" />
+              <div className="pt-2 border-t border-[#CAD7C5]/60 mb-3">
+                <div className="flex items-center justify-between gap-2 mb-1.5">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-forest/80 flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-purple-600 shrink-0" />
                     <span>Personal Strengths & Working Style</span>
                   </span>
-                  <span className="text-[10px] font-mono text-forest/50">Core Values</span>
+                  <span className="text-[9px] font-mono text-forest/50">Core Values</span>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
                   {personalSkills.map((skill, pIdx) => (
                     <div
                       key={pIdx}
-                      className="flex items-center gap-2 p-2.5 rounded-xl bg-[#FAFBF9] border border-[#CAD7C5] text-xs font-bold text-forest shadow-2xs"
+                      className="flex items-center gap-1.5 p-2 rounded-lg bg-[#FAFBF8] border border-[#CAD7C5] text-xs font-bold text-forest shadow-2xs"
                     >
                       <span className="w-1.5 h-1.5 rounded-full bg-rose-dark shrink-0" />
                       <span className="truncate">{skill}</span>
@@ -1126,7 +1132,7 @@ export default function Home() {
               href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890"}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-3.5 px-6 rounded-2xl bg-[#F4F7F2] hover:bg-forest border border-[#CAD7C5] hover:border-forest text-forest hover:text-white text-xs sm:text-sm font-bold shadow-xs hover:shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer mt-2"
+              className="w-full py-2.5 px-4 rounded-xl bg-[#F4F7F2] hover:bg-forest border border-[#CAD7C5] hover:border-forest text-forest hover:text-white text-xs sm:text-sm font-bold shadow-2xs hover:shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer mt-1"
             >
               <span>Diskusi Peluang Karir via WhatsApp</span>
               <span>↗</span>
@@ -1141,25 +1147,25 @@ export default function Home() {
       {/* SECTION: WORK & BUSINESS EXPERIENCE (Pengalaman Kerja Otentik)            */}
       {/* ========================================================================= */}
       <BotanicalDivider />
-      <section id="experience" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-14 border-t border-[#CAD7C5]/70">
+      <section id="experience" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/70">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
-          <span className="font-script text-3xl sm:text-4xl text-rose-dark block mb-1">/ Career & Experience /</span>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-forest tracking-normal mb-3">
-            Work & Business Experience <span className="font-serif italic font-normal text-rose-dark text-2xl sm:text-3xl lg:text-4xl block sm:inline sm:ml-2">Pushing Boundaries since 2020</span>
+        <div className="text-center max-w-2xl mx-auto mb-4 sm:mb-5">
+          <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-0.5">/ Career & Experience /</span>
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-forest tracking-normal mb-1.5">
+            Work & Business Experience <span className="font-serif italic font-normal text-rose-dark text-xl sm:text-2xl lg:text-3xl block sm:inline sm:ml-2">Pushing Boundaries since 2020</span>
           </h2>
-          <p className="text-sm sm:text-base text-forest/75 leading-relaxed font-source">
+          <p className="text-xs sm:text-sm text-forest/75 leading-relaxed font-source">
             Pengalaman kerja nyata dalam standardisasi operasional, pertumbuhan brand mandiri, kemitraan event komersial, serta riset automasi software.
           </p>
         </div>
 
         {/* 2-Column Balanced Compact Grid Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3.5 sm:gap-4 items-stretch">
           {experiencesList.map((exp) => (
             <div
               key={exp.id}
-              className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-2xl p-4 sm:p-5 shadow-xs hover:shadow-md hover:border-rose-dusty/50 transition-all flex flex-col sm:flex-row gap-4 items-stretch group"
+              className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-xl p-3.5 sm:p-4 shadow-2xs hover:shadow-md hover:border-rose-dusty/50 transition-all flex flex-col sm:flex-row gap-3.5 items-stretch group"
             >
               {/* Left: Compact Photo Showcase with Direct Gallery Trigger */}
               <div
@@ -1171,7 +1177,7 @@ export default function Home() {
                   exp.link,
                   exp.linkLabel
                 )}
-                className="w-full sm:w-44 h-44 sm:h-auto shrink-0 rounded-xl overflow-hidden relative border border-[#CAD7C5]/70 bg-[#E8EFE5]/40 cursor-pointer group/img"
+                className="w-full sm:w-36 h-36 sm:h-auto shrink-0 rounded-lg overflow-hidden relative border border-[#CAD7C5]/70 bg-[#E8EFE5]/40 cursor-pointer group/img"
               >
                 <img
                   src={exp.image}
@@ -1179,11 +1185,11 @@ export default function Home() {
                   className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-forest/20 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
-                  <span className="px-2.5 py-1 rounded-full bg-white text-forest text-[10px] font-bold shadow-xs">
+                  <span className="px-2 py-0.5 rounded-full bg-white text-forest text-[9px] font-bold shadow-xs">
                     Buka Galeri ↗
                   </span>
                 </div>
-                <span className="absolute bottom-2 left-2 px-2 py-0.5 rounded-md bg-forest/85 text-white text-[9px] font-bold backdrop-blur-xs shadow-2xs">
+                <span className="absolute bottom-1.5 left-1.5 px-1.5 py-0.5 rounded-md bg-forest/85 text-white text-[8px] font-bold backdrop-blur-xs shadow-2xs">
                   {exp.extraImages?.length || 1} Foto
                 </span>
               </div>
@@ -1192,31 +1198,31 @@ export default function Home() {
               <div className="flex-1 flex flex-col justify-between min-w-0">
                 <div>
                   {/* Card Header Info */}
-                  <div className="flex items-center justify-between gap-2 mb-1.5">
-                    <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-md border ${exp.badgeColor || 'bg-emerald-100 text-emerald-900 border-emerald-300'} uppercase tracking-wider`}>
+                  <div className="flex items-center justify-between gap-2 mb-1">
+                    <span className={`text-[9px] font-bold px-2 py-0.5 rounded-md border ${exp.badgeColor || 'bg-emerald-100 text-emerald-900 border-emerald-300'} uppercase tracking-wider`}>
                       {exp.tag}
                     </span>
-                    <span className="text-xs text-forest/60 font-medium font-mono shrink-0">
+                    <span className="text-[11px] text-forest/60 font-medium font-mono shrink-0">
                       {exp.period}
                     </span>
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-serif text-base sm:text-lg font-bold text-forest group-hover:text-rose-dark transition-colors line-clamp-2 mb-1.5 tracking-tight">
+                  <h3 className="font-serif text-sm sm:text-base font-bold text-forest group-hover:text-rose-dark transition-colors line-clamp-1 mb-1 tracking-tight">
                     {exp.title}
                   </h3>
 
                   {/* Summary */}
-                  <p className="text-xs text-forest/75 leading-relaxed line-clamp-2 mb-3 font-source">
+                  <p className="text-xs text-forest/75 leading-relaxed line-clamp-2 mb-2 font-source">
                     {exp.summary}
                   </p>
 
                   {/* Highlights / Key Focus Tags */}
-                  <div className="flex flex-wrap gap-1.5 mb-3">
+                  <div className="flex flex-wrap gap-1 mb-2">
                     {exp.results?.slice(0, 3).map((res, rIdx) => (
                       <span
                         key={rIdx}
-                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#FAFBF8] border border-[#CAD7C5]/70 text-[10px] font-medium text-forest shadow-2xs"
+                        className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-[#FAFBF8] border border-[#CAD7C5]/70 text-[9px] font-medium text-forest shadow-2xs"
                       >
                         <span className="w-1 h-1 rounded-full bg-rose-dusty shrink-0" />
                         <span className="truncate">{res}</span>
@@ -1226,7 +1232,7 @@ export default function Home() {
                 </div>
 
                 {/* Bottom Action Row */}
-                <div className="pt-2.5 border-t border-[#CAD7C5]/50 flex items-center justify-between gap-2 text-xs">
+                <div className="pt-2 border-t border-[#CAD7C5]/50 flex items-center justify-between gap-2 text-xs">
                   <button
                     onClick={() => openModal(
                       exp.title,
@@ -1236,7 +1242,7 @@ export default function Home() {
                       exp.link,
                       exp.linkLabel
                     )}
-                    className="inline-flex items-center gap-1 font-bold text-rose-dark hover:text-rose-berry transition-colors cursor-pointer py-0.5"
+                    className="inline-flex items-center gap-1 font-bold text-rose-dark hover:text-rose-berry transition-colors cursor-pointer py-0.5 text-xs"
                   >
                     <span>Lihat Dokumentasi</span>
                     <span>→</span>
@@ -1247,7 +1253,7 @@ export default function Home() {
                       href={exp.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 font-bold text-forest/80 hover:text-forest transition-colors bg-[#E8EFE5] hover:bg-[#CAD7C5] px-2.5 py-0.5 rounded-full border border-[#CAD7C5]/60 text-[11px]"
+                      className="inline-flex items-center gap-1 font-bold text-forest/80 hover:text-forest transition-colors bg-[#E8EFE5] hover:bg-[#CAD7C5] px-2 py-0.5 rounded-full border border-[#CAD7C5]/60 text-[10px]"
                     >
                       <span>{exp.linkLabel?.replace(' ↗', '') || 'Kunjungi'} ↗</span>
                     </a>
@@ -1264,26 +1270,26 @@ export default function Home() {
       {/* SECTION: MY WORK INCLUDES (Campus Projects / Proyek Kampus & Akademik)    */}
       {/* ========================================================================= */}
       <BotanicalDivider />
-      <section id="projects" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-14 border-t border-[#CAD7C5]/70">
+      <section id="projects" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/70">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
-          <span className="font-script text-3xl sm:text-4xl text-rose-dark block mb-1">/ Portfolio & Case Studies /</span>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-forest tracking-normal mb-3">
+        <div className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4.5">
+          <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-0.5">/ Portfolio & Case Studies /</span>
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-forest tracking-normal mb-1.5">
             Selected Works & Campus Projects
           </h2>
-          <p className="text-sm sm:text-base text-forest/75 leading-relaxed font-source">
-            Kompilasi proyek sistem informasi, riset aplikasi, analisis data, dan strategi bisnis yang dikerjakan selama masa studi di D4 Sistem Informasi Bisnis Polinema. Arahkan kursor untuk membaca ringkasan dan klik untuk membuka dokumentasi lengkap.
+          <p className="text-xs sm:text-sm text-forest/75 leading-relaxed font-source">
+            Kompilasi proyek sistem informasi, riset aplikasi, analisis data, dan strategi bisnis yang dikerjakan selama masa studi di D4 Sistem Informasi Bisnis Polinema. Klik untuk membuka dokumentasi lengkap.
           </p>
         </div>
 
         {/* Category Filter Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-10 pb-4 border-b border-[#CAD7C5]/60">
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-4 pb-2 border-b border-[#CAD7C5]/60">
           <button
             onClick={() => setActiveDossierTab('all')}
-            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
+            className={`px-3.5 py-1 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
               activeDossierTab === 'all'
-                ? 'bg-rose-dark text-white shadow-sm'
+                ? 'bg-rose-dark text-white shadow-2xs'
                 : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
             }`}
           >
@@ -1291,9 +1297,9 @@ export default function Home() {
           </button>
           <button
             onClick={() => setActiveDossierTab('surveyku')}
-            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
+            className={`px-3.5 py-1 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
               activeDossierTab === 'surveyku'
-                ? 'bg-rose-dark text-white shadow-sm'
+                ? 'bg-rose-dark text-white shadow-2xs'
                 : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
             }`}
           >
@@ -1301,9 +1307,9 @@ export default function Home() {
           </button>
           <button
             onClick={() => setActiveDossierTab('media-monitor')}
-            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
+            className={`px-3.5 py-1 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
               activeDossierTab === 'media-monitor'
-                ? 'bg-rose-dark text-white shadow-sm'
+                ? 'bg-rose-dark text-white shadow-2xs'
                 : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
             }`}
           >
@@ -1311,9 +1317,9 @@ export default function Home() {
           </button>
           <button
             onClick={() => setActiveDossierTab('jti-certify')}
-            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
+            className={`px-3.5 py-1 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
               activeDossierTab === 'jti-certify'
-                ? 'bg-rose-dark text-white shadow-sm'
+                ? 'bg-rose-dark text-white shadow-2xs'
                 : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
             }`}
           >
@@ -1321,9 +1327,9 @@ export default function Home() {
           </button>
           <button
             onClick={() => setActiveDossierTab('sales-dashboard')}
-            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
+            className={`px-3.5 py-1 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
               activeDossierTab === 'sales-dashboard'
-                ? 'bg-rose-dark text-white shadow-sm'
+                ? 'bg-rose-dark text-white shadow-2xs'
                 : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
             }`}
           >
@@ -1331,9 +1337,9 @@ export default function Home() {
           </button>
           <button
             onClick={() => setActiveDossierTab('bpc-canvas')}
-            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
+            className={`px-3.5 py-1 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
               activeDossierTab === 'bpc-canvas'
-                ? 'bg-rose-dark text-white shadow-sm'
+                ? 'bg-rose-dark text-white shadow-2xs'
                 : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
             }`}
           >
@@ -1342,7 +1348,7 @@ export default function Home() {
         </div>
 
         {/* 3-Column Grid Matching User Reference Image */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 items-stretch">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 items-stretch">
           {filteredDossier.map((project) => (
             <div
               key={project.id}
@@ -1354,11 +1360,11 @@ export default function Home() {
                 project.link,
                 project.linkLabel
               )}
-              className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-[2rem] p-4 sm:p-5 shadow-sm hover:shadow-xl hover:border-rose-dusty/80 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group cursor-pointer"
+              className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-2xl p-3.5 shadow-2xs hover:shadow-md hover:border-rose-dusty/80 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group cursor-pointer"
             >
               <div>
-                {/* 1. GAMBAR PROYEK (Visual Showcase Clean on Top) */}
-                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-forest/5 mb-4 border border-[#CAD7C5]/60 shadow-2xs">
+                {/* 1. GAMBAR PROYEK (Visual Showcase Clean on Top with 16:10 Ratio) */}
+                <div className="relative aspect-[16/10] rounded-xl overflow-hidden bg-forest/5 mb-2.5 border border-[#CAD7C5]/60 shadow-2xs">
                   <img
                     src={project.image}
                     alt={project.title}
@@ -1367,21 +1373,20 @@ export default function Home() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-50 group-hover:opacity-80 transition-opacity pointer-events-none" />
                   
                   {/* Category Pill on Image */}
-                  <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-forest text-[9px] font-bold px-2.5 py-1 rounded-full shadow-xs uppercase tracking-wider">
+                  <span className="absolute top-2.5 left-2.5 bg-white/90 backdrop-blur-xs text-forest text-[9px] font-bold px-2 py-0.5 rounded-full shadow-xs uppercase tracking-wider">
                     {project.tag}
                   </span>
 
                   {/* Hover Quick Prompt */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-forest/30 pointer-events-none">
-                    <span className="px-3.5 py-1.5 rounded-full bg-white/95 text-rose-dark text-xs font-bold shadow-md flex items-center gap-1.5 backdrop-blur-xs">
+                    <span className="px-3 py-1 rounded-full bg-white/95 text-rose-dark text-xs font-bold shadow-md flex items-center gap-1.5 backdrop-blur-xs">
                       <span>Buka Dokumentasi ↗</span>
-                      <span>↗</span>
                     </span>
                   </div>
                 </div>
 
-                {/* 2. JUDUL PROYEK DI BAWAHNYA (Uppercase Bold, faithful to reference screenshot) */}
-                <div className="flex items-center justify-between gap-2 mb-1.5">
+                {/* 2. JUDUL PROYEK DI BAWAHNYA */}
+                <div className="flex items-center justify-between gap-2 mb-1">
                   <span className="text-[10px] font-mono font-bold text-forest/50 uppercase tracking-wider">
                     {project.period}
                   </span>
@@ -1390,23 +1395,23 @@ export default function Home() {
                   </span>
                 </div>
 
-                <h3 className="font-serif text-base sm:text-lg font-bold text-forest uppercase tracking-wide group-hover:text-rose-dark transition-colors line-clamp-2 leading-snug">
+                <h3 className="font-serif text-sm sm:text-base font-bold text-forest uppercase tracking-wide group-hover:text-rose-dark transition-colors line-clamp-1 leading-snug">
                   {project.title}
                 </h3>
 
-                {/* 3. RINGKASAN PROYEK (Visible & Readable) */}
-                <div className="mt-3">
-                  <p className="text-xs text-forest/80 font-source leading-relaxed mb-3 line-clamp-2 sm:line-clamp-3">
+                {/* 3. RINGKASAN PROYEK */}
+                <div className="mt-1.5">
+                  <p className="text-xs text-forest/80 font-source leading-relaxed mb-2 line-clamp-2">
                     {project.summary}
                   </p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.results?.map((res, rIdx) => (
+                  <div className="flex flex-wrap gap-1">
+                    {project.results?.slice(0, 2).map((res, rIdx) => (
                       <span
                         key={rIdx}
-                        className="inline-flex items-center gap-1 text-[10px] font-medium px-2.5 py-0.5 rounded-full bg-[#E8EFE5] text-forest border border-[#CAD7C5]"
+                        className="inline-flex items-center gap-1 text-[9px] font-medium px-2 py-0.5 rounded-full bg-[#E8EFE5] text-forest border border-[#CAD7C5]"
                       >
                         <span className="w-1 h-1 rounded-full bg-rose-dark" />
-                        <span>{res}</span>
+                        <span className="truncate">{res}</span>
                       </span>
                     ))}
                   </div>
@@ -1414,12 +1419,12 @@ export default function Home() {
               </div>
 
               {/* Bottom Subtle Action Trigger */}
-              <div className="pt-3 mt-3 border-t border-[#CAD7C5]/40 flex items-center justify-between text-xs text-forest/60">
+              <div className="pt-2 mt-2 border-t border-[#CAD7C5]/40 flex items-center justify-between text-xs text-forest/60">
                 <span className="text-[11px] font-bold text-rose-dark group-hover:underline flex items-center gap-1">
-                  <span>Klik untuk dokumentasi</span>
+                  <span>Lihat Dokumentasi</span>
                   <span className="text-xs">↗</span>
                 </span>
-                <span className="w-6 h-6 rounded-full bg-[#E8EFE5] text-forest group-hover:bg-rose-dark group-hover:text-white transition-colors flex items-center justify-center text-[10px] font-bold">
+                <span className="w-5 h-5 rounded-full bg-[#E8EFE5] text-forest group-hover:bg-rose-dark group-hover:text-white transition-colors flex items-center justify-center text-[10px] font-bold">
                   →
                 </span>
               </div>
@@ -1433,26 +1438,26 @@ export default function Home() {
       {/* SECTION 2: WALL OF RECOGNITION (Visual Mosaic Exhibition Collage) */}
       {/* ========================================================================= */}
       <BotanicalDivider />
-      <section id="recognition" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-14 border-t border-[#CAD7C5]/70">
+      <section id="recognition" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/70">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
-          <span className="font-script text-3xl sm:text-4xl text-rose-dark block mb-1">/ Honors & Recognitions /</span>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-forest tracking-normal mb-3">
+        <div className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4">
+          <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-0.5">/ Honors & Recognitions /</span>
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-forest tracking-normal mb-1.5">
             National Competitions & Honors
           </h2>
-          <p className="text-sm sm:text-base text-forest/75 leading-relaxed">
-            Galeri visual pencapaian terverifikasi dalam kompetisi business plan dan debat nasional. Arahkan kursor ke tiap dokumentasi untuk melihat detail dan klik untuk membuka sertifikat resmi.
+          <p className="text-xs sm:text-sm text-forest/75 leading-relaxed">
+            Galeri visual pencapaian terverifikasi dalam kompetisi business plan dan debat nasional. Klik untuk membuka sertifikat resmi.
           </p>
         </div>
 
         {/* Filter Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-3 sm:mb-3.5">
           <button
             onClick={() => setAwardFilter('all')}
-            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all ${
+            className={`px-3.5 py-1 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
               awardFilter === 'all'
-                ? 'bg-rose-dark text-white shadow-sm'
+                ? 'bg-rose-dark text-white shadow-2xs'
                 : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
             }`}
           >
@@ -1460,9 +1465,9 @@ export default function Home() {
           </button>
           <button
             onClick={() => setAwardFilter('1st')}
-            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all ${
+            className={`px-3.5 py-1 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
               awardFilter === '1st'
-                ? 'bg-rose-dark text-white shadow-sm'
+                ? 'bg-rose-dark text-white shadow-2xs'
                 : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
             }`}
           >
@@ -1470,9 +1475,9 @@ export default function Home() {
           </button>
           <button
             onClick={() => setAwardFilter('2nd')}
-            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all ${
+            className={`px-3.5 py-1 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
               awardFilter === '2nd'
-                ? 'bg-rose-dark text-white shadow-sm'
+                ? 'bg-rose-dark text-white shadow-2xs'
                 : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
             }`}
           >
@@ -1480,9 +1485,9 @@ export default function Home() {
           </button>
           <button
             onClick={() => setAwardFilter('top5')}
-            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all ${
+            className={`px-3.5 py-1 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
               awardFilter === 'top5'
-                ? 'bg-rose-dark text-white shadow-sm'
+                ? 'bg-rose-dark text-white shadow-2xs'
                 : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
             }`}
           >
@@ -1490,9 +1495,9 @@ export default function Home() {
           </button>
           <button
             onClick={() => setAwardFilter('speaker')}
-            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all ${
+            className={`px-3.5 py-1 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
               awardFilter === 'speaker'
-                ? 'bg-rose-dark text-white shadow-sm'
+                ? 'bg-rose-dark text-white shadow-2xs'
                 : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
             }`}
           >
@@ -1500,37 +1505,37 @@ export default function Home() {
           </button>
         </div>
 
-        {/* Visual Exhibition Mosaic Container (Framed with Pastel Glow like user's reference image!) */}
-        <div className="relative p-3 sm:p-5 rounded-[2.5rem] bg-gradient-to-tr from-rose-blush/40 via-white/60 to-sage-DEFAULT/30 border border-white/80 shadow-xl backdrop-blur-sm">
+        {/* Visual Exhibition Mosaic Container */}
+        <div className="relative p-3 sm:p-3.5 rounded-2xl bg-gradient-to-tr from-rose-blush/40 via-white/60 to-sage-DEFAULT/30 border border-white/80 shadow-md backdrop-blur-sm">
           
           {/* Mosaic Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 sm:gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-3 sm:gap-3.5">
             {filteredAwards.map((award, idx) => {
-              // Custom asymmetric span pattern matching user's image collage
-              let colSpan = 'lg:col-span-4 min-h-[280px]';
+              // Calibrated compact asymmetric span pattern
+              let colSpan = 'lg:col-span-4 min-h-[200px]';
               if (awardFilter === 'all') {
-                if (idx === 0) colSpan = 'lg:col-span-4 lg:row-span-2 min-h-[440px]'; // Tall vertical card like left of reference!
-                else if (idx === 1) colSpan = 'lg:col-span-8 min-h-[220px]'; // Wide top card like upper right of reference!
-                else if (idx === 2) colSpan = 'lg:col-span-4 min-h-[220px]';
-                else if (idx === 3) colSpan = 'lg:col-span-4 min-h-[220px]';
-                else if (idx === 4) colSpan = 'lg:col-span-4 min-h-[260px]';
-                else if (idx === 5) colSpan = 'lg:col-span-4 min-h-[260px]';
-                else if (idx === 6) colSpan = 'lg:col-span-4 min-h-[260px]';
+                if (idx === 0) colSpan = 'lg:col-span-4 lg:row-span-2 min-h-[340px]';
+                else if (idx === 1) colSpan = 'lg:col-span-8 min-h-[160px]';
+                else if (idx === 2) colSpan = 'lg:col-span-4 min-h-[160px]';
+                else if (idx === 3) colSpan = 'lg:col-span-4 min-h-[160px]';
+                else if (idx === 4) colSpan = 'lg:col-span-4 min-h-[165px]';
+                else if (idx === 5) colSpan = 'lg:col-span-4 min-h-[165px]';
+                else if (idx === 6) colSpan = 'lg:col-span-4 min-h-[165px]';
               } else {
-                colSpan = 'lg:col-span-6 min-h-[320px]';
+                colSpan = 'lg:col-span-6 min-h-[220px]';
               }
 
               return (
                 <div
                   key={idx}
                   onClick={() => openModal(award.title, `${award.rank} • ${award.organizer}`, award.desc, [award.certImg, award.eventImg], award.link, award.linkLabel)}
-                  className={`group relative rounded-3xl overflow-hidden cursor-pointer bg-forest/20 border-2 border-white/60 shadow-md transition-all duration-500 hover:-translate-y-2.5 hover:scale-[1.015] hover:shadow-2xl ${colSpan} flex flex-col justify-between p-5`}
+                  className={`group relative rounded-2xl overflow-hidden cursor-pointer bg-forest/20 border-2 border-white/60 shadow-xs transition-all duration-500 hover:-translate-y-1 hover:shadow-lg ${colSpan} flex flex-col justify-between p-3 sm:p-3.5`}
                 >
                   {/* Background Event Documentation Image */}
                   <img
                     src={award.eventImg}
                     alt={award.title}
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 pointer-events-none"
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 pointer-events-none"
                   />
                   
                   {/* Subtle Gradient Shadow by default */}
@@ -1538,62 +1543,62 @@ export default function Home() {
 
                   {/* Top Header Tag (Pills) */}
                   <div className="relative z-10 flex items-center justify-between w-full">
-                    <span className={`text-[10px] font-subheader px-2.5 py-1 rounded-full shadow-sm tracking-wider uppercase ${award.rankBadge}`}>
+                    <span className={`text-[9px] font-subheader px-2 py-0.5 rounded-full shadow-xs tracking-wider uppercase ${award.rankBadge}`}>
                       {award.rank}
                     </span>
-                    <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded-full bg-black/45 backdrop-blur-md text-white border border-white/20">
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-black/45 backdrop-blur-md text-white border border-white/20">
                       {award.year}
                     </span>
                   </div>
 
                   {/* Default Bottom Teaser with Legible Backdrop */}
-                  <div className="relative z-10 bg-black/60 backdrop-blur-xs p-3.5 rounded-2xl border border-white/15 text-white group-hover:opacity-0 transition-opacity duration-300">
-                    <h3 className="font-serif text-base sm:text-lg font-bold leading-snug">
+                  <div className="relative z-10 bg-black/60 backdrop-blur-xs p-2.5 rounded-xl border border-white/15 text-white group-hover:opacity-0 transition-opacity duration-300">
+                    <h3 className="font-serif text-sm sm:text-base font-bold leading-snug line-clamp-1">
                       {award.title}
                     </h3>
-                    <p className="text-[11px] font-subheader text-rose-blush tracking-wider uppercase mt-0.5 truncate">
+                    <p className="text-[10px] font-subheader text-rose-blush tracking-wider uppercase mt-0.5 truncate">
                       {award.organizer}
                     </p>
                   </div>
 
                   {/* HOVER OVERLAY: Timbul & Pop-out Full Details! */}
-                  <div className="absolute inset-0 bg-forest/90 backdrop-blur-sm p-6 flex flex-col justify-between opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 text-white">
+                  <div className="absolute inset-0 bg-forest/90 backdrop-blur-sm p-4 flex flex-col justify-between opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 text-white">
                     <div>
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="w-2 h-2 rounded-full bg-rose-dusty" />
-                        <span className="text-[10px] font-subheader text-rose-blush tracking-subheader uppercase">
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-rose-dusty" />
+                        <span className="text-[9px] font-subheader text-rose-blush tracking-subheader uppercase">
                           {award.scope}
                         </span>
                       </div>
-                      <h3 className="font-serif text-xl sm:text-2xl font-bold leading-snug mb-1 text-white">
+                      <h3 className="font-serif text-base sm:text-lg font-bold leading-snug mb-1 text-white line-clamp-1">
                         {award.title}
                       </h3>
-                      <p className="text-xs font-subheader text-[#E8EFE5]/70 tracking-wider uppercase mb-3">
+                      <p className="text-[11px] font-subheader text-[#E8EFE5]/70 tracking-wider uppercase mb-1.5">
                         {award.organizer}
                       </p>
-                      <p className="text-xs text-[#E8EFE5]/85 leading-relaxed line-clamp-3">
+                      <p className="text-xs text-[#E8EFE5]/85 leading-relaxed line-clamp-2">
                         {award.desc}
                       </p>
                     </div>
 
-                    <div className="pt-3 border-t border-white/20 flex items-center justify-between">
-                      <span className="text-[11px] font-bold text-rose-blush flex items-center gap-1">
+                    <div className="pt-2 border-t border-white/20 flex items-center justify-between text-xs">
+                      <span className="text-[10px] font-bold text-rose-blush flex items-center gap-1">
                         <span>Bukti Foto</span>
                       </span>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1.5">
                         {award.link && (
                           <a
                             href={award.link}
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={(e) => e.stopPropagation()}
-                            className="px-2.5 py-1.5 rounded-full bg-white/20 hover:bg-white text-white hover:text-forest text-[11px] font-bold border border-white/30 transition-colors flex items-center gap-1"
+                            className="px-2 py-1 rounded-full bg-white/20 hover:bg-white text-white hover:text-forest text-[10px] font-bold border border-white/30 transition-colors flex items-center gap-1"
                           >
                             <span>↗</span>
                             <span>{award.linkLabel || 'Publikasi'}</span>
                           </a>
                         )}
-                        <span className="px-3.5 py-1.5 rounded-full bg-rose-dark text-white text-xs font-bold shadow-md hover:bg-rose-berry transition-colors flex items-center gap-1">
+                        <span className="px-3 py-1 rounded-full bg-rose-dark text-white text-xs font-bold shadow-2xs hover:bg-rose-berry transition-colors flex items-center gap-1">
                           <span>Detail</span>
                           <span>↗</span>
                         </span>
@@ -1609,7 +1614,7 @@ export default function Home() {
         </div>
 
         {/* Footer Note */}
-        <p className="text-center text-xs text-forest/60 italic mt-5">
+        <p className="text-center text-xs text-forest/60 italic mt-2.5">
           Klik pada gambar untuk melihat pop-up foto penerimaan piala dan sertifikat resmi
         </p>
 
@@ -1619,16 +1624,16 @@ export default function Home() {
       {/* SECTION 3: INSTITUTIONAL LEADERSHIP & GOVERNANCE (Infinite Coverflow)    */}
       {/* ========================================================================= */}
       <BotanicalDivider />
-      <section id="leadership" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-14 border-t border-[#CAD7C5]/70 overflow-hidden">
+      <section id="leadership" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/70 overflow-hidden">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
-          <span className="font-script text-3xl sm:text-4xl text-rose-dark block mb-1">/ Governance & Track Record /</span>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-forest tracking-normal mb-3">
+        <div className="text-center max-w-2xl mx-auto mb-2.5 sm:mb-3">
+          <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-0.5">/ Governance & Track Record /</span>
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-forest tracking-normal mb-1.5">
             Leadership & Organizational Impact
           </h2>
-          <p className="text-sm sm:text-base text-forest/75 leading-relaxed font-source">
-            Pengalaman memimpin ratusan mahasiswa, mengawal tata kelola organisasi skala jurusan, serta mewakili ekosistem teknologi kampus. Geser kartu ke samping untuk menjelajahi peran.
+          <p className="text-xs sm:text-sm text-forest/75 leading-relaxed font-source">
+            Pengalaman memimpin mahasiswa, mengawal tata kelola organisasi skala jurusan, serta mewakili ekosistem teknologi kampus.
           </p>
         </div>
 
@@ -1658,10 +1663,10 @@ export default function Home() {
 
           return (
             <>
-              <div className="flex items-center justify-between max-w-4xl mx-auto mb-4 px-2">
+              <div className="flex items-center justify-between max-w-4xl mx-auto mb-2 px-2">
                 <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-rose-dark animate-pulse" />
-                  <span className="text-xs font-bold text-forest uppercase tracking-wider font-source">
+                  <span className="w-2 h-2 rounded-full bg-rose-dark animate-pulse" />
+                  <span className="text-[11px] font-bold text-forest uppercase tracking-wider font-source">
                     Peran {activeOrgIdx + 1} dari {organizationList.length}
                   </span>
                   <span className="text-xs text-forest/50 hidden sm:inline">•</span>
@@ -1670,7 +1675,7 @@ export default function Home() {
                   </span>
                 </div>
 
-                <div className="text-[11px] text-forest/60 font-medium hidden sm:flex items-center gap-1.5 bg-white/70 px-3 py-1 rounded-full border border-[#CAD7C5]/60">
+                <div className="text-[10px] text-forest/60 font-medium hidden sm:flex items-center gap-1 bg-white/70 px-2.5 py-0.5 rounded-full border border-[#CAD7C5]/60">
                   <span>Auto-slide foto aktif</span>
                 </div>
               </div>
@@ -1679,16 +1684,16 @@ export default function Home() {
               {/* INFINITE COVERFLOW CONTAINER WITH PROMINENT SIDE ARROWS             */}
               {/* =================================================================== */}
               <div 
-                className="relative py-8 select-none"
+                className="relative py-3 select-none"
                 style={{ 
-                  '--card-width': 'min(80vw, 390px)',
-                  '--card-gap': '1.75rem'
+                  '--card-width': 'min(75vw, 340px)',
+                  '--card-gap': '1.25rem'
                 } as React.CSSProperties}
               >
                 {/* Floating Left Arrow Button (Prominent on Side) */}
                 <button
                   onClick={handlePrevOrg}
-                  className="absolute left-1 sm:left-3 lg:left-6 top-1/2 -translate-y-1/2 z-40 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/95 backdrop-blur-md border-2 border-[#CAD7C5] shadow-xl text-forest hover:bg-forest hover:text-[#E8EFE5] hover:scale-110 active:scale-95 transition-all flex items-center justify-center text-2xl font-bold cursor-pointer ring-4 ring-forest/5"
+                  className="absolute left-1 sm:left-2 lg:left-4 top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 backdrop-blur-md border-2 border-[#CAD7C5] shadow-lg text-forest hover:bg-forest hover:text-[#E8EFE5] hover:scale-110 active:scale-95 transition-all flex items-center justify-center text-xl font-bold cursor-pointer ring-2 ring-forest/5"
                   title="Peran Sebelumnya (Geser Kiri)"
                   aria-label="Previous Role"
                 >
@@ -1698,7 +1703,7 @@ export default function Home() {
                 {/* Floating Right Arrow Button (Prominent on Side) */}
                 <button
                   onClick={handleNextOrg}
-                  className="absolute right-1 sm:right-3 lg:right-6 top-1/2 -translate-y-1/2 z-40 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/95 backdrop-blur-md border-2 border-[#CAD7C5] shadow-xl text-forest hover:bg-forest hover:text-[#E8EFE5] hover:scale-110 active:scale-95 transition-all flex items-center justify-center text-2xl font-bold cursor-pointer ring-4 ring-forest/5"
+                  className="absolute right-1 sm:right-2 lg:right-4 top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 backdrop-blur-md border-2 border-[#CAD7C5] shadow-lg text-forest hover:bg-forest hover:text-[#E8EFE5] hover:scale-110 active:scale-95 transition-all flex items-center justify-center text-xl font-bold cursor-pointer ring-2 ring-forest/5"
                   title="Peran Selanjutnya (Geser Kanan)"
                   aria-label="Next Role"
                 >
@@ -1725,21 +1730,21 @@ export default function Home() {
                         key={globalIdx}
                         onClick={() => setCurrentSlideIndex(globalIdx)}
                         style={{ width: 'var(--card-width)' }}
-                        className={`shrink-0 rounded-3xl transition-all duration-500 flex flex-col justify-between overflow-hidden cursor-pointer ${
+                        className={`shrink-0 rounded-2xl transition-all duration-500 flex flex-col justify-between overflow-hidden cursor-pointer ${
                           isCenter
-                            ? 'scale-105 sm:scale-108 z-30 opacity-100 bg-white shadow-2xl ring-2 ring-rose-dark/35 border-transparent'
-                            : 'scale-90 sm:scale-95 z-10 opacity-55 hover:opacity-85 bg-white/85 shadow-md border border-[#CAD7C5]'
+                            ? 'scale-102 sm:scale-105 z-30 opacity-100 bg-white shadow-xl ring-2 ring-rose-dark/35 border-transparent'
+                            : 'scale-90 sm:scale-95 z-10 opacity-55 hover:opacity-85 bg-white/85 shadow-xs border border-[#CAD7C5]'
                         }`}
                       >
                         {/* Spotlight Ribbon on Center Card */}
                         {isCenter && (
-                          <div className="bg-gradient-to-r from-forest via-rose-dark to-forest text-[#E8EFE5] text-center text-[10px] font-bold uppercase tracking-widest py-1">
+                          <div className="bg-gradient-to-r from-forest via-rose-dark to-forest text-[#E8EFE5] text-center text-[9px] font-bold uppercase tracking-widest py-0.5">
                             ✦ Spotlight Organization ✦
                           </div>
                         )}
 
-                        {/* Card Image Area: 1:1 Aspect Ratio (Square) with Auto-Sliding Photo */}
-                        <div className="relative aspect-square overflow-hidden bg-forest/10 group/img">
+                        {/* Card Image Area: 16:10 Aspect Ratio with Auto-Sliding Photo */}
+                        <div className="relative aspect-[16/10] overflow-hidden bg-forest/10 group/img">
                           <img
                             src={currentPhoto}
                             alt={`${org.role} - ${org.institution}`}
@@ -1750,18 +1755,18 @@ export default function Home() {
                           <div className="absolute inset-0 bg-gradient-to-t from-forest/75 via-transparent to-black/20 pointer-events-none" />
 
                           {/* Top Badges */}
-                          <div className="absolute top-3 inset-x-3 flex items-center justify-between z-10">
-                            <span className="text-[10px] font-bold bg-white/90 backdrop-blur-xs text-forest px-2.5 py-0.5 rounded-full shadow-xs">
+                          <div className="absolute top-2.5 inset-x-2.5 flex items-center justify-between z-10">
+                            <span className="text-[9px] font-bold bg-white/90 backdrop-blur-xs text-forest px-2 py-0.5 rounded-full shadow-xs">
                               {org.period}
                             </span>
-                            <span className="text-[10px] font-medium bg-forest/85 backdrop-blur-xs text-white px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-xs">
+                            <span className="text-[9px] font-medium bg-forest/85 backdrop-blur-xs text-white px-2 py-0.5 rounded-full flex items-center gap-1 shadow-xs">
                               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                               <span>Foto {activePhotoIdx + 1}/{org.images.length}</span>
                             </span>
                           </div>
 
-                          {/* Multi-Photo Indicators & Thumbnail switcher at bottom of 1:1 photo */}
-                          <div className="absolute bottom-3 left-3 z-10 flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full">
+                          {/* Multi-Photo Indicators & Thumbnail switcher at bottom of photo */}
+                          <div className="absolute bottom-2.5 left-2.5 z-10 flex items-center gap-1 bg-black/60 backdrop-blur-md px-2 py-0.5 rounded-full">
                             {org.images.map((_, pIdx) => (
                               <button
                                 key={pIdx}
@@ -1769,7 +1774,7 @@ export default function Home() {
                                   e.stopPropagation();
                                   setOrgPhotoIndex(prev => ({ ...prev, [orgIdx]: pIdx }));
                                 }}
-                                className={`w-4 h-4 rounded-full text-[9px] font-bold flex items-center justify-center transition-all ${
+                                className={`w-3.5 h-3.5 rounded-full text-[8px] font-bold flex items-center justify-center transition-all ${
                                   activePhotoIdx === pIdx
                                     ? 'bg-rose-dark text-white scale-110 shadow-xs'
                                     : 'bg-white/40 text-white hover:bg-white/70'
@@ -1787,7 +1792,7 @@ export default function Home() {
                               e.stopPropagation();
                               openModal(org.role, org.institution, org.desc, org.images);
                             }}
-                            className="absolute bottom-3 right-3 z-10 px-2.5 py-1 rounded-full bg-white/90 hover:bg-rose-blush text-forest text-[10px] font-bold shadow-xs transition-colors"
+                            className="absolute bottom-2.5 right-2.5 z-10 px-2 py-0.5 rounded-full bg-white/90 hover:bg-rose-blush text-forest text-[9px] font-bold shadow-xs transition-colors"
                             title="Buka Dokumentasi Resolusi Penuh"
                           >
                             Galeri ↗
@@ -1795,30 +1800,30 @@ export default function Home() {
                         </div>
 
                         {/* Card Content Body */}
-                        <div className="p-5 sm:p-6 flex flex-col justify-between grow">
+                        <div className="p-3.5 sm:p-4 flex flex-col justify-between grow">
                           <div>
-                            <div className="text-[10px] font-bold text-rose-dark uppercase tracking-wider mb-1">
+                            <div className="text-[9px] font-bold text-rose-dark uppercase tracking-wider mb-0.5">
                               {org.tag}
                             </div>
 
-                            <h3 className="font-serif text-xl sm:text-2xl font-bold text-forest mb-1">
+                            <h3 className="font-serif text-lg sm:text-xl font-bold text-forest mb-0.5 line-clamp-1">
                               {org.role}
                             </h3>
 
-                            <h4 className="text-xs font-subheader text-forest/70 tracking-wider uppercase mb-3">
+                            <h4 className="text-[11px] font-subheader text-forest/70 tracking-wider uppercase mb-2">
                               {org.institution}
                             </h4>
 
-                            <p className="text-xs sm:text-sm text-forest/80 leading-relaxed font-source mb-4 line-clamp-3">
+                            <p className="text-xs text-forest/80 leading-relaxed font-source mb-2.5 line-clamp-2">
                               {org.desc}
                             </p>
 
                             {/* Highlights Badges */}
-                            <div className="flex flex-wrap gap-1.5 mb-4">
-                              {org.highlights.map((item, hIdx) => (
+                            <div className="flex flex-wrap gap-1 mb-2.5">
+                              {org.highlights.slice(0, 2).map((item, hIdx) => (
                                 <span
                                   key={hIdx}
-                                  className="text-[10px] font-medium px-2.5 py-0.5 rounded-full bg-[#E8EFE5]/70 border border-[#CAD7C5] text-forest/85"
+                                  className="text-[9px] font-medium px-2 py-0.5 rounded-full bg-[#E8EFE5]/70 border border-[#CAD7C5] text-forest/85"
                                 >
                                   ✦ {item}
                                 </span>
@@ -1827,7 +1832,7 @@ export default function Home() {
                           </div>
 
                           {/* Footer Trigger */}
-                          <div className="pt-3 border-t border-[#CAD7C5]/50 flex items-center justify-between">
+                          <div className="pt-2 border-t border-[#CAD7C5]/50 flex items-center justify-between text-xs">
                             <button
                               onClick={(e) => {
                                 e.stopPropagation();
@@ -1851,18 +1856,18 @@ export default function Home() {
               </div>
 
               {/* Quick Role Jump Pills (Clickable direct navigation below carousel) */}
-              <div className="flex flex-wrap items-center justify-center gap-2 mt-4 mb-10">
+              <div className="flex flex-wrap items-center justify-center gap-1.5 mt-2.5 mb-2">
                 {organizationList.map((org, idx) => (
                   <button
                     key={idx}
                     onClick={() => handleJumpOrg(idx)}
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer ${
+                    className={`px-3 py-1 rounded-full text-xs font-medium transition-all cursor-pointer ${
                       idx === activeOrgIdx
-                        ? 'bg-forest text-[#E8EFE5] font-bold shadow-sm ring-2 ring-forest/20'
+                        ? 'bg-forest text-[#E8EFE5] font-bold shadow-2xs ring-2 ring-forest/20'
                         : 'bg-white/80 text-forest/75 border border-[#CAD7C5] hover:bg-white hover:text-forest'
                     }`}
                   >
-                    <span className="opacity-60 mr-1.5">#{idx + 1}</span>
+                    <span className="opacity-60 mr-1">#{idx + 1}</span>
                     <span>{org.role.split('(')[0].trim()}</span>
                   </button>
                 ))}
@@ -1871,27 +1876,27 @@ export default function Home() {
           );
         })()}
 
-        </section>
+      </section>
 
       {/* ========================================================================= */}
       {/* SECTION: PROFESSIONAL COURSES & ACCREDITATIONS (Dedicated Section)        */}
       {/* ========================================================================= */}
       <BotanicalDivider />
-      <section id="certifications" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-14 border-t border-[#CAD7C5]/70">
+      <section id="certifications" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/70">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
-          <span className="font-script text-3xl sm:text-4xl text-rose-dark block mb-1">/ Continuous Learning /</span>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-forest tracking-normal mb-3">
+        <div className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4">
+          <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-0.5">/ Continuous Learning /</span>
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-forest tracking-normal mb-1.5">
             Professional Certifications & Credentials
           </h2>
-          <p className="text-sm sm:text-base text-forest/75 leading-relaxed font-source">
-            Lisensi pelatihan intensif industri, sertifikasi kompetensi terakreditasi, dan pengujian standar internasional untuk mendukung kapabilitas strategis dan eksekusi bisnis.
+          <p className="text-xs sm:text-sm text-forest/75 leading-relaxed font-source">
+            Lisensi pelatihan industri, sertifikasi kompetensi terakreditasi, dan pengujian standar internasional.
           </p>
         </div>
 
-        {/* Compact Vertical Cards Grid (Kembalikan ke Desain Sebelumnya, Tanpa Status Akademik) */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-4.5 items-stretch">
+        {/* Compact Vertical Cards Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-3.5 items-stretch">
           {certificationList.map((item, idx) => (
             <div
               key={idx}
@@ -1901,11 +1906,11 @@ export default function Home() {
                 item.desc,
                 [item.image]
               )}
-              className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-[1.75rem] p-3.5 hover:shadow-lg hover:border-rose-dusty/60 hover:-translate-y-1 transition-all flex flex-col justify-between group cursor-pointer"
+              className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-2xl p-3 hover:shadow-md hover:border-rose-dusty/60 hover:-translate-y-0.5 transition-all flex flex-col justify-between group cursor-pointer"
             >
               <div>
-                {/* Visual Card Graphic (Clean 4:3 with Tag & Issuer Pill) */}
-                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-forest/5 mb-3 border border-[#CAD7C5]/60">
+                {/* Visual Card Graphic */}
+                <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-forest/5 mb-2 border border-[#CAD7C5]/60">
                   <img
                     src={item.image}
                     alt={item.title}
@@ -1914,28 +1919,28 @@ export default function Home() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
                   
                   {/* Issuer & Year Pill */}
-                  <span className="absolute bottom-2 left-2 bg-white/90 backdrop-blur-xs text-forest text-[9px] font-bold px-2 py-0.5 rounded-full shadow-xs">
+                  <span className="absolute bottom-1.5 left-1.5 bg-white/90 backdrop-blur-xs text-forest text-[8px] font-bold px-1.5 py-0.5 rounded-full shadow-xs">
                     {item.issuer} • {item.year}
                   </span>
                 </div>
 
                 {/* Category Tag */}
-                <span className={`inline-block text-[9px] font-bold px-2 py-0.5 rounded-full border ${item.badgeColor || 'bg-rose-blush/60 text-rose-dark border-rose-dusty/50'} uppercase tracking-wider mb-1.5`}>
+                <span className={`inline-block text-[8px] font-bold px-2 py-0.5 rounded-full border ${item.badgeColor || 'bg-rose-blush/60 text-rose-dark border-rose-dusty/50'} uppercase tracking-wider mb-1`}>
                   {item.tag}
                 </span>
 
                 {/* Course Title */}
-                <h4 className="font-serif text-sm font-bold text-forest group-hover:text-rose-dark transition-colors line-clamp-2 leading-snug">
+                <h4 className="font-serif text-xs sm:text-sm font-bold text-forest group-hover:text-rose-dark transition-colors line-clamp-2 leading-snug">
                   {item.title}
                 </h4>
               </div>
 
               {/* Bottom Minimal Arrow Footer */}
-              <div className="pt-3 mt-2 border-t border-[#CAD7C5]/40 flex items-center justify-between text-xs">
-                <span className="text-[10px] text-forest/60 font-medium">
+              <div className="pt-2 mt-1.5 border-t border-[#CAD7C5]/40 flex items-center justify-between text-xs">
+                <span className="text-[9px] text-forest/60 font-medium">
                   Lihat Sertifikat
                 </span>
-                <span className="w-6 h-6 rounded-full bg-[#E8EFE5] text-forest group-hover:bg-rose-dark group-hover:text-white transition-colors flex items-center justify-center text-[10px] font-bold">
+                <span className="w-5 h-5 rounded-full bg-[#E8EFE5] text-forest group-hover:bg-rose-dark group-hover:text-white transition-colors flex items-center justify-center text-[9px] font-bold">
                   →
                 </span>
               </div>
@@ -1944,180 +1949,178 @@ export default function Home() {
         </div>
 
         {/* Trust Banner Below Cards */}
-        <div className="mt-8 p-4 rounded-2xl bg-[#CAD7C5]/25 border border-[#CAD7C5]/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-forest/80">
-          <div className="flex items-center gap-2.5">
-            <span className="text-rose-dark font-serif font-bold text-lg select-none">✦</span>
-            <span className="font-medium">
+        <div className="mt-4 p-3 rounded-xl bg-[#CAD7C5]/25 border border-[#CAD7C5]/60 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-forest/80">
+          <div className="flex items-center gap-2">
+            <span className="text-rose-dark font-serif font-bold text-base select-none">✦</span>
+            <span className="font-medium text-[11px] sm:text-xs">
               Seluruh sertifikat diterbitkan oleh institusi terakreditasi internasional & nasional (RevoU, MySkill, ETS International).
             </span>
           </div>
-          <span className="text-[11px] font-bold text-rose-dark shrink-0">
-            Klik kartu manapun untuk pratinjau sertifikat beresolusi tinggi ↗
+          <span className="text-[10px] sm:text-[11px] font-bold text-rose-dark shrink-0">
+            Klik kartu untuk pratinjau sertifikat resolusi tinggi ↗
           </span>
         </div>
 
       </section>
 
       {/* ========================================================================= */}
-      {/* SECTION 6: CREATIVE PURSUITS & CONTENT CREATOR HIGHLIGHT */}
+      {/* SECTION 6: CREATIVE PURSUITS & CONTENT CREATOR HIGHLIGHT                   */}
       {/* ========================================================================= */}
       <BotanicalDivider />
-      <section id="creative" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-14 border-t border-[#CAD7C5]/70">
+      <section id="creative" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/70">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
-          <span className="font-script text-3xl sm:text-4xl text-rose-dark block mb-1">/ Content & Media /</span>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-forest tracking-normal mb-3">
+        <div className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4">
+          <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-0.5">/ Content & Media /</span>
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-forest tracking-normal mb-1.5">
             Creator Studio & Social Growth
           </h2>
-          <p className="text-sm sm:text-base text-forest/75 leading-relaxed">
-            Eksplorasi visual dan penceritaan kreatif: Produksi konten lintas platform (Instagram & TikTok) di berbagai akun, karya rajutan tangan, eksplorasi dunia, serta pemikiran strategis.
+          <p className="text-xs sm:text-sm text-forest/75 leading-relaxed">
+            Eksplorasi visual dan penceritaan kreatif: Produksi konten lintas platform (Instagram & TikTok) di berbagai akun.
           </p>
         </div>
 
-        {/* ----------------------------------------------------------------------- */}
-        {/* SUBSECTION A: CONTENT CREATOR MULTI-DEVICE POP-OUT SHOWCASE */}
-        {/* ----------------------------------------------------------------------- */}
-        <div className="bg-white/90 backdrop-blur-md border border-[#CAD7C5] rounded-3xl p-5 sm:p-8 shadow-sm mb-10">
+        {/* CONTENT CREATOR MULTI-DEVICE SHOWCASE */}
+        <div className="bg-white/90 backdrop-blur-md border border-[#CAD7C5] rounded-2xl p-4 sm:p-5 shadow-xs mb-0">
           
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-3">
             <div>
-              <span className="text-[11px] font-bold uppercase tracking-widest text-rose-dark block mb-1">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-rose-dark block">
                 ✦ Multi-Platform Production
               </span>
-              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest">
+              <h3 className="font-serif text-lg sm:text-xl font-bold text-forest">
                 Social Media & Video Production
               </h3>
             </div>
             
             {/* Account Switcher Tabs */}
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-wrap items-center gap-1.5">
               <button
                 onClick={() => setActiveCreatorAccount('personal')}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                className={`px-3 py-1 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                   activeCreatorAccount === 'personal'
-                    ? 'bg-rose-dark text-white shadow-sm'
+                    ? 'bg-rose-dark text-white shadow-2xs'
                     : 'bg-[#E8EFE5] text-forest/80 hover:bg-white'
                 }`}
               >
-                Personal Account
+                Personal
               </button>
               <button
                 onClick={() => setActiveCreatorAccount('yarnup')}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                className={`px-3 py-1 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                   activeCreatorAccount === 'yarnup'
-                    ? 'bg-rose-dark text-white shadow-sm'
+                    ? 'bg-rose-dark text-white shadow-2xs'
                     : 'bg-[#E8EFE5] text-forest/80 hover:bg-white'
                 }`}
               >
-                YarnUp! Studio
+                YarnUp!
               </button>
               <button
                 onClick={() => setActiveCreatorAccount('manikarumi')}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                className={`px-3 py-1 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                   activeCreatorAccount === 'manikarumi'
-                    ? 'bg-rose-dark text-white shadow-sm'
+                    ? 'bg-rose-dark text-white shadow-2xs'
                     : 'bg-[#E8EFE5] text-forest/80 hover:bg-white'
                 }`}
               >
-                Manikarumi ID
+                Manikarumi
               </button>
               <button
                 onClick={() => setActiveCreatorAccount('duasisi')}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                className={`px-3 py-1 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                   activeCreatorAccount === 'duasisi'
-                    ? 'bg-rose-dark text-white shadow-sm'
+                    ? 'bg-rose-dark text-white shadow-2xs'
                     : 'bg-[#E8EFE5] text-forest/80 hover:bg-white'
                 }`}
               >
-                Dua Sisi Laundry
+                Dua Sisi
               </button>
             </div>
           </div>
 
           {/* Account Meta Ribbon */}
-          <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl bg-[#E8EFE5]/50 border border-[#CAD7C5]/70 mb-8 text-xs">
-            <div className="flex items-center gap-3">
-              <span className="font-bold text-forest text-sm font-serif">{currentCreator.name}</span>
-              <span className="text-rose-dark font-mono font-medium">{currentCreator.handle}</span>
+          <div className="flex flex-wrap items-center justify-between gap-2 p-2.5 rounded-xl bg-[#E8EFE5]/50 border border-[#CAD7C5]/70 mb-3 text-xs">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <span className="font-bold text-forest text-xs sm:text-sm font-serif">{currentCreator.name}</span>
+              <span className="text-rose-dark font-mono font-medium text-xs">{currentCreator.handle}</span>
               <span className="hidden sm:inline text-forest/40">•</span>
-              <span className="hidden sm:inline text-forest/70 font-medium">{currentCreator.tag}</span>
+              <span className="hidden sm:inline text-forest/70 font-medium text-xs">{currentCreator.tag}</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="px-2.5 py-0.5 rounded-full bg-rose-blush text-rose-dark font-bold text-[10px] uppercase">
+              <span className="px-2 py-0.5 rounded-full bg-rose-blush text-rose-dark font-bold text-[9px] uppercase">
                 {currentCreator.stats}
               </span>
               <a
                 href={currentCreator.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs font-bold text-forest hover:text-rose-dark underline ml-2"
+                className="text-xs font-bold text-forest hover:text-rose-dark underline ml-1"
               >
                 Buka Akun ↗
               </a>
             </div>
           </div>
 
-          {/* Multi-Device Pop-out Stage (Adaptive: 3 Devices if hasCenterStage, or 2 Phones if hasCenterStage is false!) */}
+          {/* Multi-Device Pop-out Stage */}
           {currentCreator.hasCenterStage ? (
-            /* 3-DEVICE STAGE (Left Phone + Clickable YouTube/Video Stage + Right Phone) */
-            <div className="relative py-6 flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-8">
+            /* 3-DEVICE STAGE */
+            <div className="relative py-2 flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-6">
               
-              {/* Left Phone Mockup (Reels / Stories) - Hover Pops! */}
+              {/* Left Phone Mockup */}
               <div 
                 onClick={() => {
                   if (currentCreator.leftPhoneLink || currentCreator.link) {
                     window.open(currentCreator.leftPhoneLink || currentCreator.link, '_blank');
                   }
                 }}
-                className="w-full sm:w-[220px] lg:w-[200px] shrink-0 bg-[#253521] p-3 rounded-[2.5rem] border-2 border-[#CAD7C5] shadow-lg transition-all duration-500 hover:-translate-y-3 hover:scale-105 hover:shadow-2xl group cursor-pointer"
+                className="w-full sm:w-[170px] lg:w-[160px] shrink-0 bg-[#253521] p-2.5 rounded-[2rem] border-2 border-[#CAD7C5] shadow-md transition-all duration-500 hover:-translate-y-1.5 hover:scale-102 hover:shadow-xl group cursor-pointer"
               >
-                <div className="w-16 h-4 bg-black/60 rounded-full mx-auto mb-2" />
-                <div className="relative aspect-[9/16] rounded-3xl overflow-hidden bg-forest/30">
+                <div className="w-12 h-3 bg-black/60 rounded-full mx-auto mb-1.5" />
+                <div className="relative aspect-[9/16] rounded-2xl overflow-hidden bg-forest/30">
                   <img
                     src={currentCreator.leftPhoneImg}
                     alt={currentCreator.leftPhoneTitle}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/85 via-black/40 to-transparent text-white">
-                    <span className="inline-block px-2 py-0.5 rounded-full bg-rose-dark/90 text-[9px] font-bold uppercase tracking-wider mb-1">
+                  <div className="absolute inset-x-0 bottom-0 p-2 bg-gradient-to-t from-black/85 via-black/40 to-transparent text-white">
+                    <span className="inline-block px-1.5 py-0.5 rounded-full bg-rose-dark/90 text-[8px] font-bold uppercase tracking-wider mb-0.5">
                       {currentCreator.leftPhoneTag}
                     </span>
-                    <p className="text-[11px] font-bold leading-tight line-clamp-1">
+                    <p className="text-[10px] font-bold leading-tight line-clamp-1">
                       {currentCreator.leftPhoneTitle}
                     </p>
                   </div>
                 </div>
               </div>
 
-              {/* Central Wide Featured Stage (Tablet / Screen View) - Links out to YouTube / Video! */}
+              {/* Central Wide Featured Stage */}
               <div 
                 onClick={() => {
                   if (currentCreator.centerLink) {
                     window.open(currentCreator.centerLink, '_blank');
                   }
                 }}
-                className="w-full lg:max-w-[480px] bg-white rounded-3xl p-3 border-2 border-[#CAD7C5] shadow-xl transition-all duration-500 hover:-translate-y-3 hover:scale-[1.03] hover:shadow-2xl group cursor-pointer relative"
+                className="w-full lg:max-w-[420px] bg-white rounded-2xl p-2.5 border-2 border-[#CAD7C5] shadow-md transition-all duration-500 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl group cursor-pointer relative"
               >
-                <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#CAD7C5]/50 mb-2.5">
+                <div className="flex items-center justify-between px-2.5 py-1 border-b border-[#CAD7C5]/50 mb-2">
                   <div className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-rose-dusty" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-                    <span className="text-[10px] text-forest/50 font-mono ml-2 truncate">
+                    <span className="w-2 h-2 rounded-full bg-rose-dusty" />
+                    <span className="w-2 h-2 rounded-full bg-amber-400" />
+                    <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                    <span className="text-[9px] text-forest/50 font-mono ml-1.5 truncate">
                       content-studio / {activeCreatorAccount}
                     </span>
                   </div>
 
                   {currentCreator.centerLink && (
-                    <span className="text-[10px] font-bold font-mono px-2.5 py-0.5 rounded-full bg-red-100 text-red-700 border border-red-200 flex items-center gap-1 group-hover:bg-red-600 group-hover:text-white transition-colors">
+                    <span className="text-[9px] font-bold font-mono px-2 py-0.5 rounded-full bg-red-100 text-red-700 border border-red-200 flex items-center gap-1 group-hover:bg-red-600 group-hover:text-white transition-colors">
                       <span>▶</span>
-                      <span>Buka di YouTube ↗</span>
+                      <span>YouTube ↗</span>
                     </span>
                   )}
                 </div>
 
-                <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-[#E8EFE5]">
+                <div className="relative aspect-[16/10] rounded-xl overflow-hidden bg-[#E8EFE5]">
                   <img
                     src={currentCreator.centerImg}
                     alt={currentCreator.centerTitle}
@@ -2126,46 +2129,46 @@ export default function Home() {
                   
                   {/* Play button hover overlay */}
                   <div className="absolute inset-0 bg-forest/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-                    <div className="w-14 h-14 rounded-full bg-white/95 text-red-600 flex items-center justify-center text-2xl shadow-xl transform scale-75 group-hover:scale-100 transition-transform">
+                    <div className="w-10 h-10 rounded-full bg-white/95 text-red-600 flex items-center justify-center text-xl shadow-lg transform scale-90 group-hover:scale-100 transition-transform">
                       ▶
                     </div>
                   </div>
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-forest/95 via-forest/40 to-transparent flex flex-col justify-end p-5 text-white">
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-rose-blush mb-1">
+                  <div className="absolute inset-0 bg-gradient-to-t from-forest/95 via-forest/40 to-transparent flex flex-col justify-end p-3.5 text-white">
+                    <span className="text-[9px] font-bold uppercase tracking-widest text-rose-blush mb-0.5">
                       {currentCreator.platforms}
                     </span>
-                    <h4 className="font-serif text-xl sm:text-2xl font-bold leading-tight mb-1">
+                    <h4 className="font-serif text-base sm:text-lg font-bold leading-tight mb-0.5 line-clamp-1">
                       {currentCreator.centerTitle}
                     </h4>
-                    <p className="text-xs text-[#E8EFE5]/85 leading-snug line-clamp-2">
+                    <p className="text-[11px] text-[#E8EFE5]/85 leading-snug line-clamp-2">
                       {currentCreator.centerDesc}
                     </p>
                   </div>
                 </div>
               </div>
 
-              {/* Right Phone Mockup (Shorts / Feed) - Hover Pops! */}
+              {/* Right Phone Mockup */}
               <div 
                 onClick={() => {
                   if (currentCreator.rightPhoneLink || currentCreator.link) {
                     window.open(currentCreator.rightPhoneLink || currentCreator.link, '_blank');
                   }
                 }}
-                className="w-full sm:w-[220px] lg:w-[200px] shrink-0 bg-[#253521] p-3 rounded-[2.5rem] border-2 border-[#CAD7C5] shadow-lg transition-all duration-500 hover:-translate-y-3 hover:scale-105 hover:shadow-2xl group cursor-pointer"
+                className="w-full sm:w-[170px] lg:w-[160px] shrink-0 bg-[#253521] p-2.5 rounded-[2rem] border-2 border-[#CAD7C5] shadow-md transition-all duration-500 hover:-translate-y-1.5 hover:scale-102 hover:shadow-xl group cursor-pointer"
               >
-                <div className="w-16 h-4 bg-black/60 rounded-full mx-auto mb-2" />
-                <div className="relative aspect-[9/16] rounded-3xl overflow-hidden bg-forest/30">
+                <div className="w-12 h-3 bg-black/60 rounded-full mx-auto mb-1.5" />
+                <div className="relative aspect-[9/16] rounded-2xl overflow-hidden bg-forest/30">
                   <img
                     src={currentCreator.rightPhoneImg}
                     alt={currentCreator.rightPhoneTitle}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/85 via-black/40 to-transparent text-white">
-                    <span className="inline-block px-2 py-0.5 rounded-full bg-emerald-700/90 text-[9px] font-bold uppercase tracking-wider mb-1">
+                  <div className="absolute inset-x-0 bottom-0 p-2 bg-gradient-to-t from-black/85 via-black/40 to-transparent text-white">
+                    <span className="inline-block px-1.5 py-0.5 rounded-full bg-emerald-700/90 text-[8px] font-bold uppercase tracking-wider mb-0.5">
                       {currentCreator.rightPhoneTag}
                     </span>
-                    <p className="text-[11px] font-bold leading-tight line-clamp-1">
+                    <p className="text-[10px] font-bold leading-tight line-clamp-1">
                       {currentCreator.rightPhoneTitle}
                     </p>
                   </div>
@@ -2174,14 +2177,14 @@ export default function Home() {
 
             </div>
           ) : (
-            /* ADAPTIVE 2-PHONE STAGE (For Dua Sisi Laundry / Accounts without landscape video) */
-            <div className="py-6 flex flex-col items-center justify-center">
-              <div className="mb-5 inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#E8EFE5] border border-[#CAD7C5] text-forest text-xs font-medium">
+            /* ADAPTIVE 2-PHONE STAGE */
+            <div className="py-2 flex flex-col items-center justify-center">
+              <div className="mb-3 inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#E8EFE5] border border-[#CAD7C5] text-forest text-xs font-medium">
                 <span className="text-rose-dusty">✦</span>
-                <span>Dual Mobile Showcase — Video Vertikal (Instagram Reels & TikTok) • Format Landscape Segera Hadir</span>
+                <span>Dual Mobile Showcase — Video Vertikal (Instagram Reels & TikTok)</span>
               </div>
 
-              <div className="flex flex-row flex-wrap items-center justify-center gap-6 sm:gap-10">
+              <div className="flex flex-row flex-wrap items-center justify-center gap-4 sm:gap-6">
                 {/* Left Phone Mockup */}
                 <div 
                   onClick={() => {
@@ -2189,23 +2192,23 @@ export default function Home() {
                       window.open(currentCreator.leftPhoneLink || currentCreator.link, '_blank');
                     }
                   }}
-                  className="w-[230px] sm:w-[250px] shrink-0 bg-[#253521] p-3 rounded-[2.5rem] border-2 border-[#CAD7C5] shadow-xl transition-all duration-500 hover:-translate-y-3 hover:scale-105 hover:shadow-2xl group cursor-pointer"
+                  className="w-[180px] sm:w-[200px] shrink-0 bg-[#253521] p-2.5 rounded-[2rem] border-2 border-[#CAD7C5] shadow-md transition-all duration-500 hover:-translate-y-1.5 hover:scale-102 hover:shadow-xl group cursor-pointer"
                 >
-                  <div className="w-16 h-4 bg-black/60 rounded-full mx-auto mb-2" />
-                  <div className="relative aspect-[9/16] rounded-3xl overflow-hidden bg-forest/30">
+                  <div className="w-12 h-3 bg-black/60 rounded-full mx-auto mb-1.5" />
+                  <div className="relative aspect-[9/16] rounded-2xl overflow-hidden bg-forest/30">
                     <img
                       src={currentCreator.leftPhoneImg}
                       alt={currentCreator.leftPhoneTitle}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
-                    <div className="absolute inset-x-0 bottom-0 p-3.5 bg-gradient-to-t from-black/90 via-black/50 to-transparent text-white">
-                      <span className="inline-block px-2.5 py-0.5 rounded-full bg-rose-dark text-[10px] font-bold uppercase tracking-wider mb-1">
+                    <div className="absolute inset-x-0 bottom-0 p-2.5 bg-gradient-to-t from-black/90 via-black/50 to-transparent text-white">
+                      <span className="inline-block px-2 py-0.5 rounded-full bg-rose-dark text-[9px] font-bold uppercase tracking-wider mb-0.5">
                         {currentCreator.leftPhoneTag}
                       </span>
-                      <p className="text-xs font-bold leading-tight">
+                      <p className="text-[11px] font-bold leading-tight">
                         {currentCreator.leftPhoneTitle}
                       </p>
-                      <p className="text-[10px] text-white/75 mt-0.5">Buka di Instagram ↗</p>
+                      <p className="text-[9px] text-white/75 mt-0.5">Instagram ↗</p>
                     </div>
                   </div>
                 </div>
@@ -2217,23 +2220,23 @@ export default function Home() {
                       window.open(currentCreator.rightPhoneLink || currentCreator.link, '_blank');
                     }
                   }}
-                  className="w-[230px] sm:w-[250px] shrink-0 bg-[#253521] p-3 rounded-[2.5rem] border-2 border-[#CAD7C5] shadow-xl transition-all duration-500 hover:-translate-y-3 hover:scale-105 hover:shadow-2xl group cursor-pointer"
+                  className="w-[180px] sm:w-[200px] shrink-0 bg-[#253521] p-2.5 rounded-[2rem] border-2 border-[#CAD7C5] shadow-md transition-all duration-500 hover:-translate-y-1.5 hover:scale-102 hover:shadow-xl group cursor-pointer"
                 >
-                  <div className="w-16 h-4 bg-black/60 rounded-full mx-auto mb-2" />
-                  <div className="relative aspect-[9/16] rounded-3xl overflow-hidden bg-forest/30">
+                  <div className="w-12 h-3 bg-black/60 rounded-full mx-auto mb-1.5" />
+                  <div className="relative aspect-[9/16] rounded-2xl overflow-hidden bg-forest/30">
                     <img
                       src={currentCreator.rightPhoneImg}
                       alt={currentCreator.rightPhoneTitle}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
-                    <div className="absolute inset-x-0 bottom-0 p-3.5 bg-gradient-to-t from-black/90 via-black/50 to-transparent text-white">
-                      <span className="inline-block px-2.5 py-0.5 rounded-full bg-emerald-700 text-[10px] font-bold uppercase tracking-wider mb-1">
+                    <div className="absolute inset-x-0 bottom-0 p-2.5 bg-gradient-to-t from-black/90 via-black/50 to-transparent text-white">
+                      <span className="inline-block px-2 py-0.5 rounded-full bg-emerald-700 text-[9px] font-bold uppercase tracking-wider mb-0.5">
                         {currentCreator.rightPhoneTag}
                       </span>
-                      <p className="text-xs font-bold leading-tight">
+                      <p className="text-[11px] font-bold leading-tight">
                         {currentCreator.rightPhoneTitle}
                       </p>
-                      <p className="text-[10px] text-white/75 mt-0.5">Buka di TikTok ↗</p>
+                      <p className="text-[9px] text-white/75 mt-0.5">TikTok ↗</p>
                     </div>
                   </div>
                 </div>
@@ -2241,114 +2244,115 @@ export default function Home() {
             </div>
           )}
 
-          <p className="text-center text-xs text-forest/60 italic mt-4">
-            Arahkan kursor ke masing-masing kartu untuk melihat efek pop-out interaktif
+          <p className="text-center text-[11px] text-forest/60 italic mt-2.5">
+            Arahkan kursor ke masing-masing kartu untuk melihat interaksi preview
           </p>
-
-        </div>
-
-        {/* ----------------------------------------------------------------------- */}
-        {/* SUBSECTION B: BEYOND THE SCREEN — ART, HOBBIES & INTELLECTUAL PURSUITS */}
-        {/* ----------------------------------------------------------------------- */}
-        <div>
-          <div className="text-center max-w-xl mx-auto mb-6 sm:mb-8">
-            <span className="text-[11px] font-bold uppercase tracking-widest text-rose-dark block mb-1">
-              ✦ Beyond The Screen
-            </span>
-            <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest">
-              Arts, Hobbies & Intellectual Pursuits
-            </h3>
-            <p className="text-xs sm:text-sm text-forest/75 mt-1">
-              Aktivitas personal yang menjaga keseimbangan kreativitas, wawasan intelektual, dan kesegaran cara pandang.
-            </p>
-          </div>
-
-          {/* 4 Hobbies Card Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {hobbiesList.map((hobby, hIdx) => (
-              <div
-                key={hIdx}
-                className="bg-white/90 border border-[#CAD7C5] rounded-3xl p-5 hover:border-rose-dusty hover:-translate-y-2 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group shadow-sm"
-              >
-                <div>
-                  <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden bg-[#E8EFE5] mb-4 relative">
-                    <img
-                      src={hobby.img}
-                      alt={hobby.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <span className="absolute top-2.5 left-2.5 bg-white/90 text-forest text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-xs flex items-center gap-1">
-                      <span>{hobby.icon}</span>
-                      <span>{hobby.tag}</span>
-                    </span>
-                  </div>
-                  <h4 className="font-serif text-lg font-bold text-forest mb-1">
-                    {hobby.title}
-                  </h4>
-                  <p className="text-[11px] font-semibold text-rose-dark mb-2">
-                    {hobby.sub}
-                  </p>
-                  <p className="text-xs text-forest/75 leading-relaxed">
-                    {hobby.desc}
-                  </p>
-                </div>
-
-                <div className="pt-3 mt-4 border-t border-[#CAD7C5]/50 flex items-center justify-between">
-                  {hobby.link ? (
-                    <a
-                      href={hobby.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs font-bold text-rose-dark hover:underline flex items-center gap-1"
-                    >
-                      <span>Baca di Medium</span>
-                      <span>↗</span>
-                    </a>
-                  ) : (
-                    <span className="text-[11px] font-medium text-forest/50 italic">
-                      Creative Expression
-                    </span>
-                  )}
-                  <span className="w-7 h-7 rounded-full bg-[#E8EFE5] flex items-center justify-center text-xs group-hover:bg-rose-blush group-hover:text-rose-dark transition-colors">
-                    →
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
 
         </div>
 
       </section>
 
       {/* ========================================================================= */}
-      {/* SECTION 5: EDITORIAL COLLABORATION & CONTACT FOOTER (Seamless Design)     */}
+      {/* SECTION 7: BEYOND THE SCREEN — ART, HOBBIES & INTELLECTUAL PURSUITS       */}
       {/* ========================================================================= */}
       <BotanicalDivider />
-      <footer id="contact" className="relative pt-12 pb-14 sm:pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <section id="hobbies" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/70">
+        
+        {/* Section Header */}
+        <div className="text-center max-w-xl mx-auto mb-3.5 sm:mb-4">
+          <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-0.5">/ Creative Balance & Lifestyle /</span>
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-forest tracking-normal mb-1.5">
+            Arts, Hobbies & Intellectual Pursuits
+          </h2>
+          <p className="text-xs sm:text-sm text-forest/75 leading-relaxed">
+            Aktivitas personal yang menjaga keseimbangan kreativitas, wawasan intelektual, dan kesegaran cara pandang.
+          </p>
+        </div>
+
+        {/* 4 Hobbies Card Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
+          {hobbiesList.map((hobby, hIdx) => (
+            <div
+              key={hIdx}
+              className="bg-white/90 border border-[#CAD7C5] rounded-2xl p-3.5 hover:border-rose-dusty hover:-translate-y-1 hover:shadow-md transition-all duration-300 flex flex-col justify-between group shadow-2xs"
+            >
+              <div>
+                <div className="w-full aspect-[16/10] rounded-xl overflow-hidden bg-[#E8EFE5] mb-2.5 relative">
+                  <img
+                    src={hobby.img}
+                    alt={hobby.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <span className="absolute top-2 left-2 bg-white/90 text-forest text-[9px] font-bold px-2 py-0.5 rounded-full shadow-xs flex items-center gap-1">
+                    <span>{hobby.icon}</span>
+                    <span>{hobby.tag}</span>
+                  </span>
+                </div>
+                <h3 className="font-serif text-sm sm:text-base font-bold text-forest mb-0.5">
+                  {hobby.title}
+                </h3>
+                <p className="text-[11px] font-semibold text-rose-dark mb-1">
+                  {hobby.sub}
+                </p>
+                <p className="text-xs text-forest/75 leading-relaxed line-clamp-2">
+                  {hobby.desc}
+                </p>
+              </div>
+
+              <div className="pt-2 mt-2.5 border-t border-[#CAD7C5]/50 flex items-center justify-between text-xs">
+                {hobby.link ? (
+                  <a
+                    href={hobby.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-bold text-rose-dark hover:underline flex items-center gap-1"
+                  >
+                    <span>Baca di Medium</span>
+                    <span>↗</span>
+                  </a>
+                ) : (
+                  <span className="text-[10px] font-medium text-forest/50 italic">
+                    Creative Expression
+                  </span>
+                )}
+                <span className="w-5 h-5 rounded-full bg-[#E8EFE5] flex items-center justify-center text-[10px] group-hover:bg-rose-blush group-hover:text-rose-dark transition-colors">
+                  →
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </section>
+
+      {/* ========================================================================= */}
+      {/* SECTION 8: EDITORIAL COLLABORATION & CONTACT FOOTER (Seamless Design)     */}
+      {/* ========================================================================= */}
+      <BotanicalDivider />
+      <footer id="contact" className="relative pt-8 pb-10 sm:pt-10 sm:pb-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
         
         {/* Soft Ambient Botanical Glows */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-rose-blush/40 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-[#CAD7C5]/30 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center text-center">
-          <span className="font-script text-3xl sm:text-4xl text-rose-dark block mb-2">/ Let&apos;s Connect /</span>
-          <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.18] mb-4 text-forest tracking-normal">
+          <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-1">/ Let&apos;s Connect /</span>
+          <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold leading-[1.18] mb-2.5 text-forest tracking-normal">
             Let&apos;s Cultivate Meaningful{' '}
             <span className="editorial-italic text-rose-dark font-normal">
               Business Growth
             </span>{' '}
             Together.
           </h2>
-          <p className="text-sm sm:text-base text-forest/75 leading-relaxed mb-8 max-w-xl mx-auto font-source">
+          <p className="text-xs sm:text-sm text-forest/75 leading-relaxed mb-5 max-w-xl mx-auto font-source">
             Terbuka untuk posisi Management Trainee, Business Development, Strategic Marketing Specialist, serta inisiatif kemitraan baru. Mari berdiskusi bagaimana saya dapat berkontribusi nyata bagi organisasi Anda.
           </p>
 
           {/* Primary Direct Contact Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-3 mb-2">
+          <div className="flex flex-wrap items-center justify-center gap-2.5 mb-1">
             <a
               href={`mailto:${portfolioData.socials.email}`}
-              className="px-6 py-3.5 rounded-full text-xs sm:text-sm font-bold bg-forest text-[#E8EFE5] hover:bg-rose-dark transition-all flex items-center gap-2.5 shadow-sm hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
+              className="px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-forest text-[#E8EFE5] hover:bg-rose-dark transition-all flex items-center gap-2 shadow-2xs hover:shadow-xs hover:-translate-y-0.5 cursor-pointer"
             >
               <span>Kirim Email: {portfolioData.socials.email}</span>
             </a>
@@ -2356,7 +2360,7 @@ export default function Home() {
               href={portfolioData.socials.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3.5 rounded-full text-xs sm:text-sm font-bold bg-rose-dark text-white hover:bg-rose-berry transition-all flex items-center gap-2.5 shadow-sm hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
+              className="px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-rose-dark text-white hover:bg-rose-berry transition-all flex items-center gap-2 shadow-2xs hover:shadow-xs hover:-translate-y-0.5 cursor-pointer"
             >
               <span>WhatsApp Langsung ✦</span>
             </a>
@@ -2364,21 +2368,21 @@ export default function Home() {
               href={portfolioData.socials.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3.5 rounded-full text-xs sm:text-sm font-bold bg-white text-forest border border-[#CAD7C5] hover:border-forest hover:bg-[#FAFBF8] transition-all flex items-center gap-2.5 shadow-2xs hover:shadow-xs hover:-translate-y-0.5 cursor-pointer"
+              className="px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-white text-forest border border-[#CAD7C5] hover:border-forest hover:bg-[#FAFBF8] transition-all flex items-center gap-2 shadow-2xs hover:shadow-xs hover:-translate-y-0.5 cursor-pointer"
             >
               <span>LinkedIn Profile ↗</span>
             </a>
           </div>
 
           {/* Subtle Hairline Divider */}
-          <div className="flex items-center gap-3 my-8 w-full max-w-xs justify-center opacity-60">
+          <div className="flex items-center gap-3 my-4 w-full max-w-xs justify-center opacity-60">
             <div className="h-px bg-[#CAD7C5] grow" />
             <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-forest/70">Connect & Social Media</span>
             <div className="h-px bg-[#CAD7C5] grow" />
           </div>
 
           {/* Official Social Media Brand Icon Buttons */}
-          <div className="flex items-center justify-center gap-3.5">
+          <div className="flex items-center justify-center gap-3">
             {/* Instagram */}
             <a
               href={portfolioData.socials.instagram}
@@ -2386,9 +2390,9 @@ export default function Home() {
               rel="noopener noreferrer"
               title="Instagram: @chikalnazmi"
               aria-label="Instagram Chikal Nazmi"
-              className="w-12 h-12 rounded-2xl bg-white hover:bg-gradient-to-tr hover:from-[#f09433] hover:via-[#dc2743] hover:to-[#bc1888] border border-[#CAD7C5] hover:border-transparent text-forest hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-110 hover:-translate-y-1 shadow-2xs group relative"
+              className="w-10 h-10 rounded-xl bg-white hover:bg-gradient-to-tr hover:from-[#f09433] hover:via-[#dc2743] hover:to-[#bc1888] border border-[#CAD7C5] hover:border-transparent text-forest hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 shadow-2xs group relative"
             >
-              <svg className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+              <svg className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
               </svg>
               <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity bg-forest text-white text-[10px] font-mono px-2 py-0.5 rounded pointer-events-none whitespace-nowrap shadow-md z-30">
@@ -2403,9 +2407,9 @@ export default function Home() {
               rel="noopener noreferrer"
               title="TikTok: @chikalnazmi"
               aria-label="TikTok Chikal Nazmi"
-              className="w-12 h-12 rounded-2xl bg-white hover:bg-black border border-[#CAD7C5] hover:border-black text-forest hover:text-[#25F4EE] flex items-center justify-center transition-all duration-300 hover:scale-110 hover:-translate-y-1 shadow-2xs group relative"
+              className="w-10 h-10 rounded-xl bg-white hover:bg-black border border-[#CAD7C5] hover:border-black text-forest hover:text-[#25F4EE] flex items-center justify-center transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 shadow-2xs group relative"
             >
-              <svg className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+              <svg className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.86 4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-3.04-1.52z"/>
               </svg>
               <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity bg-forest text-white text-[10px] font-mono px-2 py-0.5 rounded pointer-events-none whitespace-nowrap shadow-md z-30">
@@ -2420,9 +2424,9 @@ export default function Home() {
               rel="noopener noreferrer"
               title="YouTube: Chikal Nazmi"
               aria-label="YouTube Chikal Nazmi"
-              className="w-12 h-12 rounded-2xl bg-white hover:bg-[#FF0000] border border-[#CAD7C5] hover:border-[#FF0000] text-forest hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-110 hover:-translate-y-1 shadow-2xs group relative"
+              className="w-10 h-10 rounded-xl bg-white hover:bg-[#FF0000] border border-[#CAD7C5] hover:border-[#FF0000] text-forest hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 shadow-2xs group relative"
             >
-              <svg className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+              <svg className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
               </svg>
               <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity bg-forest text-white text-[10px] font-mono px-2 py-0.5 rounded pointer-events-none whitespace-nowrap shadow-md z-30">
@@ -2437,9 +2441,9 @@ export default function Home() {
               rel="noopener noreferrer"
               title="Medium: @chikalnazmi"
               aria-label="Medium Chikal Nazmi"
-              className="w-12 h-12 rounded-2xl bg-white hover:bg-forest border border-[#CAD7C5] hover:border-forest text-forest hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-110 hover:-translate-y-1 shadow-2xs group relative"
+              className="w-10 h-10 rounded-xl bg-white hover:bg-forest border border-[#CAD7C5] hover:border-forest text-forest hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 shadow-2xs group relative"
             >
-              <svg className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+              <svg className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/>
               </svg>
               <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity bg-forest text-white text-[10px] font-mono px-2 py-0.5 rounded pointer-events-none whitespace-nowrap shadow-md z-30">
@@ -2450,11 +2454,11 @@ export default function Home() {
         </div>
 
         {/* Bottom Bar: Clean & Seamless */}
-        <div className="w-full max-w-6xl mx-auto mt-14 pt-6 border-t border-[#CAD7C5]/70 flex flex-col sm:flex-row items-center justify-between text-xs text-forest/65 gap-4">
+        <div className="w-full max-w-6xl mx-auto mt-8 pt-4 border-t border-[#CAD7C5]/70 flex flex-col sm:flex-row items-center justify-between text-xs text-forest/65 gap-3">
           <div>
             © 2026 Chikal Nazmi Mahira. All rights reserved.
           </div>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4">
             <a href="#hero" className="hover:text-rose-dark transition-colors font-semibold">
               Back to Top ↑
             </a>
