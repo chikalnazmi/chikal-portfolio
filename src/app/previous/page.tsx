@@ -631,21 +631,21 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* NAVBAR: Modern Floating Editorial Pill */}
       {/* ========================================================================= */}
-      <nav className="sticky top-3 z-40 max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white/85 backdrop-blur-md border border-[#CAD7C5] rounded-full px-5 py-3 shadow-sm flex items-center justify-between transition-all hover:border-rose-dusty/40">
+      <nav className="sticky top-2 sm:top-2.5 z-40 max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-white/90 backdrop-blur-md border border-[#CAD7C5] rounded-full px-4 sm:px-5 py-1.5 sm:py-2 shadow-xs flex items-center justify-between transition-all hover:border-rose-dusty/40">
           <a href="#hero" className="flex flex-col group py-0.5">
-            <span className="font-serif font-bold text-sm sm:text-base tracking-normal text-forest group-hover:text-rose-dark transition-colors leading-tight">
+            <span className="font-serif font-bold text-xs sm:text-sm tracking-normal text-forest group-hover:text-rose-dark transition-colors leading-tight">
               Chikal Nazmi Mahira
             </span>
-            <span className="text-[10px] font-medium tracking-wider uppercase text-forest/70 mt-0.5">
-              Business & Marketing
+            <span className="text-[9px] font-mono font-medium tracking-wider uppercase text-forest/60">
+              Business &amp; Marketing
             </span>
           </a>
 
           {/* Desktop Nav Links */}
-          <div className="hidden md:flex items-center gap-5 lg:gap-6 text-xs font-semibold tracking-wider uppercase text-forest/80">
+          <div className="hidden md:flex items-center gap-3.5 lg:gap-5 text-[11px] font-medium tracking-wide uppercase text-forest/75">
             <a href="#academy-skills" className="hover:text-rose-dark transition-colors">
-              Academy & Skills
+              Academy &amp; Skills
             </a>
             <a href="#experience" className="hover:text-rose-dark transition-colors">
               Experience
@@ -663,7 +663,7 @@ export default function Home() {
               Certifications
             </a>
             <a href="#creative" className="hover:text-rose-dark transition-colors">
-              Creative & Content
+              Creative &amp; Content
             </a>
             <a href="#hobbies" className="hover:text-rose-dark transition-colors">
               Hobbies
@@ -671,12 +671,12 @@ export default function Home() {
           </div>
 
           {/* Action CTA */}
-          <div className="hidden sm:flex items-center gap-3">
+          <div className="hidden sm:flex items-center gap-2.5">
             <a
               href="https://wa.me/6281234567890?text=Halo%20Chikal,%20saya%20tertarik%20berdiskusi%20mengenai%20peluang%20kerjasama."
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-1.5 rounded-full text-xs font-semibold bg-rose-dark text-white hover:bg-rose-berry transition-colors shadow-sm"
+              className="px-3.5 py-1 rounded-full text-[11px] font-semibold bg-rose-dark text-white hover:bg-rose-berry transition-colors shadow-2xs"
             >
               Let&apos;s Connect ↗
             </a>
@@ -685,10 +685,10 @@ export default function Home() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-forest hover:text-rose-dark"
+            className="md:hidden p-1.5 text-forest hover:text-rose-dark"
             aria-label="Toggle Menu"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {mobileMenuOpen ? (
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               ) : (
@@ -740,8 +740,8 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* HERO SECTION: Asymmetric Editorial Split (No Hilman Blueprint) */}
       {/* ========================================================================= */}
-      <section id="hero" className="w-full scroll-mt-18">
-        <div className="max-w-[1380px] mx-auto w-full px-4 sm:px-6 lg:px-8 pt-4 pb-5 sm:pt-6 sm:pb-6 lg:pt-8 lg:pb-7">
+      <section id="hero" className="w-full min-h-[calc(100vh-4.25rem)] flex flex-col justify-between scroll-mt-18">
+        <div className="flex-1 flex items-center max-w-[1380px] mx-auto w-full px-4 sm:px-6 lg:px-8 py-5 sm:py-7 lg:py-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center w-full">
           
           {/* Left Column: Narrative, Typography & Direct Metrics (7 Cols) */}
