@@ -17,11 +17,10 @@
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-family: var(--font-sans), 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   }
 }
 
-/* Custom Scrollbar in Warm Sage & Dusty Rose */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -39,162 +38,156 @@
   background: #781E34;
 }
 
-/* Typography Utility Classes */
-.font-editorial {
-  font-family: var(--font-serif), 'Playfair Display', Georgia, serif;
+/* Typography Styling (Quincy, Futura, Source Sans) */
+.font-quincy,
+.font-title {
+  font-family: 'Quincy CF', 'Quincy', var(--font-quincy), Georgia, serif;
 }
 
-.font-script {
-  font-family: var(--font-script), 'Caveat', cursive;
+.editorial-italic {
+  font-family: 'Quincy CF', 'Quincy', var(--font-quincy), Georgia, serif;
+  font-style: italic;
 }
 
-
-/* Sage Linen Organic Textured Background */
-.bg-sage-linen {
-  background-color: #E8EFE5;
-  background-image:
-    radial-gradient(at 0% 0%, rgba(245, 211, 220, 0.45) 0px, transparent 45%),
-    radial-gradient(at 100% 100%, rgba(148, 171, 139, 0.35) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(245, 211, 220, 0.3) 0px, transparent 40%),
-    radial-gradient(at 0% 100%, rgba(189, 88, 113, 0.15) 0px, transparent 45%);
+.font-futura,
+.font-subheader {
+  font-family: 'Futura', 'Futura-Medium', var(--font-futura), 'Century Gothic', sans-serif;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
 }
 
-/* Botanical Glows (Sage & Pink from a92721e) */
+.font-source,
+.font-body {
+  font-family: var(--font-source-sans), 'Source Sans 3', 'Source Sans Pro', sans-serif;
+}
+
+/* Botanical Glows (Sage & Pink) */
 .floral-glow-hero {
-  background: radial-gradient(
-    ellipse at center,
-    rgba(245, 211, 220, 0.85) 0%,
-    rgba(148, 171, 139, 0.45) 45%,
-    rgba(69, 94, 63, 0.15) 70%,
-    transparent 85%
-  );
+  background: radial-gradient(ellipse at center,
+      rgba(245, 211, 220, 0.85) 0%,
+      rgba(148, 171, 139, 0.45) 45%,
+      rgba(69, 94, 63, 0.15) 70%,
+      transparent 85%);
   filter: blur(40px);
 }
 
-.pink-halo-glow {
-  background: radial-gradient(
-    circle at 50% 45%,
-    rgba(245, 211, 220, 0.7) 0%,
-    rgba(148, 171, 139, 0.35) 40%,
-    rgba(202, 215, 197, 0.15) 65%,
-    transparent 80%
-  );
-  filter: blur(45px);
+.floral-glow-bento {
+  background: radial-gradient(ellipse at 50% 40%,
+      #455E3F 0%,
+      #32462E 40%,
+      #253521 80%,
+      #1A2617 100%);
 }
 
-.pink-halo-glow-subtle {
-  background: radial-gradient(
-    ellipse at 50% 50%,
-    rgba(245, 211, 220, 0.4) 0%,
-    rgba(148, 171, 139, 0.25) 50%,
-    transparent 75%
-  );
-  filter: blur(55px);
+/* Oval Portrait Frame */
+.oval-portrait {
+  border-radius: 50% 50% 48% 48% / 60% 60% 40% 40%;
+  border: 2px solid rgba(189, 88, 113, 0.4);
+  box-shadow:
+    0 0 0 8px rgba(245, 211, 220, 0.5),
+    0 0 0 16px rgba(148, 171, 139, 0.2),
+    0 24px 60px rgba(33, 43, 30, 0.18);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
 
-/* Bento & Card Styling with Soft Ambient Shadows */
-.editorial-card {
-  background: #FFFFFF;
-  border-radius: 28px;
-  border: 1.5px solid rgba(202, 215, 197, 0.85);
-  box-shadow: 0 10px 30px -10px rgba(37, 53, 33, 0.06), 0 2px 8px rgba(0, 0, 0, 0.02);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
+.oval-portrait:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow:
+    0 0 0 10px rgba(245, 211, 220, 0.7),
+    0 0 0 20px rgba(148, 171, 139, 0.25),
+    0 30px 70px rgba(33, 43, 30, 0.25);
 }
 
-.editorial-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px -12px rgba(37, 53, 33, 0.12);
-  border-color: rgba(189, 88, 113, 0.45);
-}
-
-/* Clean Process Card (Here's how it works) */
-.process-card {
+/* Bento Card Style */
+.bento-card {
   background: #FFFFFF;
   border-radius: 24px;
-  border: 1.5px solid rgba(202, 215, 197, 0.85);
-  box-shadow: 0 12px 32px -8px rgba(37, 53, 33, 0.04);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1.5px solid rgba(202, 215, 197, 0.8);
+  box-shadow: 0 10px 30px -5px rgba(37, 53, 33, 0.06), 0 2px 8px rgba(0, 0, 0, 0.02);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-.process-card:hover {
-  transform: translateY(-6px) rotate(-0.5deg);
-  box-shadow: 0 24px 48px -12px rgba(189, 88, 113, 0.15);
-  border-color: rgba(189, 88, 113, 0.45);
+.bento-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 45px -8px rgba(37, 53, 33, 0.12);
+  border-color: rgba(189, 88, 113, 0.4);
 }
 
-/* Glowing Bottom CTA Banner */
-.cta-banner-glow {
-  background: radial-gradient(
-    ellipse at center,
-    #F5D3DC 0%,
-    #E8EFE5 50%,
-    #BD5871 100%
-  );
+/* Minimal Experience Row */
+.timeline-row {
+  border-top: 1px solid rgba(37, 53, 33, 0.12);
+  padding: 1.25rem 0;
+  transition: background-color 0.2s ease;
 }
 
-/* Botanical Flourishes & Micro-interactions */
-.botanical-corner {
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+.timeline-row:hover {
+  background-color: rgba(245, 211, 220, 0.35);
 }
 
-.group:hover .botanical-corner {
-  transform: scale(1.15) rotate(6deg);
-  opacity: 1 !important;
+/* Phone Mockup Frame */
+.phone-frame {
+  border-radius: 2.2rem;
+  border: 4px solid #253521;
+  background: #FFFFFF;
+  box-shadow:
+    0 0 0 1px rgba(189, 88, 113, 0.25),
+    0 20px 50px rgba(37, 53, 33, 0.18);
 }
 
-.botanical-watermark {
-  background-color: #F8FAF7;
-  background-image: radial-gradient(#BD5871 0.75px, transparent 0.75px), radial-gradient(#94AB8B 0.75px, #F8FAF7 0.75px);
-  background-size: 30px 30px;
-  background-position: 0 0, 15px 15px;
+/* Scroll reveal utility */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-
-/* Subtle Animated Float */
-@keyframes softFloat {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
-}
-
-.animate-soft-float {
-  animation: softFloat 5s ease-in-out infinite;
-}
-
-@keyframes marqueeScroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.animate-marquee {
-  display: flex;
-  width: max-content;
-  animation: marqueeScroll 35s linear infinite;
-}
-
-.animate-marquee:hover {
-  animation-play-state: paused;
+.reveal-up.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* ========================================================================= */
-/* FLOATING FALLING PETALS ANIMATION                                         */
+/* TACTILE PAPER GRAIN & SAGE LINEN TEXTURE */
+/* ========================================================================= */
+.paper-texture-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 99;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.bg-sage-linen {
+  background-color: #E8EFE5;
+  background-image:
+    radial-gradient(at 0% 0%, rgba(245, 211, 220, 0.4) 0px, transparent 45%),
+    radial-gradient(at 100% 100%, rgba(148, 171, 139, 0.3) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(245, 211, 220, 0.25) 0px, transparent 40%),
+    radial-gradient(at 0% 100%, rgba(189, 88, 113, 0.12) 0px, transparent 45%);
+}
+
+/* ========================================================================= */
+/* COZY CUTE FLORAL THEME UTILITIES (Reversible Mode) */
 /* ========================================================================= */
 @keyframes floatPetal {
   0% {
-    transform: translateY(-50px) translateX(0px) rotate(0deg);
+    transform: translateY(-40px) translateX(0px) rotate(0deg);
     opacity: 0;
   }
-  12% {
+
+  15% {
     opacity: 0.85;
   }
-  50% {
-    transform: translateY(50vh) translateX(45px) rotate(180deg);
-    opacity: 0.9;
-  }
+
   85% {
-    opacity: 0.8;
+    opacity: 0.85;
   }
+
   100% {
-    transform: translateY(105vh) translateX(90px) rotate(360deg);
+    transform: translateY(105vh) translateX(100px) rotate(360deg);
     opacity: 0;
   }
 }
@@ -204,5 +197,17 @@
   pointer-events: none;
   z-index: 25;
   animation: floatPetal 16s linear infinite;
-  will-change: transform, opacity;
-}
+}
+
+.washi-tape {
+  background: rgba(245, 211, 220, 0.85);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  border-left: 2px dashed rgba(189, 88, 113, 0.3);
+  border-right: 2px dashed rgba(189, 88, 113, 0.3);
+}
+
+.sticky-note-cute {
+  background: #FFFDF5;
+  box-shadow: 2px 8px 20px rgba(189, 88, 113, 0.15);
+  border: 1px solid rgba(254, 234, 161, 0.6);
+}

@@ -16,16 +16,6 @@ const config: Config = {
           DEFAULT: '#94AB8B',
           dark: '#455E3F',
           deep: '#293B25',
-          50: '#F4F7F2',
-          100: '#E8EFE5',
-          200: '#D2DEC9',
-          300: '#B6CAA9',
-          400: '#94AB8B',
-          500: '#7A9471',
-          600: '#5E7755',
-          700: '#475D3F',
-          800: '#33452D',
-          900: '#23321E',
         },
         forest: {
           DEFAULT: '#253521',
@@ -43,17 +33,19 @@ const config: Config = {
         charcoal: '#212B1E',
       },
       fontFamily: {
-        // Modern geometric sans-serif (Versi Redesain: Plus Jakarta Sans)
-        sans: ["var(--font-sans)", "'Plus Jakarta Sans'", "system-ui", "-apple-system", "sans-serif"],
+        // Title Styling: Quincy
+        serif: ["'Quincy CF'", "'Quincy'", "var(--font-quincy)", "Georgia", "serif"],
+        title: ["'Quincy CF'", "'Quincy'", "var(--font-quincy)", "Georgia", "serif"],
         
-        // Luxury high-contrast editorial serif (Versi Redesain: Playfair Display)
-        serif: ["var(--font-serif)", "'Playfair Display'", "Georgia", "serif"],
-        editorial: ["var(--font-serif)", "'Playfair Display'", "Georgia", "serif"],
+        // Subheader Styling: Futura
+        subheader: ["'Futura'", "'Futura-Medium'", "var(--font-futura)", "'Century Gothic'", "sans-serif"],
+        futura: ["'Futura'", "'Futura-Medium'", "var(--font-futura)", "'Century Gothic'", "sans-serif"],
         
-        // Handwritten script for kickers (Versi Redesain: Caveat)
-        script: ["var(--font-script)", "'Caveat'", "cursive"],
+        // Paragraph Styling: Source Sans
+        sans: ["var(--font-source-sans)", "'Source Sans 3'", "'Source Sans Pro'", "system-ui", "sans-serif"],
+        body: ["var(--font-source-sans)", "'Source Sans 3'", "'Source Sans Pro'", "system-ui", "sans-serif"],
         
-        mono: ["ui-monospace", "monospace"],
+        mono: ["var(--font-space-mono)", "monospace"],
       },
       letterSpacing: {
         'subheader': '0.22em',

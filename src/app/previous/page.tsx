@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import { 
@@ -131,7 +131,7 @@ export default function Home() {
     {
       id: 'operations',
       category: 'Business & Operations',
-      title: 'Dua Sisi Laundry ΓÇö Operasional & Sistem Kas',
+      title: 'Dua Sisi Laundry — Operasional & Sistem Kas',
       tag: 'Operations & SOP',
       period: '2023 - 2024',
       badgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300',
@@ -146,12 +146,12 @@ export default function Home() {
       image: '/3.png',
       extraImages: ['/3.png', '/4.png', '/1.png'],
       link: 'https://instagram.com/duasisi.laundry',
-      linkLabel: 'Profil Bisnis Dua Sisi Γåù',
+      linkLabel: 'Profil Bisnis Dua Sisi ↗',
     },
     {
       id: 'growth',
       category: 'Brand & Social Media',
-      title: 'YarnUp! Studio ΓÇö Brand Aksesoris Rajut',
+      title: 'YarnUp! Studio — Brand Aksesoris Rajut',
       tag: 'Handmade & Content',
       period: '2023 - Sekarang',
       badgeColor: 'bg-rose-100 text-rose-900 border-rose-300',
@@ -166,12 +166,12 @@ export default function Home() {
       image: '/5.png',
       extraImages: ['/5.png', '/6.png', '/2.png'],
       link: 'https://instagram.com/yarnup.official',
-      linkLabel: 'Official Store Instagram Γåù',
+      linkLabel: 'Official Store Instagram ↗',
     },
     {
       id: 'partnership',
       category: 'Public Relations & Event',
-      title: 'Manikarumi Indonesia ΓÇö PR & Event Partner',
+      title: 'Manikarumi Indonesia — PR & Event Partner',
       tag: 'Public Relations',
       period: '2023 - 2024',
       badgeColor: 'bg-amber-100 text-amber-900 border-amber-300',
@@ -186,12 +186,12 @@ export default function Home() {
       image: '/7.png',
       extraImages: ['/7.png', '/8.png', '/12.png'],
       link: 'https://instagram.com/manikarumi.id',
-      linkLabel: 'Galeri Booth Manikarumi Γåù',
+      linkLabel: 'Galeri Booth Manikarumi ↗',
     },
     {
       id: 'data',
       category: 'Software Engineer Intern',
-      title: 'PT Digivla Indonesia ΓÇö Software Engineer Intern',
+      title: 'PT Digivla Indonesia — Software Engineer Intern',
       tag: 'Python & Tech Support',
       period: '2023',
       badgeColor: 'bg-blue-100 text-blue-900 border-blue-300',
@@ -206,12 +206,12 @@ export default function Home() {
       image: '/9.png',
       extraImages: ['/9.png', '/10.png', '/14.png'],
       link: 'https://digivla.id',
-      linkLabel: 'Portal Digivla Intelligence Γåù',
+      linkLabel: 'Portal Digivla Intelligence ↗',
     },
     {
       id: 'surveyku',
       category: 'Web Application & Systems',
-      title: 'Website SurveyKu ΓÇö Academic Survey Platform',
+      title: 'Website SurveyKu — Academic Survey Platform',
       tag: 'UI/UX & Web Systems',
       period: '2023 - 2024',
       badgeColor: 'bg-purple-100 text-purple-900 border-purple-300',
@@ -226,7 +226,7 @@ export default function Home() {
       image: '/15.png',
       extraImages: ['/15.png', '/16.png', '/13.png'],
       link: 'https://polinema.ac.id',
-      linkLabel: 'Detail Riset SurveyKu Γåù',
+      linkLabel: 'Detail Riset SurveyKu ↗',
     },
     {
       id: 'campaign',
@@ -246,7 +246,7 @@ export default function Home() {
       image: '/17.png',
       extraImages: ['/17.png', '/1.png', '/2.png'],
       link: 'https://instagram.com/chikalnazmi',
-      linkLabel: 'Lihat Portfolio Konten Γåù',
+      linkLabel: 'Lihat Portfolio Konten ↗',
     },
   ];
 
@@ -278,7 +278,7 @@ export default function Home() {
       certImg: '/11.png',
       eventImg: '/12.png',
       link: 'https://unisma.ac.id',
-      linkLabel: 'Liputan Berita Unisma Γåù',
+      linkLabel: 'Liputan Berita Unisma ↗',
     },
     {
       year: '2024',
@@ -291,7 +291,7 @@ export default function Home() {
       certImg: '/13.png',
       eventImg: '/14.png',
       link: 'https://unp.ac.id',
-      linkLabel: 'Warta Kompetisi UNP Γåù',
+      linkLabel: 'Warta Kompetisi UNP ↗',
     },
     {
       year: '2023',
@@ -304,7 +304,7 @@ export default function Home() {
       certImg: '/15.png',
       eventImg: '/16.png',
       link: 'https://polinema.ac.id',
-      linkLabel: 'Pengumuman Resmi Polinema Γåù',
+      linkLabel: 'Pengumuman Resmi Polinema ↗',
     },
     {
       year: '2023',
@@ -317,7 +317,7 @@ export default function Home() {
       certImg: '/17.png',
       eventImg: '/11.png',
       link: 'https://ub.ac.id',
-      linkLabel: 'Rilis Berita UB Γåù',
+      linkLabel: 'Rilis Berita UB ↗',
     },
     {
       year: '2023',
@@ -330,7 +330,7 @@ export default function Home() {
       certImg: '/12.png',
       eventImg: '/13.png',
       link: 'https://unisma.ac.id',
-      linkLabel: 'Arsip Berita Nasional Γåù',
+      linkLabel: 'Arsip Berita Nasional ↗',
     },
     {
       year: '2022',
@@ -343,7 +343,7 @@ export default function Home() {
       certImg: '/14.png',
       eventImg: '/15.png',
       link: 'https://umm.ac.id',
-      linkLabel: 'Publikasi UMM Γåù',
+      linkLabel: 'Publikasi UMM ↗',
     },
     {
       year: '2022',
@@ -356,7 +356,7 @@ export default function Home() {
       certImg: '/16.png',
       eventImg: '/17.png',
       link: 'https://unesa.ac.id',
-      linkLabel: 'Dokumentasi Unesa Γåù',
+      linkLabel: 'Dokumentasi Unesa ↗',
     },
   ];
 
@@ -438,7 +438,7 @@ export default function Home() {
       handle: '@chikalnazmi',
       tag: 'Lifestyle, Career & Visual Stories',
       platforms: 'Instagram Reels & TikTok',
-      stats: '10K+ Monthly Reach ΓÇó High Engagement',
+      stats: '10K+ Monthly Reach • High Engagement',
       hasCenterStage: true,
       centerLink: 'https://www.youtube.com/@chikalnazmi',
       centerImg: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=900&fit=crop',
@@ -459,7 +459,7 @@ export default function Home() {
       handle: '@yarnup.official',
       tag: 'Handcrafted Accessories & E-Commerce',
       platforms: 'Instagram & TikTok Shop',
-      stats: '+2.089% Reach Surge ΓÇó 20.02% Engagement',
+      stats: '+2.089% Reach Surge • 20.02% Engagement',
       hasCenterStage: true,
       centerLink: 'https://instagram.com/yarnup.official',
       centerImg: 'https://images.unsplash.com/photo-1605289982774-9a6fef564df8?q=80&w=900&fit=crop',
@@ -480,7 +480,7 @@ export default function Home() {
       handle: '@manikarumi.id',
       tag: 'Visual Merchandising & Event PR',
       platforms: 'Instagram & Event Vlogs',
-      stats: '20+ Festival Displays ΓÇó 40% Foot-Traffic Surge',
+      stats: '20+ Festival Displays • 40% Foot-Traffic Surge',
       hasCenterStage: true,
       centerLink: 'https://instagram.com/manikarumi.id',
       centerImg: 'https://images.unsplash.com/photo-1556761175-5973dc0f32b7?q=80&w=900&fit=crop',
@@ -501,7 +501,7 @@ export default function Home() {
       handle: '@duasisi.laundry',
       tag: 'Digital Marketing & Business Ops',
       platforms: 'Instagram & Customer Education',
-      stats: '35% Efficiency Gain ΓÇó Zero Garment Loss',
+      stats: '35% Efficiency Gain • Zero Garment Loss',
       // Dua Sisi Laundry: belum ada video landscape, sehingga diatur hasCenterStage: false
       // Tampilan otomatis adaptif hanya merender 2 phone mockups!
       hasCenterStage: false,
@@ -529,7 +529,7 @@ export default function Home() {
       title: 'Travelling',
       sub: 'Melihat dunia untuk perspektif baru',
       tag: 'World Exploration',
-      icon: 'Γ£ê∩╕Å',
+      icon: '✈️',
       img: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=600&fit=crop',
       desc: 'Menjelajahi beragam kota dan keindahan alam untuk menyerap inspirasi budaya, arsitektur lokal, serta memperluas sudut pandang dalam memecahkan masalah.',
     },
@@ -537,7 +537,7 @@ export default function Home() {
       title: 'Knitting & Crochet',
       sub: 'Eksplorasi kreativitas karya handmade',
       tag: 'Artisanal Craft',
-      icon: '≡ƒº╢',
+      icon: '🧶',
       img: 'https://images.unsplash.com/photo-1605289982774-9a6fef564df8?q=80&w=600&fit=crop',
       desc: 'Mengekspresikan ketelitian melalui rajutan benang manual tangan, eksplorasi pola baru, dan merancang karya aksesoris bernilai artistik tinggi.',
     },
@@ -545,7 +545,7 @@ export default function Home() {
       title: 'Writing (Medium)',
       sub: 'Berbagi pemikiran dan strategi bisnis',
       tag: 'Strategic Essays',
-      icon: 'Γ£ì∩╕Å',
+      icon: '✍️',
       img: 'https://images.unsplash.com/photo-1455390582262-044cdead2708?q=80&w=600&fit=crop',
       desc: 'Menuangkan pemikiran analitis seputar dinamika bisnis, kepemimpinan tim, dan strategi operasional ke dalam esai terstruktur di platform Medium.',
       link: 'https://medium.com',
@@ -554,7 +554,7 @@ export default function Home() {
       title: 'Reading & Learning',
       sub: 'Eksplorasi literatur & self-development',
       tag: 'Continuous Growth',
-      icon: '≡ƒôÜ',
+      icon: '📚',
       img: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=600&fit=crop',
       desc: 'Membaca buku-buku strategi bisnis, psikologi konsumen, biografi pemimpin dunia, dan pengembangan diri untuk terus mengasah ketajaman wawasan.',
     },
@@ -679,7 +679,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="px-4 py-1.5 rounded-full text-xs font-semibold bg-rose-dark text-white hover:bg-rose-berry transition-colors shadow-sm"
             >
-              Let&apos;s Connect Γåù
+              Let&apos;s Connect ↗
             </a>
           </div>
 
@@ -729,7 +729,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="mt-2 text-center py-2 rounded-xl bg-rose-dark text-white text-xs font-semibold"
             >
-              Hubungi via WhatsApp Γåù
+              Hubungi via WhatsApp ↗
             </a>
           </div>
         )}
@@ -799,14 +799,14 @@ export default function Home() {
                 className="px-6 py-3 rounded-full text-sm font-semibold bg-rose-dark text-white hover:bg-rose-berry transition-all shadow-md hover:shadow-lg flex items-center gap-2"
               >
                 <span>Explore Selected Works</span>
-                <span>Γåô</span>
+                <span>↓</span>
               </a>
               <a
                 href="mailto:chikalnazmi@gmail.com"
                 className="px-6 py-3 rounded-full text-sm font-semibold bg-white/80 border border-[#CAD7C5] text-forest hover:bg-white hover:border-rose-dusty transition-all flex items-center gap-2"
               >
                 <span>Email Inquiries</span>
-                <span>Γ£ë</span>
+                <span>✉</span>
               </a>
             </div>
 
@@ -821,7 +821,7 @@ export default function Home() {
                 {/* Cute Washi Tape Sticker (Cute Mode) */}
               {isCuteMode && (
                 <div className="absolute -top-3.5 left-4 z-20 px-3.5 py-1 washi-tape rounded-xs -rotate-3 text-[11px] font-serif italic text-[#781E34] flex items-center gap-1.5">
-                  <span>≡ƒî╕</span> note to self: keep growing ΓÖí
+                  <span>🌸</span> note to self: keep growing ♡
                 </div>
               )}
               
@@ -830,9 +830,9 @@ export default function Home() {
                 <div className="hidden sm:flex flex-col absolute -bottom-6 -right-5 z-20 p-3 sticky-note-cute rounded-2xl rotate-2 text-xs font-serif text-[#5C4D3C] max-w-[170px]">
                   <div className="w-7 h-1.5 bg-[#F5D3DC]/80 mx-auto -mt-3.5 mb-1.5 rounded-xs -rotate-2" />
                   <p className="font-bold mb-0.5 text-[10px] text-[#A6435B] flex items-center gap-1">
-                    <span>daily reminder ΓÖí</span>
+                    <span>daily reminder ♡</span>
                   </p>
-                  <p className="text-[10px] leading-tight text-[#4A3B2C]">live gently, dream freely ≡ƒî╕</p>
+                  <p className="text-[10px] leading-tight text-[#4A3B2C]">live gently, dream freely 🌸</p>
                 </div>
               )}
 
@@ -854,7 +854,7 @@ export default function Home() {
                   <span className="text-[11px] font-bold uppercase tracking-wider text-rose-dark">Key Competencies</span>
                 </div>
                 <p className="text-xs text-forest font-medium leading-snug">
-                  Data-Driven Marketing ΓÇó Operational SOPs ΓÇó Cross-Functional Leadership
+                  Data-Driven Marketing • Operational SOPs • Cross-Functional Leadership
                 </p>
               </div>
 
@@ -875,19 +875,19 @@ export default function Home() {
       <div className="border-y border-[#CAD7C5]/70 bg-white/40 py-3.5 overflow-hidden">
         <div className="max-w-6xl mx-auto px-4 flex items-center justify-between text-xs font-semibold tracking-widest uppercase text-forest/60 overflow-x-auto gap-8 no-scrollbar">
           <span className="whitespace-nowrap flex items-center gap-2">
-            <span className="text-rose-dusty">Γ£ª</span> Dua Sisi Laundry
+            <span className="text-rose-dusty">✦</span> Dua Sisi Laundry
           </span>
           <span className="whitespace-nowrap flex items-center gap-2">
-            <span className="text-rose-dusty">Γ£ª</span> YarnUp! Studio
+            <span className="text-rose-dusty">✦</span> YarnUp! Studio
           </span>
           <span className="whitespace-nowrap flex items-center gap-2">
-            <span className="text-rose-dusty">Γ£ª</span> Manikarumi Indonesia
+            <span className="text-rose-dusty">✦</span> Manikarumi Indonesia
           </span>
           <span className="whitespace-nowrap flex items-center gap-2">
-            <span className="text-rose-dusty">Γ£ª</span> PT Digivla Indonesia
+            <span className="text-rose-dusty">✦</span> PT Digivla Indonesia
           </span>
           <span className="whitespace-nowrap flex items-center gap-2">
-            <span className="text-rose-dusty">Γ£ª</span> Polinema Developer Students
+            <span className="text-rose-dusty">✦</span> Polinema Developer Students
           </span>
         </div>
       </div>
@@ -900,7 +900,7 @@ export default function Home() {
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-2.5">
-            Γ£ª Foundations & Capabilities Γ£ª
+            ✦ Foundations & Capabilities ✦
           </div>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-forest mb-2.5">
             Academic Background & Core Skills
@@ -919,10 +919,10 @@ export default function Home() {
               {/* Header Badge */}
               <div className="flex items-center justify-between gap-2 mb-4">
                 <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-rose-blush/80 text-rose-dark border border-rose-dusty/40 uppercase tracking-wider shadow-2xs">
-                  {academicData.badge || '≡ƒÄô FORMAL DEGREE'}
+                  {academicData.badge || '🎓 FORMAL DEGREE'}
                 </span>
                 <span className="text-xs font-mono font-bold text-forest/60">
-                  {academicData.period || '2020 ΓÇô 2024'}
+                  {academicData.period || '2020 – 2024'}
                 </span>
               </div>
 
@@ -938,7 +938,7 @@ export default function Home() {
               <div className="space-y-3 mb-6">
                 <div className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-white border border-[#CAD7C5]/70 shadow-2xs">
                   <div className="w-10 h-10 rounded-xl bg-forest text-[#E8EFE5] flex items-center justify-center text-base font-bold shrink-0">
-                    ≡ƒîƒ
+                    🌟
                   </div>
                   <div>
                     <span className="text-[10px] font-bold uppercase tracking-wider text-forest/60 block">
@@ -952,7 +952,7 @@ export default function Home() {
 
                 <div className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-white border border-[#CAD7C5]/70 shadow-2xs">
                   <div className="w-10 h-10 rounded-xl bg-rose-dark text-white flex items-center justify-center text-base font-bold shrink-0">
-                    ≡ƒîÉ
+                    🌐
                   </div>
                   <div>
                     <span className="text-[10px] font-bold uppercase tracking-wider text-rose-dark block">
@@ -982,7 +982,7 @@ export default function Home() {
               className="w-full py-3 rounded-full bg-forest text-[#E8EFE5] hover:bg-rose-dark text-xs font-bold shadow-xs hover:shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer mt-2"
             >
               <span>Buka Dokumen Kelulusan & TOEIC</span>
-              <span>Γåù</span>
+              <span>↗</span>
             </button>
           </div>
 
@@ -995,7 +995,7 @@ export default function Home() {
               {/* Top Badge & Dossier Tag */}
               <div className="flex items-center justify-between gap-2 mb-6">
                 <span className="text-[10px] font-bold px-3.5 py-1 rounded-full bg-white/90 text-rose-dark border border-rose-300 uppercase tracking-wider shadow-2xs">
-                  Γÿà SPOTLIGHT SKILLS CARD
+                  ★ SPOTLIGHT SKILLS CARD
                 </span>
                 <span className="text-xs font-serif italic text-rose-dark/70 font-bold tracking-wider">
                   Dossier
@@ -1007,12 +1007,12 @@ export default function Home() {
                 Technical Skills
               </h3>
 
-              {/* Subdivided Domains: IT, Business, Creative ΓÇö Fully dynamic from store! */}
+              {/* Subdivided Domains: IT, Business, Creative — Fully dynamic from store! */}
               <div className="space-y-4 mb-6">
                 {/* IT / Tech */}
                 <div>
                   <span className="block text-[10px] font-bold uppercase tracking-wider text-forest/60 mb-1.5 flex items-center gap-1.5">
-                    <span>≡ƒÆ╗</span>
+                    <span>💻</span>
                     <span>IT & Digital Systems</span>
                   </span>
                   <div className="flex flex-wrap gap-1.5">
@@ -1030,7 +1030,7 @@ export default function Home() {
                 {/* Business */}
                 <div>
                   <span className="block text-[10px] font-bold uppercase tracking-wider text-forest/60 mb-1.5 flex items-center gap-1.5">
-                    <span>≡ƒôê</span>
+                    <span>📈</span>
                     <span>Business & Operations</span>
                   </span>
                   <div className="flex flex-wrap gap-1.5">
@@ -1048,7 +1048,7 @@ export default function Home() {
                 {/* Creative */}
                 <div>
                   <span className="block text-[10px] font-bold uppercase tracking-wider text-forest/60 mb-1.5 flex items-center gap-1.5">
-                    <span>≡ƒÄ¼</span>
+                    <span>🎬</span>
                     <span>Creative & Media</span>
                   </span>
                   <div className="flex flex-wrap gap-1.5">
@@ -1071,7 +1071,7 @@ export default function Home() {
 
               {/* Big Pill Marquee Badge */}
               <div className="inline-block w-full text-center px-4 py-2 rounded-full border border-forest/30 bg-white/85 text-xs font-bold text-forest shadow-2xs mb-4">
-                Creative ΓÇö Openness ΓÇö Teamwork
+                Creative — Openness — Teamwork
               </div>
 
               {/* Bulleted Strengths */}
@@ -1109,7 +1109,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="px-3.5 py-1.5 rounded-full border border-forest/30 bg-white text-[11px] font-bold text-rose-dark hover:bg-forest hover:text-white transition-all shadow-2xs shrink-0"
               >
-                Scan me! ≡ƒô▒
+                Scan me! 📱
               </a>
             </div>
 
@@ -1127,7 +1127,7 @@ export default function Home() {
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-3">
-            Γ£ª Professional Trajectory Γ£ª
+            ✦ Professional Trajectory ✦
           </div>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-forest mb-3">
             Work & Business Experience
@@ -1188,11 +1188,11 @@ export default function Home() {
 
                   {/* Quick Hover Action */}
                   <div 
-                    onClick={() => openModal(exp.title, `${exp.tag} ΓÇó ${exp.period}`, exp.summary, exp.extraImages && exp.extraImages.length > 0 ? exp.extraImages : [exp.image], exp.link, exp.linkLabel)}
+                    onClick={() => openModal(exp.title, `${exp.tag} • ${exp.period}`, exp.summary, exp.extraImages && exp.extraImages.length > 0 ? exp.extraImages : [exp.image], exp.link, exp.linkLabel)}
                     className="absolute inset-0 bg-forest/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer"
                   >
                     <span className="px-3.5 py-1.5 rounded-full bg-white text-forest text-xs font-semibold shadow-md">
-                      ≡ƒöì Buka Galeri Lengkap ({exp.extraImages?.length || 1} Foto)
+                      🔍 Buka Galeri Lengkap ({exp.extraImages?.length || 1} Foto)
                     </span>
                   </div>
                 </div>
@@ -1219,11 +1219,11 @@ export default function Home() {
               {/* Bottom Trigger Button & Link */}
               <div className="pt-3 border-t border-[#CAD7C5]/50 flex flex-wrap items-center justify-between gap-2">
                 <button
-                  onClick={() => openModal(exp.title, `${exp.tag} ΓÇó ${exp.period}`, exp.summary, exp.extraImages && exp.extraImages.length > 0 ? exp.extraImages : [exp.image], exp.link, exp.linkLabel)}
+                  onClick={() => openModal(exp.title, `${exp.tag} • ${exp.period}`, exp.summary, exp.extraImages && exp.extraImages.length > 0 ? exp.extraImages : [exp.image], exp.link, exp.linkLabel)}
                   className="inline-flex items-center gap-1 text-xs font-bold text-rose-dark hover:text-rose-berry transition-colors cursor-pointer"
                 >
                   <span>Lihat Dokumentasi Kerja</span>
-                  <span>ΓåÆ</span>
+                  <span>→</span>
                 </button>
 
                 {exp.link && (
@@ -1233,7 +1233,7 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-xs font-bold text-forest/80 hover:text-forest transition-colors bg-[#E8EFE5] hover:bg-[#CAD7C5] px-3 py-1 rounded-full border border-[#CAD7C5]/60"
                   >
-                    <span>{exp.linkLabel || 'Kunjungi Tautan Γåù'}</span>
+                    <span>{exp.linkLabel || 'Kunjungi Tautan ↗'}</span>
                   </a>
                 )}
               </div>
@@ -1251,7 +1251,7 @@ export default function Home() {
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-3">
-            Γ£ª Academic & Campus Projects Γ£ª
+            ✦ Academic & Campus Projects ✦
           </div>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-forest mb-3 tracking-tight uppercase">
             MY WORK INCLUDES
@@ -1332,7 +1332,7 @@ export default function Home() {
               key={project.id}
               onClick={() => openModal(
                 project.title,
-                `${project.tag} ΓÇó ${project.period}`,
+                `${project.tag} • ${project.period}`,
                 project.summary,
                 project.extraImages && project.extraImages.length > 0 ? project.extraImages : [project.image],
                 project.link,
@@ -1358,8 +1358,8 @@ export default function Home() {
                   {/* Hover Quick Prompt */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-forest/30 pointer-events-none">
                     <span className="px-3.5 py-1.5 rounded-full bg-white/95 text-rose-dark text-xs font-bold shadow-md flex items-center gap-1.5 backdrop-blur-xs">
-                      <span>≡ƒöì Buka Dokumentasi</span>
-                      <span>Γåù</span>
+                      <span>🔍 Buka Dokumentasi</span>
+                      <span>↗</span>
                     </span>
                   </div>
                 </div>
@@ -1401,10 +1401,10 @@ export default function Home() {
               <div className="pt-3 mt-3 border-t border-[#CAD7C5]/40 flex items-center justify-between text-xs text-forest/60">
                 <span className="text-[11px] font-bold text-rose-dark group-hover:underline flex items-center gap-1">
                   <span>Klik untuk dokumentasi</span>
-                  <span className="text-xs">Γåù</span>
+                  <span className="text-xs">↗</span>
                 </span>
                 <span className="w-6 h-6 rounded-full bg-[#E8EFE5] text-forest group-hover:bg-rose-dark group-hover:text-white transition-colors flex items-center justify-center text-[10px] font-bold">
-                  ΓåÆ
+                  →
                 </span>
               </div>
             </div>
@@ -1451,7 +1451,7 @@ export default function Home() {
                 : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
             }`}
           >
-            ≡ƒÅå 1st Winner (2)
+            🏆 1st Winner (2)
           </button>
           <button
             onClick={() => setAwardFilter('2nd')}
@@ -1461,7 +1461,7 @@ export default function Home() {
                 : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
             }`}
           >
-            ≡ƒÑê 2nd Winner (2)
+            🥈 2nd Winner (2)
           </button>
           <button
             onClick={() => setAwardFilter('top5')}
@@ -1471,7 +1471,7 @@ export default function Home() {
                 : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
             }`}
           >
-            ≡ƒîƒ Top 5 Finalist (2)
+            🌟 Top 5 Finalist (2)
           </button>
           <button
             onClick={() => setAwardFilter('speaker')}
@@ -1481,7 +1481,7 @@ export default function Home() {
                 : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
             }`}
           >
-            ≡ƒÄÖ∩╕Å Best Speaker (1)
+            🎙️ Best Speaker (1)
           </button>
         </div>
 
@@ -1497,7 +1497,7 @@ export default function Home() {
                 awardFilter === 'all' ? 'bg-rose-dark text-white' : 'text-forest/70 hover:bg-[#E8EFE5]'
               }`}
             >
-              Γ£ª
+              ✦
             </button>
             <button
               onClick={() => setAwardFilter('1st')}
@@ -1506,7 +1506,7 @@ export default function Home() {
                 awardFilter === '1st' ? 'bg-rose-dark text-white' : 'text-forest/70 hover:bg-[#E8EFE5]'
               }`}
             >
-              ≡ƒÅå
+              🏆
             </button>
             <button
               onClick={() => setAwardFilter('2nd')}
@@ -1515,7 +1515,7 @@ export default function Home() {
                 awardFilter === '2nd' ? 'bg-rose-dark text-white' : 'text-forest/70 hover:bg-[#E8EFE5]'
               }`}
             >
-              ≡ƒÑê
+              🥈
             </button>
             <button
               onClick={() => setAwardFilter('top5')}
@@ -1524,7 +1524,7 @@ export default function Home() {
                 awardFilter === 'top5' ? 'bg-rose-dark text-white' : 'text-forest/70 hover:bg-[#E8EFE5]'
               }`}
             >
-              Γ¡É
+              ⭐
             </button>
             <button
               onClick={() => setAwardFilter('speaker')}
@@ -1533,7 +1533,7 @@ export default function Home() {
                 awardFilter === 'speaker' ? 'bg-rose-dark text-white' : 'text-forest/70 hover:bg-[#E8EFE5]'
               }`}
             >
-              ≡ƒÄÖ∩╕Å
+              🎙️
             </button>
           </div>
 
@@ -1557,7 +1557,7 @@ export default function Home() {
               return (
                 <div
                   key={idx}
-                  onClick={() => openModal(award.title, `${award.rank} ΓÇó ${award.organizer}`, award.desc, [award.certImg, award.eventImg], award.link, award.linkLabel)}
+                  onClick={() => openModal(award.title, `${award.rank} • ${award.organizer}`, award.desc, [award.certImg, award.eventImg], award.link, award.linkLabel)}
                   className={`group relative rounded-3xl overflow-hidden cursor-pointer bg-forest/20 border-2 border-white/60 shadow-md transition-all duration-500 hover:-translate-y-2.5 hover:scale-[1.015] hover:shadow-2xl ${colSpan} flex flex-col justify-between p-5`}
                 >
                   {/* Background Event Documentation Image */}
@@ -1612,7 +1612,7 @@ export default function Home() {
 
                     <div className="pt-3 border-t border-white/20 flex items-center justify-between">
                       <span className="text-[11px] font-bold text-rose-blush flex items-center gap-1">
-                        <span>≡ƒô£ Bukti Foto</span>
+                        <span>📜 Bukti Foto</span>
                       </span>
                       <div className="flex items-center gap-2">
                         {award.link && (
@@ -1623,13 +1623,13 @@ export default function Home() {
                             onClick={(e) => e.stopPropagation()}
                             className="px-2.5 py-1.5 rounded-full bg-white/20 hover:bg-white text-white hover:text-forest text-[11px] font-bold border border-white/30 transition-colors flex items-center gap-1"
                           >
-                            <span>≡ƒöù</span>
+                            <span>🔗</span>
                             <span>{award.linkLabel || 'Publikasi'}</span>
                           </a>
                         )}
                         <span className="px-3.5 py-1.5 rounded-full bg-rose-dark text-white text-xs font-bold shadow-md hover:bg-rose-berry transition-colors flex items-center gap-1">
                           <span>Detail</span>
-                          <span>Γåù</span>
+                          <span>↗</span>
                         </span>
                       </div>
                     </div>
@@ -1699,14 +1699,14 @@ export default function Home() {
                   <span className="text-xs font-bold text-forest uppercase tracking-wider font-source">
                     Peran {activeOrgIdx + 1} dari {organizationList.length}
                   </span>
-                  <span className="text-xs text-forest/50 hidden sm:inline">ΓÇó</span>
+                  <span className="text-xs text-forest/50 hidden sm:inline">•</span>
                   <span className="text-xs font-serif italic text-forest/75 hidden sm:inline">
                     {activeOrg.role} ({activeOrg.institution})
                   </span>
                 </div>
 
                 <div className="text-[11px] text-forest/60 font-medium hidden sm:flex items-center gap-1.5 bg-white/70 px-3 py-1 rounded-full border border-[#CAD7C5]/60">
-                  <span>≡ƒöä Auto-slide foto 3s aktif</span>
+                  <span>🔄 Auto-slide foto 3s aktif</span>
                 </div>
               </div>
 
@@ -1727,7 +1727,7 @@ export default function Home() {
                   title="Peran Sebelumnya (Geser Kiri)"
                   aria-label="Previous Role"
                 >
-                  ΓÇ╣
+                  ‹
                 </button>
 
                 {/* Floating Right Arrow Button (Prominent on Side) */}
@@ -1737,7 +1737,7 @@ export default function Home() {
                   title="Peran Selanjutnya (Geser Kanan)"
                   aria-label="Next Role"
                 >
-                  ΓÇ║
+                  ›
                 </button>
 
                 {/* Track with smooth transition */}
@@ -1769,7 +1769,7 @@ export default function Home() {
                         {/* Spotlight Ribbon on Center Card */}
                         {isCenter && (
                           <div className="bg-gradient-to-r from-forest via-rose-dark to-forest text-[#E8EFE5] text-center text-[10px] font-bold uppercase tracking-widest py-1">
-                            Γ£ª Spotlight Organization Γ£ª
+                            ✦ Spotlight Organization ✦
                           </div>
                         )}
 
@@ -1825,7 +1825,7 @@ export default function Home() {
                             className="absolute bottom-3 right-3 z-10 px-2.5 py-1 rounded-full bg-white/90 hover:bg-rose-blush text-forest text-[10px] font-bold shadow-xs transition-colors"
                             title="Buka Dokumentasi Resolusi Penuh"
                           >
-                            ≡ƒöì Galeri
+                            🔍 Galeri
                           </button>
                         </div>
 
@@ -1855,7 +1855,7 @@ export default function Home() {
                                   key={hIdx}
                                   className="text-[10px] font-medium px-2.5 py-0.5 rounded-full bg-[#E8EFE5]/70 border border-[#CAD7C5] text-forest/85"
                                 >
-                                  Γ£ô {item}
+                                  ✓ {item}
                                 </span>
                               ))}
                             </div>
@@ -1871,7 +1871,7 @@ export default function Home() {
                               className="text-xs font-bold text-rose-dark hover:text-rose-berry transition-colors flex items-center gap-1 cursor-pointer"
                             >
                               <span>Dokumentasi Lengkap</span>
-                              <span>Γåù</span>
+                              <span>↗</span>
                             </button>
                             <span className="text-[10px] text-forest/50 font-medium">
                               {org.images.length} Foto Tersedia
@@ -1916,7 +1916,7 @@ export default function Home() {
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-3">
-            Γ£ª Verified Competencies & Licensures Γ£ª
+            ✦ Verified Competencies & Licensures ✦
           </div>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-forest mb-3">
             Professional Courses & Accreditations
@@ -1933,7 +1933,7 @@ export default function Home() {
               key={idx}
               onClick={() => openModal(
                 item.title,
-                `${item.issuer} ΓÇó ${item.year} (${item.tag})`,
+                `${item.issuer} • ${item.year} (${item.tag})`,
                 item.desc,
                 [item.image]
               )}
@@ -1951,7 +1951,7 @@ export default function Home() {
                   
                   {/* Issuer & Year Pill */}
                   <span className="absolute bottom-2 left-2 bg-white/90 backdrop-blur-xs text-forest text-[9px] font-bold px-2 py-0.5 rounded-full shadow-xs">
-                    {item.issuer} ΓÇó {item.year}
+                    {item.issuer} • {item.year}
                   </span>
                 </div>
 
@@ -1972,7 +1972,7 @@ export default function Home() {
                   Lihat Sertifikat
                 </span>
                 <span className="w-6 h-6 rounded-full bg-[#E8EFE5] text-forest group-hover:bg-rose-dark group-hover:text-white transition-colors flex items-center justify-center text-[10px] font-bold">
-                  ΓåÆ
+                  →
                 </span>
               </div>
             </div>
@@ -1982,13 +1982,13 @@ export default function Home() {
         {/* Trust Banner Below Cards */}
         <div className="mt-8 p-4 rounded-2xl bg-[#CAD7C5]/25 border border-[#CAD7C5]/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-forest/80">
           <div className="flex items-center gap-2.5">
-            <span className="text-lg">≡ƒô£</span>
+            <span className="text-lg">📜</span>
             <span className="font-medium">
               Seluruh sertifikat diterbitkan oleh institusi terakreditasi internasional & nasional (RevoU, MySkill, ETS International).
             </span>
           </div>
           <span className="text-[11px] font-bold text-rose-dark shrink-0">
-            Klik kartu manapun untuk pratinjau sertifikat beresolusi tinggi Γåù
+            Klik kartu manapun untuk pratinjau sertifikat beresolusi tinggi ↗
           </span>
         </div>
 
@@ -2020,7 +2020,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
             <div>
               <span className="text-[11px] font-bold uppercase tracking-widest text-rose-dark block mb-1">
-                Γ£ª Multi-Platform Production
+                ✦ Multi-Platform Production
               </span>
               <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest">
                 Social Media & Video Production
@@ -2077,7 +2077,7 @@ export default function Home() {
             <div className="flex items-center gap-3">
               <span className="font-bold text-forest text-sm font-serif">{currentCreator.name}</span>
               <span className="text-rose-dark font-mono font-medium">{currentCreator.handle}</span>
-              <span className="hidden sm:inline text-forest/40">ΓÇó</span>
+              <span className="hidden sm:inline text-forest/40">•</span>
               <span className="hidden sm:inline text-forest/70 font-medium">{currentCreator.tag}</span>
             </div>
             <div className="flex items-center gap-2">
@@ -2090,7 +2090,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="text-xs font-bold text-forest hover:text-rose-dark underline ml-2"
               >
-                Buka Akun Γåù
+                Buka Akun ↗
               </a>
             </div>
           </div>
@@ -2148,8 +2148,8 @@ export default function Home() {
 
                   {currentCreator.centerLink && (
                     <span className="text-[10px] font-bold font-mono px-2.5 py-0.5 rounded-full bg-red-100 text-red-700 border border-red-200 flex items-center gap-1 group-hover:bg-red-600 group-hover:text-white transition-colors">
-                      <span>Γû╢</span>
-                      <span>Buka di YouTube Γåù</span>
+                      <span>▶</span>
+                      <span>Buka di YouTube ↗</span>
                     </span>
                   )}
                 </div>
@@ -2164,7 +2164,7 @@ export default function Home() {
                   {/* Play button hover overlay */}
                   <div className="absolute inset-0 bg-forest/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
                     <div className="w-14 h-14 rounded-full bg-white/95 text-red-600 flex items-center justify-center text-2xl shadow-xl transform scale-75 group-hover:scale-100 transition-transform">
-                      Γû╢
+                      ▶
                     </div>
                   </div>
 
@@ -2214,8 +2214,8 @@ export default function Home() {
             /* ADAPTIVE 2-PHONE STAGE (For Dua Sisi Laundry / Accounts without landscape video) */
             <div className="py-6 flex flex-col items-center justify-center">
               <div className="mb-5 inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#E8EFE5] border border-[#CAD7C5] text-forest text-xs font-medium">
-                <span>≡ƒô▒</span>
-                <span>Dual Mobile Showcase ΓÇö Video Vertikal (Instagram Reels & TikTok) ΓÇó Format Landscape Segera Hadir</span>
+                <span>📱</span>
+                <span>Dual Mobile Showcase — Video Vertikal (Instagram Reels & TikTok) • Format Landscape Segera Hadir</span>
               </div>
 
               <div className="flex flex-row flex-wrap items-center justify-center gap-6 sm:gap-10">
@@ -2242,7 +2242,7 @@ export default function Home() {
                       <p className="text-xs font-bold leading-tight">
                         {currentCreator.leftPhoneTitle}
                       </p>
-                      <p className="text-[10px] text-white/75 mt-0.5">Buka di Instagram Γåù</p>
+                      <p className="text-[10px] text-white/75 mt-0.5">Buka di Instagram ↗</p>
                     </div>
                   </div>
                 </div>
@@ -2270,7 +2270,7 @@ export default function Home() {
                       <p className="text-xs font-bold leading-tight">
                         {currentCreator.rightPhoneTitle}
                       </p>
-                      <p className="text-[10px] text-white/75 mt-0.5">Buka di TikTok Γåù</p>
+                      <p className="text-[10px] text-white/75 mt-0.5">Buka di TikTok ↗</p>
                     </div>
                   </div>
                 </div>
@@ -2285,12 +2285,12 @@ export default function Home() {
         </div>
 
         {/* ----------------------------------------------------------------------- */}
-        {/* SUBSECTION B: BEYOND THE SCREEN ΓÇö ART, HOBBIES & INTELLECTUAL PURSUITS */}
+        {/* SUBSECTION B: BEYOND THE SCREEN — ART, HOBBIES & INTELLECTUAL PURSUITS */}
         {/* ----------------------------------------------------------------------- */}
         <div>
           <div className="text-center max-w-xl mx-auto mb-10">
             <span className="text-[11px] font-bold uppercase tracking-widest text-rose-dark block mb-1">
-              Γ£ª Beyond The Screen
+              ✦ Beyond The Screen
             </span>
             <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest">
               Arts, Hobbies & Intellectual Pursuits
@@ -2339,7 +2339,7 @@ export default function Home() {
                       className="text-xs font-bold text-rose-dark hover:underline flex items-center gap-1"
                     >
                       <span>Baca di Medium</span>
-                      <span>Γåù</span>
+                      <span>↗</span>
                     </a>
                   ) : (
                     <span className="text-[11px] font-medium text-forest/50 italic">
@@ -2347,7 +2347,7 @@ export default function Home() {
                     </span>
                   )}
                   <span className="w-7 h-7 rounded-full bg-[#E8EFE5] flex items-center justify-center text-xs group-hover:bg-rose-blush group-hover:text-rose-dark transition-colors">
-                    ΓåÆ
+                    →
                   </span>
                 </div>
               </div>
@@ -2390,7 +2390,7 @@ export default function Home() {
                 href={`mailto:${portfolioData.socials.email}`}
                 className="px-6 py-3 rounded-full text-xs font-bold bg-white text-forest hover:bg-rose-blush transition-colors flex items-center gap-2 shadow-sm"
               >
-                <span>Γ£ë Kirim Email: {portfolioData.socials.email}</span>
+                <span>✉ Kirim Email: {portfolioData.socials.email}</span>
               </a>
               <a
                 href={portfolioData.socials.whatsapp}
@@ -2398,7 +2398,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="px-6 py-3 rounded-full text-xs font-bold bg-rose-dark text-white hover:bg-rose-berry transition-colors flex items-center gap-2 shadow-sm"
               >
-                <span>≡ƒÆ¼ WhatsApp Langsung</span>
+                <span>💬 WhatsApp Langsung</span>
               </a>
               <a
                 href={portfolioData.socials.linkedin}
@@ -2406,7 +2406,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="px-5 py-3 rounded-full text-xs font-bold bg-white/10 border border-white/20 text-white hover:bg-white/20 transition-colors"
               >
-                LinkedIn Profile Γåù
+                LinkedIn Profile ↗
               </a>
             </div>
 
@@ -2492,13 +2492,13 @@ export default function Home() {
           {/* Bottom Bar inside Card */}
           <div className="w-full mt-12 pt-6 border-t border-white/15 flex flex-col sm:flex-row items-center justify-between text-xs text-[#E8EFE5]/60 gap-4">
             <div>
-              ┬⌐ 2026 Chikal Nazmi Mahira. All rights reserved.
+              © 2026 Chikal Nazmi Mahira. All rights reserved.
             </div>
             <div className="flex items-center gap-6">
               <a href="#hero" className="hover:text-white transition-colors">
-                Back to Top Γåæ
+                Back to Top ↑
               </a>
-              <span>ΓÇó</span>
+              <span>•</span>
               <span className="font-serif italic text-rose-blush">
                 Designed with Sage & Rose Aesthetic
               </span>
@@ -2520,7 +2520,7 @@ export default function Home() {
           }`}
           title="Klik untuk beralih mode tampilan kapan saja"
         >
-          <span className="text-base">{isCuteMode ? '≡ƒî╕' : '≡ƒî┐'}</span>
+          <span className="text-base">{isCuteMode ? '🌸' : '🌿'}</span>
           <span>{isCuteMode ? 'Kembalikan ke Editorial' : 'Coba Mode Cute Floral'}</span>
         </button>
       </div>
@@ -2547,7 +2547,7 @@ export default function Home() {
                     {modalData.category}
                   </span>
                   <span className="text-[11px] font-medium text-forest/60">
-                    ΓÇó {modalData.images.length} Dokumentasi Visual
+                    • {modalData.images.length} Dokumentasi Visual
                   </span>
                 </div>
 
@@ -2566,7 +2566,7 @@ export default function Home() {
                 className="w-10 h-10 rounded-full bg-[#E8EFE5] hover:bg-rose-blush text-forest hover:text-rose-dark flex items-center justify-center transition-all text-lg font-bold shadow-xs cursor-pointer shrink-0"
                 aria-label="Tutup Dialog"
               >
-                Γ£ò
+                ✕
               </button>
             </div>
 
@@ -2595,7 +2595,7 @@ export default function Home() {
                     className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 text-forest text-xs font-bold px-3 py-1.5 rounded-full shadow-md hover:bg-rose-blush flex items-center gap-1"
                   >
                     <span>Resolusi Asli</span>
-                    <span>Γåù</span>
+                    <span>↗</span>
                   </a>
                 </div>
               )}
@@ -2620,7 +2620,7 @@ export default function Home() {
                         rel="noopener noreferrer"
                         className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 text-forest text-xs font-bold px-2.5 py-1 rounded-full shadow-md hover:bg-rose-blush"
                       >
-                        Buka Asli Γåù
+                        Buka Asli ↗
                       </a>
                     </div>
                   ))}
@@ -2647,7 +2647,7 @@ export default function Home() {
                       rel="noopener noreferrer"
                       className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 text-forest text-xs font-bold px-2.5 py-1 rounded-full shadow-md hover:bg-rose-blush"
                     >
-                      Buka Asli Γåù
+                      Buka Asli ↗
                     </a>
                   </div>
 
@@ -2670,7 +2670,7 @@ export default function Home() {
                           rel="noopener noreferrer"
                           className="absolute top-2.5 right-2.5 opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 text-forest text-xs font-bold px-2 py-0.5 rounded-full shadow-md hover:bg-rose-blush"
                         >
-                          Γåù
+                          ↗
                         </a>
                       </div>
                     ))}
@@ -2698,7 +2698,7 @@ export default function Home() {
                         rel="noopener noreferrer"
                         className="absolute top-2.5 right-2.5 opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 text-forest text-xs font-bold px-2 py-0.5 rounded-full shadow-md hover:bg-rose-blush"
                       >
-                        Γåù
+                        ↗
                       </a>
                     </div>
                   ))}
@@ -2712,7 +2712,7 @@ export default function Home() {
             {/* ------------------------------------------------------------------- */}
             <div className="pt-2.5 mt-2 border-t border-[#CAD7C5]/60 flex flex-wrap items-center justify-between gap-3 text-xs text-forest/70">
               <div className="flex items-center gap-2">
-                <span className="text-rose-dusty font-bold">Γ£ö</span>
+                <span className="text-rose-dusty font-bold">✔</span>
                 <span className="text-[11px] font-medium">
                   Seluruh dokumentasi dapat diklik untuk dibuka dalam ukuran resolusi penuh asli
                 </span>
@@ -2726,8 +2726,8 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="px-4 py-2 rounded-full text-xs font-bold bg-emerald-100 border border-emerald-300 text-emerald-900 hover:bg-emerald-200 transition-colors shadow-xs flex items-center gap-1.5"
                   >
-                    <span>≡ƒöù</span>
-                    <span>{modalData.linkLabel || 'Buka Tautan Eksternal / Berita Γåù'}</span>
+                    <span>🔗</span>
+                    <span>{modalData.linkLabel || 'Buka Tautan Eksternal / Berita ↗'}</span>
                   </a>
                 )}
                 <button

@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { 
   getPortfolioData, 
   fetchPortfolioDataFromSupabase,
@@ -9,55 +8,6 @@ import {
   DEFAULT_PORTFOLIO_DATA, 
   PortfolioData 
 } from '@/lib/portfolio-store';
-
-// Floating Petal Particles for Warm Botanical Aesthetic
-const PETAL_PARTICLES = [
-  { left: '4%', delay: '0s', size: 18, duration: '14s' },
-  { left: '16%', delay: '3.8s', size: 22, duration: '18s' },
-  { left: '29%', delay: '1.2s', size: 16, duration: '15s' },
-  { left: '44%', delay: '5.5s', size: 20, duration: '20s' },
-  { left: '58%', delay: '2.3s', size: 24, duration: '16s' },
-  { left: '72%', delay: '4.8s', size: 18, duration: '19s' },
-  { left: '85%', delay: '0.9s', size: 22, duration: '17s' },
-  { left: '94%', delay: '6.5s', size: 16, duration: '21s' },
-];
-
-// Reusable Signature Botanical Flourishes (Lily & Magnolia Motif)
-function BotanicalDivider({ className = "" }: { className?: string }) {
-  return (
-    <div className={`w-full max-w-5xl mx-auto py-10 sm:py-14 flex items-center justify-center gap-4 px-4 opacity-75 ${className}`}>
-      <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#CAD7C5] to-[#CAD7C5]"></div>
-      <div className="flex items-center gap-2 text-rose-dusty select-none">
-        <span className="text-[10px] text-rose-dusty/60">✦</span>
-        <svg className="w-5 h-5 text-rose-dusty" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path d="M12 2C13.5 5.5 17.5 7.5 21 8C17.5 9.5 14.5 13.5 14 17C12.5 13.5 8.5 11.5 5 11C8.5 9.5 11.5 5.5 12 2Z" fill="#BD5871" fillOpacity="0.25" />
-          <circle cx="12" cy="11" r="1.5" fill="#BD5871" />
-        </svg>
-        <span className="text-[10px] text-rose-dusty/60">✦</span>
-      </div>
-      <div className="h-px flex-1 bg-gradient-to-l from-transparent via-[#CAD7C5] to-[#CAD7C5]"></div>
-    </div>
-  );
-}
-
-function BotanicalCorner({ className = "top-3 right-3" }: { className?: string }) {
-  return (
-    <div className={`absolute ${className} pointer-events-none z-10 botanical-corner opacity-40 group-hover:opacity-100 transition-all duration-300`}>
-      <svg className="w-5 h-5 sm:w-6 sm:h-6 text-rose-dusty/80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M4 20c4-4 8-6 16-8-2 8-4 12-8 16-2-2-4-5-8-8z" fill="#BD5871" fillOpacity="0.15" />
-        <path d="M12 12c2-3 5-4 8-5-1 4-2 6-5 8" strokeDasharray="1 1" />
-      </svg>
-    </div>
-  );
-}
-
-function FloralBullet() {
-  return (
-    <svg className="w-3.5 h-3.5 text-rose-dusty shrink-0 mt-0.5" viewBox="0 0 16 16" fill="currentColor">
-      <path d="M8 1c1.5 2.5 3.5 3.5 6 4-2.5 1.5-3.5 3.5-4 6-1.5-2.5-3.5-3.5-6-4 2.5-1.5 3.5-3.5 4-6z" opacity="0.85" />
-    </svg>
-  );
-}
 
 export default function Home() {
   // Modal state for certificates and documentation
@@ -98,91 +48,77 @@ export default function Home() {
   // Mobile menu state
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Active filter in Selected Works
-  const [activeProjectFilter, setActiveProjectFilter] = useState<string>('all');
+  // Active filter/tab in Selected Works Dossier
+  const [activeDossierTab, setActiveDossierTab] = useState<string>('all');
 
-  // Active filter for Awards & Accreditations
-  const [activeAwardFilter, setActiveAwardFilter] = useState<'all' | '1st' | '2nd' | 'top5'>('all');
+  // Active account in Content Creator Showcase
+  const [activeCreatorAccount, setActiveCreatorAccount] = useState<'personal' | 'yarnup' | 'manikarumi' | 'duasisi'>('personal');
 
-  // Active image index in modal
-  const [activeModalImgIdx, setActiveModalImgIdx] = useState(0);
+  // Active filter for Trophy Case Mosaic Exhibition
+  const [awardFilter, setAwardFilter] = useState<'all' | '1st' | '2nd' | 'top5' | 'speaker'>('all');
 
-  // Active creator key for Creator Stage
-  const [activeCreatorKey, setActiveCreatorKey] = useState<string>('personal');
+  // Working Experience layout view mode: 'compact' (2-per-row in 1 view) or 'collage' (multi-photo collage feed)
+  const [experienceViewMode, setExperienceViewMode] = useState<'compact' | 'collage'>('compact');
 
-  // Derived lists from store
-  const experiencesList = (portfolioData.experiences && portfolioData.experiences.length > 0)
-    ? portfolioData.experiences
-    : DEFAULT_PORTFOLIO_DATA.experiences!;
+  // Active category filter for Skills Matrix
+  const [activeSkillCategory, setActiveSkillCategory] = useState<string>('all');
 
-  const projectsList = (portfolioData.projects && portfolioData.projects.length > 0)
-    ? portfolioData.projects
-    : DEFAULT_PORTFOLIO_DATA.projects!;
+  // Current slide index in infinite circular carousel (starts at 10 = index 0 Google Student Ambassador)
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(10);
+  // Active photo index for each organization card
+  const [orgPhotoIndex, setOrgPhotoIndex] = useState<{ [key: number]: number }>({ 0: 0, 1: 0, 2: 0, 3: 0, 4: 0 });
 
-  const awardsList = (portfolioData.awards && portfolioData.awards.length > 0)
-    ? portfolioData.awards
-    : DEFAULT_PORTFOLIO_DATA.awards!;
-
-  const academicData = portfolioData.academic || DEFAULT_PORTFOLIO_DATA.academic!;
-
-  const certificationList = (portfolioData.certifications && portfolioData.certifications.length > 0)
-    ? portfolioData.certifications
-    : DEFAULT_PORTFOLIO_DATA.certifications!;
-
-  const skillsList = (portfolioData.skills && portfolioData.skills.length > 0)
-    ? portfolioData.skills
-    : DEFAULT_PORTFOLIO_DATA.skills || [];
-
-  const creatorAccounts = portfolioData.creatorAccounts || DEFAULT_PORTFOLIO_DATA.creatorAccounts;
-  const currentCreator = creatorAccounts[activeCreatorKey] || Object.values(creatorAccounts)[0];
-
-  // Top featured project for full-width highlight card
-  const featuredProject = projectsList[0];
-  const gridProjects = projectsList.slice(1);
-
-  // Filtered projects for grid
-  const filteredProjects = activeProjectFilter === 'all'
-    ? gridProjects
-    : gridProjects.filter(p => 
-        p.category.toLowerCase().includes(activeProjectFilter.toLowerCase()) || 
-        p.tag.toLowerCase().includes(activeProjectFilter.toLowerCase())
-      );
-
-  // Filtered awards
-  const filteredAwards = activeAwardFilter === 'all'
-    ? awardsList
-    : awardsList.filter(a => {
-        const r = (a.rank || '').toLowerCase();
-        if (activeAwardFilter === '1st') {
-          return r.includes('1st') || r.includes('juara 1') || r.includes('juara i') || r.includes('first') || r.includes('gold');
-        }
-        if (activeAwardFilter === '2nd') {
-          return r.includes('2nd') || r.includes('juara 2') || r.includes('juara ii') || r.includes('second') || r.includes('silver') || r.includes('runner up');
-        }
-        if (activeAwardFilter === 'top5') {
-          return r.includes('top') || r.includes('speaker') || r.includes('finalis') || r.includes('harapan') || r.includes('3rd') || r.includes('bronze');
-        }
-        return true;
+  // Auto-slide documentation photos every 3 seconds without manual clicks
+  useEffect(() => {
+    const photoTimer = setInterval(() => {
+      setOrgPhotoIndex(prev => {
+        const nextState = { ...prev };
+        organizationList.forEach((_, idx) => {
+          const totalPhotos = organizationList[idx].images.length;
+          nextState[idx] = ((prev[idx] || 0) + 1) % totalPhotos;
+        });
+        return nextState;
       });
+    }, 3000);
 
-  // Open modal handler
-  const openModal = (item: {
-    title: string;
-    category: string;
-    description: string;
-    images: string[];
-    link?: string;
-    linkLabel?: string;
-  }) => {
-    setActiveModalImgIdx(0);
+    return () => clearInterval(photoTimer);
+  }, []);
+
+  // Reversible Cute Cozy Floral Theme state
+  const [isCuteMode, setIsCuteMode] = useState(true);
+
+  // Floating Petal Particles Data for Cute Floral Mode
+  const petalParticles = [
+    { left: '6%', delay: '0s', size: 18, duration: '14s' },
+    { left: '20%', delay: '3.5s', size: 22, duration: '18s' },
+    { left: '34%', delay: '1s', size: 16, duration: '15s' },
+    { left: '48%', delay: '5s', size: 20, duration: '20s' },
+    { left: '64%', delay: '2s', size: 24, duration: '16s' },
+    { left: '78%', delay: '4.5s', size: 16, duration: '19s' },
+    { left: '92%', delay: '6s', size: 20, duration: '17s' },
+  ];
+
+    // Active photo index inside Landscape Modal Dialog
+  const [activeModalPhoto, setActiveModalPhoto] = useState(0);
+
+  // Modal open helper
+  const openModal = (
+    title: string, 
+    category: string, 
+    description: string, 
+    images: string[],
+    link?: string,
+    linkLabel?: string
+  ) => {
+    setActiveModalPhoto(0);
     setModalData({
       isOpen: true,
-      title: item.title,
-      category: item.category,
-      description: item.description,
-      images: item.images && item.images.length > 0 ? item.images : ['/1.png'],
-      link: item.link,
-      linkLabel: item.linkLabel,
+      title,
+      category,
+      description,
+      images: images && images.length > 0 ? images : ['/11.png'],
+      link,
+      linkLabel,
     });
   };
 
@@ -190,358 +126,1116 @@ export default function Home() {
     setModalData(prev => ({ ...prev, isOpen: false }));
   };
 
-  // Keyboard accessibility: Close modal on Escape
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && modalData.isOpen) {
-        closeModal();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [modalData.isOpen]);
+  // Case Studies Dossier Data (Authentic & Grounded)
+  const defaultDossierProjects = [
+    {
+      id: 'operations',
+      category: 'Business & Operations',
+      title: 'Dua Sisi Laundry — Operasional & Sistem Kas',
+      tag: 'Operations & SOP',
+      period: '2023 - 2024',
+      badgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300',
+      summary: 'Penyusunan alur kerja operasional cuci-setrika, pendataan kas harian, dan koordinasi layanan laundry lokal.',
+      challenge: 'Perlunya alur kerja cuci-setrika yang konsisten dan pencatatan kas harian yang rapi.',
+      strategy: 'Merumuskan alur pengerjaan terstandarisasi dan pencatatan pembukuan harian.',
+      results: [
+        'SOP pengerjaan cuci & setrika rapi',
+        'Pencatatan kas harian teratur',
+        'Pengelolaan komplain & kepuasan pelanggan',
+      ],
+      image: '/3.png',
+      extraImages: ['/3.png', '/4.png', '/1.png'],
+      link: 'https://instagram.com/duasisi.laundry',
+      linkLabel: 'Profil Bisnis Dua Sisi ↗',
+    },
+    {
+      id: 'growth',
+      category: 'Brand & Social Media',
+      title: 'YarnUp! Studio — Brand Aksesoris Rajut',
+      tag: 'Handmade & Content',
+      period: '2023 - Sekarang',
+      badgeColor: 'bg-rose-100 text-rose-900 border-rose-300',
+      summary: 'Mengembangkan brand aksesoris rajut handmade, pembuatan katalog foto dan video konten pendek di Instagram.',
+      challenge: 'Membangun awareness produk rajut handmade lokal di media sosial.',
+      strategy: 'Membuat konten video proses pembuatan rajut dan foto katalog produk estetik.',
+      results: [
+        'Desain katalog & konten produk',
+        'Pembuatan video proses rajut kreatif',
+        'Sponsorship merchandise acara kampus',
+      ],
+      image: '/5.png',
+      extraImages: ['/5.png', '/6.png', '/2.png'],
+      link: 'https://instagram.com/yarnup.official',
+      linkLabel: 'Official Store Instagram ↗',
+    },
+    {
+      id: 'partnership',
+      category: 'Public Relations & Event',
+      title: 'Manikarumi Indonesia — PR & Event Partner',
+      tag: 'Public Relations',
+      period: '2023 - 2024',
+      badgeColor: 'bg-amber-100 text-amber-900 border-amber-300',
+      summary: 'Membina kemitraan dengan event organizer di Malang & Jakarta untuk pengadaan stan display bazar dan promosi offline.',
+      challenge: 'Memperluas jangkauan stan offline melalui kolaborasi dengan berbagai penyelenggara acara.',
+      strategy: 'Menjalin komunikasi aktif dengan event organizer serta menata display stan produk yang menarik.',
+      results: [
+        'Koordinasi 20+ event bazar',
+        'Pengaturan display booth produk',
+        'Dukungan konten promosi TikTok & IG',
+      ],
+      image: '/7.png',
+      extraImages: ['/7.png', '/8.png', '/12.png'],
+      link: 'https://instagram.com/manikarumi.id',
+      linkLabel: 'Galeri Booth Manikarumi ↗',
+    },
+    {
+      id: 'data',
+      category: 'Software Engineer Intern',
+      title: 'PT Digivla Indonesia — Software Engineer Intern',
+      tag: 'Python & Tech Support',
+      period: '2023',
+      badgeColor: 'bg-blue-100 text-blue-900 border-blue-300',
+      summary: 'Magang sebagai software engineer, membantu otomasi pengumpulan berita koran cetak dan pengujian sistem media intelligence.',
+      challenge: 'Membantu otomasi pemantauan berita dari koran cetak ke format digital.',
+      strategy: 'Membantu pengembangan skrip Python untuk deteksi berita dan verifikasi akurasi data.',
+      results: [
+        'Pengembangan skrip Python pendeteksi berita',
+        'Pengecekan kualitas data berita koran',
+        'Dokumentasi dan pengujian sistem internal',
+      ],
+      image: '/9.png',
+      extraImages: ['/9.png', '/10.png', '/14.png'],
+      link: 'https://digivla.id',
+      linkLabel: 'Portal Digivla Intelligence ↗',
+    },
+    {
+      id: 'surveyku',
+      category: 'Web Application & Systems',
+      title: 'Website SurveyKu — Academic Survey Platform',
+      tag: 'UI/UX & Web Systems',
+      period: '2023 - 2024',
+      badgeColor: 'bg-purple-100 text-purple-900 border-purple-300',
+      summary: 'Merancang arsitektur antarmuka UI/UX dan basis data relasional untuk sistem pengumpulan kuesioner dan evaluasi kepuasan mahasiswa secara daring.',
+      challenge: 'Mempermudah distribusi kuesioner dan visualisasi data hasil survei responden secara realtime.',
+      strategy: 'Perancangan prototipe Figma berorientasi user-centric dan pemodelan relasional database terstruktur.',
+      results: [
+        'UI/UX Prototyping Figma',
+        'Relational Database Schema',
+        'Realtime Analytics & Feedback',
+      ],
+      image: '/15.png',
+      extraImages: ['/15.png', '/16.png', '/13.png'],
+      link: 'https://polinema.ac.id',
+      linkLabel: 'Detail Riset SurveyKu ↗',
+    },
+    {
+      id: 'campaign',
+      category: 'Digital Marketing & Content Strategy',
+      title: 'Creative Content Strategy & Social Campaigns',
+      tag: 'Social Media Strategy',
+      period: '2023 - Sekarang',
+      badgeColor: 'bg-rose-100 text-rose-900 border-rose-300',
+      summary: 'Perencanaan kalender konten media sosial, produksi video pendek berdaya jangkau tinggi, serta eksekusi kampanye promosi digital terukur.',
+      challenge: 'Meningkatkan retensi penonton dan interaksi organik di tengah algoritma media sosial yang dinamis.',
+      strategy: 'Storytelling berdurasi singkat yang informatif dengan visual hooks kuat pada 3 detik pertama.',
+      results: [
+        'Editorial Content Calendar',
+        'Short-Form Video Production',
+        'Organic Reach & Engagement Surge',
+      ],
+      image: '/17.png',
+      extraImages: ['/17.png', '/1.png', '/2.png'],
+      link: 'https://instagram.com/chikalnazmi',
+      linkLabel: 'Lihat Portfolio Konten ↗',
+    },
+  ];
+
+  // Work & Business Experiences (4 items: Dua Sisi Laundry, YarnUp!, Manikarumi, Digivla)
+  const experiencesList = (portfolioData.experiences && portfolioData.experiences.length > 0)
+    ? portfolioData.experiences
+    : (DEFAULT_PORTFOLIO_DATA.experiences || []);
+
+  // Campus Projects (6 items: SurveyKu, Python Automation, JTI Certify, Sales Dashboard, BMC, Campaign)
+  const projectsList = (portfolioData.projects && portfolioData.projects.length > 0)
+    ? portfolioData.projects
+    : (DEFAULT_PORTFOLIO_DATA.projects || defaultDossierProjects);
+
+  const dossierProjects = projectsList;
+  const filteredDossier = activeDossierTab === 'all' 
+    ? projectsList 
+    : projectsList.filter(p => p.id === activeDossierTab);
+
+  // 7 Trophy Case Awards Data
+  const defaultAwardsList = [
+    {
+      year: '2024',
+      rank: '1st Winner',
+      rankBadge: 'bg-rose-dark text-white',
+      title: 'National Fest Business Plan Competition 2024',
+      organizer: 'Fakultas Ekonomi dan Bisnis, Universitas Islam Malang',
+      scope: 'Tingkat Nasional',
+      desc: 'Juara 1 dalam perancangan ide dan rencana bisnis mahasiswa tingkat nasional.',
+      certImg: '/11.png',
+      eventImg: '/12.png',
+      link: 'https://unisma.ac.id',
+      linkLabel: 'Liputan Berita Unisma ↗',
+    },
+    {
+      year: '2024',
+      rank: 'Top 5 Finalist',
+      rankBadge: 'bg-rose-dusty text-white',
+      title: 'National Business Plan Competition (BPC) 2024',
+      organizer: 'Universitas Negeri Padang',
+      scope: 'Tingkat Nasional',
+      desc: 'Masuk jajaran 5 proposal bisnis terpilih pada kompetisi tingkat nasional.',
+      certImg: '/13.png',
+      eventImg: '/14.png',
+      link: 'https://unp.ac.id',
+      linkLabel: 'Warta Kompetisi UNP ↗',
+    },
+    {
+      year: '2023',
+      rank: '1st Winner',
+      rankBadge: 'bg-rose-dark text-white',
+      title: 'Lomba Business Plan Mahasiswa 2023',
+      organizer: 'Politeknik Negeri Malang',
+      scope: 'Tingkat Institusi',
+      desc: 'Meraih Juara 1 dalam kompetisi business plan mahasiswa tingkat kampus.',
+      certImg: '/15.png',
+      eventImg: '/16.png',
+      link: 'https://polinema.ac.id',
+      linkLabel: 'Pengumuman Resmi Polinema ↗',
+    },
+    {
+      year: '2023',
+      rank: 'Top 5 Finalist',
+      rankBadge: 'bg-rose-dusty text-white',
+      title: 'National Business Plan Competition 2023',
+      organizer: 'Universitas Brawijaya',
+      scope: 'Tingkat Nasional',
+      desc: 'Finalis 5 besar dalam kompetisi rencana bisnis mahasiswa nasional.',
+      certImg: '/17.png',
+      eventImg: '/11.png',
+      link: 'https://ub.ac.id',
+      linkLabel: 'Rilis Berita UB ↗',
+    },
+    {
+      year: '2023',
+      rank: '2nd Winner',
+      rankBadge: 'bg-forest text-white',
+      title: 'National Fest Business Plan Competition 2023',
+      organizer: 'Fakultas Ekonomi dan Bisnis, Universitas Islam Malang',
+      scope: 'Tingkat Nasional',
+      desc: 'Juara 2 dalam perumusan ide dan strategi pemasaran produk.',
+      certImg: '/12.png',
+      eventImg: '/13.png',
+      link: 'https://unisma.ac.id',
+      linkLabel: 'Arsip Berita Nasional ↗',
+    },
+    {
+      year: '2022',
+      rank: '2nd Winner',
+      rankBadge: 'bg-forest text-white',
+      title: 'Business Plan Competition Nasional 2022',
+      organizer: 'Universitas Muhammadiyah Malang',
+      scope: 'Tingkat Nasional',
+      desc: 'Juara 2 dalam perancangan proposal bisnis kreatif mahasiswa.',
+      certImg: '/14.png',
+      eventImg: '/15.png',
+      link: 'https://umm.ac.id',
+      linkLabel: 'Publikasi UMM ↗',
+    },
+    {
+      year: '2022',
+      rank: 'Best Speaker',
+      rankBadge: 'bg-rose-dark text-white',
+      title: 'National Business Plan Competition 2022',
+      organizer: 'Universitas Negeri Surabaya',
+      scope: 'Tingkat Nasional',
+      desc: 'Penghargaan Pembicara Terbaik dalam presentasi bisnis dan sesi tanya jawab.',
+      certImg: '/16.png',
+      eventImg: '/17.png',
+      link: 'https://unesa.ac.id',
+      linkLabel: 'Dokumentasi Unesa ↗',
+    },
+  ];
+
+  const awardsList = (portfolioData.awards && portfolioData.awards.length > 0)
+    ? portfolioData.awards
+    : defaultAwardsList;
+
+  // Dynamic filter for Trophy Case Mosaic
+  const filteredAwards = awardsList.filter(award => {
+    if (awardFilter === 'all') return true;
+    if (awardFilter === '1st') return award.rank.includes('1st');
+    if (awardFilter === '2nd') return award.rank.includes('2nd');
+    if (awardFilter === 'top5') return award.rank.includes('Top 5');
+    if (awardFilter === 'speaker') return award.rank.includes('Speaker');
+    return true;
+  });
+
+  // 5 Organization Roles Data (Authentic & Grounded)
+  const organizationList = [
+    {
+      period: '2024 - Sekarang',
+      role: 'Google Student Ambassador',
+      institution: 'Google Developer Student Clubs (GDSC) Polinema',
+      tag: 'Campus Leadership & Tech Community',
+      desc: 'Representatif ekosistem Google di kampus, memfasilitasi sesi pengenalan teknologi dan kegiatan komunitas mahasiswa.',
+      highlights: ['Google Ecosystem', 'Tech Workshops', 'Komunitas Mahasiswa'],
+      images: ['/11.png', '/12.png', '/10.png'],
+    },
+    {
+      period: '2023 - 2024',
+      role: 'Vice Chairwoman (Wakil Ketua Himpunan)',
+      institution: 'Himpunan Mahasiswa Teknologi Informasi (HMTI) Polinema',
+      tag: 'Executive Governance',
+      desc: 'Membantu koordinasi lintas divisi dan mendukung kelancaran pelaksanaan program kerja mahasiswa Jurusan TI.',
+      highlights: ['Koordinasi Divisi', 'Program Kerja Mahasiswa', 'Aspirasi Mahasiswa'],
+      images: ['/13.png', '/14.png', '/1.png'],
+    },
+    {
+      period: '2023',
+      role: 'Secretary of General Election',
+      institution: 'Komisi Pemilihan Umum Mahasiswa Jurusan TI',
+      tag: 'Administrative & Electoral Governance',
+      desc: 'Mengelola tata kelola administrasi, surat-menyurat, dan dokumentasi pada pemilihan umum raya himpunan mahasiswa.',
+      highlights: ['Administrasi Pemilu', 'Verifikasi Berkas', 'Dokumentasi Acara'],
+      images: ['/15.png', '/16.png', '/3.png'],
+    },
+    {
+      period: '2023',
+      role: 'Chief Executive of New Student Orientation',
+      institution: 'PKKMB Mahasiswa Baru Jurusan TI Polinema',
+      tag: 'Operations & Event Leadership',
+      desc: 'Mengkoordinasikan kepanitiaan dalam penyelenggaraan orientasi mahasiswa baru jurusan TI.',
+      highlights: ['Koordinasi Panitia', 'Alur Acara', 'Penyambutan Mahasiswa Baru'],
+      images: ['/17.png', '/11.png', '/4.png'],
+    },
+    {
+      period: '2022 - 2023',
+      role: 'Store Staff & Merchandise Logistics',
+      institution: 'UKM Korps Protokoler Mahasiswa (KPM) Polinema',
+      tag: 'Retail & Inventory Management',
+      desc: 'Membantu pengelolaan stok merchandise dan pencatatan transaksi kasir seragam UKM.',
+      highlights: ['Merchandise Organisasi', 'Pelayanan Transaksi', 'Pencatatan Kasir'],
+      images: ['/12.png', '/13.png', '/5.png'],
+    },
+  ];
+
+  // Academic & Formal Degree Data (synced with admin / store)
+  const academicData = portfolioData.academic || DEFAULT_PORTFOLIO_DATA.academic!;
+
+  // Academic & Certified Professional Courses Data (synced with admin / store)
+  const certificationList = (portfolioData.certifications && portfolioData.certifications.length > 0)
+    ? portfolioData.certifications
+    : (DEFAULT_PORTFOLIO_DATA.certifications || []);
+
+  // Content Creator Multi-Account Data (Instagram & TikTok)
+  const creatorAccounts = portfolioData.creatorAccounts || {
+    personal: {
+      name: 'Personal Account',
+      handle: '@chikalnazmi',
+      tag: 'Lifestyle, Career & Visual Stories',
+      platforms: 'Instagram Reels & TikTok',
+      stats: '10K+ Monthly Reach • High Engagement',
+      hasCenterStage: true,
+      centerLink: 'https://www.youtube.com/@chikalnazmi',
+      centerImg: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=900&fit=crop',
+      centerTitle: 'Visual Journal & Creative Storytelling',
+      centerDesc: 'Mengeksplorasi pembuatan konten video pendek berirama sinematik, lifestyle reels, dan storytelling seputar karir dan pengembangan diri.',
+      leftPhoneImg: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=500',
+      leftPhoneTitle: 'Reels & Aesthetics',
+      leftPhoneTag: 'Instagram',
+      leftPhoneLink: 'https://instagram.com/chikalnazmi',
+      rightPhoneImg: 'https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=500',
+      rightPhoneTitle: 'Short-Form Video',
+      rightPhoneTag: 'TikTok',
+      rightPhoneLink: 'https://www.tiktok.com/@chikalnazmi',
+      link: 'https://instagram.com/chikalnazmi',
+    },
+    yarnup: {
+      name: 'YarnUp! Studio',
+      handle: '@yarnup.official',
+      tag: 'Handcrafted Accessories & E-Commerce',
+      platforms: 'Instagram & TikTok Shop',
+      stats: '+2.089% Reach Surge • 20.02% Engagement',
+      hasCenterStage: true,
+      centerLink: 'https://instagram.com/yarnup.official',
+      centerImg: 'https://images.unsplash.com/photo-1605289982774-9a6fef564df8?q=80&w=900&fit=crop',
+      centerTitle: 'Handcrafted Accessories Catalog',
+      centerDesc: 'Mengarahkan photoshoot katalog produk rajut, video proses manual (behind-the-scenes), dan audio trending untuk mendorong konversi penjualan.',
+      leftPhoneImg: 'https://images.unsplash.com/photo-1584992236310-6edddc08acff?w=500',
+      leftPhoneTitle: 'Behind The Craft',
+      leftPhoneTag: 'Instagram',
+      leftPhoneLink: 'https://instagram.com/yarnup.official',
+      rightPhoneImg: 'https://images.unsplash.com/photo-1605289982774-9a6fef564df8?w=500',
+      rightPhoneTitle: 'Crochet Patterns',
+      rightPhoneTag: 'TikTok',
+      rightPhoneLink: 'https://www.tiktok.com/@yarnup.official',
+      link: 'https://instagram.com/yarnup.official',
+    },
+    manikarumi: {
+      name: 'Manikarumi Indonesia',
+      handle: '@manikarumi.id',
+      tag: 'Visual Merchandising & Event PR',
+      platforms: 'Instagram & Event Vlogs',
+      stats: '20+ Festival Displays • 40% Foot-Traffic Surge',
+      hasCenterStage: true,
+      centerLink: 'https://instagram.com/manikarumi.id',
+      centerImg: 'https://images.unsplash.com/photo-1556761175-5973dc0f32b7?q=80&w=900&fit=crop',
+      centerTitle: 'Festival Exhibition & Retail Display',
+      centerDesc: 'Menata tata letak booth offline di berbagai festival Malang dan Jakarta, lalu mengabadikannya dalam konten video interaktif untuk media sosial.',
+      leftPhoneImg: 'https://images.unsplash.com/photo-1560343090-f0409e92791a?w=500',
+      leftPhoneTitle: 'Booth Atmosphere',
+      leftPhoneTag: 'Instagram',
+      leftPhoneLink: 'https://instagram.com/manikarumi.id',
+      rightPhoneImg: 'https://images.unsplash.com/photo-1511578314322-379afb476865?w=500',
+      rightPhoneTitle: 'Festival Highlights',
+      rightPhoneTag: 'TikTok',
+      rightPhoneLink: 'https://www.tiktok.com/@manikarumi.id',
+      link: 'https://instagram.com/manikarumi.id',
+    },
+    duasisi: {
+      name: 'Dua Sisi Laundry',
+      handle: '@duasisi.laundry',
+      tag: 'Digital Marketing & Business Ops',
+      platforms: 'Instagram & Customer Education',
+      stats: '35% Efficiency Gain • Zero Garment Loss',
+      // Dua Sisi Laundry: belum ada video landscape, sehingga diatur hasCenterStage: false
+      // Tampilan otomatis adaptif hanya merender 2 phone mockups!
+      hasCenterStage: false,
+      centerLink: undefined,
+      centerImg: '/3.png',
+      centerTitle: 'Standardized Laundry Operations',
+      centerDesc: 'Memproduksi konten edukasi perawatan pakaian, higienitas proses cuci-setrika uap, dan kampanye promosi digital untuk menjangkau pelanggan lokal.',
+      leftPhoneImg: '/4.png',
+      leftPhoneTitle: 'Process Transparency',
+      leftPhoneTag: 'Instagram',
+      leftPhoneLink: 'https://instagram.com/duasisi.laundry',
+      rightPhoneImg: 'https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=500',
+      rightPhoneTitle: 'Garment Care Tips',
+      rightPhoneTag: 'TikTok',
+      rightPhoneLink: 'https://www.tiktok.com/@duasisi.laundry',
+      link: 'https://instagram.com/duasisi.laundry',
+    },
+  };
+
+  const currentCreator = creatorAccounts[activeCreatorAccount];
+
+  // 4 Beyond The Screen Hobbies & Intellectual Pursuits
+  const hobbiesList = [
+    {
+      title: 'Travelling',
+      sub: 'Melihat dunia untuk perspektif baru',
+      tag: 'World Exploration',
+      icon: '✈️',
+      img: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=600&fit=crop',
+      desc: 'Menjelajahi beragam kota dan keindahan alam untuk menyerap inspirasi budaya, arsitektur lokal, serta memperluas sudut pandang dalam memecahkan masalah.',
+    },
+    {
+      title: 'Knitting & Crochet',
+      sub: 'Eksplorasi kreativitas karya handmade',
+      tag: 'Artisanal Craft',
+      icon: '🧶',
+      img: 'https://images.unsplash.com/photo-1605289982774-9a6fef564df8?q=80&w=600&fit=crop',
+      desc: 'Mengekspresikan ketelitian melalui rajutan benang manual tangan, eksplorasi pola baru, dan merancang karya aksesoris bernilai artistik tinggi.',
+    },
+    {
+      title: 'Writing (Medium)',
+      sub: 'Berbagi pemikiran dan strategi bisnis',
+      tag: 'Strategic Essays',
+      icon: '✍️',
+      img: 'https://images.unsplash.com/photo-1455390582262-044cdead2708?q=80&w=600&fit=crop',
+      desc: 'Menuangkan pemikiran analitis seputar dinamika bisnis, kepemimpinan tim, dan strategi operasional ke dalam esai terstruktur di platform Medium.',
+      link: 'https://medium.com',
+    },
+    {
+      title: 'Reading & Learning',
+      sub: 'Eksplorasi literatur & self-development',
+      tag: 'Continuous Growth',
+      icon: '📚',
+      img: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=600&fit=crop',
+      desc: 'Membaca buku-buku strategi bisnis, psikologi konsumen, biografi pemimpin dunia, dan pengembangan diri untuk terus mengasah ketajaman wawasan.',
+    },
+  ];
+
+  // Skills Data (Dynamic from store / admin without arbitrary slicing)
+  const skillsData = (portfolioData.skills && portfolioData.skills.length > 0)
+    ? portfolioData.skills
+    : (DEFAULT_PORTFOLIO_DATA.skills || []);
+
+  const itSkills = skillsData.find(s => s.id === 'tech')?.skills || [
+    'html/css fundamental',
+    'UI/UX Research',
+    'Figma Prototyping',
+    'Design System',
+    'Usability Testing',
+  ];
+  const bizSkills = skillsData.find(s => s.id === 'business')?.skills || [
+    'Business Model Canvas',
+    'Standard Operating Procedure (SOP)',
+    'Market Research',
+    'Financial Feasibility',
+    'Inventory & Cash Reconciliation',
+  ];
+  const creativeSkills = skillsData.find(s => s.id === 'creative')?.skills || [
+    'Branding',
+    'CapCut & Video Editing',
+    'Content Storytelling',
+    'Social Media Strategy',
+    'Visual Layout Design',
+  ];
+  const personalSkills = skillsData.find(s => s.id === 'soft')?.skills || [
+    'Creative & Collaborative',
+    'Proactive Problem Solving',
+    'Strategic Communication',
+    'Responsibility & High Ownership',
+  ];
 
   return (
-    <div className="min-h-screen bg-sage-linen text-[#212B1E] font-sans antialiased selection:bg-rose-blush selection:text-rose-dark relative overflow-x-hidden">
-      
-      {/* Floating Falling Flower Petals */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-20" aria-hidden="true">
-        {PETAL_PARTICLES.map((p, idx) => (
-          <div
-            key={idx}
-            className="petal-particle"
-            style={{
-              left: p.left,
-              top: '-50px',
-              animationDelay: p.delay,
-              animationDuration: p.duration,
-            }}
-          >
-            <svg width={p.size} height={p.size} viewBox="0 0 24 24" fill="none">
-              <path
-                d="M12 2C12 2 15 6 18 10C21 14 20 18 17 21C14 24 10 24 7 21C4 18 3 14 6 10C9 6 12 2 12 2Z"
-                fill="#F7C6D0"
-                opacity="0.85"
-              />
-              <circle cx="12" cy="14" r="2.5" fill="#ECA2B3" opacity="0.9" />
-            </svg>
-          </div>
-        ))}
-      </div>
-      
+    <div className="min-h-screen font-sans antialiased selection:bg-rose-blush selection:text-rose-dark relative transition-colors duration-700 bg-sage-linen text-[#212B1E]">
+      {/* Paper & Linen Tactile Texture Overlay (Subtle Organic Grain) */}
+      <div className="paper-texture-overlay" />
+      {/* Cute Floating Falling Petals */}
+      {isCuteMode && (
+        <div className="fixed inset-0 pointer-events-none overflow-hidden z-20">
+          {petalParticles.map((p, idx) => (
+            <div
+              key={idx}
+              className="petal-particle"
+              style={{
+                left: p.left,
+                top: '-40px',
+                animationDelay: p.delay,
+                animationDuration: p.duration,
+              }}
+            >
+              <svg width={p.size} height={p.size} viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12 2C12 2 15 6 18 10C21 14 20 18 17 21C14 24 10 24 7 21C4 18 3 14 6 10C9 6 12 2 12 2Z"
+                  fill="#F7C6D0"
+                  opacity="0.85"
+                />
+                <circle cx="12" cy="14" r="2.5" fill="#ECA2B3" />
+              </svg>
+            </div>
+          ))}
+        </div>
+      )}
+      {/* Decorative Subtle Background Botanical Glows */}
+      <div className="fixed top-0 left-0 w-[550px] h-[550px] bg-rose-blush/30 rounded-full blur-3xl pointer-events-none -translate-x-1/2 -translate-y-1/2" />
+      <div className="fixed bottom-0 right-0 w-[650px] h-[650px] bg-[#CAD7C5]/40 rounded-full blur-3xl pointer-events-none translate-x-1/3 translate-y-1/3" />
+
       {/* ========================================================================= */}
-      {/* 1. NAVBAR: Modern Floating Editorial Pill (Sequential Navigation)         */}
+      {/* NAVBAR: Modern Floating Editorial Pill */}
       {/* ========================================================================= */}
-      <nav className="sticky top-4 z-40 w-full max-w-[1560px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
+      <nav className="sticky top-4 z-40 max-w-6xl mx-auto px-4 sm:px-6">
         <div className="bg-white/85 backdrop-blur-md border border-[#CAD7C5] rounded-full px-5 py-3 shadow-sm flex items-center justify-between transition-all hover:border-rose-dusty/40">
-          
-          {/* Brand Identity (CN Initial + Two-tier Name & Role) */}
-          <Link href="/" className="flex items-center gap-2.5 group shrink-0">
+          <a href="#hero" className="flex items-center gap-2.5 group">
             <span className="w-8 h-8 rounded-full bg-forest text-[#E8EFE5] flex items-center justify-center font-serif text-sm font-bold group-hover:bg-rose-dark transition-colors">
               CN
             </span>
-            <div className="flex flex-col text-left">
-              <span className="font-serif font-bold text-sm tracking-normal text-forest group-hover:text-rose-dark transition-colors whitespace-nowrap">
+            <div className="flex flex-col">
+              <span className="font-serif font-bold text-sm tracking-wide text-forest group-hover:text-rose-dark transition-colors">
                 Chikal Nazmi Mahira
               </span>
-              <span className="text-[10px] font-medium tracking-wider uppercase text-forest/70 whitespace-nowrap">
-                Business &amp; Marketing
+              <span className="text-[10px] font-medium tracking-wider uppercase text-forest/60">
+                Business & Marketing
               </span>
             </div>
-          </Link>
+          </a>
 
-          {/* Desktop Nav Links (100% Sequential Match with Page Content Flow) */}
-          <div className="hidden lg:flex items-center gap-5 xl:gap-6 text-xs font-semibold tracking-wider uppercase text-forest/80">
-            <a href="#about" className="hover:text-rose-dark transition-colors whitespace-nowrap">About</a>
-            <a href="#process" className="hover:text-rose-dark transition-colors whitespace-nowrap">Process</a>
-            <a href="#projects" className="hover:text-rose-dark transition-colors whitespace-nowrap">Works</a>
-            <a href="#creator" className="hover:text-rose-dark transition-colors whitespace-nowrap">Creator Studio</a>
-            <a href="#experience" className="hover:text-rose-dark transition-colors whitespace-nowrap">Experience</a>
-            <a href="#awards" className="hover:text-rose-dark transition-colors whitespace-nowrap">Awards</a>
+          {/* Desktop Nav Links */}
+          <div className="hidden md:flex items-center gap-5 lg:gap-6 text-xs font-semibold tracking-wider uppercase text-forest/80">
+            <a href="#academy-skills" className="hover:text-rose-dark transition-colors">
+              Academy & Skills
+            </a>
+            <a href="#experience" className="hover:text-rose-dark transition-colors">
+              Experience
+            </a>
+            <a href="#projects" className="hover:text-rose-dark transition-colors">
+              Projects
+            </a>
+            <a href="#recognition" className="hover:text-rose-dark transition-colors">
+              Awards (7)
+            </a>
+            <a href="#leadership" className="hover:text-rose-dark transition-colors">
+              Leadership
+            </a>
+            <a href="#certifications" className="hover:text-rose-dark transition-colors">
+              Certifications
+            </a>
+            <a href="#creative" className="hover:text-rose-dark transition-colors">
+              Creative & Content
+            </a>
           </div>
 
-          {/* Right Action CTA Button */}
-          <div className="flex items-center gap-3 shrink-0">
+          {/* Action CTA */}
+          <div className="hidden sm:flex items-center gap-3">
             <a
-              href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890"}
+              href="https://wa.me/6281234567890?text=Halo%20Chikal,%20saya%20tertarik%20berdiskusi%20mengenai%20peluang%20kerjasama."
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 sm:px-5 py-1.5 rounded-full text-xs font-semibold bg-rose-dark text-white hover:bg-rose-berry transition-colors shadow-sm whitespace-nowrap active:scale-95 cursor-pointer"
+              className="px-4 py-1.5 rounded-full text-xs font-semibold bg-rose-dark text-white hover:bg-rose-berry transition-colors shadow-sm"
             >
-              Let&apos;s Connect ✦
+              Let&apos;s Connect ↗
             </a>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 text-forest hover:text-rose-dark cursor-pointer shrink-0"
-              aria-label="Toggle Menu"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                {mobileMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
-            </button>
           </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 text-forest hover:text-rose-dark"
+            aria-label="Toggle Menu"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {mobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
         </div>
 
         {/* Mobile Dropdown */}
         {mobileMenuOpen && (
-          <div className="lg:hidden mt-2 bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-2xl p-4 shadow-lg flex flex-col gap-2 text-xs font-medium text-forest">
-            <a href="#about" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 hover:bg-rose-50 rounded-lg transition-colors">About</a>
-            <a href="#process" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 hover:bg-rose-50 rounded-lg transition-colors">Process</a>
-            <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 hover:bg-rose-50 rounded-lg transition-colors">Works</a>
-            <a href="#creator" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 hover:bg-rose-50 rounded-lg transition-colors">Creator Studio</a>
-            <a href="#experience" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 hover:bg-rose-50 rounded-lg transition-colors">Experience</a>
-            <a href="#awards" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 hover:bg-rose-50 rounded-lg transition-colors">Awards</a>
+          <div className="md:hidden mt-2 bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-2xl p-4 shadow-lg flex flex-col gap-3 text-sm font-medium text-forest">
+            <a href="#academy-skills" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
+              Academy & Skills
+            </a>
+            <a href="#experience" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
+              Experience
+            </a>
+            <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
+              Projects
+            </a>
+            <a href="#recognition" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
+              Awards (7)
+            </a>
+            <a href="#leadership" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
+              Leadership
+            </a>
+            <a href="#certifications" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
+              Certifications
+            </a>
+            <a href="#creative" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
+              Creative & Content
+            </a>
+            <a
+              href="https://wa.me/6281234567890"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 text-center py-2 rounded-xl bg-rose-dark text-white text-xs font-semibold"
+            >
+              Hubungi via WhatsApp ↗
+            </a>
           </div>
         )}
       </nav>
 
       {/* ========================================================================= */}
-      {/* 2. HERO SECTION (2-Column Editorial Layout: Left Content, Right Photo)     */}
+      {/* HERO SECTION: Asymmetric Editorial Split (No Hilman Blueprint) */}
       {/* ========================================================================= */}
-      <section className="relative w-full pt-8 sm:pt-14 md:pt-20 pb-16 sm:pb-24 px-4 sm:px-8 lg:px-12 xl:px-16 overflow-hidden">
-        
-        {/* Subtle Radiant Sage-Rose Glow Backdrop */}
-        <div className="absolute top-1/4 -right-20 w-[420px] sm:w-[580px] h-[420px] sm:h-[580px] floral-glow-hero rounded-full pointer-events-none z-0"></div>
-        <div className="absolute top-1/3 -left-20 w-[360px] sm:w-[480px] h-[360px] sm:h-[480px] pink-halo-glow-subtle rounded-full pointer-events-none z-0"></div>
-
-        {/* Main 2-Column Grid */}
-        <div className="relative z-10 max-w-[1560px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+      <section id="hero" className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-16 lg:pt-16 lg:pb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
-          {/* ================= LEFT COLUMN: Kicker, Headline, Info, CTA ================= */}
-          <div className="lg:col-span-7 flex flex-col items-start text-left">
+          {/* Left Column: Narrative, Typography & Direct Metrics (7 Cols) */}
+          <div className="lg:col-span-7 flex flex-col items-start">
             
-            {/* Top Kicker / Category Pill */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/85 border border-[#CAD7C5] shadow-2xs text-[11px] sm:text-xs font-medium text-rose-dark mb-5">
-              <span className="w-2 h-2 rounded-full bg-rose-dusty animate-pulse"></span>
-              <span>{portfolioData.hero?.subheadline || "Management Trainee • Business Development • Creative Content Lead"}</span>
+            {/* Live Availability Pill */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-[#CAD7C5] text-forest text-xs font-medium mb-6 shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
+              <span>{portfolioData.hero?.subheadline || 'Available for Management Trainee & BizDev Roles'}</span>
             </div>
 
-            {/* Headline / Title */}
-            <div className="mb-5 max-w-2xl">
-              {portfolioData.hero?.headline ? (
-                <h1 className="font-serif font-bold text-4xl sm:text-5xl lg:text-6xl tracking-normal text-forest leading-[1.18]">
-                  {portfolioData.hero.headline}
-                </h1>
-              ) : (
+            {/* Editorial Headline */}
+            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.15] text-forest tracking-tight mb-6">
+              {portfolioData.hero?.headline || (
                 <>
-                  <h1 className="font-serif font-bold text-4xl sm:text-5xl lg:text-[58px] tracking-normal text-forest leading-[1.18]">
-                    Hi, I&apos;m Chikal
-                  </h1>
-                  <span className="font-serif italic font-normal text-4xl sm:text-5xl lg:text-[64px] text-rose-dark tracking-normal block mt-1.5 leading-[1.18]">
-                    Business &amp; Digital Strategist
-                  </span>
+                  Cultivating Growth through{' '}
+                  <span className="editorial-italic text-rose-dark font-normal">
+                    Analytical Strategy
+                  </span>{' '}
+                  & Creative Tenacity.
                 </>
               )}
-            </div>
+            </h1>
 
-            {/* Info / Description Paragraph */}
-            <p className="text-base sm:text-lg text-forest/80 leading-relaxed font-normal mb-8 max-w-xl">
-              {portfolioData.hero?.bio || "Passionate about scaling business ventures, digital products & data-driven operations that deliver real impact."}
+            {/* Value Proposition Subtext */}
+            <p className="text-base sm:text-lg text-forest/80 leading-relaxed font-normal max-w-xl mb-8">
+              {portfolioData.hero?.bio || (
+                <>
+                  Halo, saya <span className="font-semibold text-forest">Chikal Nazmi Mahira</span>. Mahasiswi / Lulusan D4 Sistem Informasi Bisnis Politeknik Negeri Malang yang berfokus pada operasional bisnis, public relations, dan pembuatan konten kreatif.
+                </>
+              )}
             </p>
 
-            {/* CTA Action Buttons */}
-            <div className="flex items-center gap-3.5 sm:gap-4 flex-wrap mb-9">
+            {/* Metrics Ribbon (Clean Statistical Grid) */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full max-w-xl mb-8">
+              <div className="bg-white/70 border border-[#CAD7C5] rounded-xl p-3 text-center">
+                <span className="block font-serif text-2xl font-bold text-rose-dark">{portfolioData.hero?.stat1Value || '7x'}</span>
+                <span className="text-[11px] text-forest/70 uppercase tracking-wider font-medium">{portfolioData.hero?.stat1Label || 'National Awards'}</span>
+              </div>
+              <div className="bg-white/70 border border-[#CAD7C5] rounded-xl p-3 text-center">
+                <span className="block font-serif text-2xl font-bold text-rose-dark">{portfolioData.hero?.stat2Value || '+2.089%'}</span>
+                <span className="text-[11px] text-forest/70 uppercase tracking-wider font-medium">{portfolioData.hero?.stat2Label || 'Reels Reach Surge'}</span>
+              </div>
+              <div className="bg-white/70 border border-[#CAD7C5] rounded-xl p-3 text-center">
+                <span className="block font-serif text-2xl font-bold text-forest">{portfolioData.hero?.stat3Value || '20+'}</span>
+                <span className="text-[11px] text-forest/70 uppercase tracking-wider font-medium">{portfolioData.hero?.stat3Label || 'Event Partners'}</span>
+              </div>
+              <div className="bg-white/70 border border-[#CAD7C5] rounded-xl p-3 text-center">
+                <span className="block font-serif text-2xl font-bold text-forest">{portfolioData.hero?.stat4Value || 'D4 SIB'}</span>
+                <span className="text-[11px] text-forest/70 uppercase tracking-wider font-medium">{portfolioData.hero?.stat4Label || 'Polinema Honor'}</span>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex flex-wrap items-center gap-4">
+              <a
+                href="#works"
+                className="px-6 py-3 rounded-full text-sm font-semibold bg-rose-dark text-white hover:bg-rose-berry transition-all shadow-md hover:shadow-lg flex items-center gap-2"
+              >
+                <span>Explore Selected Works</span>
+                <span>↓</span>
+              </a>
+              <a
+                href="mailto:chikalnazmi@gmail.com"
+                className="px-6 py-3 rounded-full text-sm font-semibold bg-white/80 border border-[#CAD7C5] text-forest hover:bg-white hover:border-rose-dusty transition-all flex items-center gap-2"
+              >
+                <span>Email Inquiries</span>
+                <span>✉</span>
+              </a>
+            </div>
+
+          </div>
+
+          {/* Right Column: Modern Arch Frame Portrait & Strategic Highlights (5 Cols) */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-end">
+            <div className="relative w-full max-w-[340px] sm:max-w-[380px]">
+              
+              {/* Modern Arch Frame Container */}
+              <div className="relative bg-[#CAD7C5]/30 p-2.5 rounded-t-[160px] rounded-b-[32px] border-2 border-[#CAD7C5] shadow-xl">
+                {/* Cute Washi Tape Sticker (Cute Mode) */}
+              {isCuteMode && (
+                <div className="absolute -top-3.5 left-4 z-20 px-3.5 py-1 washi-tape rounded-xs -rotate-3 text-[11px] font-serif italic text-[#781E34] flex items-center gap-1.5">
+                  <span>🌸</span> note to self: keep growing ♡
+                </div>
+              )}
+              
+              {/* Cute Sticky Note Reminder (Cute Mode) */}
+              {isCuteMode && (
+                <div className="hidden sm:flex flex-col absolute -bottom-6 -right-5 z-20 p-3 sticky-note-cute rounded-2xl rotate-2 text-xs font-serif text-[#5C4D3C] max-w-[170px]">
+                  <div className="w-7 h-1.5 bg-[#F5D3DC]/80 mx-auto -mt-3.5 mb-1.5 rounded-xs -rotate-2" />
+                  <p className="font-bold mb-0.5 text-[10px] text-[#A6435B] flex items-center gap-1">
+                    <span>daily reminder ♡</span>
+                  </p>
+                  <p className="text-[10px] leading-tight text-[#4A3B2C]">live gently, dream freely 🌸</p>
+                </div>
+              )}
+
+              <div className="relative w-full aspect-[4/5] rounded-t-[150px] rounded-b-[24px] overflow-hidden bg-forest/10">
+                  <img
+                    src={portfolioData.hero?.avatarImg || '/2.png'}
+                    alt="Chikal Nazmi Mahira"
+                    className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700"
+                  />
+                  {/* Subtle gradient overlay at bottom */}
+                  <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-forest/50 to-transparent pointer-events-none" />
+                </div>
+              </div>
+
+              {/* Floating Pill: Strategic Strengths */}
+              <div className="absolute -bottom-6 -left-4 sm:-left-6 bg-white/95 backdrop-blur-md border border-[#CAD7C5] p-3.5 rounded-2xl shadow-lg max-w-[240px]">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="w-2 h-2 rounded-full bg-rose-dark" />
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-rose-dark">Key Competencies</span>
+                </div>
+                <p className="text-xs text-forest font-medium leading-snug">
+                  Data-Driven Marketing • Operational SOPs • Cross-Functional Leadership
+                </p>
+              </div>
+
+              {/* Botanical Monogram Stamp */}
+              <div className="absolute -top-3 -right-3 w-12 h-12 rounded-full bg-rose-blush border border-rose-dusty/50 flex items-center justify-center text-rose-dark font-serif font-bold text-xs shadow-md rotate-12">
+                CNM
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* BRAND & ECOSYSTEM TICKER: Subtle Editorial Tape */}
+      {/* ========================================================================= */}
+      <div className="border-y border-[#CAD7C5]/70 bg-white/40 py-3.5 overflow-hidden">
+        <div className="max-w-6xl mx-auto px-4 flex items-center justify-between text-xs font-semibold tracking-widest uppercase text-forest/60 overflow-x-auto gap-8 no-scrollbar">
+          <span className="whitespace-nowrap flex items-center gap-2">
+            <span className="text-rose-dusty">✦</span> Dua Sisi Laundry
+          </span>
+          <span className="whitespace-nowrap flex items-center gap-2">
+            <span className="text-rose-dusty">✦</span> YarnUp! Studio
+          </span>
+          <span className="whitespace-nowrap flex items-center gap-2">
+            <span className="text-rose-dusty">✦</span> Manikarumi Indonesia
+          </span>
+          <span className="whitespace-nowrap flex items-center gap-2">
+            <span className="text-rose-dusty">✦</span> PT Digivla Indonesia
+          </span>
+          <span className="whitespace-nowrap flex items-center gap-2">
+            <span className="text-rose-dusty">✦</span> Polinema Developer Students
+          </span>
+        </div>
+      </div>
+
+      {/* ========================================================================= */}
+      {/* SECTION: ACADEMIC BACKGROUND & SPOTLIGHT SKILLS CARD (Paired Side-by-Side) */}
+      {/* ========================================================================= */}
+      <section id="academy-skills" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
+        
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-2.5">
+            ✦ Foundations & Capabilities ✦
+          </div>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-forest mb-2.5">
+            Academic Background & Core Skills
+          </h2>
+          <p className="text-xs sm:text-sm text-forest/75 leading-relaxed font-source">
+            Kombinasi latar belakang pendidikan formal sistem informasi bisnis dan keahlian praktis lintas disiplin yang teruji.
+          </p>
+        </div>
+
+        {/* 2-Column Responsive Grid: Formal Degree on Left, Spotlight Skills on Right */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+          
+          {/* LEFT: Formal Academic & Language Anchor Card (Matching Screenshot 2) */}
+          <div className="lg:col-span-5 bg-gradient-to-br from-white via-white/95 to-[#E8EFE5]/60 border border-[#CAD7C5] rounded-[2.5rem] p-6 sm:p-8 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+            <div>
+              {/* Header Badge */}
+              <div className="flex items-center justify-between gap-2 mb-4">
+                <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-rose-blush/80 text-rose-dark border border-rose-dusty/40 uppercase tracking-wider shadow-2xs">
+                  {academicData.badge || '🎓 FORMAL DEGREE'}
+                </span>
+                <span className="text-xs font-mono font-bold text-forest/60">
+                  {academicData.period || '2020 – 2024'}
+                </span>
+              </div>
+
+              {/* Title & Institution */}
+              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest mb-1.5 group-hover:text-rose-dark transition-colors tracking-tight">
+                {academicData.degree}
+              </h3>
+              <h4 className="text-xs font-subheader text-forest/70 uppercase tracking-wide mb-6">
+                {academicData.institution}
+              </h4>
+
+              {/* Key Credentials Badges (IPK & TOEIC Score 775) */}
+              <div className="space-y-3 mb-6">
+                <div className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-white border border-[#CAD7C5]/70 shadow-2xs">
+                  <div className="w-10 h-10 rounded-xl bg-forest text-[#E8EFE5] flex items-center justify-center text-base font-bold shrink-0">
+                    🌟
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-forest/60 block">
+                      {academicData.gpaTitle || 'ACADEMIC STANDING'}
+                    </span>
+                    <span className="text-xs sm:text-sm font-bold text-forest">
+                      {academicData.gpaValue || 'IPK Memuaskan / Cum Laude Honor'}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-white border border-[#CAD7C5]/70 shadow-2xs">
+                  <div className="w-10 h-10 rounded-xl bg-rose-dark text-white flex items-center justify-center text-base font-bold shrink-0">
+                    🌐
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-rose-dark block">
+                      {academicData.toeicTitle || 'GLOBAL ENGLISH PROFICIENCY'}
+                    </span>
+                    <span className="text-xs sm:text-sm font-bold text-forest">
+                      Official TOEIC Score: <span className="text-rose-dark font-extrabold">{academicData.toeicScore || '775'}</span> ({academicData.toeicLevel || 'Working Proficiency'})
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Focus Summary */}
+              <p className="text-xs sm:text-sm text-forest/80 leading-relaxed font-source mb-6">
+                {academicData.description}
+              </p>
+            </div>
+
+            {/* Action Trigger */}
+            <button
+              onClick={() => openModal(
+                academicData.degree,
+                `${academicData.institution} (${academicData.period})`,
+                academicData.description,
+                academicData.images && academicData.images.length > 0 ? academicData.images : ['/11.png', '/12.png', '/16.png']
+              )}
+              className="w-full py-3 rounded-full bg-forest text-[#E8EFE5] hover:bg-rose-dark text-xs font-bold shadow-xs hover:shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer mt-2"
+            >
+              <span>Buka Dokumen Kelulusan & TOEIC</span>
+              <span>↗</span>
+            </button>
+          </div>
+
+          {/* RIGHT: The 1 Centered Aesthetic Spotlight Skills Card (Matching Screenshot 1) */}
+          <div className="lg:col-span-7 bg-gradient-to-b from-[#FCEEF1] via-[#F8E3E8] to-[#F3D7DE] border-2 border-rose-300/80 rounded-[2.5rem] p-6 sm:p-8 shadow-md text-forest relative overflow-hidden flex flex-col justify-between">
+            {/* Soft decorative ambient glow */}
+            <div className="absolute -top-12 -right-12 w-36 h-36 bg-white/50 rounded-full blur-2xl pointer-events-none" />
+
+            <div>
+              {/* Top Badge & Dossier Tag */}
+              <div className="flex items-center justify-between gap-2 mb-6">
+                <span className="text-[10px] font-bold px-3.5 py-1 rounded-full bg-white/90 text-rose-dark border border-rose-300 uppercase tracking-wider shadow-2xs">
+                  ★ SPOTLIGHT SKILLS CARD
+                </span>
+                <span className="text-xs font-serif italic text-rose-dark/70 font-bold tracking-wider">
+                  Dossier
+                </span>
+              </div>
+
+              {/* Technical Skills Header */}
+              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest mb-4 tracking-tight">
+                Technical Skills
+              </h3>
+
+              {/* Subdivided Domains: IT, Business, Creative — Fully dynamic from store! */}
+              <div className="space-y-4 mb-6">
+                {/* IT / Tech */}
+                <div>
+                  <span className="block text-[10px] font-bold uppercase tracking-wider text-forest/60 mb-1.5 flex items-center gap-1.5">
+                    <span>💻</span>
+                    <span>IT & Digital Systems</span>
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {itSkills.map((skill, sIdx) => (
+                      <span
+                        key={sIdx}
+                        className="inline-block px-3 py-1 rounded-full border border-forest/30 bg-white/80 text-[11px] font-medium text-forest shadow-2xs hover:border-forest transition-colors"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Business */}
+                <div>
+                  <span className="block text-[10px] font-bold uppercase tracking-wider text-forest/60 mb-1.5 flex items-center gap-1.5">
+                    <span>📈</span>
+                    <span>Business & Operations</span>
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {bizSkills.map((skill, sIdx) => (
+                      <span
+                        key={sIdx}
+                        className="inline-block px-3 py-1 rounded-full border border-forest/30 bg-white/80 text-[11px] font-medium text-forest shadow-2xs hover:border-forest transition-colors"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Creative */}
+                <div>
+                  <span className="block text-[10px] font-bold uppercase tracking-wider text-forest/60 mb-1.5 flex items-center gap-1.5">
+                    <span>🎬</span>
+                    <span>Creative & Media</span>
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {creativeSkills.map((skill, sIdx) => (
+                      <span
+                        key={sIdx}
+                        className="inline-block px-3 py-1 rounded-full border border-forest/30 bg-white/80 text-[11px] font-medium text-forest shadow-2xs hover:border-forest transition-colors"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Personal Skills Header */}
+              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest mb-3 tracking-tight">
+                Personal Skills
+              </h3>
+
+              {/* Big Pill Marquee Badge */}
+              <div className="inline-block w-full text-center px-4 py-2 rounded-full border border-forest/30 bg-white/85 text-xs font-bold text-forest shadow-2xs mb-4">
+                Creative — Openness — Teamwork
+              </div>
+
+              {/* Bulleted Strengths */}
+              <div className="space-y-2 text-xs text-forest/90 font-medium pl-1 mb-6">
+                {personalSkills.map((skill, pIdx) => (
+                  <div key={pIdx} className="flex items-center gap-2.5">
+                    <span className="w-2 h-2 rounded-full bg-rose-dark shrink-0" />
+                    <span>{skill}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Bottom QR & Connect Widget */}
+            <div className="pt-3 border-t border-rose-300/60 flex items-center justify-between gap-3 bg-white/70 p-3.5 rounded-2xl border border-rose-200/90 shadow-2xs">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-xl bg-white p-1 border border-forest/25 shadow-2xs shrink-0 flex items-center justify-center">
+                  <svg viewBox="0 0 24 24" className="w-9 h-9 text-forest" fill="currentColor">
+                    <path d="M2 2h8v8H2V2zm2 2v4h4V4H4zm10-2h8v8h-8V2zm2 2v4h4V4h-4zM2 14h8v8H2v-8zm2 2v4h4v-4H4zm14 0h4v2h-4v-2zm-4 0h2v4h-2v-4zm4 4h4v2h-4v-2zm-2-2h2v2h-2v-2zm-2 2h2v2h-2v-2zm6 0h2v2h-2v-2z" />
+                  </svg>
+                </div>
+                <div>
+                  <span className="text-[9px] font-mono uppercase text-forest/60 block font-bold tracking-wider">
+                    Portfolio Quick QR
+                  </span>
+                  <span className="text-xs font-bold text-forest">
+                    Chikal Nazmi
+                  </span>
+                </div>
+              </div>
+
               <a
                 href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-forest hover:bg-forest-dark text-white rounded-full px-6 sm:px-7 py-3 text-sm font-semibold shadow-md hover:shadow-lg transition-all flex items-center gap-2.5 cursor-pointer group active:scale-95 whitespace-nowrap"
+                className="px-3.5 py-1.5 rounded-full border border-forest/30 bg-white text-[11px] font-bold text-rose-dark hover:bg-forest hover:text-white transition-all shadow-2xs shrink-0"
               >
-                <span>✦ Chat on WhatsApp</span>
-                <span className="group-hover:translate-x-1 transition-transform">→</span>
-              </a>
-
-              <a
-                href="#projects"
-                className="bg-white/80 border border-[#CAD7C5] hover:border-rose-dusty text-forest hover:text-rose-dark rounded-full px-6 sm:px-7 py-3 text-sm font-semibold shadow-xs hover:shadow-sm transition-all cursor-pointer whitespace-nowrap"
-              >
-                Lihat Studi Kasus ↓
+                Scan me! 📱
               </a>
             </div>
 
-            {/* Trust Badges & Awards Proof Row */}
-            <div className="pt-2 w-full flex items-center gap-4 flex-wrap">
-              <div className="flex -space-x-2.5 overflow-hidden">
-                <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-2xs" src="/11.png" alt="Award 1" loading="lazy" decoding="async" />
-                <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-2xs" src="/12.png" alt="Award 2" loading="lazy" decoding="async" />
-                <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-2xs" src="/13.png" alt="Award 3" loading="lazy" decoding="async" />
-                <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-2xs" src="/14.png" alt="Award 4" loading="lazy" decoding="async" />
-              </div>
-              <div className="text-xs text-forest/75 font-medium">
-                <strong className="font-bold text-forest">7x Juara Nasional</strong> Kompetisi Business Plan &amp; Karya Tulis Ilmiah
-              </div>
-            </div>
-
           </div>
 
-          {/* ================= RIGHT COLUMN: Hero Photo Container ================= */}
-          <div className="lg:col-span-5 flex items-center justify-center relative">
-            
-            {/* Halo Ambient Glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] pink-halo-glow rounded-full pointer-events-none z-0"></div>
-
-            {/* Photo Frame Container */}
-            <div className="relative z-10 w-full max-w-[360px] sm:max-w-[430px] rounded-4xl bg-white/85 border border-[#CAD7C5] p-3 sm:p-4 shadow-xl backdrop-blur-xs transition-transform duration-500 hover:-translate-y-1">
-              
-              {/* Photo Subject with Smooth Gradient & Border */}
-              <div className="relative rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#F2F7EF]/90 to-[#E8EFE5]/70 flex items-end justify-center min-h-[380px] sm:min-h-[440px] md:min-h-[480px]">
-                <img
-                  src={portfolioData.hero?.avatarImg || "/chikal-hero.png"}
-                  alt="Chikal Nazmi Mahira"
-                  className="w-full h-auto object-cover object-bottom max-h-[490px] drop-shadow-md transform hover:scale-[1.02] transition-transform duration-700 ease-out"
-                  loading="eager"
-                  decoding="async"
-                />
-
-                {/* Subtle Gradient Fog at Feet */}
-                <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white/40 to-transparent pointer-events-none"></div>
-              </div>
-
-              {/* Floating Verified Student Pill */}
-              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap bg-white/95 backdrop-blur-md px-4 py-2 rounded-full border border-[#CAD7C5] shadow-lg flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-                <span className="text-[11px] font-semibold text-forest">
-                  D4 SIB Student • Politeknik Negeri Malang
-                </span>
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        {/* Unified Glass Metric Ribbon Across Full Width */}
-        <div className="max-w-[1560px] mx-auto mt-14 sm:mt-16 bg-white/60 backdrop-blur-md border border-[#CAD7C5]/80 rounded-3xl p-3 sm:p-4 shadow-xs">
-          <div className="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-[#CAD7C5]/60">
-            <div className="text-center py-3 sm:py-2 px-4">
-              <span className="font-serif font-bold text-2xl sm:text-3xl text-forest block tracking-normal">
-                {portfolioData.hero?.stat1Value || "7x"}
-              </span>
-              <span className="text-[10px] sm:text-[11px] uppercase font-semibold text-forest/70 tracking-wider block mt-1">
-                {portfolioData.hero?.stat1Label || "Penghargaan Lomba"}
-              </span>
-            </div>
-            <div className="text-center py-3 sm:py-2 px-4">
-              <span className="font-serif font-bold text-2xl sm:text-3xl text-rose-dark block tracking-normal">
-                {portfolioData.hero?.stat2Value || "10K+"}
-              </span>
-              <span className="text-[10px] sm:text-[11px] uppercase font-semibold text-forest/70 tracking-wider block mt-1">
-                {portfolioData.hero?.stat2Label || "Jangkauan Konten"}
-              </span>
-            </div>
-            <div className="text-center py-3 sm:py-2 px-4">
-              <span className="font-serif font-bold text-2xl sm:text-3xl text-forest block tracking-normal">
-                {portfolioData.hero?.stat3Value || "20+"}
-              </span>
-              <span className="text-[10px] sm:text-[11px] uppercase font-semibold text-forest/70 tracking-wider block mt-1">
-                {portfolioData.hero?.stat3Label || "Mitra Event"}
-              </span>
-            </div>
-            <div className="text-center py-3 sm:py-2 px-4">
-              <span className="font-serif font-bold text-2xl sm:text-3xl text-rose-dark block tracking-normal">
-                {portfolioData.hero?.stat4Value || "D4 SIB"}
-              </span>
-              <span className="text-[10px] sm:text-[11px] uppercase font-semibold text-forest/70 tracking-wider block mt-1">
-                {portfolioData.hero?.stat4Label || "Polinema"}
-              </span>
-            </div>
-          </div>
         </div>
 
       </section>
 
       {/* ========================================================================= */}
-      {/* 3. LOGO TICKER / CREDENTIAL ROW: Infinite Smooth Marquee                 */}
+      {/* SECTION: WORK & BUSINESS EXPERIENCE (Pengalaman Kerja Otentik)            */}
       {/* ========================================================================= */}
-      <section className="w-full py-6 border-y border-[#CAD7C5]/30 bg-white/35 backdrop-blur-xs overflow-hidden select-none">
-        <div className="relative w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_64px,_black_calc(100%-64px),transparent_100%)]">
-          <div className="animate-marquee flex items-center gap-10 sm:gap-14 whitespace-nowrap py-1">
-            {[
-              "Politeknik Negeri Malang",
-              "GDSC Google Polinema",
-              "Manikarumi Hijab",
-              "Yarn Up Creative",
-              "Dua Sisi Media",
-              "RevoU Digital Marketing",
-              "Politeknik Negeri Malang",
-              "GDSC Google Polinema",
-              "Manikarumi Hijab",
-              "Yarn Up Creative",
-              "Dua Sisi Media",
-              "RevoU Digital Marketing",
-            ].map((partner, pIdx) => (
-              <div key={pIdx} className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold tracking-wide text-forest/75 hover:text-forest transition-colors shrink-0">
-                <span className="text-rose-dusty text-xs">✦</span>
-                <span>{partner}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <BotanicalDivider />
-
-      {/* ========================================================================= */}
-      {/* 4. VALUE PROPOSITION & 3-PILLAR STRUCTURED SKILLS (#about)                 */}
-      {/* ========================================================================= */}
-      <section id="about" className="w-full py-16 sm:py-24 px-4 sm:px-8 lg:px-12 xl:px-16 text-center relative">
+      <section id="experience" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
         
-        {/* Soft Center Aura */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] sm:w-[500px] h-[320px] sm:h-[500px] pink-halo-glow-subtle rounded-full pointer-events-none z-0"></div>
-
-        {/* Script / Editorial Kicker */}
-        <div className="relative z-10 mb-4">
-          <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ Core Philosophy &amp; Capabilities /</span>
-        </div>
-
-        {/* Big Bold Statement with Highlighted Words (Elian Ross Style) */}
-        <div className="relative z-10 max-w-3xl mx-auto mb-14">
-          <p className="font-sans font-normal text-2xl sm:text-4xl md:text-5xl text-forest leading-snug sm:leading-tight tracking-tight">
-            my focus is on blending{' '}
-            <strong className="font-semibold text-forest">clear business strategy</strong>,{' '}
-            <strong className="font-semibold text-forest">thoughtful operational systems</strong>, and{' '}
-            <span className="font-serif italic font-normal text-rose-800">creative storytelling</span>{' '}
-            to craft experiences that{' '}
-            <span className="underline decoration-rose-dusty decoration-wavy underline-offset-8">
-              solve real problems
-            </span>.
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-3">
+            ✦ Professional Trajectory ✦
+          </div>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-forest mb-3">
+            Work & Business Experience
+          </h2>
+          <p className="text-sm sm:text-base text-forest/75 leading-relaxed font-source">
+            Pengalaman kerja nyata dalam standardisasi operasional, pertumbuhan brand mandiri, kemitraan event komersial, serta riset automasi software.
           </p>
         </div>
 
-        {/* Dynamic Structured Pillar Cards from CMS */}
-        <div className={`relative z-10 max-w-[1560px] mx-auto grid grid-cols-1 ${skillsList.length === 2 ? 'md:grid-cols-2' : skillsList.length >= 4 ? 'sm:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-3'} gap-6 sm:gap-8 text-left`}>
-          {skillsList.map((pillar, pIdx) => (
-            <div key={pillar.id || pIdx} className="editorial-card p-6 sm:p-7 rounded-3xl bg-white/95 border border-[#CAD7C5] shadow-xs relative group flex flex-col justify-between">
-              <BotanicalCorner />
+        {/* 2-Grid Layout Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+          {experiencesList.map((exp) => (
+            <div
+              key={exp.id}
+              className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-3xl p-5 sm:p-6 shadow-sm hover:shadow-md hover:border-rose-dusty/50 transition-all flex flex-col justify-between group"
+            >
               <div>
-                <div className="flex items-center gap-2 text-rose-dusty text-xs font-bold uppercase tracking-wider mb-2">
-                  <span>✦</span>
-                  <span>{pillar.subtitle ? pillar.subtitle.toUpperCase() : `PILLAR 0${pIdx + 1}`}</span>
-                </div>
-                <h3 className="font-sans font-bold text-xl sm:text-2xl text-forest mb-2">
-                  {pillar.title}
-                </h3>
-                <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-6">
-                  {pillar.description}
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-2 pt-4 border-t border-[#CAD7C5]/40">
-                {pillar.skills.map((pill, idx) => (
-                  <span 
-                    key={idx}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F2F7EF] border border-[#CAD7C5] text-[11px] font-semibold text-forest hover:border-rose-dusty/80 transition-all cursor-default"
-                  >
-                    <span className={`w-1.5 h-1.5 rounded-full ${pIdx % 2 === 1 ? 'bg-rose-dusty' : 'bg-forest/70'}`}></span>
-                    <span>{pill}</span>
+                {/* Card Header Info */}
+                <div className="flex items-center justify-between gap-2 mb-3">
+                  <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${exp.badgeColor || 'bg-emerald-100 text-emerald-900 border-emerald-300'} uppercase tracking-wider`}>
+                    {exp.tag}
                   </span>
-                ))}
+                  <span className="text-xs text-forest/60 font-medium font-mono">
+                    {exp.period}
+                  </span>
+                </div>
+
+                <h3 className="font-serif text-xl sm:text-2xl font-bold text-forest mb-3 group-hover:text-rose-dark transition-colors">
+                  {exp.title}
+                </h3>
+
+                {/* Direct Multi-Photo Mini Gallery */}
+                <div className="relative mb-4 overflow-hidden rounded-2xl border border-[#CAD7C5]/70 bg-[#E8EFE5]/40 p-1.5">
+                  <div className="grid grid-cols-12 gap-1.5 aspect-[16/9]">
+                    {/* Foto Utama (7 Kolom) */}
+                    <div className="col-span-7 relative overflow-hidden rounded-xl bg-forest/5">
+                      <img
+                        src={exp.image}
+                        alt={exp.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <span className="absolute bottom-1.5 left-1.5 bg-forest/80 backdrop-blur-xs text-white text-[9px] font-medium px-2 py-0.5 rounded-full">
+                        Dokumentasi Primer
+                      </span>
+                    </div>
+                    {/* Foto Pendukung (5 Kolom) */}
+                    <div className="col-span-5 relative overflow-hidden rounded-xl bg-forest/5">
+                      <img
+                        src={exp.extraImages?.[1] || exp.image}
+                        alt={`${exp.title} dokumentasi tambahan`}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <span className="absolute bottom-1.5 right-1.5 bg-rose-dark/85 backdrop-blur-xs text-white text-[9px] font-medium px-2 py-0.5 rounded-full">
+                        Foto Kerja
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Quick Hover Action */}
+                  <div 
+                    onClick={() => openModal(exp.title, `${exp.tag} • ${exp.period}`, exp.summary, exp.extraImages && exp.extraImages.length > 0 ? exp.extraImages : [exp.image], exp.link, exp.linkLabel)}
+                    className="absolute inset-0 bg-forest/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer"
+                  >
+                    <span className="px-3.5 py-1.5 rounded-full bg-white text-forest text-xs font-semibold shadow-md">
+                      🔍 Buka Galeri Lengkap ({exp.extraImages?.length || 1} Foto)
+                    </span>
+                  </div>
+                </div>
+
+                {/* Summary */}
+                <p className="text-xs sm:text-sm text-forest/80 leading-relaxed mb-4 font-source">
+                  {exp.summary}
+                </p>
+
+                {/* Highlights / Key Focus Tags */}
+                <div className="flex flex-wrap gap-2 mb-5 font-source">
+                  {exp.results?.map((res, rIdx) => (
+                    <span
+                      key={rIdx}
+                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FAFBF8] border border-[#CAD7C5]/70 text-[11px] font-medium text-forest shadow-2xs"
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-rose-dusty shrink-0" />
+                      <span>{res}</span>
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bottom Trigger Button & Link */}
+              <div className="pt-3 border-t border-[#CAD7C5]/50 flex flex-wrap items-center justify-between gap-2">
+                <button
+                  onClick={() => openModal(exp.title, `${exp.tag} • ${exp.period}`, exp.summary, exp.extraImages && exp.extraImages.length > 0 ? exp.extraImages : [exp.image], exp.link, exp.linkLabel)}
+                  className="inline-flex items-center gap-1 text-xs font-bold text-rose-dark hover:text-rose-berry transition-colors cursor-pointer"
+                >
+                  <span>Lihat Dokumentasi Kerja</span>
+                  <span>→</span>
+                </button>
+
+                {exp.link && (
+                  <a
+                    href={exp.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs font-bold text-forest/80 hover:text-forest transition-colors bg-[#E8EFE5] hover:bg-[#CAD7C5] px-3 py-1 rounded-full border border-[#CAD7C5]/60"
+                  >
+                    <span>{exp.linkLabel || 'Kunjungi Tautan ↗'}</span>
+                  </a>
+                )}
               </div>
             </div>
           ))}
@@ -549,1089 +1243,1500 @@ export default function Home() {
 
       </section>
 
-      <BotanicalDivider />
-
       {/* ========================================================================= */}
-      {/* 5. PROCESS ROADMAP ("Here's how it works" with Clear Deliverables)        */}
+      {/* SECTION: MY WORK INCLUDES (Campus Projects / Proyek Kampus & Akademik)    */}
       {/* ========================================================================= */}
-      <section id="process" className="w-full py-16 sm:py-24 px-4 sm:px-8 lg:px-12 xl:px-16 relative">
+      <section id="projects" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ How I Deliver Value /</span>
-          <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-forest tracking-normal mt-1">
-            Here&apos;s how it works
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-3">
+            ✦ Academic & Campus Projects ✦
+          </div>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-forest mb-3 tracking-tight uppercase">
+            MY WORK INCLUDES
           </h2>
-          <p className="text-xs sm:text-sm text-neutral-600 mt-3">
-            Tiga pilar pendekatan terstruktur dalam membedah tantangan bisnis, merumuskan solusi sistematis, dan mengeksekusinya secara terukur.
+          <p className="text-sm sm:text-base text-forest/75 leading-relaxed font-source">
+            Kompilasi proyek sistem informasi, riset aplikasi, analisis data, dan strategi bisnis yang dikerjakan selama masa studi di D4 Sistem Informasi Bisnis Polinema. Arahkan kursor untuk membaca ringkasan dan klik untuk membuka dokumentasi lengkap.
           </p>
         </div>
 
-        {/* 3 Process Cards with Connected Curvy Line (Desktop) */}
-        <div className="relative max-w-[1560px] mx-auto">
-          
-          {/* Curvy Connector Line SVG (Desktop) */}
-          <div className="hidden md:block absolute top-12 left-1/4 right-1/4 h-24 pointer-events-none z-10">
-            <svg className="w-full h-full" viewBox="0 0 500 100" fill="none" preserveAspectRatio="none">
-              <path 
-                d="M 20 50 C 120 10, 180 80, 250 30 C 320 -20, 380 90, 480 40" 
-                stroke="#94AB8B" 
-                strokeWidth="2.5" 
-                strokeDasharray="6 6"
-                className="opacity-70"
-              />
-              <circle cx="20" cy="50" r="4" fill="#94AB8B" />
-              <circle cx="250" cy="30" r="4" fill="#BD5871" />
-              <circle cx="480" cy="40" r="4" fill="#94AB8B" />
-            </svg>
-          </div>
+        {/* Category Filter Pills */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-10 pb-4 border-b border-[#CAD7C5]/60">
+          <button
+            onClick={() => setActiveDossierTab('all')}
+            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
+              activeDossierTab === 'all'
+                ? 'bg-rose-dark text-white shadow-sm'
+                : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
+            }`}
+          >
+            All Projects ({projectsList.length})
+          </button>
+          <button
+            onClick={() => setActiveDossierTab('surveyku')}
+            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
+              activeDossierTab === 'surveyku'
+                ? 'bg-rose-dark text-white shadow-sm'
+                : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
+            }`}
+          >
+            Web Systems
+          </button>
+          <button
+            onClick={() => setActiveDossierTab('media-monitor')}
+            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
+              activeDossierTab === 'media-monitor'
+                ? 'bg-rose-dark text-white shadow-sm'
+                : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
+            }`}
+          >
+            Python Automation
+          </button>
+          <button
+            onClick={() => setActiveDossierTab('jti-certify')}
+            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
+              activeDossierTab === 'jti-certify'
+                ? 'bg-rose-dark text-white shadow-sm'
+                : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
+            }`}
+          >
+            Credential Portal
+          </button>
+          <button
+            onClick={() => setActiveDossierTab('sales-dashboard')}
+            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
+              activeDossierTab === 'sales-dashboard'
+                ? 'bg-rose-dark text-white shadow-sm'
+                : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
+            }`}
+          >
+            Business Analytics
+          </button>
+          <button
+            onClick={() => setActiveDossierTab('bpc-canvas')}
+            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all cursor-pointer ${
+              activeDossierTab === 'bpc-canvas'
+                ? 'bg-rose-dark text-white shadow-sm'
+                : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
+            }`}
+          >
+            BMC & Strategy
+          </button>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-20">
-            
-            {/* Card 01 - Discover */}
-            <div className="process-card p-7 sm:p-8 rounded-3xl bg-white border border-[#CAD7C5] shadow-xs flex flex-col justify-between relative group">
-              <BotanicalCorner />
+        {/* 3-Column Grid Matching User Reference Image */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 items-stretch">
+          {filteredDossier.map((project) => (
+            <div
+              key={project.id}
+              onClick={() => openModal(
+                project.title,
+                `${project.tag} • ${project.period}`,
+                project.summary,
+                project.extraImages && project.extraImages.length > 0 ? project.extraImages : [project.image],
+                project.link,
+                project.linkLabel
+              )}
+              className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-[2rem] p-4 sm:p-5 shadow-sm hover:shadow-xl hover:border-rose-dusty/80 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group cursor-pointer"
+            >
               <div>
-                <span className="font-serif italic font-normal text-6xl text-rose-dusty/35 group-hover:text-rose-dusty transition-colors">01</span>
-                <h3 className="font-sans font-bold text-2xl text-forest mt-4 mb-2">
-                  Discover
+                {/* 1. GAMBAR PROYEK (Visual Showcase Clean on Top) */}
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-forest/5 mb-4 border border-[#CAD7C5]/60 shadow-2xs">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-50 group-hover:opacity-80 transition-opacity pointer-events-none" />
+                  
+                  {/* Category Pill on Image */}
+                  <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-forest text-[9px] font-bold px-2.5 py-1 rounded-full shadow-xs uppercase tracking-wider">
+                    {project.tag}
+                  </span>
+
+                  {/* Hover Quick Prompt */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-forest/30 pointer-events-none">
+                    <span className="px-3.5 py-1.5 rounded-full bg-white/95 text-rose-dark text-xs font-bold shadow-md flex items-center gap-1.5 backdrop-blur-xs">
+                      <span>🔍 Buka Dokumentasi</span>
+                      <span>↗</span>
+                    </span>
+                  </div>
+                </div>
+
+                {/* 2. JUDUL PROYEK DI BAWAHNYA (Uppercase Bold, faithful to reference screenshot) */}
+                <div className="flex items-center justify-between gap-2 mb-1.5">
+                  <span className="text-[10px] font-mono font-bold text-forest/50 uppercase tracking-wider">
+                    {project.period}
+                  </span>
+                  <span className="text-[10px] text-forest/60 font-medium">
+                    {project.extraImages?.length || 1} Foto
+                  </span>
+                </div>
+
+                <h3 className="font-serif text-base sm:text-lg font-bold text-forest uppercase tracking-wide group-hover:text-rose-dark transition-colors line-clamp-2 leading-snug">
+                  {project.title}
                 </h3>
-                <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-6">
-                  Riset pasar mendalam, wawancara stakeholder/pengguna, analisis kendala operasional (bottlenecks), dan pemetaan peluang bisnis nyata.
-                </p>
+
+                {/* 3. PENJELASAN SINGKAT YANG MUNCUL SAAT KURSOR MENGARAH KE KARTU (HOVER REVEAL) */}
+                <div className="max-h-0 opacity-0 group-hover:max-h-36 group-hover:opacity-100 group-hover:mt-2.5 transition-all duration-400 ease-out overflow-hidden">
+                  <p className="text-xs text-forest/80 font-source leading-relaxed mb-3">
+                    {project.summary}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.results?.map((res, rIdx) => (
+                      <span
+                        key={rIdx}
+                        className="inline-flex items-center gap-1 text-[10px] font-medium px-2.5 py-0.5 rounded-full bg-[#E8EFE5] text-forest border border-[#CAD7C5]"
+                      >
+                        <span className="w-1 h-1 rounded-full bg-rose-dark" />
+                        <span>{res}</span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
-              
-              {/* Explicit Key Deliverables List with Floral Bullets */}
-              <div className="pt-5 border-t border-[#CAD7C5]/60 space-y-2">
-                <span className="text-[10px] font-bold text-rose-dark uppercase tracking-wider block mb-2">
-                  ✦ Key Deliverables:
+
+              {/* Bottom Subtle Action Trigger */}
+              <div className="pt-3 mt-3 border-t border-[#CAD7C5]/40 flex items-center justify-between text-xs text-forest/60">
+                <span className="text-[11px] font-bold text-rose-dark group-hover:underline flex items-center gap-1">
+                  <span>Klik untuk dokumentasi</span>
+                  <span className="text-xs">↗</span>
                 </span>
-                <div className="flex items-start gap-2 text-xs text-forest/85">
-                  <FloralBullet />
-                  <span>Stakeholder &amp; User In-Depth Interviews</span>
-                </div>
-                <div className="flex items-start gap-2 text-xs text-forest/85">
-                  <FloralBullet />
-                  <span>Operational Bottleneck &amp; Ecosystem Audit</span>
-                </div>
-                <div className="flex items-start gap-2 text-xs text-forest/85">
-                  <FloralBullet />
-                  <span>Competitive Market Landscape Mapping</span>
-                </div>
+                <span className="w-6 h-6 rounded-full bg-[#E8EFE5] text-forest group-hover:bg-rose-dark group-hover:text-white transition-colors flex items-center justify-center text-[10px] font-bold">
+                  →
+                </span>
               </div>
             </div>
-
-            {/* Card 02 - Strategize */}
-            <div className="process-card p-7 sm:p-8 rounded-3xl bg-white border border-[#CAD7C5] shadow-xs flex flex-col justify-between relative group">
-              <BotanicalCorner />
-              <div>
-                <span className="font-serif italic font-normal text-6xl text-rose-dusty/35 group-hover:text-rose-dusty transition-colors">02</span>
-                <h3 className="font-sans font-bold text-2xl text-forest mt-4 mb-2">
-                  Strategize
-                </h3>
-                <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-6">
-                  Merumuskan Business Model Canvas, analisis kelayakan finansial, standard operating procedure (SOP), serta arsitektur sistem informasi.
-                </p>
-              </div>
-
-              {/* Explicit Key Deliverables List with Floral Bullets */}
-              <div className="pt-5 border-t border-[#CAD7C5]/60 space-y-2">
-                <span className="text-[10px] font-bold text-rose-dark uppercase tracking-wider block mb-2">
-                  ✦ Key Deliverables:
-                </span>
-                <div className="flex items-start gap-2 text-xs text-forest/85">
-                  <FloralBullet />
-                  <span>Business Model Canvas (BMC) Blueprint</span>
-                </div>
-                <div className="flex items-start gap-2 text-xs text-forest/85">
-                  <FloralBullet />
-                  <span>Standard Operating Procedure (SOP) Matrix</span>
-                </div>
-                <div className="flex items-start gap-2 text-xs text-forest/85">
-                  <FloralBullet />
-                  <span>Database Schema &amp; Information Flow Architecture</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 03 - Deliver */}
-            <div className="process-card p-7 sm:p-8 rounded-3xl bg-white border border-[#CAD7C5] shadow-xs flex flex-col justify-between relative group">
-              <BotanicalCorner />
-              <div>
-                <span className="font-serif italic font-normal text-6xl text-rose-dusty/35 group-hover:text-rose-dusty transition-colors">03</span>
-                <h3 className="font-sans font-bold text-2xl text-forest mt-4 mb-2">
-                  Deliver
-                </h3>
-                <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-6">
-                  Eksekusi kampanye pemasaran digital, pembuatan prototipe interaktif, deployment sistem operasional, dan pelacakan KPI terukur.
-                </p>
-              </div>
-
-              {/* Explicit Key Deliverables List with Floral Bullets */}
-              <div className="pt-5 border-t border-[#CAD7C5]/60 space-y-2">
-                <span className="text-[10px] font-bold text-rose-dark uppercase tracking-wider block mb-2">
-                  ✦ Key Deliverables:
-                </span>
-                <div className="flex items-start gap-2 text-xs text-forest/85">
-                  <FloralBullet />
-                  <span>High-Fidelity Interactive Prototype (Figma)</span>
-                </div>
-                <div className="flex items-start gap-2 text-xs text-forest/85">
-                  <FloralBullet />
-                  <span>Commercial Campaign Launch &amp; Content Asset</span>
-                </div>
-                <div className="flex items-start gap-2 text-xs text-forest/85">
-                  <FloralBullet />
-                  <span>Measurable Growth KPI &amp; Conversion Verification</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
+          ))}
         </div>
 
       </section>
 
-      <BotanicalDivider />
+      {/* ========================================================================= */}
+      {/* SECTION 2: WALL OF RECOGNITION (Visual Mosaic Exhibition Collage) */}
+      {/* ========================================================================= */}
+      <section id="recognition" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
+        
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-3">
+            Honors & Achievements
+          </div>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-forest mb-3">
+            National Trophy Case & Recognition
+          </h2>
+          <p className="text-sm sm:text-base text-forest/75 leading-relaxed">
+            Galeri visual pencapaian terverifikasi dalam kompetisi business plan dan debat nasional. Arahkan kursor ke tiap dokumentasi untuk melihat detail dan klik untuk membuka sertifikat resmi.
+          </p>
+        </div>
 
-      {/* ========================================================================= */}
-      {/* 6. SELECTED WORKS & SYSTEM CASE STUDIES (#projects)                        */}
-      {/* ========================================================================= */}
-      <section id="projects" className="w-full py-16 sm:py-24 px-4 sm:px-8 lg:px-12 xl:px-16">
-        <div className="max-w-[1560px] mx-auto">
+        {/* Filter Pills */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
+          <button
+            onClick={() => setAwardFilter('all')}
+            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all ${
+              awardFilter === 'all'
+                ? 'bg-rose-dark text-white shadow-sm'
+                : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
+            }`}
+          >
+            All Awards (7)
+          </button>
+          <button
+            onClick={() => setAwardFilter('1st')}
+            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all ${
+              awardFilter === '1st'
+                ? 'bg-rose-dark text-white shadow-sm'
+                : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
+            }`}
+          >
+            🏆 1st Winner (2)
+          </button>
+          <button
+            onClick={() => setAwardFilter('2nd')}
+            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all ${
+              awardFilter === '2nd'
+                ? 'bg-rose-dark text-white shadow-sm'
+                : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
+            }`}
+          >
+            🥈 2nd Winner (2)
+          </button>
+          <button
+            onClick={() => setAwardFilter('top5')}
+            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all ${
+              awardFilter === 'top5'
+                ? 'bg-rose-dark text-white shadow-sm'
+                : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
+            }`}
+          >
+            🌟 Top 5 Finalist (2)
+          </button>
+          <button
+            onClick={() => setAwardFilter('speaker')}
+            className={`px-4 py-1.5 rounded-full text-xs font-subheader tracking-wider transition-all ${
+              awardFilter === 'speaker'
+                ? 'bg-rose-dark text-white shadow-sm'
+                : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
+            }`}
+          >
+            🎙️ Best Speaker (1)
+          </button>
+        </div>
+
+        {/* Visual Exhibition Mosaic Container (Framed with Pastel Glow like user's reference image!) */}
+        <div className="relative p-3 sm:p-5 rounded-[2.5rem] bg-gradient-to-tr from-rose-blush/40 via-white/60 to-sage-DEFAULT/30 border border-white/80 shadow-xl backdrop-blur-sm">
           
-          {/* Section Header */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
-            <div>
-              <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ Portfolio &amp; Case Studies /</span>
-              <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-forest tracking-normal mt-1">
-                Selected Works &amp; Case Studies
-              </h2>
-              <p className="text-xs sm:text-sm text-neutral-600 mt-2 max-w-lg">
-                Implementasi nyata perancangan model bisnis, sistem informasi operasional, dan optimalisasi kampanye digital komersial.
-              </p>
-            </div>
+          {/* Floating Left Dock with Quick Filter Icons (like the user reference image!) */}
+          <div className="hidden lg:flex flex-col items-center gap-2 absolute -left-5 top-1/2 -translate-y-1/2 z-20 bg-white/95 backdrop-blur-md p-1.5 rounded-2xl border border-[#CAD7C5] shadow-lg">
+            <button
+              onClick={() => setAwardFilter('all')}
+              title="Semua Penghargaan"
+              className={`w-9 h-9 rounded-xl flex items-center justify-center text-xs transition-colors ${
+                awardFilter === 'all' ? 'bg-rose-dark text-white' : 'text-forest/70 hover:bg-[#E8EFE5]'
+              }`}
+            >
+              ✦
+            </button>
+            <button
+              onClick={() => setAwardFilter('1st')}
+              title="1st Winner"
+              className={`w-9 h-9 rounded-xl flex items-center justify-center text-xs transition-colors ${
+                awardFilter === '1st' ? 'bg-rose-dark text-white' : 'text-forest/70 hover:bg-[#E8EFE5]'
+              }`}
+            >
+              🏆
+            </button>
+            <button
+              onClick={() => setAwardFilter('2nd')}
+              title="2nd Winner"
+              className={`w-9 h-9 rounded-xl flex items-center justify-center text-xs transition-colors ${
+                awardFilter === '2nd' ? 'bg-rose-dark text-white' : 'text-forest/70 hover:bg-[#E8EFE5]'
+              }`}
+            >
+              🥈
+            </button>
+            <button
+              onClick={() => setAwardFilter('top5')}
+              title="Top 5 Finalist"
+              className={`w-9 h-9 rounded-xl flex items-center justify-center text-xs transition-colors ${
+                awardFilter === 'top5' ? 'bg-rose-dark text-white' : 'text-forest/70 hover:bg-[#E8EFE5]'
+              }`}
+            >
+              ⭐
+            </button>
+            <button
+              onClick={() => setAwardFilter('speaker')}
+              title="Best Speaker"
+              className={`w-9 h-9 rounded-xl flex items-center justify-center text-xs transition-colors ${
+                awardFilter === 'speaker' ? 'bg-rose-dark text-white' : 'text-forest/70 hover:bg-[#E8EFE5]'
+              }`}
+            >
+              🎙️
+            </button>
+          </div>
 
-            {/* Filter Pills */}
-            <div className="flex flex-wrap gap-2">
-              {[
-                { id: 'all', label: 'All Works' },
-                { id: 'system', label: 'Systems & Web' },
-                { id: 'marketing', label: 'Campaign & Marketing' },
-              ].map(tab => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveProjectFilter(tab.id)}
-                  className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
-                    activeProjectFilter === tab.id
-                      ? 'bg-rose-dark text-white shadow-xs'
-                      : 'bg-white/80 text-forest/75 border border-[#CAD7C5] hover:border-rose-dusty'
-                  }`}
+          {/* Mosaic Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 sm:gap-5">
+            {filteredAwards.map((award, idx) => {
+              // Custom asymmetric span pattern matching user's image collage
+              let colSpan = 'lg:col-span-4 min-h-[280px]';
+              if (awardFilter === 'all') {
+                if (idx === 0) colSpan = 'lg:col-span-4 lg:row-span-2 min-h-[440px]'; // Tall vertical card like left of reference!
+                else if (idx === 1) colSpan = 'lg:col-span-8 min-h-[220px]'; // Wide top card like upper right of reference!
+                else if (idx === 2) colSpan = 'lg:col-span-4 min-h-[220px]';
+                else if (idx === 3) colSpan = 'lg:col-span-4 min-h-[220px]';
+                else if (idx === 4) colSpan = 'lg:col-span-4 min-h-[260px]';
+                else if (idx === 5) colSpan = 'lg:col-span-4 min-h-[260px]';
+                else if (idx === 6) colSpan = 'lg:col-span-4 min-h-[260px]';
+              } else {
+                colSpan = 'lg:col-span-6 min-h-[320px]';
+              }
+
+              return (
+                <div
+                  key={idx}
+                  onClick={() => openModal(award.title, `${award.rank} • ${award.organizer}`, award.desc, [award.certImg, award.eventImg], award.link, award.linkLabel)}
+                  className={`group relative rounded-3xl overflow-hidden cursor-pointer bg-forest/20 border-2 border-white/60 shadow-md transition-all duration-500 hover:-translate-y-2.5 hover:scale-[1.015] hover:shadow-2xl ${colSpan} flex flex-col justify-between p-5`}
                 >
-                  {tab.label}
+                  {/* Background Event Documentation Image */}
+                  <img
+                    src={award.eventImg}
+                    alt={award.title}
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 pointer-events-none"
+                  />
+                  
+                  {/* Subtle Gradient Shadow by default */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-forest/80 via-forest/20 to-transparent group-hover:opacity-0 transition-opacity duration-300 pointer-events-none" />
+
+                  {/* Top Header Tag (Pills) */}
+                  <div className="relative z-10 flex items-center justify-between w-full">
+                    <span className={`text-[10px] font-subheader px-2.5 py-1 rounded-full shadow-sm tracking-wider uppercase ${award.rankBadge}`}>
+                      {award.rank}
+                    </span>
+                    <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded-full bg-black/45 backdrop-blur-md text-white border border-white/20">
+                      {award.year}
+                    </span>
+                  </div>
+
+                  {/* Default Bottom Minimal Teaser (Before Hover) */}
+                  <div className="relative z-10 group-hover:opacity-0 transition-opacity duration-300 text-white">
+                    <h3 className="font-serif text-lg font-bold leading-snug drop-shadow-md">
+                      {award.title}
+                    </h3>
+                    <p className="text-[11px] font-subheader text-rose-blush tracking-wider uppercase mt-0.5 truncate">
+                      {award.organizer}
+                    </p>
+                  </div>
+
+                  {/* HOVER OVERLAY: Timbul & Pop-out Full Details! */}
+                  <div className="absolute inset-0 bg-forest/90 backdrop-blur-sm p-6 flex flex-col justify-between opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 text-white">
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="w-2 h-2 rounded-full bg-rose-dusty" />
+                        <span className="text-[10px] font-subheader text-rose-blush tracking-subheader uppercase">
+                          {award.scope}
+                        </span>
+                      </div>
+                      <h3 className="font-serif text-xl sm:text-2xl font-bold leading-snug mb-1 text-white">
+                        {award.title}
+                      </h3>
+                      <p className="text-xs font-subheader text-[#E8EFE5]/70 tracking-wider uppercase mb-3">
+                        {award.organizer}
+                      </p>
+                      <p className="text-xs text-[#E8EFE5]/85 leading-relaxed line-clamp-3">
+                        {award.desc}
+                      </p>
+                    </div>
+
+                    <div className="pt-3 border-t border-white/20 flex items-center justify-between">
+                      <span className="text-[11px] font-bold text-rose-blush flex items-center gap-1">
+                        <span>📜 Bukti Foto</span>
+                      </span>
+                      <div className="flex items-center gap-2">
+                        {award.link && (
+                          <a
+                            href={award.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="px-2.5 py-1.5 rounded-full bg-white/20 hover:bg-white text-white hover:text-forest text-[11px] font-bold border border-white/30 transition-colors flex items-center gap-1"
+                          >
+                            <span>🔗</span>
+                            <span>{award.linkLabel || 'Publikasi'}</span>
+                          </a>
+                        )}
+                        <span className="px-3.5 py-1.5 rounded-full bg-rose-dark text-white text-xs font-bold shadow-md hover:bg-rose-berry transition-colors flex items-center gap-1">
+                          <span>Detail</span>
+                          <span>↗</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              );
+            })}
+          </div>
+
+        </div>
+
+        {/* Footer Note */}
+        <p className="text-center text-xs text-forest/60 italic mt-5">
+          Klik pada gambar untuk melihat pop-up foto penerimaan piala dan sertifikat resmi
+        </p>
+
+      </section>
+
+      {/* ========================================================================= */}
+      {/* SECTION 3: INSTITUTIONAL LEADERSHIP & GOVERNANCE (Infinite Coverflow)    */}
+      {/* ========================================================================= */}
+      <section id="leadership" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80 overflow-hidden">
+        
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-3">
+            Governance & Track Record
+          </div>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-forest mb-3">
+            Leadership & Organizational Impact
+          </h2>
+          <p className="text-sm sm:text-base text-forest/75 leading-relaxed font-source">
+            Pengalaman memimpin ratusan mahasiswa, mengawal tata kelola organisasi skala jurusan, serta mewakili ekosistem teknologi kampus. Geser kartu ke samping untuk menjelajahi peran.
+          </p>
+        </div>
+
+        {/* Carousel Status Counter */}
+        {(() => {
+          const activeOrgIdx = ((currentSlideIndex % organizationList.length) + organizationList.length) % organizationList.length;
+          const activeOrg = organizationList[activeOrgIdx];
+
+          const handleNextOrg = () => {
+            setCurrentSlideIndex(prev => {
+              const next = prev + 1;
+              return next >= 20 ? next - 5 : next;
+            });
+          };
+
+          const handlePrevOrg = () => {
+            setCurrentSlideIndex(prev => {
+              const prevIdx = prev - 1;
+              return prevIdx < 5 ? prevIdx + 5 : prevIdx;
+            });
+          };
+
+          const handleJumpOrg = (targetIdx: number) => {
+            const currentSet = Math.floor(currentSlideIndex / organizationList.length) * organizationList.length;
+            setCurrentSlideIndex(currentSet + targetIdx);
+          };
+
+          return (
+            <>
+              <div className="flex items-center justify-between max-w-4xl mx-auto mb-4 px-2">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-rose-dark animate-pulse" />
+                  <span className="text-xs font-bold text-forest uppercase tracking-wider font-source">
+                    Peran {activeOrgIdx + 1} dari {organizationList.length}
+                  </span>
+                  <span className="text-xs text-forest/50 hidden sm:inline">•</span>
+                  <span className="text-xs font-serif italic text-forest/75 hidden sm:inline">
+                    {activeOrg.role} ({activeOrg.institution})
+                  </span>
+                </div>
+
+                <div className="text-[11px] text-forest/60 font-medium hidden sm:flex items-center gap-1.5 bg-white/70 px-3 py-1 rounded-full border border-[#CAD7C5]/60">
+                  <span>🔄 Auto-slide foto 3s aktif</span>
+                </div>
+              </div>
+
+              {/* =================================================================== */}
+              {/* INFINITE COVERFLOW CONTAINER WITH PROMINENT SIDE ARROWS             */}
+              {/* =================================================================== */}
+              <div 
+                className="relative py-8 select-none"
+                style={{ 
+                  '--card-width': 'min(80vw, 390px)',
+                  '--card-gap': '1.75rem'
+                } as React.CSSProperties}
+              >
+                {/* Floating Left Arrow Button (Prominent on Side) */}
+                <button
+                  onClick={handlePrevOrg}
+                  className="absolute left-1 sm:left-3 lg:left-6 top-1/2 -translate-y-1/2 z-40 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/95 backdrop-blur-md border-2 border-[#CAD7C5] shadow-xl text-forest hover:bg-forest hover:text-[#E8EFE5] hover:scale-110 active:scale-95 transition-all flex items-center justify-center text-2xl font-bold cursor-pointer ring-4 ring-forest/5"
+                  title="Peran Sebelumnya (Geser Kiri)"
+                  aria-label="Previous Role"
+                >
+                  ‹
                 </button>
-              ))}
+
+                {/* Floating Right Arrow Button (Prominent on Side) */}
+                <button
+                  onClick={handleNextOrg}
+                  className="absolute right-1 sm:right-3 lg:right-6 top-1/2 -translate-y-1/2 z-40 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/95 backdrop-blur-md border-2 border-[#CAD7C5] shadow-xl text-forest hover:bg-forest hover:text-[#E8EFE5] hover:scale-110 active:scale-95 transition-all flex items-center justify-center text-2xl font-bold cursor-pointer ring-4 ring-forest/5"
+                  title="Peran Selanjutnya (Geser Kanan)"
+                  aria-label="Next Role"
+                >
+                  ›
+                </button>
+
+                {/* Track with smooth transition */}
+                <div 
+                  className="flex items-center transition-transform duration-500 ease-out"
+                  style={{
+                    gap: 'var(--card-gap)',
+                    transform: `translateX(calc(50% - (${currentSlideIndex} * (var(--card-width) + var(--card-gap)) + (var(--card-width) / 2))))`
+                  }}
+                >
+                  {Array.from({ length: 25 }).map((_, globalIdx) => {
+                    const orgIdx = globalIdx % organizationList.length;
+                    const org = organizationList[orgIdx];
+                    const isCenter = globalIdx === currentSlideIndex;
+                    const activePhotoIdx = orgPhotoIndex[orgIdx] || 0;
+                    const currentPhoto = org.images[activePhotoIdx] || org.images[0];
+
+                    return (
+                      <div
+                        key={globalIdx}
+                        onClick={() => setCurrentSlideIndex(globalIdx)}
+                        style={{ width: 'var(--card-width)' }}
+                        className={`shrink-0 rounded-3xl transition-all duration-500 flex flex-col justify-between overflow-hidden cursor-pointer ${
+                          isCenter
+                            ? 'scale-105 sm:scale-108 z-30 opacity-100 bg-white shadow-2xl ring-2 ring-rose-dark/35 border-transparent'
+                            : 'scale-90 sm:scale-95 z-10 opacity-55 hover:opacity-85 bg-white/85 shadow-md border border-[#CAD7C5]'
+                        }`}
+                      >
+                        {/* Spotlight Ribbon on Center Card */}
+                        {isCenter && (
+                          <div className="bg-gradient-to-r from-forest via-rose-dark to-forest text-[#E8EFE5] text-center text-[10px] font-bold uppercase tracking-widest py-1">
+                            ✦ Spotlight Organization ✦
+                          </div>
+                        )}
+
+                        {/* Card Image Area: 1:1 Aspect Ratio (Square) with Auto-Sliding Photo */}
+                        <div className="relative aspect-square overflow-hidden bg-forest/10 group/img">
+                          <img
+                            src={currentPhoto}
+                            alt={`${org.role} - ${org.institution}`}
+                            className="w-full h-full object-cover group-hover/img:scale-105 transition-all duration-700"
+                          />
+                          
+                          {/* Gradient overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-forest/75 via-transparent to-black/20 pointer-events-none" />
+
+                          {/* Top Badges */}
+                          <div className="absolute top-3 inset-x-3 flex items-center justify-between z-10">
+                            <span className="text-[10px] font-bold bg-white/90 backdrop-blur-xs text-forest px-2.5 py-0.5 rounded-full shadow-xs">
+                              {org.period}
+                            </span>
+                            <span className="text-[10px] font-medium bg-forest/85 backdrop-blur-xs text-white px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-xs">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                              <span>Foto {activePhotoIdx + 1}/{org.images.length}</span>
+                            </span>
+                          </div>
+
+                          {/* Multi-Photo Indicators & Thumbnail switcher at bottom of 1:1 photo */}
+                          <div className="absolute bottom-3 left-3 z-10 flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full">
+                            {org.images.map((_, pIdx) => (
+                              <button
+                                key={pIdx}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setOrgPhotoIndex(prev => ({ ...prev, [orgIdx]: pIdx }));
+                                }}
+                                className={`w-4 h-4 rounded-full text-[9px] font-bold flex items-center justify-center transition-all ${
+                                  activePhotoIdx === pIdx
+                                    ? 'bg-rose-dark text-white scale-110 shadow-xs'
+                                    : 'bg-white/40 text-white hover:bg-white/70'
+                                }`}
+                                title={`Foto ${pIdx + 1}`}
+                              >
+                                {pIdx + 1}
+                              </button>
+                            ))}
+                          </div>
+
+                          {/* Zoom / Full Gallery Action */}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              openModal(org.role, org.institution, org.desc, org.images);
+                            }}
+                            className="absolute bottom-3 right-3 z-10 px-2.5 py-1 rounded-full bg-white/90 hover:bg-rose-blush text-forest text-[10px] font-bold shadow-xs transition-colors"
+                            title="Buka Dokumentasi Resolusi Penuh"
+                          >
+                            🔍 Galeri
+                          </button>
+                        </div>
+
+                        {/* Card Content Body */}
+                        <div className="p-5 sm:p-6 flex flex-col justify-between grow">
+                          <div>
+                            <div className="text-[10px] font-bold text-rose-dark uppercase tracking-wider mb-1">
+                              {org.tag}
+                            </div>
+
+                            <h3 className="font-serif text-xl sm:text-2xl font-bold text-forest mb-1">
+                              {org.role}
+                            </h3>
+
+                            <h4 className="text-xs font-subheader text-forest/70 tracking-wider uppercase mb-3">
+                              {org.institution}
+                            </h4>
+
+                            <p className="text-xs sm:text-sm text-forest/80 leading-relaxed font-source mb-4 line-clamp-3">
+                              {org.desc}
+                            </p>
+
+                            {/* Highlights Badges */}
+                            <div className="flex flex-wrap gap-1.5 mb-4">
+                              {org.highlights.map((item, hIdx) => (
+                                <span
+                                  key={hIdx}
+                                  className="text-[10px] font-medium px-2.5 py-0.5 rounded-full bg-[#E8EFE5]/70 border border-[#CAD7C5] text-forest/85"
+                                >
+                                  ✓ {item}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Footer Trigger */}
+                          <div className="pt-3 border-t border-[#CAD7C5]/50 flex items-center justify-between">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                openModal(org.role, org.institution, org.desc, org.images);
+                              }}
+                              className="text-xs font-bold text-rose-dark hover:text-rose-berry transition-colors flex items-center gap-1 cursor-pointer"
+                            >
+                              <span>Dokumentasi Lengkap</span>
+                              <span>↗</span>
+                            </button>
+                            <span className="text-[10px] text-forest/50 font-medium">
+                              {org.images.length} Foto Tersedia
+                            </span>
+                          </div>
+
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Quick Role Jump Pills (Clickable direct navigation below carousel) */}
+              <div className="flex flex-wrap items-center justify-center gap-2 mt-4 mb-10">
+                {organizationList.map((org, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => handleJumpOrg(idx)}
+                    className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer ${
+                      idx === activeOrgIdx
+                        ? 'bg-forest text-[#E8EFE5] font-bold shadow-sm ring-2 ring-forest/20'
+                        : 'bg-white/80 text-forest/75 border border-[#CAD7C5] hover:bg-white hover:text-forest'
+                    }`}
+                  >
+                    <span className="opacity-60 mr-1.5">#{idx + 1}</span>
+                    <span>{org.role.split('(')[0].trim()}</span>
+                  </button>
+                ))}
+              </div>
+            </>
+          );
+        })()}
+
+        </section>
+
+      {/* ========================================================================= */}
+      {/* SECTION: PROFESSIONAL COURSES & ACCREDITATIONS (Dedicated Section)        */}
+      {/* ========================================================================= */}
+      <section id="certifications" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
+        
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-3">
+            ✦ Verified Competencies & Licensures ✦
+          </div>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-forest mb-3">
+            Professional Courses & Accreditations
+          </h2>
+          <p className="text-sm sm:text-base text-forest/75 leading-relaxed font-source">
+            Lisensi pelatihan intensif industri, sertifikasi kompetensi terakreditasi, dan pengujian standar internasional untuk mendukung kapabilitas strategis dan eksekusi bisnis.
+          </p>
+        </div>
+
+        {/* Compact Vertical Cards Grid (Kembalikan ke Desain Sebelumnya, Tanpa Status Akademik) */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-4.5 items-stretch">
+          {certificationList.map((item, idx) => (
+            <div
+              key={idx}
+              onClick={() => openModal(
+                item.title,
+                `${item.issuer} • ${item.year} (${item.tag})`,
+                item.desc,
+                [item.image]
+              )}
+              className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-[1.75rem] p-3.5 hover:shadow-lg hover:border-rose-dusty/60 hover:-translate-y-1 transition-all flex flex-col justify-between group cursor-pointer"
+            >
+              <div>
+                {/* Visual Card Graphic (Clean 4:3 with Tag & Issuer Pill) */}
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-forest/5 mb-3 border border-[#CAD7C5]/60">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                  
+                  {/* Issuer & Year Pill */}
+                  <span className="absolute bottom-2 left-2 bg-white/90 backdrop-blur-xs text-forest text-[9px] font-bold px-2 py-0.5 rounded-full shadow-xs">
+                    {item.issuer} • {item.year}
+                  </span>
+                </div>
+
+                {/* Category Tag */}
+                <span className={`inline-block text-[9px] font-bold px-2 py-0.5 rounded-full border ${item.badgeColor || 'bg-rose-blush/60 text-rose-dark border-rose-dusty/50'} uppercase tracking-wider mb-1.5`}>
+                  {item.tag}
+                </span>
+
+                {/* Course Title */}
+                <h4 className="font-serif text-sm font-bold text-forest group-hover:text-rose-dark transition-colors line-clamp-2 leading-snug">
+                  {item.title}
+                </h4>
+              </div>
+
+              {/* Bottom Minimal Arrow Footer */}
+              <div className="pt-3 mt-2 border-t border-[#CAD7C5]/40 flex items-center justify-between text-xs">
+                <span className="text-[10px] text-forest/60 font-medium">
+                  Lihat Sertifikat
+                </span>
+                <span className="w-6 h-6 rounded-full bg-[#E8EFE5] text-forest group-hover:bg-rose-dark group-hover:text-white transition-colors flex items-center justify-center text-[10px] font-bold">
+                  →
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Trust Banner Below Cards */}
+        <div className="mt-8 p-4 rounded-2xl bg-[#CAD7C5]/25 border border-[#CAD7C5]/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-forest/80">
+          <div className="flex items-center gap-2.5">
+            <span className="text-lg">📜</span>
+            <span className="font-medium">
+              Seluruh sertifikat diterbitkan oleh institusi terakreditasi internasional & nasional (RevoU, MySkill, ETS International).
+            </span>
+          </div>
+          <span className="text-[11px] font-bold text-rose-dark shrink-0">
+            Klik kartu manapun untuk pratinjau sertifikat beresolusi tinggi ↗
+          </span>
+        </div>
+
+      </section>
+
+      {/* ========================================================================= */}
+      {/* SECTION 6: CREATIVE PURSUITS & CONTENT CREATOR HIGHLIGHT */}
+      {/* ========================================================================= */}
+      <section id="creative" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
+        
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-semibold text-rose-dark uppercase tracking-wider mb-3">
+            Creative & Production
+          </div>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-forest mb-3">
+            Content Creator & Creative Pursuits
+          </h2>
+          <p className="text-sm sm:text-base text-forest/75 leading-relaxed">
+            Eksplorasi visual dan penceritaan kreatif: Produksi konten lintas platform (Instagram & TikTok) di berbagai akun, karya rajutan tangan, eksplorasi dunia, serta pemikiran strategis.
+          </p>
+        </div>
+
+        {/* ----------------------------------------------------------------------- */}
+        {/* SUBSECTION A: CONTENT CREATOR MULTI-DEVICE POP-OUT SHOWCASE */}
+        {/* ----------------------------------------------------------------------- */}
+        <div className="bg-white/90 backdrop-blur-md border border-[#CAD7C5] rounded-3xl p-6 sm:p-10 shadow-sm mb-16">
+          
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+            <div>
+              <span className="text-[11px] font-bold uppercase tracking-widest text-rose-dark block mb-1">
+                ✦ Multi-Platform Production
+              </span>
+              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest">
+                Social Media & Video Production
+              </h3>
+            </div>
+            
+            {/* Account Switcher Tabs */}
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                onClick={() => setActiveCreatorAccount('personal')}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                  activeCreatorAccount === 'personal'
+                    ? 'bg-rose-dark text-white shadow-sm'
+                    : 'bg-[#E8EFE5] text-forest/80 hover:bg-white'
+                }`}
+              >
+                Personal Account
+              </button>
+              <button
+                onClick={() => setActiveCreatorAccount('yarnup')}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                  activeCreatorAccount === 'yarnup'
+                    ? 'bg-rose-dark text-white shadow-sm'
+                    : 'bg-[#E8EFE5] text-forest/80 hover:bg-white'
+                }`}
+              >
+                YarnUp! Studio
+              </button>
+              <button
+                onClick={() => setActiveCreatorAccount('manikarumi')}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                  activeCreatorAccount === 'manikarumi'
+                    ? 'bg-rose-dark text-white shadow-sm'
+                    : 'bg-[#E8EFE5] text-forest/80 hover:bg-white'
+                }`}
+              >
+                Manikarumi ID
+              </button>
+              <button
+                onClick={() => setActiveCreatorAccount('duasisi')}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                  activeCreatorAccount === 'duasisi'
+                    ? 'bg-rose-dark text-white shadow-sm'
+                    : 'bg-[#E8EFE5] text-forest/80 hover:bg-white'
+                }`}
+              >
+                Dua Sisi Laundry
+              </button>
             </div>
           </div>
 
-          {/* TOP FEATURED FULL-WIDTH CASE STUDY (Breaking Grid Monotony with Editorial Layout) */}
-          {featuredProject && (
-            <div 
-              onClick={() => openModal({
-                title: featuredProject.title,
-                category: featuredProject.category,
-                description: featuredProject.summary,
-                images: featuredProject.extraImages && featuredProject.extraImages.length > 0 ? featuredProject.extraImages : [featuredProject.image || '/1.png'],
-                link: featuredProject.link,
-                linkLabel: featuredProject.linkLabel || 'Buka Dokumentasi Sistem ↗'
-              })}
-              className="editorial-card p-6 sm:p-9 rounded-4xl bg-white/95 border border-[#CAD7C5] shadow-sm hover:shadow-xl hover:border-rose-dusty/70 transition-all duration-300 cursor-pointer group mb-12 relative overflow-hidden"
-            >
-              <BotanicalCorner />
+          {/* Account Meta Ribbon */}
+          <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl bg-[#E8EFE5]/50 border border-[#CAD7C5]/70 mb-8 text-xs">
+            <div className="flex items-center gap-3">
+              <span className="font-bold text-forest text-sm font-serif">{currentCreator.name}</span>
+              <span className="text-rose-dark font-mono font-medium">{currentCreator.handle}</span>
+              <span className="hidden sm:inline text-forest/40">•</span>
+              <span className="hidden sm:inline text-forest/70 font-medium">{currentCreator.tag}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="px-2.5 py-0.5 rounded-full bg-rose-blush text-rose-dark font-bold text-[10px] uppercase">
+                {currentCreator.stats}
+              </span>
+              <a
+                href={currentCreator.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-bold text-forest hover:text-rose-dark underline ml-2"
+              >
+                Buka Akun ↗
+              </a>
+            </div>
+          </div>
+
+          {/* Multi-Device Pop-out Stage (Adaptive: 3 Devices if hasCenterStage, or 2 Phones if hasCenterStage is false!) */}
+          {currentCreator.hasCenterStage ? (
+            /* 3-DEVICE STAGE (Left Phone + Clickable YouTube/Video Stage + Right Phone) */
+            <div className="relative py-6 flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-8">
               
-              <div className="flex items-center gap-2 text-rose-dark text-xs font-bold uppercase tracking-wider mb-6">
-                <span>✦</span>
-                <span>FEATURED FLAGSHIP CASE STUDY</span>
-                <span className="hidden sm:inline text-[#CAD7C5]">•</span>
-                <span className="hidden sm:inline text-neutral-500 font-normal">D4 SIB Polinema</span>
+              {/* Left Phone Mockup (Reels / Stories) - Hover Pops! */}
+              <div 
+                onClick={() => {
+                  if (currentCreator.leftPhoneLink || currentCreator.link) {
+                    window.open(currentCreator.leftPhoneLink || currentCreator.link, '_blank');
+                  }
+                }}
+                className="w-full sm:w-[220px] lg:w-[200px] shrink-0 bg-[#253521] p-3 rounded-[2.5rem] border-2 border-[#CAD7C5] shadow-lg transition-all duration-500 hover:-translate-y-3 hover:scale-105 hover:shadow-2xl group cursor-pointer"
+              >
+                <div className="w-16 h-4 bg-black/60 rounded-full mx-auto mb-2" />
+                <div className="relative aspect-[9/16] rounded-3xl overflow-hidden bg-forest/30">
+                  <img
+                    src={currentCreator.leftPhoneImg}
+                    alt={currentCreator.leftPhoneTitle}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/85 via-black/40 to-transparent text-white">
+                    <span className="inline-block px-2 py-0.5 rounded-full bg-rose-dark/90 text-[9px] font-bold uppercase tracking-wider mb-1">
+                      {currentCreator.leftPhoneTag}
+                    </span>
+                    <p className="text-[11px] font-bold leading-tight line-clamp-1">
+                      {currentCreator.leftPhoneTitle}
+                    </p>
+                  </div>
+                </div>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                
-                {/* Left: Large High-Fidelity Mockup Container with Botanical Watermark Texture */}
-                <div className="lg:col-span-7 relative overflow-hidden rounded-3xl bg-neutral-100 aspect-[16/10] sm:aspect-[16/9] border border-[#CAD7C5]/50 botanical-watermark">
-                  <img 
-                    src={featuredProject.image || "/1.png"} 
-                    alt={featuredProject.title}
-                    className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-700" 
-                    loading="lazy"
-                    decoding="async"
+              {/* Central Wide Featured Stage (Tablet / Screen View) - Links out to YouTube / Video! */}
+              <div 
+                onClick={() => {
+                  if (currentCreator.centerLink) {
+                    window.open(currentCreator.centerLink, '_blank');
+                  }
+                }}
+                className="w-full lg:max-w-[480px] bg-white rounded-3xl p-3 border-2 border-[#CAD7C5] shadow-xl transition-all duration-500 hover:-translate-y-3 hover:scale-[1.03] hover:shadow-2xl group cursor-pointer relative"
+              >
+                <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#CAD7C5]/50 mb-2.5">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-rose-dusty" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                    <span className="text-[10px] text-forest/50 font-mono ml-2 truncate">
+                      content-studio / {activeCreatorAccount}
+                    </span>
+                  </div>
+
+                  {currentCreator.centerLink && (
+                    <span className="text-[10px] font-bold font-mono px-2.5 py-0.5 rounded-full bg-red-100 text-red-700 border border-red-200 flex items-center gap-1 group-hover:bg-red-600 group-hover:text-white transition-colors">
+                      <span>▶</span>
+                      <span>Buka di YouTube ↗</span>
+                    </span>
+                  )}
+                </div>
+
+                <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-[#E8EFE5]">
+                  <img
+                    src={currentCreator.centerImg}
+                    alt={currentCreator.centerTitle}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md text-[11px] font-bold text-forest shadow-xs border border-[#CAD7C5]">
-                      Live Operational System
-                    </span>
+                  
+                  {/* Play button hover overlay */}
+                  <div className="absolute inset-0 bg-forest/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                    <div className="w-14 h-14 rounded-full bg-white/95 text-red-600 flex items-center justify-center text-2xl shadow-xl transform scale-75 group-hover:scale-100 transition-transform">
+                      ▶
+                    </div>
                   </div>
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
-                    <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-5 py-2.5 rounded-full bg-white/95 backdrop-blur-md text-xs font-bold text-forest shadow-md">
-                      Buka Dokumentasi &amp; Hasil Sistem ↗
-                    </span>
-                  </div>
-                </div>
 
-                {/* Right: Rich Editorial Content & Measured Business Impact */}
-                <div className="lg:col-span-5 flex flex-col justify-between space-y-6 text-left">
-                  <div>
-                    <span className="text-[11px] font-bold text-rose-800 uppercase tracking-wider bg-rose-50 px-3 py-1 rounded-full border border-rose-100">
-                      {featuredProject.category}
+                  <div className="absolute inset-0 bg-gradient-to-t from-forest/95 via-forest/40 to-transparent flex flex-col justify-end p-5 text-white">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-rose-blush mb-1">
+                      {currentCreator.platforms}
                     </span>
-                    <h3 className="font-serif font-bold text-2xl sm:text-3xl text-forest mt-3 mb-3 leading-tight group-hover:text-rose-dark transition-colors">
-                      {featuredProject.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-6">
-                      {featuredProject.summary}
+                    <h4 className="font-serif text-xl sm:text-2xl font-bold leading-tight mb-1">
+                      {currentCreator.centerTitle}
+                    </h4>
+                    <p className="text-xs text-[#E8EFE5]/85 leading-snug line-clamp-2">
+                      {currentCreator.centerDesc}
                     </p>
-
-                    {/* Measured Impact Numbers */}
-                    {featuredProject.results && featuredProject.results.length >= 2 ? (
-                      <div className="grid grid-cols-2 gap-3 p-4 rounded-2xl bg-[#F2F7EF]/70 border border-[#CAD7C5]/80 mb-6">
-                        {featuredProject.results.slice(0, 2).map((res, rIdx) => {
-                          const parts = res.split(' ');
-                          const hasMetric = parts.length > 1 && /^(\+|\d)/.test(parts[0]);
-                          const metric = hasMetric ? parts[0] : `0${rIdx + 1}`;
-                          const label = hasMetric ? parts.slice(1).join(' ') : res;
-                          return (
-                            <div key={rIdx}>
-                              <span className={`font-serif font-bold text-xl sm:text-2xl block tracking-normal ${rIdx === 1 ? 'text-rose-dark' : 'text-forest'}`}>
-                                {metric}
-                              </span>
-                              <span className="text-[10px] uppercase font-semibold text-neutral-500 tracking-wider line-clamp-1">
-                                {label}
-                              </span>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    ) : (
-                      <div className="grid grid-cols-2 gap-3 p-4 rounded-2xl bg-[#F2F7EF]/70 border border-[#CAD7C5]/80 mb-6">
-                        <div>
-                          <span className="font-serif font-bold text-xl sm:text-2xl text-forest block tracking-normal">
-                            +300%
-                          </span>
-                          <span className="text-[10px] uppercase font-semibold text-neutral-500 tracking-wider">
-                            Efisiensi Distribusi
-                          </span>
-                        </div>
-                        <div>
-                          <span className="font-serif font-bold text-xl sm:text-2xl text-rose-dark block tracking-normal">
-                            100%
-                          </span>
-                          <span className="text-[10px] uppercase font-semibold text-neutral-500 tracking-wider">
-                            Digital Billing Accuracy
-                          </span>
-                        </div>
-                      </div>
-                    )}
                   </div>
+                </div>
+              </div>
 
-                  <div className="flex items-center gap-3">
-                    <span className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-forest text-white text-xs font-bold tracking-wide uppercase group-hover:bg-rose-dark transition-colors">
-                      <span>Lihat Detail Studi Kasus</span>
-                      <span>→</span>
+              {/* Right Phone Mockup (Shorts / Feed) - Hover Pops! */}
+              <div 
+                onClick={() => {
+                  if (currentCreator.rightPhoneLink || currentCreator.link) {
+                    window.open(currentCreator.rightPhoneLink || currentCreator.link, '_blank');
+                  }
+                }}
+                className="w-full sm:w-[220px] lg:w-[200px] shrink-0 bg-[#253521] p-3 rounded-[2.5rem] border-2 border-[#CAD7C5] shadow-lg transition-all duration-500 hover:-translate-y-3 hover:scale-105 hover:shadow-2xl group cursor-pointer"
+              >
+                <div className="w-16 h-4 bg-black/60 rounded-full mx-auto mb-2" />
+                <div className="relative aspect-[9/16] rounded-3xl overflow-hidden bg-forest/30">
+                  <img
+                    src={currentCreator.rightPhoneImg}
+                    alt={currentCreator.rightPhoneTitle}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/85 via-black/40 to-transparent text-white">
+                    <span className="inline-block px-2 py-0.5 rounded-full bg-emerald-700/90 text-[9px] font-bold uppercase tracking-wider mb-1">
+                      {currentCreator.rightPhoneTag}
                     </span>
-                    <span className="text-xs text-neutral-400 font-mono">{featuredProject.tag}</span>
+                    <p className="text-[11px] font-bold leading-tight line-clamp-1">
+                      {currentCreator.rightPhoneTitle}
+                    </p>
                   </div>
+                </div>
+              </div>
 
+            </div>
+          ) : (
+            /* ADAPTIVE 2-PHONE STAGE (For Dua Sisi Laundry / Accounts without landscape video) */
+            <div className="py-6 flex flex-col items-center justify-center">
+              <div className="mb-5 inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#E8EFE5] border border-[#CAD7C5] text-forest text-xs font-medium">
+                <span>📱</span>
+                <span>Dual Mobile Showcase — Video Vertikal (Instagram Reels & TikTok) • Format Landscape Segera Hadir</span>
+              </div>
+
+              <div className="flex flex-row flex-wrap items-center justify-center gap-6 sm:gap-10">
+                {/* Left Phone Mockup */}
+                <div 
+                  onClick={() => {
+                    if (currentCreator.leftPhoneLink || currentCreator.link) {
+                      window.open(currentCreator.leftPhoneLink || currentCreator.link, '_blank');
+                    }
+                  }}
+                  className="w-[230px] sm:w-[250px] shrink-0 bg-[#253521] p-3 rounded-[2.5rem] border-2 border-[#CAD7C5] shadow-xl transition-all duration-500 hover:-translate-y-3 hover:scale-105 hover:shadow-2xl group cursor-pointer"
+                >
+                  <div className="w-16 h-4 bg-black/60 rounded-full mx-auto mb-2" />
+                  <div className="relative aspect-[9/16] rounded-3xl overflow-hidden bg-forest/30">
+                    <img
+                      src={currentCreator.leftPhoneImg}
+                      alt={currentCreator.leftPhoneTitle}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-x-0 bottom-0 p-3.5 bg-gradient-to-t from-black/90 via-black/50 to-transparent text-white">
+                      <span className="inline-block px-2.5 py-0.5 rounded-full bg-rose-dark text-[10px] font-bold uppercase tracking-wider mb-1">
+                        {currentCreator.leftPhoneTag}
+                      </span>
+                      <p className="text-xs font-bold leading-tight">
+                        {currentCreator.leftPhoneTitle}
+                      </p>
+                      <p className="text-[10px] text-white/75 mt-0.5">Buka di Instagram ↗</p>
+                    </div>
+                  </div>
                 </div>
 
+                {/* Right Phone Mockup */}
+                <div 
+                  onClick={() => {
+                    if (currentCreator.rightPhoneLink || currentCreator.link) {
+                      window.open(currentCreator.rightPhoneLink || currentCreator.link, '_blank');
+                    }
+                  }}
+                  className="w-[230px] sm:w-[250px] shrink-0 bg-[#253521] p-3 rounded-[2.5rem] border-2 border-[#CAD7C5] shadow-xl transition-all duration-500 hover:-translate-y-3 hover:scale-105 hover:shadow-2xl group cursor-pointer"
+                >
+                  <div className="w-16 h-4 bg-black/60 rounded-full mx-auto mb-2" />
+                  <div className="relative aspect-[9/16] rounded-3xl overflow-hidden bg-forest/30">
+                    <img
+                      src={currentCreator.rightPhoneImg}
+                      alt={currentCreator.rightPhoneTitle}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-x-0 bottom-0 p-3.5 bg-gradient-to-t from-black/90 via-black/50 to-transparent text-white">
+                      <span className="inline-block px-2.5 py-0.5 rounded-full bg-emerald-700 text-[10px] font-bold uppercase tracking-wider mb-1">
+                        {currentCreator.rightPhoneTag}
+                      </span>
+                      <p className="text-xs font-bold leading-tight">
+                        {currentCreator.rightPhoneTitle}
+                      </p>
+                      <p className="text-[10px] text-white/75 mt-0.5">Buka di TikTok ↗</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           )}
 
-          {/* FILTERABLE PROJECT GRID (2-Column Editorial Grid for Remaining Works) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10">
-            {filteredProjects.map((project, idx) => (
-              <div
-                key={project.id || idx}
-                onClick={() => openModal({
-                  title: project.title,
-                  category: project.category,
-                  description: project.summary,
-                  images: project.extraImages && project.extraImages.length > 0 ? project.extraImages : [project.image || '/1.png'],
-                  link: project.link,
-                  linkLabel: project.linkLabel || 'Buka Dokumentasi ↗'
-                })}
-                className="editorial-card p-5 sm:p-6 rounded-4xl bg-white/95 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between relative overflow-hidden"
-              >
-                <BotanicalCorner />
+          <p className="text-center text-xs text-forest/60 italic mt-4">
+            Arahkan kursor ke masing-masing kartu untuk melihat efek pop-out interaktif
+          </p>
 
-                {/* Project Image Container with Botanical Watermark Texture */}
-                <div className="relative overflow-hidden rounded-3xl bg-neutral-100 aspect-[16/10] sm:aspect-[16/11] mb-5 border border-[#CAD7C5]/40 botanical-watermark">
-                  <img
-                    src={project.image || "/1.png"}
-                    alt={project.title}
-                    className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
-                    <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-4 py-2 rounded-full bg-white/95 backdrop-blur-md text-xs font-bold text-forest shadow-sm">
-                      Lihat Dokumentasi &amp; Hasil ↗
+        </div>
+
+        {/* ----------------------------------------------------------------------- */}
+        {/* SUBSECTION B: BEYOND THE SCREEN — ART, HOBBIES & INTELLECTUAL PURSUITS */}
+        {/* ----------------------------------------------------------------------- */}
+        <div>
+          <div className="text-center max-w-xl mx-auto mb-10">
+            <span className="text-[11px] font-bold uppercase tracking-widest text-rose-dark block mb-1">
+              ✦ Beyond The Screen
+            </span>
+            <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest">
+              Arts, Hobbies & Intellectual Pursuits
+            </h3>
+            <p className="text-xs sm:text-sm text-forest/75 mt-1">
+              Aktivitas personal yang menjaga keseimbangan kreativitas, wawasan intelektual, dan kesegaran cara pandang.
+            </p>
+          </div>
+
+          {/* 4 Hobbies Card Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {hobbiesList.map((hobby, hIdx) => (
+              <div
+                key={hIdx}
+                className="bg-white/90 border border-[#CAD7C5] rounded-3xl p-5 hover:border-rose-dusty hover:-translate-y-2 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group shadow-sm"
+              >
+                <div>
+                  <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden bg-[#E8EFE5] mb-4 relative">
+                    <img
+                      src={hobby.img}
+                      alt={hobby.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <span className="absolute top-2.5 left-2.5 bg-white/90 text-forest text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-xs flex items-center gap-1">
+                      <span>{hobby.icon}</span>
+                      <span>{hobby.tag}</span>
                     </span>
                   </div>
+                  <h4 className="font-serif text-lg font-bold text-forest mb-1">
+                    {hobby.title}
+                  </h4>
+                  <p className="text-[11px] font-semibold text-rose-dark mb-2">
+                    {hobby.sub}
+                  </p>
+                  <p className="text-xs text-forest/75 leading-relaxed">
+                    {hobby.desc}
+                  </p>
                 </div>
 
-                {/* Title on Left, Tag Pills on Right */}
-                <div className="flex items-start justify-between gap-4 pt-1">
-                  <div>
-                    <h3 className="font-sans font-bold text-lg sm:text-xl text-forest group-hover:text-rose-dark transition-colors">
-                      {project.title}
-                    </h3>
-                    <p className="text-xs text-neutral-500 mt-1 line-clamp-1">
-                      {project.summary}
-                    </p>
-                  </div>
-
-                  <div className="flex flex-wrap gap-1.5 justify-end shrink-0">
-                    <span className="text-[11px] font-semibold px-3 py-1 rounded-full bg-rose-50 text-rose-800 border border-rose-100">
-                      {project.tag || "Case Study"}
+                <div className="pt-3 mt-4 border-t border-[#CAD7C5]/50 flex items-center justify-between">
+                  {hobby.link ? (
+                    <a
+                      href={hobby.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-bold text-rose-dark hover:underline flex items-center gap-1"
+                    >
+                      <span>Baca di Medium</span>
+                      <span>↗</span>
+                    </a>
+                  ) : (
+                    <span className="text-[11px] font-medium text-forest/50 italic">
+                      Creative Expression
                     </span>
-                  </div>
+                  )}
+                  <span className="w-7 h-7 rounded-full bg-[#E8EFE5] flex items-center justify-center text-xs group-hover:bg-rose-blush group-hover:text-rose-dark transition-colors">
+                    →
+                  </span>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* MID-PAGE SECONDARY QUICK-CONNECT CTA RIBBON */}
-          <div className="mt-14 sm:mt-16 max-w-5xl mx-auto rounded-3xl p-6 sm:p-8 bg-gradient-to-r from-white/95 via-[#F2F7EF]/90 to-white/95 border border-[#CAD7C5] shadow-xs flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
-            <BotanicalCorner className="top-2 right-2" />
-            <div className="text-left space-y-1">
-              <span className="text-[11px] font-bold text-rose-dark uppercase tracking-wider flex items-center gap-1.5">
-                <span>✦</span> Siap Berkolaborasi?
-              </span>
-              <h3 className="font-serif font-bold text-xl sm:text-2xl text-forest">
-                Punya ide sistem bisnis atau kampanye kreatif?
-              </h3>
-              <p className="text-xs sm:text-sm text-neutral-600 max-w-lg">
-                Mari diskusikan bagaimana perancangan sistem informasi dan strategi konten dapat mendorong pertumbuhan bisnis Anda.
-              </p>
-            </div>
-            <div className="flex items-center gap-3 shrink-0 w-full md:w-auto justify-start md:justify-end">
-              <a
-                href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-5 py-2.5 rounded-full bg-forest hover:bg-forest-dark text-white text-xs font-semibold shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all flex items-center gap-2 whitespace-nowrap"
-              >
-                <span>✦ Chat WhatsApp</span>
-                <span>→</span>
-              </a>
-              <a
-                href={`mailto:${portfolioData.socials?.email || "chikalnazmi@gmail.com"}`}
-                className="px-5 py-2.5 rounded-full bg-white border border-[#CAD7C5] hover:border-rose-dusty text-forest text-xs font-semibold shadow-2xs hover:shadow-xs hover:-translate-y-0.5 transition-all whitespace-nowrap"
-              >
-                Email Inkuiri ✉
-              </a>
-            </div>
-          </div>
-
         </div>
-      </section>
 
-      <BotanicalDivider />
-
-      {/* ========================================================================= */}
-      {/* 7. CREATIVE MEDIA & CONTENT CREATOR SHOWCASE (#creator)                    */}
-      {/* ========================================================================= */}
-      <section id="creator" className="w-full py-16 sm:py-24 px-4 sm:px-8 lg:px-12 xl:px-16">
-        <div className="max-w-[1560px] mx-auto">
-          
-          {/* Section Header */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
-            <div>
-              <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ Content &amp; Media /</span>
-              <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-forest tracking-normal mt-1">
-                Creator Studio &amp; Social Growth
-              </h2>
-              <p className="text-xs sm:text-sm text-neutral-600 mt-2 max-w-md">
-                Produksi video pendek bernuansa sinematik, visual merchandising ritel festival, dan kurasi katalog produk yang mendorong interaksi audiens.
-              </p>
-            </div>
-
-            {/* Switchable Account Pills */}
-            <div className="flex flex-wrap gap-2">
-              {Object.entries(creatorAccounts).map(([key, acc]) => (
-                <button
-                  key={key}
-                  onClick={() => setActiveCreatorKey(key)}
-                  className={`px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer ${
-                    activeCreatorKey === key
-                      ? 'bg-rose-dark text-white shadow-xs'
-                      : 'bg-white/80 text-forest/75 border border-[#CAD7C5] hover:border-rose-dusty'
-                  }`}
-                >
-                  {acc.name} ({acc.handle})
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Active Creator Stage Display */}
-          {currentCreator && (
-            <div className="space-y-6">
-              
-              {/* Creator Metadata Bar */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-white/80 border border-[#CAD7C5] shadow-xs">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h3 className="font-serif font-bold text-2xl text-forest">
-                      {currentCreator.name}
-                    </h3>
-                    <span className="text-xs font-mono text-rose-dusty font-semibold">
-                      {currentCreator.handle}
-                    </span>
-                  </div>
-                  <p className="text-xs text-neutral-500 mt-1">
-                    {currentCreator.tag} · Platform: {currentCreator.platforms}
-                  </p>
-                </div>
-
-                <span className="text-xs font-bold text-rose-dark bg-rose-50 px-4 py-1.5 rounded-full border border-rose-100 self-start sm:self-auto">
-                  {currentCreator.stats}
-                </span>
-              </div>
-
-              {/* 3 Interactive Phone & Showcase Mockups */}
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
-                
-                {/* Left Media Card (Left Phone Mockup) */}
-                <div 
-                  className="md:col-span-3 bg-white/95 rounded-3xl p-4 sm:p-5 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between relative overflow-hidden"
-                  onClick={() => openModal({
-                    title: currentCreator.leftPhoneTitle || currentCreator.name,
-                    category: currentCreator.leftPhoneTag || 'SOCIAL MEDIA REELS',
-                    description: `Cuplikan konten video vertikal berdaya jangkau tinggi yang dikurasi langsung oleh Chikal Nazmi untuk ${currentCreator.name}.`,
-                    images: [currentCreator.leftPhoneImg || '/7.png', currentCreator.centerImg || '/17.png'],
-                    link: currentCreator.leftPhoneLink || portfolioData.socials?.instagram,
-                    linkLabel: 'Buka Video Reels ↗'
-                  })}
-                >
-                  <BotanicalCorner />
-                  <div className="relative aspect-[9/16] rounded-2xl overflow-hidden bg-neutral-100 mb-3 border border-[#CAD7C5]/40 botanical-watermark">
-                    <img
-                      src={currentCreator.leftPhoneImg || "/7.png"}
-                      alt="Left Reel Preview"
-                      className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <div className="absolute inset-0 bg-black/10 flex items-center justify-center">
-                      <span className="w-10 h-10 rounded-full bg-white/90 flex items-center justify-center text-rose-dark shadow-md">▶</span>
-                    </div>
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-xs sm:text-sm text-forest group-hover:text-rose-dark transition-colors">
-                      {currentCreator.leftPhoneTitle}
-                    </h4>
-                    <span className="text-[10px] text-rose-600 font-medium">Lihat Media ↗</span>
-                  </div>
-                </div>
-
-                {/* Center Stage Card (Center Showcase) */}
-                <div 
-                  className="md:col-span-6 bg-white/95 rounded-3xl p-5 sm:p-6 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between relative overflow-hidden"
-                  onClick={() => openModal({
-                    title: currentCreator.centerTitle || currentCreator.name,
-                    category: 'CREATIVE SHOWCASE',
-                    description: currentCreator.centerDesc || `Visual pameran dan kurasi kampanye komersial untuk ${currentCreator.name}.`,
-                    images: [currentCreator.centerImg || '/17.png', currentCreator.rightPhoneImg || '/8.png', currentCreator.leftPhoneImg || '/7.png'],
-                    link: currentCreator.centerLink,
-                    linkLabel: 'Buka Dokumentasi Penuh ↗'
-                  })}
-                >
-                  <BotanicalCorner />
-                  <div className="relative aspect-[16/10] sm:aspect-[16/11] rounded-2xl overflow-hidden bg-neutral-100 mb-4 border border-[#CAD7C5]/40 botanical-watermark">
-                    <img
-                      src={currentCreator.centerImg || "/17.png"}
-                      alt="Center Showcase Preview"
-                      className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-bold text-rose-800 uppercase tracking-wider bg-rose-50 px-2.5 py-0.5 rounded-full border border-rose-100">
-                      Showcase Utama
-                    </span>
-                    <h4 className="font-serif font-bold text-lg sm:text-xl text-forest mt-2 group-hover:text-rose-dark transition-colors">
-                      {currentCreator.centerTitle}
-                    </h4>
-                    <p className="text-xs text-neutral-600 mt-1 line-clamp-2 leading-relaxed">
-                      {currentCreator.centerDesc}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Right Media Card (Right Phone Mockup) */}
-                <div 
-                  className="md:col-span-3 bg-white/95 rounded-3xl p-4 sm:p-5 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between relative overflow-hidden"
-                  onClick={() => openModal({
-                    title: currentCreator.rightPhoneTitle || currentCreator.name,
-                    category: currentCreator.rightPhoneTag || 'TIKTOK CONTENT',
-                    description: `Kampanye konten video pendek TikTok dengan storytelling interaktif untuk ${currentCreator.name}.`,
-                    images: [currentCreator.rightPhoneImg || '/8.png', currentCreator.centerImg || '/17.png'],
-                    link: currentCreator.rightPhoneLink || portfolioData.socials?.tiktok,
-                    linkLabel: 'Buka Video TikTok ↗'
-                  })}
-                >
-                  <BotanicalCorner />
-                  <div className="relative aspect-[9/16] rounded-2xl overflow-hidden bg-neutral-100 mb-3 border border-[#CAD7C5]/40 botanical-watermark">
-                    <img
-                      src={currentCreator.rightPhoneImg || "/8.png"}
-                      alt="Right Reel Preview"
-                      className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <div className="absolute inset-0 bg-black/10 flex items-center justify-center">
-                      <span className="w-10 h-10 rounded-full bg-white/90 flex items-center justify-center text-rose-dark shadow-md">▶</span>
-                    </div>
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-xs sm:text-sm text-forest group-hover:text-rose-dark transition-colors">
-                      {currentCreator.rightPhoneTitle}
-                    </h4>
-                    <span className="text-[10px] text-rose-600 font-medium">Lihat Media ↗</span>
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-          )}
-
-        </div>
-      </section>
-
-      <BotanicalDivider />
-
-      {/* ========================================================================= */}
-      {/* 8. CAREER JOURNEY & TIMELINE (#experience - Synchronized with Navbar)      */}
-      {/* ========================================================================= */}
-      <section id="experience" className="w-full py-16 sm:py-24 px-4 sm:px-8 lg:px-12 xl:px-16">
-        <div className="max-w-[1560px] mx-auto">
-          
-          {/* Kicker & Title */}
-          <div className="mb-14">
-            <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ Career &amp; Experience /</span>
-            <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-forest tracking-normal mt-1">
-              Career Journey &amp; Experience <span className="font-serif italic font-normal text-rose-dark text-2xl sm:text-3xl lg:text-4xl block sm:inline sm:ml-2">Pushing Boundaries since 2020</span>
-            </h2>
-          </div>
-
-          {/* 2 Columns: Photo & Bio Left, Clean Horizontal Timeline Right */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-14 items-start">
-            
-            {/* Left Column: Stylized Portrait Card & Official SVG Social Links */}
-            <div className="lg:col-span-5 space-y-6">
-              <div className="relative overflow-hidden rounded-4xl bg-forest p-4 sm:p-5 shadow-lg border border-[#CAD7C5]/30">
-                <div className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-neutral-900">
-                  <img
-                    src={portfolioData.hero?.avatarImg || "/2.png"}
-                    alt="Chikal Portrait"
-                    className="w-full h-full object-cover object-top"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <div className="mt-4 px-2 flex items-center justify-between">
-                  <div>
-                    <h4 className="font-serif italic font-normal text-xl text-white">Chikal Nazmi</h4>
-                    <p className="text-xs text-rose-200/80">Business &amp; Digital Strategist</p>
-                  </div>
-                  <span className="text-xs font-mono text-white/50">2020 — 2026</span>
-                </div>
-              </div>
-
-              {/* Social Icons Row with Official SVG Brand Logos */}
-              <div className="flex items-center justify-center gap-3 p-3 bg-white rounded-full border border-[#CAD7C5] shadow-xs">
-                <a
-                  href={portfolioData.socials?.linkedin || "https://linkedin.com"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-[#F2F7EF] text-forest hover:bg-forest hover:text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xs flex items-center justify-center"
-                  title="LinkedIn"
-                  aria-label="LinkedIn"
-                >
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452z" />
-                  </svg>
-                </a>
-                <a
-                  href={portfolioData.socials?.instagram || "https://instagram.com/chikalnazmi"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-[#F2F7EF] text-forest hover:bg-forest hover:text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xs flex items-center justify-center"
-                  title="Instagram"
-                  aria-label="Instagram"
-                >
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                  </svg>
-                </a>
-                <a
-                  href={portfolioData.socials?.tiktok || "https://tiktok.com"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-[#F2F7EF] text-forest hover:bg-forest hover:text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xs flex items-center justify-center"
-                  title="TikTok"
-                  aria-label="TikTok"
-                >
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
-                  </svg>
-                </a>
-                <a
-                  href={`mailto:${portfolioData.socials?.email || "chikalnazmi@gmail.com"}`}
-                  className="w-9 h-9 rounded-full bg-[#F2F7EF] text-forest hover:bg-forest hover:text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xs flex items-center justify-center"
-                  title="Email"
-                  aria-label="Email"
-                >
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                  </svg>
-                </a>
-                {portfolioData.socials?.youtube && (
-                  <a
-                    href={portfolioData.socials.youtube}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-9 h-9 rounded-full bg-[#F2F7EF] text-forest hover:bg-forest hover:text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xs flex items-center justify-center"
-                    title="YouTube"
-                    aria-label="YouTube"
-                  >
-                    <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                    </svg>
-                  </a>
-                )}
-                {portfolioData.socials?.medium && (
-                  <a
-                    href={portfolioData.socials.medium}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-9 h-9 rounded-full bg-[#F2F7EF] text-forest hover:bg-forest hover:text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xs flex items-center justify-center"
-                    title="Medium"
-                    aria-label="Medium"
-                  >
-                    <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z" />
-                    </svg>
-                  </a>
-                )}
-              </div>
-            </div>
-
-            {/* Right Column: Narrative Story & Generous Spaced Career Timeline */}
-            <div className="lg:col-span-7 space-y-8">
-              <p className="text-sm sm:text-base text-neutral-700 leading-relaxed font-normal">
-                Lulusan <strong>{academicData.degree || "Sarjana Terapan Sistem Informasi Bisnis (D4 SIB)"} {academicData.institution || "Politeknik Negeri Malang"}</strong> dengan predikat <em>{academicData.badge || "Cum Laude"} (IPK {academicData.gpaValue || "3.84"})</em>{academicData.toeicScore ? ` serta sertifikasi internasional TOEIC ${academicData.toeicScore} (${academicData.toeicLevel || "Working Proficiency"})` : ""}. {academicData.description || "Berfokus pada perancangan model bisnis, tata kelola data sistem informasi, serta optimalisasi strategi media komersial yang terbukti memperluas pangsa pasar dan memenangkan kompetisi nasional."}
-              </p>
-
-              {/* Clean Timeline Rows with Generous Spacing and Breathing Room */}
-              <div className="border-t border-[#CAD7C5]/60 divide-y divide-[#CAD7C5]/50">
-                {experiencesList.map((exp, idx) => (
-                  <div 
-                    key={exp.id || idx}
-                    className="py-5 sm:py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 hover:bg-white/60 px-3 rounded-2xl transition-all cursor-pointer group"
-                    onClick={() => openModal({
-                      title: exp.title,
-                      category: exp.category || 'WORK EXPERIENCE',
-                      description: `${exp.summary}${exp.results && exp.results.length > 0 ? `\n\nFokus & Capaian:\n• ${exp.results.join('\n• ')}` : ''}`,
-                      images: exp.extraImages && exp.extraImages.length > 0 ? exp.extraImages : [exp.image || '/1.png'],
-                      link: exp.link,
-                      linkLabel: exp.linkLabel || 'Profil Bisnis ↗'
-                    })}
-                  >
-                    <div>
-                      <h4 className="font-sans font-bold text-base sm:text-lg text-forest group-hover:text-rose-dark transition-colors">
-                        {exp.title}
-                      </h4>
-                      <p className="text-xs text-neutral-500 mt-1">
-                        {exp.category} · <span className="font-medium text-rose-dusty">{exp.tag}</span>
-                      </p>
-                    </div>
-
-                    <div className="flex items-center gap-3 self-start sm:self-auto shrink-0">
-                      <span className="text-[11px] font-medium text-forest bg-[#F2F7EF] px-3 py-1 rounded-full border border-[#CAD7C5]">
-                        {exp.period}
-                      </span>
-                      <span className="text-xs text-rose-dusty group-hover:text-rose-dark group-hover:translate-x-1 transition-all">→</span>
-                    </div>
-                  </div>
-                ))}
-
-                {/* Education Entry */}
-                <div 
-                  className="py-5 sm:py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 hover:bg-white/60 px-3 rounded-2xl transition-all cursor-pointer group"
-                  onClick={() => openModal({
-                    title: `${academicData.degree} · ${academicData.institution}`,
-                    category: 'FORMAL EDUCATION',
-                    description: academicData.description,
-                    images: academicData.images && academicData.images.length > 0 ? academicData.images : ['/11.png', '/12.png', '/16.png'],
-                  })}
-                >
-                  <div>
-                    <h4 className="font-sans font-bold text-base sm:text-lg text-forest group-hover:text-rose-dark transition-colors">
-                      {academicData.degree}
-                    </h4>
-                    <p className="text-xs text-neutral-500 mt-1">
-                      {academicData.institution} · <span className="font-medium text-rose-dusty">GPA {academicData.gpaValue} (Cum Laude)</span>
-                    </p>
-                  </div>
-
-                  <div className="flex items-center gap-3 self-start sm:self-auto shrink-0">
-                    <span className="text-[11px] font-medium text-forest bg-[#F2F7EF] px-3 py-1 rounded-full border border-[#CAD7C5]">
-                      {academicData.period}
-                    </span>
-                    <span className="text-xs text-rose-dusty group-hover:text-rose-dark group-hover:translate-x-1 transition-all">→</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Micro Callout for CV */}
-              <div className="flex items-center gap-4 pt-2">
-                <a
-                  href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs font-semibold text-rose-dark underline underline-offset-4 hover:text-rose-berry transition-colors flex items-center gap-1.5"
-                >
-                  <span>Minta Dokumen Curriculum Vitae (CV) via WhatsApp</span>
-                  <span>↗</span>
-                </a>
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-      <BotanicalDivider />
-
-      {/* ========================================================================= */}
-      {/* 9. HONORS, AWARDS & PROFESSIONAL CERTIFICATIONS (#awards)                  */}
-      {/* ========================================================================= */}
-      <section id="awards" className="w-full py-16 sm:py-24 px-4 sm:px-8 lg:px-12 xl:px-16">
-        <div className="max-w-[1560px] mx-auto space-y-16">
-          
-          {/* SUB-SECTION A: NATIONAL HONORS & COMPETITIONS */}
-          <div>
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
-              <div>
-                <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ Honors &amp; Recognitions /</span>
-                <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-forest tracking-normal mt-1">
-                  National Competitions &amp; Honors
-                </h2>
-                <p className="text-xs sm:text-sm text-neutral-600 mt-2 max-w-lg">
-                  Rekam jejak kompetisi Business Plan dan Karya Tulis Ilmiah tingkat nasional dengan solusi berbasis riset dan kelayakan bisnis nyata.
-                </p>
-              </div>
-
-              {/* Filter Pills */}
-              <div className="flex flex-wrap gap-2">
-                {[
-                  { id: 'all', label: 'Semua Lomba' },
-                  { id: '1st', label: 'Juara 1 (1st)' },
-                  { id: '2nd', label: 'Juara 2 (2nd)' },
-                  { id: 'top5', label: 'Top 5 & Speaker' },
-                ].map(tab => (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveAwardFilter(tab.id as any)}
-                    className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
-                      activeAwardFilter === tab.id
-                        ? 'bg-rose-dark text-white shadow-xs'
-                        : 'bg-white/80 text-forest/75 border border-[#CAD7C5] hover:border-rose-dusty'
-                    }`}
-                  >
-                    {tab.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Awards Grid (4-Column Editorial Cards) */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {filteredAwards.map((award, idx) => (
-                <div
-                  key={award.id || idx}
-                  onClick={() => openModal({
-                    title: award.title,
-                    category: award.rank,
-                    description: `${award.desc || award.title}\n\nTingkat: ${award.scope || award.level || 'Nasional'}\nPenyelenggara: ${award.organizer}\nTahun: ${award.year}`,
-                    images: award.certImg ? [award.certImg] : ['/11.png'],
-                    link: award.link,
-                    linkLabel: award.linkLabel || 'Dokumentasi Resmi ↗'
-                  })}
-                  className="editorial-card p-6 rounded-3xl bg-white/95 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between relative overflow-hidden"
-                >
-                  <BotanicalCorner />
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="w-8 h-8 rounded-full bg-rose-50 text-rose-dark flex items-center justify-center text-sm font-serif font-bold">
-                        🏆
-                      </span>
-                      <span className="text-[11px] font-bold text-rose-800 uppercase tracking-wider bg-rose-50 px-2.5 py-0.5 rounded-full border border-rose-100">
-                        {award.year}
-                      </span>
-                    </div>
-
-                    <h4 className="font-sans font-bold text-base text-forest group-hover:text-rose-dark transition-colors leading-snug">
-                      {award.title}
-                    </h4>
-                    <p className="text-xs text-rose-dark font-medium mt-1">
-                      {award.rank}
-                    </p>
-                    <p className="text-xs text-neutral-500 mt-2 line-clamp-2">
-                      {award.desc}
-                    </p>
-                  </div>
-
-                  <div className="mt-6 pt-3 border-t border-[#CAD7C5]/50 flex items-center justify-between text-[11px] text-neutral-500">
-                    <span>{award.organizer}</span>
-                    <span className="text-rose-dusty group-hover:text-rose-dark font-semibold">Sertifikat ↗</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Mini Botanical Flower Break */}
-          <div className="w-48 mx-auto h-px bg-[#CAD7C5]/60 flex items-center justify-center">
-            <span className="text-rose-dusty text-xs px-3 bg-[#E8EFE5] select-none">❀</span>
-          </div>
-
-          {/* SUB-SECTION B: PROFESSIONAL CERTIFICATIONS & CREDENTIALS */}
-          <div>
-            <div className="mb-10 text-left">
-              <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ Continuous Learning /</span>
-              <h3 className="font-serif font-bold text-2xl sm:text-3xl lg:text-4xl text-forest tracking-normal mt-1">
-                Professional Certifications &amp; Credentials
-              </h3>
-              <p className="text-xs sm:text-sm text-neutral-600 mt-2 max-w-lg">
-                Sertifikasi kompetensi resmi dalam metodologi riset digital, pemasaran komersial, dan tata kelola sistem.
-              </p>
-            </div>
-
-            {/* Certifications Grid (4-Column Aligned Rhythm) */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {certificationList.map((cert, idx) => (
-                <div
-                  key={cert.id || idx}
-                  onClick={() => openModal({
-                    title: cert.title,
-                    category: cert.issuer,
-                    description: cert.desc || `${cert.title} diterbitkan oleh ${cert.issuer} pada tahun ${cert.year}.`,
-                    images: [cert.image || '/9.png'],
-                    link: cert.link,
-                    linkLabel: cert.linkLabel || 'Verifikasi Kredensial ↗'
-                  })}
-                  className="editorial-card p-6 rounded-3xl bg-white/95 border border-[#CAD7C5] hover:border-rose-dusty/60 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col justify-between relative overflow-hidden group"
-                >
-                  <BotanicalCorner />
-                  <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-[10px] font-bold text-rose-dark uppercase tracking-wider bg-rose-50 px-2.5 py-0.5 rounded-full border border-rose-100">
-                        {cert.issuer}
-                      </span>
-                      <span className="text-[10px] font-mono text-neutral-400">
-                        {cert.year}
-                      </span>
-                    </div>
-                    <h4 className="font-sans font-bold text-sm text-forest group-hover:text-rose-dark transition-colors mt-1 leading-snug">
-                      {cert.title}
-                    </h4>
-                    <p className="text-xs text-neutral-500 mt-2 line-clamp-2">
-                      {cert.desc || `Verifikasi kredensial resmi ${cert.title} yang diterbitkan oleh ${cert.issuer}.`}
-                    </p>
-                  </div>
-                  
-                  <div className="mt-5 pt-3 border-t border-[#CAD7C5]/50 flex items-center justify-between text-[11px]">
-                    <span className="text-neutral-400 font-mono">Issued {cert.year}</span>
-                    <span className="text-rose-dusty group-hover:text-rose-dark font-semibold">Verified ↗</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <BotanicalDivider />
-
-      {/* ========================================================================= */}
-      {/* 10. BOTTOM CTA BANNER ("Let's Make It Happen")                            */}
-      {/* ========================================================================= */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="relative overflow-hidden rounded-4xl p-10 sm:p-16 text-center cta-banner-glow border border-[#CAD7C5] shadow-md">
-          <BotanicalCorner className="top-4 right-4" />
-          <BotanicalCorner className="bottom-4 left-4" />
-          
-          <div className="relative z-10 max-w-3xl mx-auto space-y-4">
-            <h2 className="font-serif font-bold text-4xl sm:text-6xl md:text-7xl text-forest tracking-normal leading-[1.1]">
-              Let&apos;s Make It Happen
-            </h2>
-            <p className="text-xs sm:text-base text-rose-950/80 max-w-xl mx-auto leading-relaxed">
-              always open for new opportunities, collaborations and creative challenges. let&apos;s work together to bring your ideas to life.
-            </p>
-            <div className="pt-4">
-              <a
-                href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-forest hover:bg-forest-dark text-white text-xs sm:text-sm font-bold uppercase tracking-wider shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer"
-              >
-                <span>✦ GET IN TOUCH</span>
-                <span>→</span>
-              </a>
-            </div>
-          </div>
-
-        </div>
       </section>
 
       {/* ========================================================================= */}
-      {/* 11. FOOTER WITH LARGE BOTANICAL CLOSING SILHOUETTE & SIGNATURE            */}
+      {/* SECTION 5: EDITORIAL COLLABORATION & CONTACT FOOTER */}
       {/* ========================================================================= */}
-      <footer className="w-full border-t border-[#CAD7C5]/30 pt-16 pb-20 px-4 sm:px-8 lg:px-12 xl:px-16 relative overflow-hidden">
+      <footer id="contact" className="max-w-6xl mx-auto px-4 sm:px-6 pb-16 pt-8">
         
-        {/* Large Botanical Lily/Magnolia Closing Silhouette Backdrop */}
-        <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-[600px] sm:w-[800px] h-[350px] pointer-events-none select-none opacity-[0.07] z-0 flex items-center justify-center">
-          <svg viewBox="0 0 400 200" fill="currentColor" className="w-full h-full text-forest">
-            <path d="M200 10 C220 50, 280 80, 350 90 C290 120, 260 160, 200 200 C140 160, 110 120, 50 90 C120 80, 180 50, 200 10 Z" />
-            <path d="M200 60 C210 90, 250 110, 300 120 C250 140, 230 170, 200 190 C170 170, 150 140, 100 120 C150 110, 190 90, 200 60 Z" opacity="0.6" />
-          </svg>
-        </div>
+        {/* Contact Invitation Card */}
+        <div className="bg-forest text-[#E8EFE5] rounded-3xl p-8 sm:p-14 relative overflow-hidden shadow-xl border border-forest-light text-center flex flex-col items-center">
+          
+          {/* Subtle floral watermark effect */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-rose-dark/20 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center text-center">
+            <span className="inline-block px-3.5 py-1 rounded-full bg-white/10 border border-white/20 text-xs font-subheader text-rose-blush tracking-subheader uppercase mb-4">
+              Get In Touch
+            </span>
+            <h2 className="font-serif text-3xl sm:text-5xl font-bold leading-tight mb-4 text-white">
+              Let&apos;s Cultivate Meaningful{' '}
+              <span className="editorial-italic text-rose-blush font-normal">
+                Business Growth
+              </span>{' '}
+              Together.
+            </h2>
+            <p className="text-sm sm:text-base text-[#E8EFE5]/80 leading-relaxed mb-8 max-w-xl mx-auto">
+              Terbuka untuk posisi Management Trainee, Business Development, Strategic Marketing Specialist, serta inisiatif kemitraan baru. Mari berdiskusi bagaimana saya dapat berkontribusi nyata bagi organisasi Anda.
+            </p>
 
-        {/* Navigation & Copyright (Sequential Match with Page Flow) */}
-        <div className="relative z-10 max-w-[1560px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-neutral-600 pb-12">
-          <div className="flex items-center gap-6 font-medium flex-wrap justify-center sm:justify-start">
-            <a href="#about" className="hover:text-rose-dark transition-colors">About</a>
-            <a href="#process" className="hover:text-rose-dark transition-colors">Process</a>
-            <a href="#projects" className="hover:text-rose-dark transition-colors">Works</a>
-            <a href="#creator" className="hover:text-rose-dark transition-colors">Creator Studio</a>
-            <a href="#experience" className="hover:text-rose-dark transition-colors">Experience</a>
-            <a href="#awards" className="hover:text-rose-dark transition-colors">Awards</a>
+            {/* Primary Direct Contact Buttons */}
+            <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
+              <a
+                href={`mailto:${portfolioData.socials.email}`}
+                className="px-6 py-3 rounded-full text-xs font-bold bg-white text-forest hover:bg-rose-blush transition-colors flex items-center gap-2 shadow-sm"
+              >
+                <span>✉ Kirim Email: {portfolioData.socials.email}</span>
+              </a>
+              <a
+                href={portfolioData.socials.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3 rounded-full text-xs font-bold bg-rose-dark text-white hover:bg-rose-berry transition-colors flex items-center gap-2 shadow-sm"
+              >
+                <span>💬 WhatsApp Langsung</span>
+              </a>
+              <a
+                href={portfolioData.socials.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-5 py-3 rounded-full text-xs font-bold bg-white/10 border border-white/20 text-white hover:bg-white/20 transition-colors"
+              >
+                LinkedIn Profile ↗
+              </a>
+            </div>
+
+            {/* Divider with subtle label */}
+            <div className="flex items-center gap-3 my-5 w-full max-w-xs justify-center opacity-40">
+              <div className="h-px bg-white grow" />
+              <span className="text-[10px] uppercase font-mono tracking-widest text-white">Social Media</span>
+              <div className="h-px bg-white grow" />
+            </div>
+
+            {/* Official Social Media Brand Icon Buttons (Instagram, TikTok, YouTube, Medium) */}
+            <div className="flex items-center justify-center gap-3.5">
+              {/* Instagram */}
+              <a
+                href={portfolioData.socials.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Instagram: @chikalnazmi"
+                aria-label="Instagram Chikal Nazmi"
+                className="w-12 h-12 rounded-2xl bg-white/10 hover:bg-gradient-to-tr hover:from-[#f09433] hover:via-[#dc2743] hover:to-[#bc1888] border border-white/20 hover:border-transparent text-white flex items-center justify-center transition-all duration-300 hover:scale-115 hover:-translate-y-1 shadow-md group relative"
+              >
+                <svg className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+                <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity bg-black/90 text-white text-[10px] font-mono px-2 py-0.5 rounded pointer-events-none whitespace-nowrap shadow-md z-30">
+                  Instagram
+                </span>
+              </a>
+
+              {/* TikTok */}
+              <a
+                href={portfolioData.socials.tiktok}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="TikTok: @chikalnazmi"
+                aria-label="TikTok Chikal Nazmi"
+                className="w-12 h-12 rounded-2xl bg-white/10 hover:bg-black border border-white/20 hover:border-[#25F4EE] text-white hover:text-[#25F4EE] flex items-center justify-center transition-all duration-300 hover:scale-115 hover:-translate-y-1 shadow-md group relative"
+              >
+                <svg className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.86 4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-3.04-1.52z"/>
+                </svg>
+                <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity bg-black/90 text-white text-[10px] font-mono px-2 py-0.5 rounded pointer-events-none whitespace-nowrap shadow-md z-30">
+                  TikTok
+                </span>
+              </a>
+
+              {/* YouTube */}
+              <a
+                href={portfolioData.socials.youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="YouTube: Chikal Nazmi"
+                aria-label="YouTube Chikal Nazmi"
+                className="w-12 h-12 rounded-2xl bg-white/10 hover:bg-[#FF0000] border border-white/20 hover:border-transparent text-white flex items-center justify-center transition-all duration-300 hover:scale-115 hover:-translate-y-1 shadow-md group relative"
+              >
+                <svg className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+                <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity bg-black/90 text-white text-[10px] font-mono px-2 py-0.5 rounded pointer-events-none whitespace-nowrap shadow-md z-30">
+                  YouTube
+                </span>
+              </a>
+
+              {/* Medium */}
+              <a
+                href={portfolioData.socials.medium}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Medium: @chikalnazmi"
+                aria-label="Medium Chikal Nazmi"
+                className="w-12 h-12 rounded-2xl bg-white/10 hover:bg-white border border-white/20 hover:border-transparent text-white hover:text-black flex items-center justify-center transition-all duration-300 hover:scale-115 hover:-translate-y-1 shadow-md group relative"
+              >
+                <svg className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/>
+                </svg>
+                <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity bg-black/90 text-white text-[10px] font-mono px-2 py-0.5 rounded pointer-events-none whitespace-nowrap shadow-md z-30">
+                  Medium
+                </span>
+              </a>
+            </div>
           </div>
 
-          <p className="text-center sm:text-right text-neutral-400">
-            © 2026 Chikal Nazmi. All rights reserved.
-          </p>
-        </div>
+          {/* Bottom Bar inside Card */}
+          <div className="w-full mt-12 pt-6 border-t border-white/15 flex flex-col sm:flex-row items-center justify-between text-xs text-[#E8EFE5]/60 gap-4">
+            <div>
+              © 2026 Chikal Nazmi Mahira. All rights reserved.
+            </div>
+            <div className="flex items-center gap-6">
+              <a href="#hero" className="hover:text-white transition-colors">
+                Back to Top ↑
+              </a>
+              <span>•</span>
+              <span className="font-serif italic text-rose-blush">
+                Designed with Sage & Rose Aesthetic
+              </span>
+            </div>
+          </div>
 
-        {/* Giant Solid Signature Typography Across Bottom */}
-        <div className="relative z-10 text-center select-none pt-4 overflow-hidden">
-          <span className="font-serif italic font-normal text-6xl sm:text-8xl md:text-9xl lg:text-[150px] xl:text-[170px] text-forest/15 leading-none tracking-normal block">
-            Chikal Nazmi
-          </span>
         </div>
 
       </footer>
 
+      {/* Floating Reversible Mode Switcher (Bottom Right) */}
+      <div className="fixed bottom-5 right-5 z-40">
+        <button
+          onClick={() => setIsCuteMode(!isCuteMode)}
+          className={`px-4 py-2.5 rounded-full text-xs font-subheader tracking-wider font-bold shadow-xl border flex items-center gap-2 transition-all hover:scale-105 active:scale-95 ${
+            isCuteMode
+              ? 'bg-[#FFFDF5] border-[#FAD2E1] text-[#781E34]'
+              : 'bg-white border-[#CAD7C5] text-forest'
+          }`}
+          title="Klik untuk beralih mode tampilan kapan saja"
+        >
+          <span className="text-base">{isCuteMode ? '🌸' : '🌿'}</span>
+          <span>{isCuteMode ? 'Kembalikan ke Editorial' : 'Coba Mode Cute Floral'}</span>
+        </button>
+      </div>
+
       {/* ========================================================================= */}
-      {/* 12. INTERACTIVE DOCUMENTATION & CERTIFICATE MODAL                          */}
+      {/* REUSABLE MODAL DIALOG: Panoramic Adaptive Collage Card (Zero Scroll, Fit) */}
       {/* ========================================================================= */}
       {modalData.isOpen && (
         <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-md animate-fadeIn select-none"
           onClick={closeModal}
         >
           <div 
-            className="bg-white rounded-3xl max-w-3xl w-full p-6 sm:p-8 shadow-2xl border border-rose-100 space-y-6 max-h-[90vh] overflow-y-auto"
+            className="bg-white rounded-[2.5rem] max-w-6xl w-[95vw] max-h-[92vh] shadow-2xl border-2 border-[#CAD7C5] p-5 sm:p-7 relative overflow-hidden flex flex-col justify-between"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Modal Header */}
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <span className="text-[11px] font-bold text-rose-800 uppercase tracking-wider bg-rose-50 px-3 py-1 rounded-full border border-rose-100">
-                  {modalData.category}
-                </span>
-                <h3 className="font-serif font-bold text-xl sm:text-2xl text-forest mt-2 tracking-normal">
+            {/* ------------------------------------------------------------------- */}
+            {/* TOP HEADER: Badge, Title & Compact 1-Sentence Summary               */}
+            {/* ------------------------------------------------------------------- */}
+            <div className="flex items-start justify-between gap-4 pb-3 mb-3 border-b border-[#CAD7C5]/70">
+              <div className="max-w-4xl pr-4">
+                <div className="flex items-center gap-2.5 mb-1.5">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-rose-dark bg-rose-blush/60 border border-rose-dusty/30 px-3 py-0.5 rounded-full">
+                    {modalData.category}
+                  </span>
+                  <span className="text-[11px] font-medium text-forest/60">
+                    • {modalData.images.length} Dokumentasi Visual
+                  </span>
+                </div>
+
+                <h3 className="font-serif text-xl sm:text-2xl font-bold text-forest leading-snug mb-1">
                   {modalData.title}
                 </h3>
+
+                <p className="text-xs sm:text-sm text-forest/80 leading-relaxed font-source line-clamp-2">
+                  {modalData.description}
+                </p>
               </div>
 
+              {/* Close Button at top right */}
               <button
                 onClick={closeModal}
-                className="w-9 h-9 rounded-full bg-rose-50 hover:bg-rose-100 text-forest flex items-center justify-center font-bold text-sm transition-colors cursor-pointer"
-                aria-label="Close modal"
+                className="w-10 h-10 rounded-full bg-[#E8EFE5] hover:bg-rose-blush text-forest hover:text-rose-dark flex items-center justify-center transition-all text-lg font-bold shadow-xs cursor-pointer shrink-0"
+                aria-label="Tutup Dialog"
               >
                 ✕
               </button>
             </div>
 
-            {/* Modal Images Carousel / Viewer */}
-            {modalData.images.length > 0 && (
-              <div className="space-y-3">
-                <div className="relative aspect-[16/10] bg-neutral-100 rounded-2xl overflow-hidden border border-rose-100">
+            {/* ------------------------------------------------------------------- */}
+            {/* ADAPTIVE PHOTO COLLAGE CANVAS: Auto-adapts to 1, 2, 3, or 4+ Photos  */}
+            {/* Fits portrait and landscape naturally without vertical scrolling!   */}
+            {/* ------------------------------------------------------------------- */}
+            <div className="w-full grow h-[350px] sm:h-[410px] overflow-hidden my-1">
+              
+              {/* CASE 1: Only 1 Photo */}
+              {modalData.images.length === 1 && (
+                <div className="h-full w-full rounded-2xl overflow-hidden bg-forest/5 border border-[#CAD7C5]/80 flex items-center justify-center group relative">
                   <img
-                    src={modalData.images[activeModalImgIdx] || modalData.images[0]}
-                    alt="Documentation Preview"
-                    className="w-full h-full object-contain bg-neutral-900"
+                    src={modalData.images[0]}
+                    alt={modalData.title}
+                    className="w-full h-full object-contain p-2 group-hover:scale-[1.02] transition-transform duration-500"
                   />
-                </div>
-
-                {modalData.images.length > 1 && (
-                  <div className="flex gap-2 overflow-x-auto pb-1">
-                    {modalData.images.map((img, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => setActiveModalImgIdx(idx)}
-                        className={`w-16 h-12 rounded-xl overflow-hidden border-2 shrink-0 transition-all ${
-                          activeModalImgIdx === idx ? 'border-rose-600 ring-2 ring-rose-200' : 'border-transparent opacity-60 hover:opacity-100'
-                        }`}
-                      >
-                        <img src={img} alt={`Thumb ${idx + 1}`} className="w-full h-full object-cover" />
-                      </button>
-                    ))}
+                  <div className="absolute bottom-3 left-3 bg-forest/85 backdrop-blur-xs text-white text-[10px] px-3 py-1 rounded-full shadow-xs flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                    <span>Dokumentasi Utama Terverifikasi</span>
                   </div>
-                )}
-              </div>
-            )}
-
-            {/* Modal Description */}
-            <div className="space-y-2">
-              <h4 className="font-bold text-xs uppercase tracking-wider text-rose-900">Ringkasan &amp; Informasi</h4>
-              <p className="text-xs sm:text-sm text-forest/75 leading-relaxed whitespace-pre-line">
-                {modalData.description}
-              </p>
-            </div>
-
-            {/* Modal Footer / External Link */}
-            <div className="pt-4 border-t border-rose-100 flex items-center justify-between">
-              {modalData.link ? (
-                <a
-                  href={modalData.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-5 py-2 rounded-full text-xs font-bold bg-rose-dark text-white hover:bg-rose-berry transition-colors inline-flex items-center gap-1.5"
-                >
-                  <span>{modalData.linkLabel || 'Buka Tautan Resmi ↗'}</span>
-                </a>
-              ) : (
-                <span className="text-xs text-rose-700 italic">Dokumentasi Portofolio Resmi</span>
+                  <a
+                    href={modalData.images[0]}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 text-forest text-xs font-bold px-3 py-1.5 rounded-full shadow-md hover:bg-rose-blush flex items-center gap-1"
+                  >
+                    <span>Resolusi Asli</span>
+                    <span>↗</span>
+                  </a>
+                </div>
               )}
 
-              <button
-                onClick={closeModal}
-                className="px-4 py-2 rounded-full text-xs font-semibold text-forest/75 hover:bg-rose-50 transition-colors"
-              >
-                Tutup
-              </button>
+              {/* CASE 2: Exactly 2 Photos (Balanced Side-by-Side Split) */}
+              {modalData.images.length === 2 && (
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 h-full w-full">
+                  {modalData.images.map((img, i) => (
+                    <div key={i} className="h-full rounded-2xl overflow-hidden bg-forest/5 border border-[#CAD7C5]/80 relative group">
+                      <img
+                        src={img}
+                        alt={`${modalData.title} foto ${i + 1}`}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                      <span className="absolute bottom-3 left-3 bg-forest/85 backdrop-blur-xs text-white text-[10px] font-medium px-2.5 py-1 rounded-full shadow-xs">
+                        Dokumen {i + 1}
+                      </span>
+                      <a
+                        href={img}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 text-forest text-xs font-bold px-2.5 py-1 rounded-full shadow-md hover:bg-rose-blush"
+                      >
+                        Buka Asli ↗
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* CASE 3: Exactly 3 Photos (Featured Left + 2 Stacked Right Collage) */}
+              {modalData.images.length === 3 && (
+                <div className="grid grid-cols-12 gap-3 sm:gap-4 h-full w-full">
+                  {/* Photo 1: Large Featured (7 cols) */}
+                  <div className="col-span-7 h-full rounded-2xl overflow-hidden bg-forest/5 border border-[#CAD7C5]/80 relative group">
+                    <img
+                      src={modalData.images[0]}
+                      alt={`${modalData.title} dok 1`}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                    <span className="absolute bottom-3 left-3 bg-forest/85 backdrop-blur-xs text-white text-[10px] font-medium px-3 py-1 rounded-full shadow-xs">
+                      Dokumentasi Utama
+                    </span>
+                    <a
+                      href={modalData.images[0]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 text-forest text-xs font-bold px-2.5 py-1 rounded-full shadow-md hover:bg-rose-blush"
+                    >
+                      Buka Asli ↗
+                    </a>
+                  </div>
+
+                  {/* Photo 2 & 3: Stacked (5 cols) */}
+                  <div className="col-span-5 grid grid-rows-2 gap-3 h-full">
+                    {modalData.images.slice(1, 3).map((img, i) => (
+                      <div key={i} className="h-full rounded-2xl overflow-hidden bg-forest/5 border border-[#CAD7C5]/80 relative group">
+                        <img
+                          src={img}
+                          alt={`${modalData.title} dok ${i + 2}`}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                        <span className="absolute bottom-2.5 left-2.5 bg-forest/85 backdrop-blur-xs text-white text-[9px] font-medium px-2 py-0.5 rounded-full shadow-xs">
+                          Dokumen {i + 2}
+                        </span>
+                        <a
+                          href={img}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="absolute top-2.5 right-2.5 opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 text-forest text-xs font-bold px-2 py-0.5 rounded-full shadow-md hover:bg-rose-blush"
+                        >
+                          ↗
+                        </a>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* CASE 4: 4 or More Photos (Panoramic 4-Column Collage Grid) */}
+              {modalData.images.length >= 4 && (
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 h-full w-full">
+                  {modalData.images.slice(0, 4).map((img, i) => (
+                    <div key={i} className="h-full rounded-2xl overflow-hidden bg-forest/5 border border-[#CAD7C5]/80 relative group">
+                      <img
+                        src={img}
+                        alt={`${modalData.title} dok ${i + 1}`}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                      <span className="absolute bottom-2.5 left-2.5 bg-forest/85 backdrop-blur-xs text-white text-[9px] font-medium px-2 py-0.5 rounded-full shadow-xs">
+                        Dokumen {i + 1}
+                      </span>
+                      <a
+                        href={img}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="absolute top-2.5 right-2.5 opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 text-forest text-xs font-bold px-2 py-0.5 rounded-full shadow-md hover:bg-rose-blush"
+                      >
+                        ↗
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+            </div>
+
+            {/* ------------------------------------------------------------------- */}
+            {/* BOTTOM MINIMAL FOOTER: Status, Adaptive External Link & Close Action */}
+            {/* ------------------------------------------------------------------- */}
+            <div className="pt-2.5 mt-2 border-t border-[#CAD7C5]/60 flex flex-wrap items-center justify-between gap-3 text-xs text-forest/70">
+              <div className="flex items-center gap-2">
+                <span className="text-rose-dusty font-bold">✔</span>
+                <span className="text-[11px] font-medium">
+                  Seluruh dokumentasi dapat diklik untuk dibuka dalam ukuran resolusi penuh asli
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2.5">
+                {modalData.link && (
+                  <a
+                    href={modalData.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 rounded-full text-xs font-bold bg-emerald-100 border border-emerald-300 text-emerald-900 hover:bg-emerald-200 transition-colors shadow-xs flex items-center gap-1.5"
+                  >
+                    <span>🔗</span>
+                    <span>{modalData.linkLabel || 'Buka Tautan Eksternal / Berita ↗'}</span>
+                  </a>
+                )}
+                <button
+                  onClick={closeModal}
+                  className="px-6 py-2 rounded-full text-xs font-bold bg-forest text-[#E8EFE5] hover:bg-rose-dark transition-colors shadow-xs cursor-pointer"
+                >
+                  Tutup Dialog
+                </button>
+              </div>
             </div>
 
           </div>
