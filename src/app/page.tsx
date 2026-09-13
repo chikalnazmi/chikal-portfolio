@@ -675,14 +675,59 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Center: Cutout Character Portrait with Smooth Bottom Mask Gradient */}
+            {/* Center: Cutout Character Portrait with Organic Floral Backdrop */}
             <div className="hero-portrait-wrap">
+              {/* Floral Backdrop Elements */}
+              {(portfolioData.hero?.heroFloralStyle !== 'none') && (
+                <div
+                  className="hero-floral-backdrop"
+                  style={{ opacity: portfolioData.hero?.heroFloralOpacity ?? 1.0 }}
+                >
+                  {(portfolioData.hero?.heroFloralStyle ?? 'arch') === 'arch' && (
+                    <img
+                      src="/floral_arch.webp"
+                      alt="Rustic Floral Arch"
+                      className="hero-floral-arch"
+                    />
+                  )}
+                  {portfolioData.hero?.heroFloralStyle === 'oval-frame' && (
+                    <img
+                      src="/floral_oval.webp"
+                      alt="Vintage Rose Frame"
+                      className="hero-floral-oval"
+                    />
+                  )}
+                  {portfolioData.hero?.heroFloralStyle === 'bouquet' && (
+                    <div className="hero-floral-bouquet-wrap">
+                      <img
+                        src="/floral_bouquet.webp"
+                        alt="Blooming Floral Bouquet"
+                        className="hero-floral-bouquet"
+                      />
+                      <img
+                        src="/floral_vine.webp"
+                        alt="Botanical Vine Accent"
+                        className="hero-floral-vine"
+                      />
+                    </div>
+                  )}
+                  {(portfolioData.hero?.heroShowButterflies ?? true) && (
+                    <img
+                      src="/floral_butterflies.webp"
+                      alt="Floating Butterflies"
+                      className="hero-floral-butterflies"
+                    />
+                  )}
+                </div>
+              )}
+
+              {/* Main Cutout Character Portrait with Smooth Bottom Mask Gradient */}
               <img
                 src={portfolioData.hero?.avatarImg || '/chikal_hero_cutout.webp'}
                 alt="Chikal Nazmi Mahira"
                 className="hero-portrait-img"
                 style={{
-                  transform: `scale(${portfolioData.hero?.avatarScale ?? 1.05}) translateY(${portfolioData.hero?.avatarOffsetY ?? 0}px) translateX(${portfolioData.hero?.avatarOffsetX ?? 0}px)`,
+                  transform: `scale(${portfolioData.hero?.avatarScale ?? 0.96}) translateY(${portfolioData.hero?.avatarOffsetY ?? 8}px) translateX(${portfolioData.hero?.avatarOffsetX ?? 0}px)`,
                   transformOrigin: 'bottom center',
                   mixBlendMode: portfolioData.hero?.avatarBlendMode === 'multiply' ? 'multiply' : 'normal',
                 }}

@@ -676,6 +676,63 @@ export default function AdminPortal() {
                       Nonaktifkan jika foto sudah cutout transparan agar warna asli foto tetap jernih dan cerah.
                     </span>
                   </div>
+
+                  {/* Floral Background Decor Selector */}
+                  <div className="pt-3 border-t border-[#CAD7C5]/60 space-y-2">
+                    <div>
+                      <span className="text-[11px] font-bold text-forest block">
+                        🌸 Latar Belakang Bunga &amp; Frame (Floral Backdrop):
+                      </span>
+                      <p className="text-[10px] text-neutral-500 mt-0.5">
+                        Pilih ornamen bunga vintage di belakang foto Chikal agar tampilan hero semakin estetis dan memukau.
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-1.5">
+                      {[
+                        { id: 'arch', label: '🌸 Gerbang Rustic', desc: 'Floral Arch' },
+                        { id: 'oval-frame', label: '🖼️ Bingkai Emas', desc: 'Vintage Oval' },
+                        { id: 'bouquet', label: '💐 Buket Mekar', desc: 'Bouquet Halo' },
+                        { id: 'none', label: '✕ Tanpa Bunga', desc: 'Polos' },
+                      ].map((style) => (
+                        <button
+                          key={style.id}
+                          type="button"
+                          onClick={() => setData({
+                            ...data,
+                            hero: { ...data.hero, heroFloralStyle: style.id as any }
+                          })}
+                          className={`text-left p-2 rounded-xl border transition-all cursor-pointer ${
+                            (data.hero?.heroFloralStyle ?? 'arch') === style.id
+                              ? 'bg-rose-50/80 border-rose-300 text-forest shadow-xs'
+                              : 'bg-white border-[#CAD7C5] text-neutral-600 hover:bg-sage-50'
+                          }`}
+                        >
+                          <span className="text-[11px] font-bold block">{style.label}</span>
+                          <span className="text-[9px] text-neutral-400 block">{style.desc}</span>
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Butterflies Toggle */}
+                    <div className="pt-1">
+                      <label className="flex items-center justify-between text-[11px] font-semibold text-neutral-800 cursor-pointer">
+                        <span>🦋 Animasi Kupu-Kupu Melayang:</span>
+                        <input
+                          type="checkbox"
+                          checked={data.hero?.heroShowButterflies ?? true}
+                          onChange={(e) => setData({
+                            ...data,
+                            hero: { ...data.hero, heroShowButterflies: e.target.checked }
+                          })}
+                          className="w-4 h-4 rounded text-forest accent-forest cursor-pointer"
+                        />
+                      </label>
+                      <span className="text-[10px] text-neutral-400 block mt-0.5">
+                        Menampilkan animasi kupu-kupu pink lembut melayang di sekitar bunga.
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

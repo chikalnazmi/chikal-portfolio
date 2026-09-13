@@ -92,6 +92,9 @@ export interface HeroContent {
   avatarOffsetY?: number;
   avatarOffsetX?: number;
   avatarBlendMode?: 'multiply' | 'normal';
+  heroFloralStyle?: 'arch' | 'oval-frame' | 'bouquet' | 'butterflies' | 'none';
+  heroShowButterflies?: boolean;
+  heroFloralOpacity?: number;
   stat1Value: string;
   stat1Label: string;
   stat2Value: string;
@@ -160,9 +163,12 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
     subheadline: 'Open to Work • Management Trainee, BizDev, & Creative Roles',
     bio: 'Halo, saya Chikal Nazmi Mahira. Mahasiswi / Lulusan D4 Sistem Informasi Bisnis Politeknik Negeri Malang yang berfokus pada operasional bisnis, public relations, dan pembuatan konten kreatif.',
     avatarImg: '/chikal_hero_cutout.webp',
-    avatarScale: 1.05,
-    avatarOffsetY: 0,
+    avatarScale: 0.96,
+    avatarOffsetY: 8,
     avatarBlendMode: 'normal',
+    heroFloralStyle: 'arch',
+    heroShowButterflies: true,
+    heroFloralOpacity: 1.0,
     stat1Value: '7x',
     stat1Label: 'Penghargaan Lomba',
     stat2Value: '10K+',

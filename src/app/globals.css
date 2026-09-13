@@ -385,7 +385,119 @@
   pointer-events: none;
 }
 
+/* Floral Backdrop Container & Asset Layers */
+.hero-floral-backdrop {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
+  max-width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity 0.35s ease;
+}
+
+.hero-floral-arch {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  height: 106%;
+  max-height: 570px;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 28px rgba(37, 53, 33, 0.12));
+  animation: floral-breathe 8s ease-in-out infinite alternate;
+}
+
+.hero-floral-oval {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  height: 102%;
+  max-height: 550px;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 28px rgba(37, 53, 33, 0.12));
+  animation: floral-breathe 8s ease-in-out infinite alternate;
+}
+
+.hero-floral-bouquet-wrap {
+  position: absolute;
+  bottom: 130px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-floral-bouquet {
+  width: 330px;
+  height: auto;
+  max-width: 92%;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 24px rgba(37, 53, 33, 0.1));
+  animation: floral-breathe 7s ease-in-out infinite alternate;
+}
+
+.hero-floral-vine {
+  position: absolute;
+  top: -50px;
+  right: -10px;
+  width: 210px;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.9;
+  filter: drop-shadow(0 6px 16px rgba(37, 53, 33, 0.08));
+}
+
+.hero-floral-butterflies {
+  position: absolute;
+  top: 14%;
+  left: -20px;
+  width: 125px;
+  height: auto;
+  pointer-events: none;
+  z-index: 6;
+  filter: drop-shadow(0 4px 12px rgba(184, 80, 110, 0.22));
+  animation: butterfly-flutter 7s ease-in-out infinite;
+}
+
+@keyframes floral-breathe {
+  0% {
+    transform: translateX(-50%) scale(1);
+  }
+  100% {
+    transform: translateX(-50%) scale(1.018) translateY(-3px);
+  }
+}
+
+@keyframes butterfly-flutter {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(6px, -9px) rotate(3deg);
+  }
+  50% {
+    transform: translate(-4px, -16px) rotate(-2deg);
+  }
+  75% {
+    transform: translate(5px, -7px) rotate(2deg);
+  }
+}
+
 .hero-portrait-img {
+  position: relative;
+  z-index: 4;
   width: 100%;
   height: 520px;
   max-height: 560px;
@@ -429,6 +541,20 @@
     min-height: 380px !important;
     max-width: 360px !important;
   }
+  .hero-floral-arch {
+    max-height: 420px !important;
+  }
+  .hero-floral-oval {
+    max-height: 400px !important;
+  }
+  .hero-floral-bouquet {
+    width: 250px !important;
+  }
+  .hero-floral-butterflies {
+    width: 95px !important;
+    left: -5px !important;
+    top: 10% !important;
+  }
   .hero-portrait-img {
     height: 380px !important;
     max-height: 420px !important;
@@ -444,6 +570,20 @@
     min-height: 310px !important;
     max-width: 290px !important;
   }
+  .hero-floral-arch {
+    max-height: 340px !important;
+  }
+  .hero-floral-oval {
+    max-height: 320px !important;
+  }
+  .hero-floral-bouquet {
+    width: 210px !important;
+  }
+  .hero-floral-butterflies {
+    width: 80px !important;
+    left: -8px !important;
+    top: 8% !important;
+  }
 }
 
 @media (max-width: 380px) {
@@ -454,6 +594,18 @@
   .hero-portrait-wrap {
     min-height: 250px !important;
     max-width: 250px !important;
+  }
+  .hero-floral-arch {
+    max-height: 280px !important;
+  }
+  .hero-floral-oval {
+    max-height: 265px !important;
+  }
+  .hero-floral-bouquet {
+    width: 175px !important;
+  }
+  .hero-floral-butterflies {
+    width: 65px !important;
   }
 }
 
