@@ -88,6 +88,10 @@ export interface HeroContent {
   subheadline: string;
   bio: string;
   avatarImg: string;
+  avatarScale?: number;
+  avatarOffsetY?: number;
+  avatarOffsetX?: number;
+  avatarBlendMode?: 'multiply' | 'normal';
   stat1Value: string;
   stat1Label: string;
   stat2Value: string;
@@ -156,6 +160,9 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
     subheadline: 'Open to Work • Management Trainee, BizDev, & Creative Roles',
     bio: 'Halo, saya Chikal Nazmi Mahira. Mahasiswi / Lulusan D4 Sistem Informasi Bisnis Politeknik Negeri Malang yang berfokus pada operasional bisnis, public relations, dan pembuatan konten kreatif.',
     avatarImg: '/2.png',
+    avatarScale: 1.15,
+    avatarOffsetY: -24,
+    avatarBlendMode: 'multiply',
     stat1Value: '7x',
     stat1Label: 'Penghargaan Lomba',
     stat2Value: '10K+',

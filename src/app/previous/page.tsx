@@ -815,6 +815,11 @@ export default function Home() {
                 src={portfolioData.hero?.avatarImg || '/2.png'}
                 alt="Chikal Nazmi Mahira"
                 className="hero-portrait-img"
+                style={{
+                  transform: `scale(${portfolioData.hero?.avatarScale ?? 1.15}) translateY(${portfolioData.hero?.avatarOffsetY ?? -24}px) translateX(${portfolioData.hero?.avatarOffsetX ?? 0}px)`,
+                  transformOrigin: 'bottom center',
+                  mixBlendMode: portfolioData.hero?.avatarBlendMode === 'normal' ? 'normal' : 'multiply',
+                }}
               />
             </div>
 

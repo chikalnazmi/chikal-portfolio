@@ -379,18 +379,25 @@
   justify-content: center;
   align-items: flex-end;
   width: 100%;
-  max-width: 440px;
+  max-width: 480px;
+  min-height: 480px;
+  margin-top: -1.75rem;
   pointer-events: none;
 }
 
 .hero-portrait-img {
   width: 100%;
-  height: auto;
-  max-height: 520px;
+  height: 520px;
+  max-height: 560px;
   object-fit: contain;
+  object-position: bottom center;
   display: block;
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 76%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 0%, black 76%, transparent 100%);
+  /* Seamless cutout blending: white backgrounds dissolve cleanly into sage background */
+  mix-blend-mode: multiply;
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 82%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 82%, transparent 100%);
+  filter: drop-shadow(0 15px 30px rgba(37, 53, 33, 0.08));
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @media (max-width: 960px) {
@@ -417,23 +424,36 @@
   .hero-badge-available {
     margin-top: 0 !important;
   }
+  .hero-portrait-wrap {
+    margin-top: 0 !important;
+    min-height: 380px !important;
+    max-width: 360px !important;
+  }
+  .hero-portrait-img {
+    height: 380px !important;
+    max-height: 420px !important;
+  }
 }
 
 @media (max-width: 640px) {
   .hero-portrait-img {
-    max-height: 290px !important;
+    height: 310px !important;
+    max-height: 320px !important;
   }
   .hero-portrait-wrap {
-    max-width: 280px !important;
+    min-height: 310px !important;
+    max-width: 290px !important;
   }
 }
 
 @media (max-width: 380px) {
   .hero-portrait-img {
-    max-height: 240px !important;
+    height: 250px !important;
+    max-height: 260px !important;
   }
   .hero-portrait-wrap {
-    max-width: 240px !important;
+    min-height: 250px !important;
+    max-width: 250px !important;
   }
 }
 
