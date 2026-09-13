@@ -398,8 +398,8 @@
     flex-direction: column !important;
     align-items: center !important;
     min-height: auto !important;
-    margin-top: 1rem !important;
-    gap: 1.5rem !important;
+    margin-top: 0.75rem !important;
+    gap: 1.25rem !important;
   }
   .hero-flank-left,
   .hero-flank-right {
@@ -407,7 +407,7 @@
     max-width: 100% !important;
     align-items: center !important;
     text-align: center !important;
-    gap: 1.25rem !important;
+    gap: 1rem !important;
   }
   .hero-statement-right {
     text-align: center !important;
@@ -416,6 +416,24 @@
   }
   .hero-badge-available {
     margin-top: 0 !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-portrait-img {
+    max-height: 290px !important;
+  }
+  .hero-portrait-wrap {
+    max-width: 280px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero-portrait-img {
+    max-height: 240px !important;
+  }
+  .hero-portrait-wrap {
+    max-width: 240px !important;
   }
 }
 

@@ -567,36 +567,36 @@ export default function Home() {
 
         {/* Mobile Dropdown */}
         {mobileMenuOpen && (
-          <div className="md:hidden mt-2 bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-2xl p-4 shadow-lg flex flex-col gap-3 text-sm font-medium text-forest">
-            <a href="#academy-skills" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
-              Academy & Skills
+          <div className="md:hidden mt-2 bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-2xl p-3 sm:p-4 shadow-lg flex flex-col gap-1 text-sm font-medium text-forest max-h-[75vh] overflow-y-auto">
+            <a href="#academy-skills" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded-xl hover:bg-[#F4F7F2] hover:text-rose-dark transition-colors">
+              Academy &amp; Skills
             </a>
-            <a href="#experience" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
+            <a href="#experience" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded-xl hover:bg-[#F4F7F2] hover:text-rose-dark transition-colors">
               Experience
             </a>
-            <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
+            <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded-xl hover:bg-[#F4F7F2] hover:text-rose-dark transition-colors">
               Projects
             </a>
-            <a href="#recognition" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
+            <a href="#recognition" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded-xl hover:bg-[#F4F7F2] hover:text-rose-dark transition-colors">
               Awards (7)
             </a>
-            <a href="#leadership" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
+            <a href="#leadership" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded-xl hover:bg-[#F4F7F2] hover:text-rose-dark transition-colors">
               Leadership
             </a>
-            <a href="#certifications" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
+            <a href="#certifications" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded-xl hover:bg-[#F4F7F2] hover:text-rose-dark transition-colors">
               Certifications
             </a>
-            <a href="#creative" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
-              Creative & Content
+            <a href="#creative" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded-xl hover:bg-[#F4F7F2] hover:text-rose-dark transition-colors">
+              Creative &amp; Content
             </a>
-            <a href="#hobbies" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-rose-dark">
+            <a href="#hobbies" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded-xl hover:bg-[#F4F7F2] hover:text-rose-dark transition-colors">
               Hobbies
             </a>
             <a
               href="https://wa.me/6281234567890"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-2 text-center py-2 rounded-xl bg-rose-dark text-white text-xs font-semibold"
+              className="mt-2 text-center py-2.5 rounded-xl bg-rose-dark text-white text-xs font-semibold shadow-xs"
             >
               Hubungi via WhatsApp ↗
             </a>
@@ -615,10 +615,10 @@ export default function Home() {
           {/* Centered Main Headline (Urbanist + Instrument Serif Italic) */}
           <div className="text-center max-w-4xl mx-auto mb-2 sm:mb-3 relative z-10">
             <h1 className="hero-headline">
-              <span className="block font-sans font-medium text-4xl sm:text-6xl lg:text-[72px] text-forest tracking-[-0.035em] leading-[0.98]">
+              <span className="block font-sans font-medium text-3xl sm:text-5xl lg:text-[72px] text-forest tracking-[-0.035em] leading-[0.98]">
                 Hi I&apos;m Chikal
               </span>
-              <span className="editorial-serif-italic block text-[1.16em] text-4xl sm:text-6xl lg:text-[72px] text-forest tracking-[-0.02em] font-normal leading-[1.02] mt-[-0.15rem]">
+              <span className="editorial-serif-italic block text-[1.12em] text-3xl sm:text-5xl lg:text-[72px] text-forest tracking-[-0.02em] font-normal leading-[1.02] mt-[-0.1rem]">
                 {portfolioData.hero?.headline && portfolioData.hero.headline !== 'Menghubungkan Strategi Bisnis, Operasional, & Kreativitas Digital.'
                   ? portfolioData.hero.headline
                   : 'Business & Marketing'}
@@ -644,7 +644,7 @@ export default function Home() {
               </div>
 
               {/* Bottom Social Proof */}
-              <div className="hero-trusted-proof flex items-center gap-3">
+              <div className="hero-trusted-proof flex items-center justify-center sm:justify-start gap-2.5 sm:gap-3">
                 <div className="flex -space-x-1.5 shrink-0">
                   <div className="w-8 h-8 rounded-full bg-forest text-[#E8EFE5] flex flex-col items-center justify-center font-mono font-bold text-[9px] border-2 border-white shadow-2xs">
                     <span>3.73</span>
@@ -1182,7 +1182,7 @@ export default function Home() {
                 </div>
 
                 {/* Card Bottom Footer: Action Links */}
-                <div className="mt-3.5 pt-3 border-t border-[#CAD7C5]/60 flex flex-wrap items-center justify-between gap-2.5">
+                <div className="mt-3.5 pt-3 border-t border-[#CAD7C5]/60 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 sm:gap-2.5">
                   <button
                     onClick={() => openModal(
                       exp.title,
@@ -1192,7 +1192,7 @@ export default function Home() {
                       exp.link,
                       exp.linkLabel
                     )}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-forest text-white hover:bg-forest/90 font-sans text-xs font-semibold transition-all shadow-xs cursor-pointer group/btn"
+                    className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 sm:py-1.5 rounded-xl bg-forest text-white hover:bg-forest/90 font-sans text-xs font-semibold transition-all shadow-xs cursor-pointer group/btn w-full sm:w-auto"
                   >
                     <span>Dokumentasi &amp; Galeri ({galleryImages.length} Foto)</span>
                     <span className="group-hover/btn:translate-x-0.5 transition-transform">→</span>
@@ -1203,7 +1203,7 @@ export default function Home() {
                       href={exp.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-[#F4F7F2] text-forest font-sans text-xs font-semibold border border-[#CAD7C5] transition-all shadow-2xs hover:border-rose-dusty/60"
+                      className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 sm:py-1.5 rounded-xl bg-white hover:bg-[#F4F7F2] text-forest font-sans text-xs font-semibold border border-[#CAD7C5] transition-all shadow-2xs hover:border-rose-dusty/60 w-full sm:w-auto text-center"
                     >
                       <span>{exp.linkLabel?.replace(' ↗', '') || 'Kunjungi'} ↗</span>
                     </a>
@@ -2030,7 +2030,7 @@ export default function Home() {
                     window.open(currentCreator.leftPhoneLink || currentCreator.link, '_blank');
                   }
                 }}
-                className="w-full sm:w-[170px] lg:w-[160px] shrink-0 bg-[#253521] p-2.5 rounded-[2rem] border-2 border-[#CAD7C5] shadow-md transition-all duration-500 hover:-translate-y-1.5 hover:scale-102 hover:shadow-xl group cursor-pointer"
+                className="w-[180px] sm:w-[170px] lg:w-[160px] shrink-0 mx-auto sm:mx-0 bg-[#253521] p-2.5 rounded-[2rem] border-2 border-[#CAD7C5] shadow-md transition-all duration-500 hover:-translate-y-1.5 hover:scale-102 hover:shadow-xl group cursor-pointer"
               >
                 <div className="w-12 h-3 bg-black/60 rounded-full mx-auto mb-1.5" />
                 <div className="relative aspect-[9/16] rounded-2xl overflow-hidden bg-forest/30">
@@ -2112,7 +2112,7 @@ export default function Home() {
                     window.open(currentCreator.rightPhoneLink || currentCreator.link, '_blank');
                   }
                 }}
-                className="w-full sm:w-[170px] lg:w-[160px] shrink-0 bg-[#253521] p-2.5 rounded-[2rem] border-2 border-[#CAD7C5] shadow-md transition-all duration-500 hover:-translate-y-1.5 hover:scale-102 hover:shadow-xl group cursor-pointer"
+                className="w-[180px] sm:w-[170px] lg:w-[160px] shrink-0 mx-auto sm:mx-0 bg-[#253521] p-2.5 rounded-[2rem] border-2 border-[#CAD7C5] shadow-md transition-all duration-500 hover:-translate-y-1.5 hover:scale-102 hover:shadow-xl group cursor-pointer"
               >
                 <div className="w-12 h-3 bg-black/60 rounded-full mx-auto mb-1.5" />
                 <div className="relative aspect-[9/16] rounded-2xl overflow-hidden bg-forest/30">
@@ -2304,18 +2304,18 @@ export default function Home() {
           </p>
 
           {/* Primary Direct Contact Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-2.5 mb-1">
+          <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-2.5 mb-1 w-full sm:w-auto">
             <a
               href={`mailto:${portfolioData.socials.email}`}
-              className="px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-forest text-[#E8EFE5] hover:bg-rose-dark transition-all flex items-center gap-2 shadow-2xs hover:shadow-xs hover:-translate-y-0.5 cursor-pointer"
+              className="w-full sm:w-auto justify-center px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-forest text-[#E8EFE5] hover:bg-rose-dark transition-all flex items-center gap-2 shadow-2xs hover:shadow-xs hover:-translate-y-0.5 cursor-pointer text-center"
             >
-              <span>Kirim Email: {portfolioData.socials.email}</span>
+              <span>Email: {portfolioData.socials.email}</span>
             </a>
             <a
               href={portfolioData.socials.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-rose-dark text-white hover:bg-rose-berry transition-all flex items-center gap-2 shadow-2xs hover:shadow-xs hover:-translate-y-0.5 cursor-pointer"
+              className="w-full sm:w-auto justify-center px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-rose-dark text-white hover:bg-rose-berry transition-all flex items-center gap-2 shadow-2xs hover:shadow-xs hover:-translate-y-0.5 cursor-pointer text-center"
             >
               <span>WhatsApp Langsung ✦</span>
             </a>
@@ -2323,7 +2323,7 @@ export default function Home() {
               href={portfolioData.socials.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-white text-forest border border-[#CAD7C5] hover:border-forest hover:bg-[#FAFBF8] transition-all flex items-center gap-2 shadow-2xs hover:shadow-xs hover:-translate-y-0.5 cursor-pointer"
+              className="w-full sm:w-auto justify-center px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-white text-forest border border-[#CAD7C5] hover:border-forest hover:bg-[#FAFBF8] transition-all flex items-center gap-2 shadow-2xs hover:shadow-xs hover:-translate-y-0.5 cursor-pointer text-center"
             >
               <span>LinkedIn Profile ↗</span>
             </a>
@@ -2490,7 +2490,7 @@ export default function Home() {
               {/* ----------------------------------------------------------------- */}
               {/* PROMINENT MEDIA STAGE: 100% VISIBLE & UNCROPPED (object-contain)  */}
               {/* ----------------------------------------------------------------- */}
-              <div className="relative w-full h-[340px] sm:h-[460px] md:h-[520px] rounded-2xl sm:rounded-3xl overflow-hidden bg-forest/5 border border-[#CAD7C5]/80 my-2 flex items-center justify-center group shadow-inner">
+              <div className="relative w-full h-[250px] sm:h-[420px] md:h-[500px] rounded-2xl sm:rounded-3xl overflow-hidden bg-forest/5 border border-[#CAD7C5]/80 my-2 flex items-center justify-center group shadow-inner">
                 {/* Ambient Blurred Backdrop to fit portrait or landscape gracefully */}
                 <div 
                   className="absolute inset-0 bg-cover bg-center opacity-25 filter blur-2xl scale-125 pointer-events-none transition-all duration-500"
@@ -2508,7 +2508,7 @@ export default function Home() {
                 {hasMultiple && (
                   <button
                     onClick={handlePrevPhoto}
-                    className="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-forest hover:text-rose-dark shadow-xl border border-[#CAD7C5] flex items-center justify-center text-2xl font-bold transition-all hover:scale-110 active:scale-95 cursor-pointer ring-4 ring-black/5"
+                    className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-forest hover:text-rose-dark shadow-xl border border-[#CAD7C5] flex items-center justify-center text-xl sm:text-2xl font-bold transition-all hover:scale-110 active:scale-95 cursor-pointer ring-2 sm:ring-4 ring-black/5"
                     title="Foto Sebelumnya (Panah Kiri)"
                     aria-label="Previous Photo"
                   >
@@ -2520,7 +2520,7 @@ export default function Home() {
                 {hasMultiple && (
                   <button
                     onClick={handleNextPhoto}
-                    className="absolute right-2.5 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-forest hover:text-rose-dark shadow-xl border border-[#CAD7C5] flex items-center justify-center text-2xl font-bold transition-all hover:scale-110 active:scale-95 cursor-pointer ring-4 ring-black/5"
+                    className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-forest hover:text-rose-dark shadow-xl border border-[#CAD7C5] flex items-center justify-center text-xl sm:text-2xl font-bold transition-all hover:scale-110 active:scale-95 cursor-pointer ring-2 sm:ring-4 ring-black/5"
                     title="Foto Selanjutnya (Panah Kanan)"
                     aria-label="Next Photo"
                   >
