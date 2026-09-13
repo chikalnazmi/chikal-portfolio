@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
+import { prepareImageForUpload, isSupportedImage, isHeicFile } from '@/lib/image-helpers';
 
 interface ImageUploadFieldProps {
   label: string;
@@ -30,63 +31,21 @@ export default function ImageUploadField({
   if (aspectRatio === 'certificate') aspectClass = 'aspect-[4/3]';
   if (aspectRatio === 'phone') aspectClass = 'aspect-[9/16]';
 
-  // Helper to compress large photos on client to a lightweight Blob before uploading
-  const compressToBlob = (file: File): Promise<Blob> => {
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = (e) => {
-        const img = new Image();
-        img.src = e.target?.result as string;
-        img.onload = () => {
-          const maxDim = 1400;
-          let width = img.width;
-          let height = img.height;
-
-          if (width > maxDim || height > maxDim) {
-            if (width > height) {
-              height = Math.round((height * maxDim) / width);
-              width = maxDim;
-            } else {
-              width = Math.round((width * maxDim) / height);
-              height = maxDim;
-            }
-          }
-
-          const canvas = document.createElement('canvas');
-          canvas.width = width;
-          canvas.height = height;
-          const ctx = canvas.getContext('2d');
-          if (ctx) {
-            ctx.drawImage(img, 0, 0, width, height);
-            canvas.toBlob((blob) => {
-              if (blob) resolve(blob);
-              else resolve(file);
-            }, 'image/jpeg', 0.85);
-          } else {
-            resolve(file);
-          }
-        };
-        img.onerror = () => resolve(file);
-      };
-      reader.onerror = () => resolve(file);
-    });
-  };
-
   const handleProcessFile = async (file: File) => {
-    if (!file.type.startsWith('image/')) {
-      alert('Mohon pilih file gambar (JPG, PNG, WebP, dll)');
+    if (!isSupportedImage(file)) {
+      alert('Mohon pilih file gambar yang valid (JPG, PNG, WebP, HEIC iPhone, dll)');
       return;
     }
 
     setIsUploading(true);
-    setStatusMessage('Mengoptimasi & mengupload foto ke Cloud...');
+    const isHeic = isHeicFile(file);
+    setStatusMessage(isHeic ? 'Mengonversi format foto iPhone (HEIC)...' : 'Mengoptimasi foto...');
 
     try {
-      // 1. Compress to optimized lightweight blob (~150KB - 350KB)
-      const compressedBlob = await compressToBlob(file);
-      const cleanBaseName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_').replace(/\.[^/.]+$/, "") || 'photo';
-      const uploadFile = new File([compressedBlob], `${cleanBaseName}.jpg`, { type: 'image/jpeg' });
+      // 1. Process image: Convert HEIC if needed, then compress for web performance
+      const uploadFile = await prepareImageForUpload(file, (msg) => setStatusMessage(msg));
+
+      setStatusMessage('Mengupload foto ke Cloud...');
 
       // 2. Upload to server API / Supabase Storage
       const formData = new FormData();
@@ -112,8 +71,8 @@ export default function ImageUploadField({
       }
     } catch (err: any) {
       console.error('Upload processing error:', err);
-      setStatusMessage(`⚠️ Gagal upload: ${err?.message || 'Koneksi terganggu'}`);
-      setTimeout(() => setStatusMessage(null), 4500);
+      setStatusMessage(`⚠️ Gagal: ${err?.message || 'Terjadi kesalahan saat memproses foto'}`);
+      setTimeout(() => setStatusMessage(null), 5000);
     } finally {
       setIsUploading(false);
     }
@@ -161,7 +120,7 @@ export default function ImageUploadField({
       <input
         ref={fileInputRef}
         type="file"
-        accept="image/*"
+        accept="image/*,.heic,.heif,image/heic,image/heif"
         onChange={onFileInputChange}
         className="hidden"
       />
@@ -222,7 +181,7 @@ export default function ImageUploadField({
                 className="px-3 py-1 rounded-lg bg-white border border-rose-200 text-[11px] font-semibold text-neutral-800 hover:bg-rose-50 transition-colors shadow-2xs flex items-center gap-1.5 cursor-pointer"
               >
                 <svg className="w-3.5 h-3.5 text-rose-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
-                <span>Pilih dari Laptop</span>
+                <span>Pilih dari Laptop / iPhone</span>
               </button>
               <span className="text-[10px] text-neutral-400 truncate max-w-[160px] font-mono">
                 {value.startsWith('data:') ? 'Foto Lokal (Base64)' : value}
@@ -240,10 +199,10 @@ export default function ImageUploadField({
             </div>
             <div>
               <p className="text-xs font-semibold text-neutral-800">
-                {isUploading ? 'Sedang Memproses Foto...' : 'Klik untuk Upload Foto dari Laptop'}
+                {isUploading ? 'Sedang Memproses Foto...' : 'Klik untuk Upload Foto dari Laptop / iPhone'}
               </p>
               <p className="text-[10px] text-neutral-500 mt-0.5">
-                atau seret & jatuhkan (drag and drop) file foto ke sini
+                Mendukung format JPG, PNG, WebP, dan HEIC (foto iPhone)
               </p>
             </div>
           </div>

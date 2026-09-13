@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
+import { prepareImageForUpload, isSupportedImage, isHeicFile } from '@/lib/image-helpers';
 
 interface MultiImageGalleryFieldProps {
   label: string;
@@ -32,53 +33,10 @@ export default function MultiImageGalleryField({
   if (aspectRatio === 'certificate') aspectClass = 'aspect-[4/3]';
   if (aspectRatio === 'phone') aspectClass = 'aspect-[9/16]';
 
-  // Helper to compress large photos on client to a lightweight Blob before uploading
-  const compressToBlob = (file: File): Promise<Blob> => {
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = (e) => {
-        const img = new Image();
-        img.src = e.target?.result as string;
-        img.onload = () => {
-          const maxDim = 1400;
-          let width = img.width;
-          let height = img.height;
-
-          if (width > maxDim || height > maxDim) {
-            if (width > height) {
-              height = Math.round((height * maxDim) / width);
-              width = maxDim;
-            } else {
-              width = Math.round((width * maxDim) / height);
-              height = maxDim;
-            }
-          }
-
-          const canvas = document.createElement('canvas');
-          canvas.width = width;
-          canvas.height = height;
-          const ctx = canvas.getContext('2d');
-          if (ctx) {
-            ctx.drawImage(img, 0, 0, width, height);
-            canvas.toBlob((blob) => {
-              if (blob) resolve(blob);
-              else resolve(file);
-            }, 'image/jpeg', 0.85);
-          } else {
-            resolve(file);
-          }
-        };
-        img.onerror = () => resolve(file);
-      };
-      reader.onerror = () => resolve(file);
-    });
-  };
-
   const handleProcessFiles = async (files: FileList | File[]) => {
-    const fileArray = Array.from(files).filter(f => f.type.startsWith('image/'));
+    const fileArray = Array.from(files).filter(isSupportedImage);
     if (fileArray.length === 0) {
-      alert('Mohon pilih file gambar (JPG, PNG, WebP, dll)');
+      alert('Mohon pilih file gambar yang valid (JPG, PNG, WebP, HEIC iPhone, dll)');
       return;
     }
 
@@ -92,12 +50,15 @@ export default function MultiImageGalleryField({
 
     for (let i = 0; i < fileArray.length; i++) {
       const file = fileArray[i];
-      setUploadProgress(`Mengupload foto ${i + 1} dari ${fileArray.length}...`);
+      const isHeic = isHeicFile(file);
+      setUploadProgress(
+        `Foto ${i + 1}/${fileArray.length}: ${isHeic ? 'Mengonversi foto iPhone (HEIC)...' : 'Mengompres...'}`
+      );
 
       try {
-        const compressedBlob = await compressToBlob(file);
-        const cleanBaseName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_').replace(/\.[^/.]+$/, "") || 'photo';
-        const uploadFile = new File([compressedBlob], `${cleanBaseName}.jpg`, { type: 'image/jpeg' });
+        const uploadFile = await prepareImageForUpload(file, (msg) => {
+          setUploadProgress(`Foto ${i + 1}/${fileArray.length}: ${msg}`);
+        });
 
         const formData = new FormData();
         formData.append('file', uploadFile);
@@ -115,9 +76,9 @@ export default function MultiImageGalleryField({
         } else {
           // Fallback to data URL
           const reader = new FileReader();
-          const dataUrl = await new Promise<string>((res) => {
-            reader.onload = () => res(reader.result as string);
-            reader.readAsDataURL(compressedBlob);
+          const dataUrl = await new Promise<string>((resolve) => {
+            reader.onload = () => resolve(reader.result as string);
+            reader.readAsDataURL(uploadFile);
           });
           uploadedUrls.push(dataUrl);
         }
@@ -213,7 +174,7 @@ export default function MultiImageGalleryField({
         ref={fileInputRef}
         type="file"
         multiple
-        accept="image/*"
+        accept="image/*,.heic,.heif,image/heic,image/heif"
         onChange={(e) => {
           if (e.target.files && e.target.files.length > 0) {
             handleProcessFiles(e.target.files);
@@ -245,10 +206,10 @@ export default function MultiImageGalleryField({
         }`}
       >
         <p className="text-xs font-semibold text-neutral-800">
-          Tarik & Lepas Foto di sini, atau <span className="text-forest underline">Pilih File dari Laptop</span>
+          Tarik & Lepas Foto di sini, atau <span className="text-forest underline">Pilih File dari Laptop / iPhone</span>
         </p>
         <p className="text-[10px] text-neutral-500 mt-0.5">
-          Mendukung banyak foto sekaligus (JPG, PNG, WebP) • Otomatis dioptimasi ke Cloud Supabase
+          Mendukung format JPG, PNG, WebP & foto iPhone (HEIC/HEIF) • Otomatis dioptimasi ke Cloud Supabase
         </p>
       </div>
 
