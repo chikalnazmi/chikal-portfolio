@@ -307,7 +307,7 @@ export default function Home() {
             </div>
 
             {/* Trust Badges & Awards Proof Row */}
-            <div className="pt-6 border-t border-[#CAD7C5]/70 w-full flex items-center gap-4 flex-wrap">
+            <div className="pt-2 w-full flex items-center gap-4 flex-wrap">
               <div className="flex -space-x-2.5 overflow-hidden">
                 <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-2xs" src="/11.png" alt="Award 1" loading="lazy" decoding="async" />
                 <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-2xs" src="/12.png" alt="Award 2" loading="lazy" decoding="async" />
@@ -333,7 +333,7 @@ export default function Home() {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] pink-halo-glow rounded-full pointer-events-none z-0"></div>
 
             {/* Photo Frame Container */}
-            <div className="relative z-10 w-full max-w-[360px] sm:max-w-[420px] rounded-[2.5rem] bg-white/80 border border-[#CAD7C5] rounded-[2.5rem] p-3 sm:p-4 shadow-xl backdrop-blur-xs">
+            <div className="relative z-10 w-full max-w-[360px] sm:max-w-[430px] rounded-4xl bg-white/85 border border-[#CAD7C5] p-3 sm:p-4 shadow-xl backdrop-blur-xs transition-transform duration-500 hover:-translate-y-1">
               
               {/* Photo Subject with Smooth Gradient & Border */}
               <div className="relative rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#F2F7EF]/90 to-[#E8EFE5]/70 flex items-end justify-center min-h-[380px] sm:min-h-[440px] md:min-h-[480px]">
@@ -415,33 +415,30 @@ export default function Home() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 3. LOGO TICKER / CREDENTIAL ROW (Polinema, GDSC, Brands)                 */}
+      {/* 3. LOGO TICKER / CREDENTIAL ROW: Infinite Smooth Marquee                 */}
       {/* ========================================================================= */}
-      <section className="w-full py-7 border-y border-[#CAD7C5]/30 bg-white/30 backdrop-blur-xs overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between flex-wrap gap-6 sm:gap-8 opacity-80 transition-all duration-300">
-          <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-forest/75 hover:text-forest transition-colors">
-            <span className="text-rose-dusty">✦</span>
-            <span>Politeknik Negeri Malang</span>
-          </div>
-          <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-forest/75 hover:text-forest transition-colors">
-            <span className="text-rose-dusty">✦</span>
-            <span>GDSC Google Polinema</span>
-          </div>
-          <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-forest/75 hover:text-forest transition-colors">
-            <span className="text-rose-dusty">✦</span>
-            <span>Manikarumi Hijab</span>
-          </div>
-          <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-forest/75 hover:text-forest transition-colors">
-            <span className="text-rose-dusty">✦</span>
-            <span>Yarn Up Creative</span>
-          </div>
-          <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-forest/75 hover:text-forest transition-colors">
-            <span className="text-rose-dusty">✦</span>
-            <span>Dua Sisi Media</span>
-          </div>
-          <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-forest/75 hover:text-forest transition-colors">
-            <span className="text-rose-dusty">✦</span>
-            <span>RevoU Digital Marketing</span>
+      <section className="w-full py-6 border-y border-[#CAD7C5]/30 bg-white/35 backdrop-blur-xs overflow-hidden select-none">
+        <div className="relative w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_64px,_black_calc(100%-64px),transparent_100%)]">
+          <div className="animate-marquee flex items-center gap-10 sm:gap-14 whitespace-nowrap py-1">
+            {[
+              "Politeknik Negeri Malang",
+              "GDSC Google Polinema",
+              "Manikarumi Hijab",
+              "Yarn Up Creative",
+              "Dua Sisi Media",
+              "RevoU Digital Marketing",
+              "Politeknik Negeri Malang",
+              "GDSC Google Polinema",
+              "Manikarumi Hijab",
+              "Yarn Up Creative",
+              "Dua Sisi Media",
+              "RevoU Digital Marketing",
+            ].map((partner, pIdx) => (
+              <div key={pIdx} className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold tracking-wide text-forest/75 hover:text-forest transition-colors shrink-0">
+                <span className="text-rose-dusty text-xs">✦</span>
+                <span>{partner}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -477,7 +474,7 @@ export default function Home() {
                 link: projectsList[0]?.link,
                 linkLabel: 'Dokumentasi Sistem ↗'
               })}
-              className="lg:col-span-7 bg-white rounded-3xl p-5 border border-[#CAD7C5] shadow-xs hover:border-rose-dusty/60 hover:shadow-md transition-all cursor-pointer group"
+              className="lg:col-span-7 bg-white/95 backdrop-blur-xs rounded-3xl p-5 sm:p-6 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
             >
               <div className="relative overflow-hidden rounded-2xl bg-neutral-100 h-56 sm:h-72 mb-4">
                 <img 
@@ -511,7 +508,7 @@ export default function Home() {
                 link: projectsList[1]?.link,
                 linkLabel: 'Buka Prototipe ↗'
               })}
-              className="lg:col-span-5 bg-white rounded-3xl p-5 border border-[#CAD7C5] shadow-xs hover:border-rose-dusty/60 hover:shadow-md transition-all cursor-pointer group"
+              className="lg:col-span-5 bg-white/95 backdrop-blur-xs rounded-3xl p-5 sm:p-6 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
             >
               <div className="relative overflow-hidden rounded-2xl bg-neutral-100 h-56 sm:h-72 mb-4">
                 <img 
@@ -545,7 +542,7 @@ export default function Home() {
                 link: projectsList[2]?.link,
                 linkLabel: 'Verifikasi Sistem ↗'
               })}
-              className="lg:col-span-5 bg-white rounded-3xl p-5 border border-[#CAD7C5] shadow-xs hover:border-rose-dusty/60 hover:shadow-md transition-all cursor-pointer group"
+              className="lg:col-span-5 bg-white/95 backdrop-blur-xs rounded-3xl p-5 sm:p-6 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
             >
               <div className="relative overflow-hidden rounded-2xl bg-neutral-100 h-56 sm:h-72 mb-4">
                 <img 
@@ -579,7 +576,7 @@ export default function Home() {
                 link: projectsList[3]?.link || 'https://instagram.com/chikalnazmi',
                 linkLabel: projectsList[3]?.linkLabel || 'Lihat Instagram ↗'
               })}
-              className="lg:col-span-7 bg-white rounded-3xl p-5 border border-[#CAD7C5] shadow-xs hover:border-rose-dusty/60 hover:shadow-md transition-all cursor-pointer group"
+              className="lg:col-span-7 bg-white/95 backdrop-blur-xs rounded-3xl p-5 sm:p-6 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
             >
               <div className="relative overflow-hidden rounded-2xl bg-neutral-100 h-56 sm:h-72 mb-4">
                 <img 
@@ -635,7 +632,7 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Floating Skill Pills Around the Statement with Green-Teal & Rose accents */}
+        {/* Floating Skill Pills Around the Statement with Harmonious Botanical Accents */}
         <div className="relative z-10 flex flex-wrap justify-center gap-2.5 sm:gap-3 max-w-3xl mx-auto">
           {((portfolioData.skills && portfolioData.skills.length > 0)
             ? portfolioData.skills.flatMap(cat => cat.skills.map(s => ({ name: s, type: cat.type })))
@@ -648,24 +645,22 @@ export default function Home() {
                 { name: 'B2B Partnerships Strategy', type: 'hard' }
               ]
           ).slice(0, 15).map((skill, sIdx) => {
-            const isRose = skill.type === 'soft' || sIdx % 3 === 2;
-            const isCyan = sIdx % 3 === 1;
+            const isRoseDot = sIdx % 2 === 1;
             return (
               <span 
                 key={sIdx}
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border ${
-                  'border-[#CAD7C5] hover:border-rose-dusty'
-                } shadow-xs text-xs font-semibold text-forest transition-colors`}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur-xs border border-[#CAD7C5] hover:border-rose-dusty/80 shadow-2xs hover:shadow-xs text-xs font-semibold text-forest hover:-translate-y-0.5 transition-all duration-200 cursor-default"
               >
                 <span className={`w-2 h-2 rounded-full ${
-                  'bg-rose-500 shadow-[0_0_6px_rgba(244,114,182,0.7)]'
+                  isRoseDot 
+                    ? 'bg-rose-dusty shadow-[0_0_6px_rgba(189,88,113,0.6)]' 
+                    : 'bg-forest/70 shadow-[0_0_6px_rgba(37,53,33,0.4)]'
                 }`}></span>
                 <span>{skill.name}</span>
               </span>
             );
           })}
         </div>
-
       </section>
 
       {/* ========================================================================= */}
@@ -708,7 +703,7 @@ export default function Home() {
             {/* Card 01 - Discover */}
             <div className="process-card p-8 rounded-3xl bg-white border border-[#CAD7C5] shadow-xs flex flex-col justify-between relative group">
               <div>
-                <span className="font-sans font-light text-5xl text-rose-dusty/40 group-hover:text-rose-dusty transition-colors">01</span>
+                <span className="font-serif italic font-normal text-6xl text-rose-dusty/35 group-hover:text-rose-dusty transition-colors">01</span>
                 <h3 className="font-sans font-bold text-2xl text-forest mt-4 mb-2">
                   Discover
                 </h3>
@@ -725,7 +720,7 @@ export default function Home() {
             {/* Card 02 - Strategize */}
             <div className="process-card p-8 rounded-3xl bg-white border border-[#CAD7C5] shadow-xs flex flex-col justify-between relative group">
               <div>
-                <span className="font-sans font-light text-5xl text-rose-dusty/40 group-hover:text-rose-dusty transition-colors">02</span>
+                <span className="font-serif italic font-normal text-6xl text-rose-dusty/35 group-hover:text-rose-dusty transition-colors">02</span>
                 <h3 className="font-sans font-bold text-2xl text-forest mt-4 mb-2">
                   Strategize
                 </h3>
@@ -742,7 +737,7 @@ export default function Home() {
             {/* Card 03 - Deliver */}
             <div className="process-card p-8 rounded-3xl bg-white border border-[#CAD7C5] shadow-xs flex flex-col justify-between relative group">
               <div>
-                <span className="font-sans font-light text-5xl text-rose-dusty/40 group-hover:text-rose-dusty transition-colors">03</span>
+                <span className="font-serif italic font-normal text-6xl text-rose-dusty/35 group-hover:text-rose-dusty transition-colors">03</span>
                 <h3 className="font-sans font-bold text-2xl text-forest mt-4 mb-2">
                   Deliver
                 </h3>
@@ -847,7 +842,7 @@ export default function Home() {
                 link: project.link,
                 linkLabel: project.linkLabel || 'Buka Dokumentasi ↗'
               })}
-              className="editorial-card p-5 sm:p-6 rounded-4xl bg-white border border-[#CAD7C5] shadow-xs hover:shadow-lg transition-all cursor-pointer group flex flex-col justify-between"
+              className="editorial-card p-5 sm:p-6 rounded-4xl bg-white/95 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
             >
               {/* Project Image Container */}
               <div className="relative overflow-hidden rounded-3xl bg-neutral-100 aspect-[16/10] sm:aspect-[16/11] mb-5">
@@ -966,7 +961,7 @@ export default function Home() {
               
               {/* Left Media Card (Left Phone Mockup) */}
               <div 
-                className="md:col-span-3 bg-white rounded-3xl p-4 border border-[#CAD7C5] shadow-xs hover:border-rose-dusty/60 hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
+                className="md:col-span-3 bg-white/95 rounded-3xl p-4 sm:p-5 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
                 onClick={() => openModal({
                   title: currentCreator.leftPhoneTitle || currentCreator.name,
                   category: currentCreator.leftPhoneTag || 'SOCIAL MEDIA REELS',
@@ -998,7 +993,7 @@ export default function Home() {
 
               {/* Center Stage Card (Center Showcase) */}
               <div 
-                className="md:col-span-6 bg-white rounded-3xl p-5 sm:p-6 border border-[#CAD7C5] shadow-xs hover:border-rose-dusty/60 hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
+                className="md:col-span-6 bg-white/95 rounded-3xl p-5 sm:p-6 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
                 onClick={() => openModal({
                   title: currentCreator.centerTitle || currentCreator.name,
                   category: 'CREATIVE SHOWCASE',
@@ -1041,7 +1036,7 @@ export default function Home() {
 
               {/* Right Media Card (Right Phone Mockup) */}
               <div 
-                className="md:col-span-3 bg-white rounded-3xl p-4 border border-[#CAD7C5] shadow-xs hover:border-rose-dusty/60 hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
+                className="md:col-span-3 bg-white/95 rounded-3xl p-4 sm:p-5 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
                 onClick={() => openModal({
                   title: currentCreator.rightPhoneTitle || currentCreator.name,
                   category: currentCreator.rightPhoneTag || 'TIKTOK CONTENT',
@@ -1183,7 +1178,7 @@ export default function Home() {
             </p>
 
             {/* Clean Timeline Rows (Elian Ross Style) */}
-            <div className="border-t border-rose-100">
+            <div className="border-t border-[#CAD7C5]/60">
               {experiencesList.map((exp, idx) => (
                 <div 
                   key={exp.id || idx}
@@ -1210,7 +1205,7 @@ export default function Home() {
                     <span className="text-[11px] font-medium text-forest bg-[#F2F7EF] px-2.5 py-0.5 rounded-full border border-[#CAD7C5]">
                       {exp.period}
                     </span>
-                    <span className="text-xs text-rose-300 group-hover:translate-x-1 transition-transform">→</span>
+                    <span className="text-xs text-rose-dusty group-hover:text-rose-dark group-hover:translate-x-1 transition-all">→</span>
                   </div>
                 </div>
               ))}
@@ -1238,7 +1233,7 @@ export default function Home() {
                   <span className="text-[11px] font-medium text-forest bg-[#F2F7EF] px-2.5 py-0.5 rounded-full border border-[#CAD7C5]">
                     {academicData.period}
                   </span>
-                  <span className="text-xs text-rose-300 group-hover:translate-x-1 transition-transform">→</span>
+                  <span className="text-xs text-rose-dusty group-hover:text-rose-dark group-hover:translate-x-1 transition-all">→</span>
                 </div>
               </div>
             </div>
@@ -1310,7 +1305,7 @@ export default function Home() {
                 link: award.link,
                 linkLabel: award.linkLabel || 'Dokumentasi Resmi ↗'
               })}
-              className="editorial-card p-6 rounded-3xl bg-white border border-[#CAD7C5] shadow-xs hover:border-rose-dusty/60 hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
+              className="editorial-card p-6 rounded-3xl bg-white/95 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -1352,15 +1347,15 @@ export default function Home() {
                   link: cert.link,
                   linkLabel: cert.linkLabel || 'Verifikasi Kredensial ↗'
                 })}
-                className="p-4 rounded-2xl bg-white border border-[#CAD7C5] hover:border-rose-dusty/60 shadow-xs hover:shadow-sm transition-all cursor-pointer flex flex-col justify-between"
+                className="p-4 rounded-2xl bg-white/95 border border-[#CAD7C5] hover:border-rose-dusty/60 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer flex flex-col justify-between"
               >
                 <div>
-                  <span className="text-[10px] font-bold text-rose-800 uppercase tracking-wider">{cert.issuer}</span>
+                  <span className="text-[10px] font-bold text-rose-dark uppercase tracking-wider">{cert.issuer}</span>
                   <h4 className="font-bold text-xs text-forest mt-1 leading-snug">{cert.title}</h4>
                 </div>
-                <div className="mt-3 pt-2 border-t border-rose-50 flex items-center justify-between text-[10px] text-neutral-500">
+                <div className="mt-3 pt-2 border-t border-[#CAD7C5]/40 flex items-center justify-between text-[10px] text-neutral-500">
                   <span>{cert.year}</span>
-                  <span className="text-rose-600 font-semibold">Verified ↗</span>
+                  <span className="text-rose-dusty group-hover:text-rose-dark font-semibold">Verified ↗</span>
                 </div>
               </div>
             ))}
@@ -1387,7 +1382,7 @@ export default function Home() {
                 href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-forest hover:bg-forest-dark text-white text-xs sm:text-sm font-bold uppercase tracking-wider shadow-lg hover:shadow-xl transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-forest hover:bg-forest-dark text-white text-xs sm:text-sm font-bold uppercase tracking-wider shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer"
               >
                 <span>✦ GET IN TOUCH</span>
                 <span>→</span>
