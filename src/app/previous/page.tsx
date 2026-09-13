@@ -785,26 +785,27 @@ export default function Home() {
                 <span>{portfolioData.hero?.subheadline || 'Available for now opportunities'}</span>
               </div>
 
-              {/* Bottom Social Proof */}
-              <div className="hero-trusted-proof flex items-center gap-3">
-                <div className="flex -space-x-1.5 shrink-0">
-                  <div className="w-8 h-8 rounded-full bg-forest text-[#E8EFE5] flex flex-col items-center justify-center font-mono font-bold text-[9px] border-2 border-white shadow-2xs">
-                    <span>3.73</span>
-                  </div>
-                  <div className="w-8 h-8 rounded-full bg-rose-dark text-white flex flex-col items-center justify-center font-mono font-bold text-[9px] border-2 border-white shadow-2xs">
-                    <span>775</span>
-                  </div>
-                  <div className="w-8 h-8 rounded-full bg-[#4E6B47] text-white flex flex-col items-center justify-center font-mono font-bold text-[9px] border-2 border-white shadow-2xs">
-                    <span>7x</span>
-                  </div>
+              {/* Bottom: 3 Credential Cards */}
+              <div className="hero-trusted-proof grid grid-cols-3 gap-2 w-full max-w-[320px]">
+                {/* Card 1: IPK 3.73 */}
+                <div className="bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-xl p-2.5 shadow-2xs text-left hover:border-forest/40 transition-all">
+                  <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-forest/60">IPK</span>
+                  <span className="block text-base sm:text-lg font-mono font-extrabold text-forest leading-tight">3.73</span>
+                  <span className="block text-[9px] font-medium text-rose-dark leading-tight mt-0.5">Cum Laude</span>
                 </div>
-                <div className="text-left max-w-[210px]">
-                  <span className="block text-[11px] font-sans font-bold text-forest leading-snug">
-                    Kredensial Resmi Terverifikasi
-                  </span>
-                  <span className="block text-[10px] text-forest/75 font-source leading-tight mt-0.5">
-                    IPK 3.73 (Cum Laude) • TOEIC 775 • 7x Juara Nasional
-                  </span>
+
+                {/* Card 2: TOEIC 775 */}
+                <div className="bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-xl p-2.5 shadow-2xs text-left hover:border-forest/40 transition-all">
+                  <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-forest/60">TOEIC</span>
+                  <span className="block text-base sm:text-lg font-mono font-extrabold text-rose-dark leading-tight">775</span>
+                  <span className="block text-[9px] font-medium text-forest/70 leading-tight mt-0.5">Skor Resmi</span>
+                </div>
+
+                {/* Card 3: 7x Juara Nasional */}
+                <div className="bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-xl p-2.5 shadow-2xs text-left hover:border-forest/40 transition-all">
+                  <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-forest/60">Lomba</span>
+                  <span className="block text-base sm:text-lg font-mono font-extrabold text-[#4E6B47] leading-tight">7x</span>
+                  <span className="block text-[9px] font-medium text-forest/70 leading-tight mt-0.5">Juara Nas.</span>
                 </div>
               </div>
             </div>
