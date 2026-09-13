@@ -20,22 +20,23 @@
   }
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar (Silky Smooth Sage Theme - Seamless & Modern) */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 7px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #E8EFE5;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #BD5871;
+  background: #CAD7C5;
   border-radius: 9999px;
+  border: 1px solid #F4F7F2;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #781E34;
+  background: #94AB8B;
 }
 
 /* =================================================================
@@ -305,35 +306,29 @@
 }
 
 /* ========================================================================= */
-/* HERO STAGE WITH VIBRANT RADIANT HIJAU SAGE AURA (Reference Layout Match)  */
+/* HERO STAGE WITH SEAMLESS RADIANT HIJAU SAGE AURA                         */
 /* ========================================================================= */
 .hero-stage-wrapper {
   position: relative;
-  background: 
-    radial-gradient(circle at 12% 16%, rgba(188, 208, 182, 0.45) 0%, transparent 48%),
-    radial-gradient(circle at 88% 16%, rgba(188, 208, 182, 0.45) 0%, transparent 48%),
-    radial-gradient(circle at 50% 10%, rgba(212, 226, 208, 0.55) 0%, transparent 55%),
-    #F4F7F2;
-  overflow: hidden;
+  background: transparent;
   width: 100%;
 }
 
 .hero-radiant-sage-aura {
   position: absolute;
-  top: 48%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: min(1040px, 95vw);
-  height: min(620px, 85vw);
+  width: min(920px, 90vw);
+  height: min(560px, 80vw);
   background: radial-gradient(
     ellipse at center,
-    rgba(138, 172, 129, 0.68) 0%,
-    rgba(168, 198, 160, 0.48) 28%,
-    rgba(202, 215, 197, 0.32) 50%,
-    rgba(232, 239, 229, 0.14) 68%,
-    transparent 80%
+    rgba(148, 178, 140, 0.60) 0%,
+    rgba(178, 204, 170, 0.40) 30%,
+    rgba(212, 226, 208, 0.22) 52%,
+    rgba(244, 247, 242, 0.08) 68%,
+    transparent 78%
   );
-  filter: blur(45px);
   pointer-events: none;
   z-index: 1;
   border-radius: 50%;

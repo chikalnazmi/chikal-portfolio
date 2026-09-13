@@ -98,6 +98,9 @@ export default function Home() {
   // Active photo index for each organization card
   const [orgPhotoIndex, setOrgPhotoIndex] = useState<{ [key: number]: number }>({ 0: 0, 1: 0, 2: 0, 3: 0, 4: 0 });
 
+  // Active photo index for each experience card (interactive in-card gallery preview)
+  const [expPhotoIndex, setExpPhotoIndex] = useState<{ [key: string]: number }>({});
+
   // Auto-slide documentation photos every 3 seconds without manual clicks
   useEffect(() => {
     if (organizationList.length === 0) return;
@@ -491,15 +494,12 @@ export default function Home() {
     <div className="min-h-screen font-sans antialiased selection:bg-rose-blush selection:text-rose-dark relative transition-colors duration-700 bg-sage-linen text-[#212B1E]">
       {/* Paper & Linen Tactile Texture Overlay (Subtle Organic Grain) */}
       <div className="paper-texture-overlay" />
-      {/* Decorative Subtle Background Botanical Glows */}
-      <div className="fixed top-0 left-0 w-[550px] h-[550px] bg-[#CAD7C5]/35 rounded-full blur-3xl pointer-events-none -translate-x-1/2 -translate-y-1/2" />
-      <div className="fixed bottom-0 right-0 w-[650px] h-[650px] bg-[#CAD7C5]/40 rounded-full blur-3xl pointer-events-none translate-x-1/3 translate-y-1/3" />
 
       {/* ========================================================================= */}
       {/* NAVBAR: Modern Floating Editorial Pill */}
       {/* ========================================================================= */}
-      <nav className="sticky top-2 sm:top-2.5 z-40 max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white/90 backdrop-blur-md border border-[#CAD7C5] rounded-full px-4 sm:px-5 py-1.5 sm:py-2 shadow-xs flex items-center justify-between transition-all hover:border-rose-dusty/40">
+      <nav className="sticky top-2 sm:top-2.5 z-40 max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 isolate">
+        <div className="bg-white/95 backdrop-blur-md border border-[#CAD7C5]/90 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 shadow-xs flex items-center justify-between transition-all hover:border-rose-dusty/40">
           <a href="#hero" className="flex flex-col group py-0.5">
             <span className="font-serif font-bold text-xs sm:text-sm tracking-normal text-forest group-hover:text-rose-dark transition-colors leading-tight">
               Chikal Nazmi Mahira
@@ -1045,92 +1045,157 @@ export default function Home() {
           </p>
         </div>
 
-        {/* 2-Column Balanced Compact Grid Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3.5 sm:gap-4 items-stretch">
-          {experiencesList.map((exp) => (
-            <div
-              key={exp.id}
-              className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-xl p-3.5 sm:p-4 shadow-2xs hover:shadow-md hover:border-rose-dusty/50 transition-all flex flex-col sm:flex-row gap-3.5 items-stretch group"
-            >
-              {/* Left: Compact Photo Showcase with Direct Gallery Trigger */}
-              <div
-                onClick={() => openModal(
-                  exp.title,
-                  `${exp.tag} • ${exp.period}`,
-                  exp.summary,
-                  exp.extraImages && exp.extraImages.length > 0 ? exp.extraImages : [exp.image],
-                  exp.link,
-                  exp.linkLabel
-                )}
-                className="w-full sm:w-36 h-36 sm:h-auto shrink-0 rounded-lg overflow-hidden relative border border-[#CAD7C5]/70 bg-[#E8EFE5]/40 cursor-pointer group/img"
-              >
-                <img
-                  src={exp.image}
-                  alt={exp.title}
-                  className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-forest/20 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
-                  <span className="px-2 py-0.5 rounded-full bg-white text-forest text-[9px] font-bold shadow-xs">
-                    Buka Galeri ↗
-                  </span>
-                </div>
-                <span className="absolute bottom-1.5 left-1.5 px-1.5 py-0.5 rounded-md bg-forest/85 text-white text-[8px] font-bold backdrop-blur-xs shadow-2xs">
-                  {exp.extraImages?.length || 1} Foto
-                </span>
-              </div>
+        {/* 2-Column Balanced Responsive Editorial Bento Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 items-stretch">
+          {experiencesList.map((exp) => {
+            const galleryImages = (exp.extraImages && exp.extraImages.length > 0)
+              ? exp.extraImages
+              : [exp.image];
+            const activeIdx = expPhotoIndex[exp.id] ?? 0;
+            const currentImg = galleryImages[activeIdx] || exp.image;
+            const isCurrentRole = exp.period.toLowerCase().includes('sekarang') || exp.period.toLowerCase().includes('present');
 
-              {/* Right: Experience Details & Action */}
-              <div className="flex-1 flex flex-col justify-between min-w-0">
-                <div>
-                  {/* Card Header Info */}
-                  <div className="flex items-center justify-between gap-2 mb-1.5">
-                    <span className="text-[10px] font-sans font-bold px-2.5 py-0.5 rounded-full bg-rose-blush/90 text-rose-dark border border-rose-dusty/40 uppercase tracking-wider shadow-2xs">
+            return (
+              <div
+                key={exp.id}
+                className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] hover:border-[#8A9E85] rounded-2xl p-4 sm:p-5 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group"
+              >
+                {/* Top Meta Bar: Category Pill + Status & Period */}
+                <div className="flex flex-wrap items-center justify-between gap-2 pb-3 mb-3.5 border-b border-[#CAD7C5]/60">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] sm:text-[11px] font-sans font-bold px-3 py-1 rounded-full bg-rose-blush/90 text-rose-dark border border-rose-dusty/40 uppercase tracking-wider shadow-2xs">
+                      {exp.category || exp.tag}
+                    </span>
+                    <span className="text-[10px] sm:text-[11px] font-medium text-forest/80 px-2.5 py-0.5 rounded-full bg-[#F4F7F2] border border-[#CAD7C5]/70 flex items-center gap-1.5">
+                      <span className={`w-1.5 h-1.5 rounded-full ${isCurrentRole ? 'bg-emerald-500 animate-pulse' : 'bg-forest/50'}`} />
                       {exp.tag}
                     </span>
-                    <span className="text-xs text-forest/70 font-sans font-medium px-2.5 py-0.5 rounded-full bg-[#F4F7F2] border border-[#CAD7C5]/70 shrink-0">
-                      {exp.period}
-                    </span>
+                  </div>
+                  <span className="text-xs text-forest/80 font-mono font-medium px-2.5 py-1 rounded-lg bg-[#E8EFE5]/70 border border-[#CAD7C5]/70 shrink-0">
+                    {exp.period}
+                  </span>
+                </div>
+
+                {/* Main Content Area: Split into Interactive Photo Showcase + Executive Context */}
+                <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 sm:gap-4.5 items-start">
+                  {/* Left (sm:col-span-5): Interactive Photo Showcase */}
+                  <div className="sm:col-span-5 flex flex-col gap-2">
+                    {/* Main Image with Zoom & Modal Trigger */}
+                    <div
+                      onClick={() => openModal(
+                        exp.title,
+                        `${exp.tag} • ${exp.period}`,
+                        exp.summary,
+                        galleryImages,
+                        exp.link,
+                        exp.linkLabel
+                      )}
+                      className="w-full h-44 sm:h-48 rounded-xl overflow-hidden relative border border-[#CAD7C5]/80 bg-[#E8EFE5]/40 cursor-pointer group/img shadow-2xs"
+                    >
+                      <img
+                        src={currentImg}
+                        alt={exp.title}
+                        className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-forest/80 via-forest/20 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity flex items-end p-2.5">
+                        <span className="px-2.5 py-1 rounded-lg bg-white/95 text-forest text-[10px] font-bold shadow-xs flex items-center gap-1">
+                          <span>Buka Galeri</span>
+                          <span>↗</span>
+                        </span>
+                      </div>
+                      <div className="absolute top-2 right-2 px-2 py-0.5 rounded-md bg-forest/85 text-white text-[9px] font-mono font-bold backdrop-blur-xs shadow-2xs">
+                        {activeIdx + 1} / {galleryImages.length}
+                      </div>
+                    </div>
+
+                    {/* Mini Interactive Thumbnail Switcher Row */}
+                    {galleryImages.length > 1 && (
+                      <div className="grid grid-cols-3 gap-1.5">
+                        {galleryImages.slice(0, 3).map((imgUrl, imgIdx) => (
+                          <button
+                            key={imgIdx}
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setExpPhotoIndex(prev => ({ ...prev, [exp.id]: imgIdx }));
+                            }}
+                            className={`h-11 rounded-lg overflow-hidden border transition-all cursor-pointer relative ${
+                              activeIdx === imgIdx
+                                ? 'border-rose-dark ring-2 ring-rose-dark/30 scale-[1.02]'
+                                : 'border-[#CAD7C5]/70 opacity-70 hover:opacity-100'
+                            }`}
+                          >
+                            <img src={imgUrl} alt={`Foto ${imgIdx + 1}`} className="w-full h-full object-cover" />
+                            {activeIdx === imgIdx && (
+                              <div className="absolute inset-0 bg-rose-dark/10" />
+                            )}
+                          </button>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
-                  {/* Title */}
-                  <h3 className="font-sans text-base sm:text-lg font-bold text-forest group-hover:text-rose-dark transition-colors line-clamp-1 mb-1 tracking-tight">
-                    {exp.title}
-                  </h3>
+                  {/* Right (sm:col-span-7): Rich Structured Information */}
+                  <div className="sm:col-span-7 flex flex-col justify-between h-full">
+                    <div>
+                      {/* Title & Role */}
+                      <h3 className="font-sans text-base sm:text-lg font-bold text-forest group-hover:text-rose-dark transition-colors tracking-tight leading-snug mb-1.5">
+                        {exp.title}
+                      </h3>
 
-                  {/* Summary */}
-                  <p className="text-xs text-forest/75 leading-relaxed line-clamp-2 mb-2 font-source">
-                    {exp.summary}
-                  </p>
+                      {/* Executive Summary */}
+                      <p className="text-xs sm:text-[13px] text-forest/80 leading-relaxed font-source mb-2.5">
+                        {exp.summary}
+                      </p>
 
-                  {/* Highlights / Key Focus Tags */}
-                  <div className="flex flex-wrap gap-1 mb-2">
-                    {exp.results?.slice(0, 3).map((res, rIdx) => (
-                      <span
-                        key={rIdx}
-                        className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-[#FAFBF8] border border-[#CAD7C5]/70 text-[9px] font-medium text-forest shadow-2xs"
-                      >
-                        <span className="w-1 h-1 rounded-full bg-rose-dusty shrink-0" />
-                        <span className="truncate">{res}</span>
-                      </span>
-                    ))}
+                      {/* Strategic Insight Box */}
+                      {(exp.strategy || exp.challenge) && (
+                        <div className="p-2.5 rounded-xl bg-[#FAFBF8] border border-[#CAD7C5]/70 mb-2.5 text-left">
+                          <span className="text-[10px] font-mono uppercase font-bold text-forest/60 block mb-0.5 tracking-wider">
+                            ✦ Fokus Strategi &amp; Solusi
+                          </span>
+                          <p className="text-[11px] text-forest/85 leading-snug">
+                            {exp.strategy || exp.challenge}
+                          </p>
+                        </div>
+                      )}
+
+                      {/* Key Deliverables & Metric Chips */}
+                      <div>
+                        <span className="text-[10px] font-mono uppercase font-bold text-forest/60 block mb-1 tracking-wider">
+                          Deliverables &amp; Hasil:
+                        </span>
+                        <div className="flex flex-wrap gap-1.5 mb-2">
+                          {exp.results?.map((res, rIdx) => (
+                            <span
+                              key={rIdx}
+                              className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-[#E8EFE5]/60 border border-[#CAD7C5]/80 text-[10px] font-semibold text-forest shadow-2xs"
+                            >
+                              <span className="w-1.5 h-1.5 rounded-full bg-rose-dusty shrink-0" />
+                              <span>{res}</span>
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                {/* Bottom Action Row */}
-                <div className="pt-2 border-t border-[#CAD7C5]/50 flex items-center justify-between gap-2 text-xs">
+                {/* Card Bottom Footer: Action Links */}
+                <div className="mt-3.5 pt-3 border-t border-[#CAD7C5]/60 flex flex-wrap items-center justify-between gap-2.5">
                   <button
                     onClick={() => openModal(
                       exp.title,
                       `${exp.tag} • ${exp.period}`,
                       exp.summary,
-                      exp.extraImages && exp.extraImages.length > 0 ? exp.extraImages : [exp.image],
+                      galleryImages,
                       exp.link,
                       exp.linkLabel
                     )}
-                    className="inline-flex items-center gap-1 font-bold text-rose-dark hover:text-rose-berry transition-colors cursor-pointer py-0.5 text-xs"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-forest text-white hover:bg-forest/90 font-sans text-xs font-semibold transition-all shadow-xs cursor-pointer group/btn"
                   >
-                    <span>Lihat Dokumentasi</span>
-                    <span>→</span>
+                    <span>Dokumentasi &amp; Galeri ({galleryImages.length} Foto)</span>
+                    <span className="group-hover/btn:translate-x-0.5 transition-transform">→</span>
                   </button>
 
                   {exp.link && (
@@ -1138,15 +1203,15 @@ export default function Home() {
                       href={exp.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 font-bold text-forest/80 hover:text-forest transition-colors bg-[#E8EFE5] hover:bg-[#CAD7C5] px-2 py-0.5 rounded-full border border-[#CAD7C5]/60 text-[10px]"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-[#F4F7F2] text-forest font-sans text-xs font-semibold border border-[#CAD7C5] transition-all shadow-2xs hover:border-rose-dusty/60"
                     >
                       <span>{exp.linkLabel?.replace(' ↗', '') || 'Kunjungi'} ↗</span>
                     </a>
                   )}
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
       </section>
