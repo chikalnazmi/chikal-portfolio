@@ -152,9 +152,16 @@ export default function Home() {
   const filteredAwards = activeAwardFilter === 'all'
     ? awardsList
     : awardsList.filter(a => {
-        if (activeAwardFilter === '1st') return a.rank.includes('1st');
-        if (activeAwardFilter === '2nd') return a.rank.includes('2nd');
-        if (activeAwardFilter === 'top5') return a.rank.includes('Top') || a.rank.includes('Speaker');
+        const r = (a.rank || '').toLowerCase();
+        if (activeAwardFilter === '1st') {
+          return r.includes('1st') || r.includes('juara 1') || r.includes('juara i') || r.includes('first') || r.includes('gold');
+        }
+        if (activeAwardFilter === '2nd') {
+          return r.includes('2nd') || r.includes('juara 2') || r.includes('juara ii') || r.includes('second') || r.includes('silver') || r.includes('runner up');
+        }
+        if (activeAwardFilter === 'top5') {
+          return r.includes('top') || r.includes('speaker') || r.includes('finalis') || r.includes('harapan') || r.includes('3rd') || r.includes('bronze');
+        }
         return true;
       });
 
@@ -182,6 +189,17 @@ export default function Home() {
   const closeModal = () => {
     setModalData(prev => ({ ...prev, isOpen: false }));
   };
+
+  // Keyboard accessibility: Close modal on Escape
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && modalData.isOpen) {
+        closeModal();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [modalData.isOpen]);
 
   return (
     <div className="min-h-screen bg-sage-linen text-[#212B1E] font-sans antialiased selection:bg-rose-blush selection:text-rose-dark relative overflow-x-hidden">
@@ -223,10 +241,10 @@ export default function Home() {
               CN
             </span>
             <div className="flex flex-col text-left">
-              <span className="font-serif font-bold text-sm tracking-wide text-forest group-hover:text-rose-dark transition-colors whitespace-nowrap">
+              <span className="font-serif font-bold text-sm tracking-normal text-forest group-hover:text-rose-dark transition-colors whitespace-nowrap">
                 Chikal Nazmi Mahira
               </span>
-              <span className="text-[10px] font-medium tracking-wider uppercase text-forest/60 whitespace-nowrap">
+              <span className="text-[10px] font-medium tracking-wider uppercase text-forest/70 whitespace-nowrap">
                 Business &amp; Marketing
               </span>
             </div>
@@ -307,15 +325,15 @@ export default function Home() {
             {/* Headline / Title */}
             <div className="mb-5 max-w-2xl">
               {portfolioData.hero?.headline ? (
-                <h1 className="font-serif font-bold text-4xl sm:text-5xl lg:text-6xl tracking-tight text-forest leading-[1.15]">
+                <h1 className="font-serif font-bold text-4xl sm:text-5xl lg:text-6xl tracking-normal text-forest leading-[1.18]">
                   {portfolioData.hero.headline}
                 </h1>
               ) : (
                 <>
-                  <h1 className="font-serif font-bold text-4xl sm:text-5xl lg:text-[58px] tracking-tight text-forest leading-none">
+                  <h1 className="font-serif font-bold text-4xl sm:text-5xl lg:text-[58px] tracking-normal text-forest leading-[1.18]">
                     Hi, I&apos;m Chikal
                   </h1>
-                  <span className="font-serif italic font-normal text-4xl sm:text-5xl lg:text-[66px] text-rose-dark tracking-tight block mt-1.5 leading-[1.1]">
+                  <span className="font-serif italic font-normal text-4xl sm:text-5xl lg:text-[64px] text-rose-dark tracking-normal block mt-1.5 leading-[1.18]">
                     Business &amp; Digital Strategist
                   </span>
                 </>
@@ -403,7 +421,7 @@ export default function Home() {
         <div className="max-w-[1560px] mx-auto mt-14 sm:mt-16 bg-white/60 backdrop-blur-md border border-[#CAD7C5]/80 rounded-3xl p-3 sm:p-4 shadow-xs">
           <div className="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-[#CAD7C5]/60">
             <div className="text-center py-3 sm:py-2 px-4">
-              <span className="font-serif font-bold text-2xl sm:text-3xl text-forest block tracking-tight">
+              <span className="font-serif font-bold text-2xl sm:text-3xl text-forest block tracking-normal">
                 {portfolioData.hero?.stat1Value || "7x"}
               </span>
               <span className="text-[10px] sm:text-[11px] uppercase font-semibold text-forest/70 tracking-wider block mt-1">
@@ -411,7 +429,7 @@ export default function Home() {
               </span>
             </div>
             <div className="text-center py-3 sm:py-2 px-4">
-              <span className="font-serif font-bold text-2xl sm:text-3xl text-rose-dark block tracking-tight">
+              <span className="font-serif font-bold text-2xl sm:text-3xl text-rose-dark block tracking-normal">
                 {portfolioData.hero?.stat2Value || "10K+"}
               </span>
               <span className="text-[10px] sm:text-[11px] uppercase font-semibold text-forest/70 tracking-wider block mt-1">
@@ -419,7 +437,7 @@ export default function Home() {
               </span>
             </div>
             <div className="text-center py-3 sm:py-2 px-4">
-              <span className="font-serif font-bold text-2xl sm:text-3xl text-forest block tracking-tight">
+              <span className="font-serif font-bold text-2xl sm:text-3xl text-forest block tracking-normal">
                 {portfolioData.hero?.stat3Value || "20+"}
               </span>
               <span className="text-[10px] sm:text-[11px] uppercase font-semibold text-forest/70 tracking-wider block mt-1">
@@ -427,7 +445,7 @@ export default function Home() {
               </span>
             </div>
             <div className="text-center py-3 sm:py-2 px-4">
-              <span className="font-serif font-bold text-2xl sm:text-3xl text-rose-dark block tracking-tight">
+              <span className="font-serif font-bold text-2xl sm:text-3xl text-rose-dark block tracking-normal">
                 {portfolioData.hero?.stat4Value || "D4 SIB"}
               </span>
               <span className="text-[10px] sm:text-[11px] uppercase font-semibold text-forest/70 tracking-wider block mt-1">
@@ -541,7 +559,7 @@ export default function Home() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ How I Deliver Value /</span>
-          <h2 className="font-sans font-medium text-4xl sm:text-5xl text-forest tracking-tight mt-1">
+          <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-forest tracking-normal mt-1">
             Here&apos;s how it works
           </h2>
           <p className="text-xs sm:text-sm text-neutral-600 mt-3">
@@ -686,7 +704,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
             <div>
               <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ Portfolio &amp; Case Studies /</span>
-              <h2 className="font-sans font-medium text-4xl sm:text-5xl text-forest tracking-tight mt-1">
+              <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-forest tracking-normal mt-1">
                 Selected Works &amp; Case Studies
               </h2>
               <p className="text-xs sm:text-sm text-neutral-600 mt-2 max-w-lg">
@@ -775,24 +793,45 @@ export default function Home() {
                     </p>
 
                     {/* Measured Impact Numbers */}
-                    <div className="grid grid-cols-2 gap-3 p-4 rounded-2xl bg-[#F2F7EF]/70 border border-[#CAD7C5]/80 mb-6">
-                      <div>
-                        <span className="font-serif font-bold text-xl sm:text-2xl text-forest block">
-                          +300%
-                        </span>
-                        <span className="text-[10px] uppercase font-semibold text-neutral-500 tracking-wider">
-                          Efisiensi Distribusi
-                        </span>
+                    {featuredProject.results && featuredProject.results.length >= 2 ? (
+                      <div className="grid grid-cols-2 gap-3 p-4 rounded-2xl bg-[#F2F7EF]/70 border border-[#CAD7C5]/80 mb-6">
+                        {featuredProject.results.slice(0, 2).map((res, rIdx) => {
+                          const parts = res.split(' ');
+                          const hasMetric = parts.length > 1 && /^(\+|\d)/.test(parts[0]);
+                          const metric = hasMetric ? parts[0] : `0${rIdx + 1}`;
+                          const label = hasMetric ? parts.slice(1).join(' ') : res;
+                          return (
+                            <div key={rIdx}>
+                              <span className={`font-serif font-bold text-xl sm:text-2xl block tracking-normal ${rIdx === 1 ? 'text-rose-dark' : 'text-forest'}`}>
+                                {metric}
+                              </span>
+                              <span className="text-[10px] uppercase font-semibold text-neutral-500 tracking-wider line-clamp-1">
+                                {label}
+                              </span>
+                            </div>
+                          );
+                        })}
                       </div>
-                      <div>
-                        <span className="font-serif font-bold text-xl sm:text-2xl text-rose-dark block">
-                          100%
-                        </span>
-                        <span className="text-[10px] uppercase font-semibold text-neutral-500 tracking-wider">
-                          Digital Billing Accuracy
-                        </span>
+                    ) : (
+                      <div className="grid grid-cols-2 gap-3 p-4 rounded-2xl bg-[#F2F7EF]/70 border border-[#CAD7C5]/80 mb-6">
+                        <div>
+                          <span className="font-serif font-bold text-xl sm:text-2xl text-forest block tracking-normal">
+                            +300%
+                          </span>
+                          <span className="text-[10px] uppercase font-semibold text-neutral-500 tracking-wider">
+                            Efisiensi Distribusi
+                          </span>
+                        </div>
+                        <div>
+                          <span className="font-serif font-bold text-xl sm:text-2xl text-rose-dark block tracking-normal">
+                            100%
+                          </span>
+                          <span className="text-[10px] uppercase font-semibold text-neutral-500 tracking-wider">
+                            Digital Billing Accuracy
+                          </span>
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
 
                   <div className="flex items-center gap-3">
@@ -911,7 +950,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
             <div>
               <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ Content &amp; Media /</span>
-              <h2 className="font-sans font-medium text-4xl sm:text-5xl text-forest tracking-tight mt-1">
+              <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-forest tracking-normal mt-1">
                 Creator Studio &amp; Social Growth
               </h2>
               <p className="text-xs sm:text-sm text-neutral-600 mt-2 max-w-md">
@@ -1085,8 +1124,8 @@ export default function Home() {
           {/* Kicker & Title */}
           <div className="mb-14">
             <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ Career &amp; Experience /</span>
-            <h2 className="font-sans font-medium text-4xl sm:text-5xl lg:text-6xl text-forest tracking-tight mt-1">
-              Career Journey &amp; Experience <span className="font-serif italic font-normal text-rose-dark">Pushing Boundaries since 2020</span>
+            <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-forest tracking-normal mt-1">
+              Career Journey &amp; Experience <span className="font-serif italic font-normal text-rose-dark text-2xl sm:text-3xl lg:text-4xl block sm:inline sm:ml-2">Pushing Boundaries since 2020</span>
             </h2>
           </div>
 
@@ -1293,7 +1332,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
               <div>
                 <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ Honors &amp; Recognitions /</span>
-                <h2 className="font-sans font-medium text-4xl sm:text-5xl text-forest tracking-tight mt-1">
+                <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-forest tracking-normal mt-1">
                   National Competitions &amp; Honors
                 </h2>
                 <p className="text-xs sm:text-sm text-neutral-600 mt-2 max-w-lg">
@@ -1379,7 +1418,7 @@ export default function Home() {
           <div>
             <div className="mb-10 text-left">
               <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ Continuous Learning /</span>
-              <h3 className="font-sans font-medium text-3xl sm:text-4xl text-forest tracking-tight mt-1">
+              <h3 className="font-serif font-bold text-2xl sm:text-3xl lg:text-4xl text-forest tracking-normal mt-1">
                 Professional Certifications &amp; Credentials
               </h3>
               <p className="text-xs sm:text-sm text-neutral-600 mt-2 max-w-lg">
@@ -1443,7 +1482,7 @@ export default function Home() {
           <BotanicalCorner className="bottom-4 left-4" />
           
           <div className="relative z-10 max-w-3xl mx-auto space-y-4">
-            <h2 className="font-sans font-medium text-4xl sm:text-6xl md:text-7xl text-forest tracking-tight leading-none">
+            <h2 className="font-serif font-bold text-4xl sm:text-6xl md:text-7xl text-forest tracking-normal leading-[1.1]">
               Let&apos;s Make It Happen
             </h2>
             <p className="text-xs sm:text-base text-rose-950/80 max-w-xl mx-auto leading-relaxed">
@@ -1496,7 +1535,7 @@ export default function Home() {
 
         {/* Giant Solid Signature Typography Across Bottom */}
         <div className="relative z-10 text-center select-none pt-4 overflow-hidden">
-          <span className="font-serif italic font-normal text-6xl sm:text-8xl md:text-9xl lg:text-[150px] xl:text-[170px] text-forest/15 leading-none tracking-tight block">
+          <span className="font-serif italic font-normal text-6xl sm:text-8xl md:text-9xl lg:text-[150px] xl:text-[170px] text-forest/15 leading-none tracking-normal block">
             Chikal Nazmi
           </span>
         </div>
@@ -1521,7 +1560,7 @@ export default function Home() {
                 <span className="text-[11px] font-bold text-rose-800 uppercase tracking-wider bg-rose-50 px-3 py-1 rounded-full border border-rose-100">
                   {modalData.category}
                 </span>
-                <h3 className="font-sans font-bold text-xl sm:text-2xl text-forest mt-2">
+                <h3 className="font-serif font-bold text-xl sm:text-2xl text-forest mt-2 tracking-normal">
                   {modalData.title}
                 </h3>
               </div>
