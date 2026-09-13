@@ -693,14 +693,14 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* HERO SECTION: Asymmetric Editorial Split (No Hilman Blueprint) */}
       {/* ========================================================================= */}
-      <section id="hero" className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-16 lg:pt-16 lg:pb-24">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      <section id="hero" className="max-w-6xl mx-auto px-4 sm:px-6 pt-6 pb-8 sm:pt-8 sm:pb-10 lg:pt-10 lg:pb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           
           {/* Left Column: Narrative, Typography & Direct Metrics (7 Cols) */}
           <div className="lg:col-span-7 flex flex-col items-start">
             
             {/* Live Availability Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-[#CAD7C5] text-forest text-xs font-medium mb-6 shadow-xs">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-[#CAD7C5] text-forest text-xs font-medium mb-3 shadow-xs">
               <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
               <span>{portfolioData.hero?.subheadline || 'Available for Management Trainee & BizDev Roles'}</span>
             </div>
@@ -719,7 +719,7 @@ export default function Home() {
             </h1>
 
             {/* Value Proposition Subtext */}
-            <p className="text-base sm:text-lg text-forest/80 leading-relaxed font-normal max-w-xl mb-8">
+            <p className="text-sm sm:text-base text-forest/85 leading-relaxed font-normal max-w-xl mb-5">
               {portfolioData.hero?.bio || (
                 <>
                   Halo, saya <span className="font-semibold text-forest">Chikal Nazmi Mahira</span>. Mahasiswi / Lulusan D4 Sistem Informasi Bisnis Politeknik Negeri Malang yang berfokus pada operasional bisnis, public relations, dan pembuatan konten kreatif.
@@ -728,7 +728,7 @@ export default function Home() {
             </p>
 
             {/* Metrics Ribbon (Clean Statistical Grid) */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full max-w-xl mb-8">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 w-full max-w-xl mb-5">
               <div className="bg-white/70 border border-[#CAD7C5] rounded-xl p-3 text-center">
                 <span className="block font-serif text-2xl font-bold text-rose-dark">{portfolioData.hero?.stat1Value || '7x'}</span>
                 <span className="text-[11px] text-forest/70 uppercase tracking-wider font-medium">{portfolioData.hero?.stat1Label || 'National Awards'}</span>
@@ -768,8 +768,8 @@ export default function Home() {
           </div>
 
           {/* Right Column: Modern Arch Frame Portrait & Strategic Highlights (5 Cols) */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-[340px] sm:max-w-[380px]">
+          <div className="lg:col-span-5 flex justify-center items-center">
+            <div className="relative w-full max-w-[280px] sm:max-w-[320px]">
               
               {/* Modern Arch Frame Container */}
               <div className="relative bg-[#CAD7C5]/30 p-2.5 rounded-t-[160px] rounded-b-[32px] border-2 border-[#CAD7C5] shadow-xl">
@@ -832,10 +832,10 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION: ACADEMIC BACKGROUND & SPOTLIGHT SKILLS CARD (Paired Side-by-Side) */}
       {/* ========================================================================= */}
-      <section id="academy-skills" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
+      <section id="academy-skills" className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-12 lg:py-14">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12">
+        <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-2.5">
             ✦ Foundations & Capabilities ✦
           </div>
@@ -1059,10 +1059,10 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION: WORK & BUSINESS EXPERIENCE (Pengalaman Kerja Otentik)            */}
       {/* ========================================================================= */}
-      <section id="experience" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
+      <section id="experience" className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-12 lg:py-14 border-t border-[#CAD7C5]/70">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-10">
+        <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-3">
             ✦ Professional Trajectory ✦
           </div>
@@ -1183,10 +1183,10 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION: MY WORK INCLUDES (Campus Projects / Proyek Kampus & Akademik)    */}
       {/* ========================================================================= */}
-      <section id="projects" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
+      <section id="projects" className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-12 lg:py-14 border-t border-[#CAD7C5]/70">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-10">
+        <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-3">
             ✦ Academic & Campus Projects ✦
           </div>
@@ -1353,10 +1353,10 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION 2: WALL OF RECOGNITION (Visual Mosaic Exhibition Collage) */}
       {/* ========================================================================= */}
-      <section id="recognition" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
+      <section id="recognition" className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-12 lg:py-14 border-t border-[#CAD7C5]/70">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-10">
+        <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-3">
             Honors & Achievements
           </div>
@@ -1589,10 +1589,10 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION 3: INSTITUTIONAL LEADERSHIP & GOVERNANCE (Infinite Coverflow)    */}
       {/* ========================================================================= */}
-      <section id="leadership" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80 overflow-hidden">
+      <section id="leadership" className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-12 lg:py-14 border-t border-[#CAD7C5]/70 overflow-hidden">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-10">
+        <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-3">
             Governance & Track Record
           </div>
@@ -1848,10 +1848,10 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION: PROFESSIONAL COURSES & ACCREDITATIONS (Dedicated Section)        */}
       {/* ========================================================================= */}
-      <section id="certifications" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
+      <section id="certifications" className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-12 lg:py-14 border-t border-[#CAD7C5]/70">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12">
+        <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-3">
             ✦ Verified Competencies & Licensures ✦
           </div>
@@ -1934,10 +1934,10 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION 6: CREATIVE PURSUITS & CONTENT CREATOR HIGHLIGHT */}
       {/* ========================================================================= */}
-      <section id="creative" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
+      <section id="creative" className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-12 lg:py-14 border-t border-[#CAD7C5]/70">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12">
+        <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-semibold text-rose-dark uppercase tracking-wider mb-3">
             Creative & Production
           </div>
@@ -1952,7 +1952,7 @@ export default function Home() {
         {/* ----------------------------------------------------------------------- */}
         {/* SUBSECTION A: CONTENT CREATOR MULTI-DEVICE POP-OUT SHOWCASE */}
         {/* ----------------------------------------------------------------------- */}
-        <div className="bg-white/90 backdrop-blur-md border border-[#CAD7C5] rounded-3xl p-6 sm:p-10 shadow-sm mb-16">
+        <div className="bg-white/90 backdrop-blur-md border border-[#CAD7C5] rounded-3xl p-5 sm:p-8 shadow-sm mb-10">
           
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
             <div>
@@ -2225,7 +2225,7 @@ export default function Home() {
         {/* SUBSECTION B: BEYOND THE SCREEN — ART, HOBBIES & INTELLECTUAL PURSUITS */}
         {/* ----------------------------------------------------------------------- */}
         <div>
-          <div className="text-center max-w-xl mx-auto mb-10">
+          <div className="text-center max-w-xl mx-auto mb-6 sm:mb-8">
             <span className="text-[11px] font-bold uppercase tracking-widest text-rose-dark block mb-1">
               ✦ Beyond The Screen
             </span>
@@ -2298,10 +2298,10 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION 5: EDITORIAL COLLABORATION & CONTACT FOOTER */}
       {/* ========================================================================= */}
-      <footer id="contact" className="max-w-6xl mx-auto px-4 sm:px-6 pb-16 pt-8">
+      <footer id="contact" className="max-w-6xl mx-auto px-4 sm:px-6 pb-10 pt-6">
         
         {/* Contact Invitation Card */}
-        <div className="bg-forest text-[#E8EFE5] rounded-3xl p-8 sm:p-14 relative overflow-hidden shadow-xl border border-forest-light text-center flex flex-col items-center">
+        <div className="bg-forest text-[#E8EFE5] rounded-3xl p-6 sm:p-10 relative overflow-hidden shadow-xl border border-forest-light text-center flex flex-col items-center">
           
           {/* Subtle floral watermark effect */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-rose-dark/20 rounded-full blur-3xl pointer-events-none" />
@@ -2317,7 +2317,7 @@ export default function Home() {
               </span>{' '}
               Together.
             </h2>
-            <p className="text-sm sm:text-base text-[#E8EFE5]/80 leading-relaxed mb-8 max-w-xl mx-auto">
+            <p className="text-sm sm:text-base text-[#E8EFE5]/80 leading-relaxed mb-5 max-w-xl mx-auto">
               Terbuka untuk posisi Management Trainee, Business Development, Strategic Marketing Specialist, serta inisiatif kemitraan baru. Mari berdiskusi bagaimana saya dapat berkontribusi nyata bagi organisasi Anda.
             </p>
 
@@ -2427,7 +2427,7 @@ export default function Home() {
           </div>
 
           {/* Bottom Bar inside Card */}
-          <div className="w-full mt-12 pt-6 border-t border-white/15 flex flex-col sm:flex-row items-center justify-between text-xs text-[#E8EFE5]/60 gap-4">
+          <div className="w-full mt-8 pt-5 border-t border-white/15 flex flex-col sm:flex-row items-center justify-between text-xs text-[#E8EFE5]/60 gap-4">
             <div>
               © 2026 Chikal Nazmi Mahira. All rights reserved.
             </div>
