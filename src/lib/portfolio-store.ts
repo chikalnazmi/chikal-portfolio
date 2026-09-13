@@ -769,8 +769,8 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
   ],
 };
 
-const STORAGE_KEY = 'chikal_portfolio_content_v7';
-const STORAGE_TS_KEY = 'chikal_portfolio_content_v7_ts';
+const STORAGE_KEY = 'chikal_portfolio_content_v8';
+const STORAGE_TS_KEY = 'chikal_portfolio_content_v8_ts';
 const EVENT_NAME = 'chikal_portfolio_updated';
 
 import { supabase, isSupabaseConfigured } from './supabase';
@@ -781,17 +781,92 @@ function mergePortfolioData(raw: Partial<PortfolioData>): PortfolioData {
     mergedHero.stat4Value = '775';
     mergedHero.stat4Label = 'Skor Resmi TOEIC';
   }
+
+  // Robust per-item merge for experiences to ensure extraImages & image are never lost
+  const experiences = (raw.experiences && raw.experiences.length > 0 ? raw.experiences : DEFAULT_PORTFOLIO_DATA.experiences).map((exp, idx) => {
+    const def = DEFAULT_PORTFOLIO_DATA.experiences?.[idx] || DEFAULT_PORTFOLIO_DATA.experiences?.[0];
+    const fallbackImgs = def?.extraImages || [exp.image || def?.image || '/3.png'];
+    const validExtra = (exp.extraImages && exp.extraImages.length > 0)
+      ? exp.extraImages.filter(Boolean)
+      : fallbackImgs;
+    return {
+      ...def,
+      ...exp,
+      image: exp.image || def?.image || validExtra[0] || '/3.png',
+      extraImages: validExtra.length > 0 ? validExtra : fallbackImgs,
+    };
+  });
+
+  // Robust per-item merge for projects
+  const projects = (raw.projects && raw.projects.length > 0 ? raw.projects : DEFAULT_PORTFOLIO_DATA.projects).map((proj, idx) => {
+    const def = DEFAULT_PORTFOLIO_DATA.projects?.[idx] || DEFAULT_PORTFOLIO_DATA.projects?.[0];
+    const fallbackImgs = def?.extraImages || [proj.image || def?.image || '/15.png'];
+    const validExtra = (proj.extraImages && proj.extraImages.length > 0)
+      ? proj.extraImages.filter(Boolean)
+      : fallbackImgs;
+    return {
+      ...def,
+      ...proj,
+      image: proj.image || def?.image || validExtra[0] || '/15.png',
+      extraImages: validExtra.length > 0 ? validExtra : fallbackImgs,
+    };
+  });
+
+  // Robust per-item merge for awards
+  const awards = (raw.awards && raw.awards.length > 0 ? raw.awards : DEFAULT_PORTFOLIO_DATA.awards).map((aw, idx) => {
+    const def = DEFAULT_PORTFOLIO_DATA.awards?.[idx] || DEFAULT_PORTFOLIO_DATA.awards?.[0];
+    const fallbackImgs = def?.extraImages || [aw.certImg || def?.certImg || '/1.png'];
+    const validExtra = (aw.extraImages && aw.extraImages.length > 0)
+      ? aw.extraImages.filter(Boolean)
+      : fallbackImgs;
+    return {
+      ...def,
+      ...aw,
+      certImg: aw.certImg || def?.certImg || '/1.png',
+      eventImg: aw.eventImg || def?.eventImg || '/2.png',
+      extraImages: validExtra.length > 0 ? validExtra : fallbackImgs,
+    };
+  });
+
+  // Robust per-item merge for organizations
+  const organizations = (raw.organizations && raw.organizations.length > 0 ? raw.organizations : DEFAULT_PORTFOLIO_DATA.organizations).map((org, idx) => {
+    const def = DEFAULT_PORTFOLIO_DATA.organizations?.[idx] || DEFAULT_PORTFOLIO_DATA.organizations?.[0];
+    const validImages = (org.images && org.images.length > 0)
+      ? org.images.filter(Boolean)
+      : (def?.images || ['/12.png', '/13.png', '/5.png']);
+    return {
+      ...def,
+      ...org,
+      images: validImages,
+    };
+  });
+
+  // Robust per-item merge for certifications
+  const certifications = (raw.certifications && raw.certifications.length > 0 ? raw.certifications : DEFAULT_PORTFOLIO_DATA.certifications).map((cert, idx) => {
+    const def = DEFAULT_PORTFOLIO_DATA.certifications?.[idx] || DEFAULT_PORTFOLIO_DATA.certifications?.[0];
+    const fallbackImgs = def?.extraImages || [cert.image || def?.image || '/11.png'];
+    const validExtra = (cert.extraImages && cert.extraImages.length > 0)
+      ? cert.extraImages.filter(Boolean)
+      : fallbackImgs;
+    return {
+      ...def,
+      ...cert,
+      image: cert.image || def?.image || validExtra[0] || '/11.png',
+      extraImages: validExtra.length > 0 ? validExtra : fallbackImgs,
+    };
+  });
+
   return {
     hero: mergedHero,
     academic: raw.academic || DEFAULT_PORTFOLIO_DATA.academic,
     socials: { ...DEFAULT_PORTFOLIO_DATA.socials, ...(raw.socials || {}) },
     creatorAccounts: { ...DEFAULT_PORTFOLIO_DATA.creatorAccounts, ...(raw.creatorAccounts || {}) },
-    experiences: raw.experiences && raw.experiences.length > 0 ? raw.experiences : DEFAULT_PORTFOLIO_DATA.experiences,
-    projects: raw.projects && raw.projects.length > 0 ? raw.projects : DEFAULT_PORTFOLIO_DATA.projects,
-    awards: raw.awards && raw.awards.length > 0 ? raw.awards : DEFAULT_PORTFOLIO_DATA.awards,
-    organizations: raw.organizations && raw.organizations.length > 0 ? raw.organizations : DEFAULT_PORTFOLIO_DATA.organizations,
+    experiences,
+    projects,
+    awards,
+    organizations,
     skills: raw.skills && raw.skills.length > 0 ? raw.skills : DEFAULT_PORTFOLIO_DATA.skills,
-    certifications: raw.certifications && raw.certifications.length > 0 ? raw.certifications : DEFAULT_PORTFOLIO_DATA.certifications,
+    certifications,
   };
 }
 

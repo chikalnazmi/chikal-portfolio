@@ -1151,8 +1151,15 @@ export default function Home() {
                       className="w-full h-44 sm:h-48 rounded-xl overflow-hidden relative border border-[#CAD7C5]/80 bg-[#E8EFE5]/40 cursor-pointer group/img shadow-2xs"
                     >
                       <img
-                        src={currentImg}
+                        src={currentImg || exp.image || '/3.png'}
                         alt={exp.title}
+                        onError={(e) => {
+                          const target = e.currentTarget;
+                          const fallback = exp.image || '/3.png';
+                          if (target.src !== fallback) {
+                            target.src = fallback;
+                          }
+                        }}
                         className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-forest/80 via-forest/20 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity flex items-end p-2.5">
@@ -1183,7 +1190,15 @@ export default function Home() {
                                 : 'border-[#CAD7C5]/70 opacity-70 hover:opacity-100'
                             }`}
                           >
-                            <img src={imgUrl} alt={`Foto ${imgIdx + 1}`} className="w-full h-full object-cover" />
+                            <img 
+                              src={imgUrl} 
+                              alt={`Foto ${imgIdx + 1}`} 
+                              onError={(e) => {
+                                const target = e.currentTarget;
+                                target.src = '/3.png';
+                              }}
+                              className="w-full h-full object-cover" 
+                            />
                             {activeIdx === imgIdx && (
                               <div className="absolute inset-0 bg-rose-dark/10" />
                             )}

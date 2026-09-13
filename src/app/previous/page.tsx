@@ -1257,8 +1257,14 @@ export default function Home() {
                 className="w-full sm:w-36 h-36 sm:h-auto shrink-0 rounded-lg overflow-hidden relative border border-[#CAD7C5]/70 bg-[#E8EFE5]/40 cursor-pointer group/img"
               >
                 <img
-                  src={exp.image}
+                  src={exp.image || '/3.png'}
                   alt={exp.title}
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (target.src !== '/3.png') {
+                      target.src = '/3.png';
+                    }
+                  }}
                   className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-forest/20 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
