@@ -1102,105 +1102,105 @@ export default function Home() {
           </p>
         </div>
 
-        {/* 2-Grid Layout Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+        {/* 2-Column Balanced Compact Grid Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 items-stretch">
           {experiencesList.map((exp) => (
             <div
               key={exp.id}
-              className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-3xl p-5 sm:p-6 shadow-sm hover:shadow-md hover:border-rose-dusty/50 transition-all flex flex-col justify-between group"
+              className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-2xl p-4 sm:p-5 shadow-xs hover:shadow-md hover:border-rose-dusty/50 transition-all flex flex-col sm:flex-row gap-4 items-stretch group"
             >
-              <div>
-                {/* Card Header Info */}
-                <div className="flex items-center justify-between gap-2 mb-3">
-                  <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${exp.badgeColor || 'bg-emerald-100 text-emerald-900 border-emerald-300'} uppercase tracking-wider`}>
-                    {exp.tag}
+              {/* Left: Compact Photo Showcase with Direct Gallery Trigger */}
+              <div
+                onClick={() => openModal(
+                  exp.title,
+                  `${exp.tag} • ${exp.period}`,
+                  exp.summary,
+                  exp.extraImages && exp.extraImages.length > 0 ? exp.extraImages : [exp.image],
+                  exp.link,
+                  exp.linkLabel
+                )}
+                className="w-full sm:w-44 h-44 sm:h-auto shrink-0 rounded-xl overflow-hidden relative border border-[#CAD7C5]/70 bg-[#E8EFE5]/40 cursor-pointer group/img"
+              >
+                <img
+                  src={exp.image}
+                  alt={exp.title}
+                  className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-forest/20 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
+                  <span className="px-2.5 py-1 rounded-full bg-white text-forest text-[10px] font-bold shadow-xs">
+                    Buka Galeri ↗
                   </span>
-                  <span className="text-xs text-forest/60 font-medium font-mono">
-                    {exp.period}
-                  </span>
                 </div>
-
-                <h3 className="font-serif text-xl sm:text-2xl font-bold text-forest mb-3 group-hover:text-rose-dark transition-colors">
-                  {exp.title}
-                </h3>
-
-                {/* Direct Multi-Photo Mini Gallery */}
-                <div className="relative mb-4 overflow-hidden rounded-2xl border border-[#CAD7C5]/70 bg-[#E8EFE5]/40 p-1.5">
-                  <div className="grid grid-cols-12 gap-1.5 aspect-[16/9]">
-                    {/* Foto Utama (7 Kolom) */}
-                    <div className="col-span-7 relative overflow-hidden rounded-xl bg-forest/5">
-                      <img
-                        src={exp.image}
-                        alt={exp.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <span className="absolute bottom-1.5 left-1.5 bg-forest/80 backdrop-blur-xs text-white text-[9px] font-medium px-2 py-0.5 rounded-full">
-                        Dokumentasi Primer
-                      </span>
-                    </div>
-                    {/* Foto Pendukung (5 Kolom) */}
-                    <div className="col-span-5 relative overflow-hidden rounded-xl bg-forest/5">
-                      <img
-                        src={exp.extraImages?.[1] || exp.image}
-                        alt={`${exp.title} dokumentasi tambahan`}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <span className="absolute bottom-1.5 right-1.5 bg-rose-dark/85 backdrop-blur-xs text-white text-[9px] font-medium px-2 py-0.5 rounded-full">
-                        Foto Kerja
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Quick Hover Action */}
-                  <div 
-                    onClick={() => openModal(exp.title, `${exp.tag} • ${exp.period}`, exp.summary, exp.extraImages && exp.extraImages.length > 0 ? exp.extraImages : [exp.image], exp.link, exp.linkLabel)}
-                    className="absolute inset-0 bg-forest/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer"
-                  >
-                    <span className="px-3.5 py-1.5 rounded-full bg-white text-forest text-xs font-semibold shadow-md">
-                       Buka Galeri Lengkap ({exp.extraImages?.length || 1} Foto)
-                    </span>
-                  </div>
-                </div>
-
-                {/* Summary */}
-                <p className="text-xs sm:text-sm text-forest/80 leading-relaxed mb-4 font-source">
-                  {exp.summary}
-                </p>
-
-                {/* Highlights / Key Focus Tags */}
-                <div className="flex flex-wrap gap-2 mb-5 font-source">
-                  {exp.results?.map((res, rIdx) => (
-                    <span
-                      key={rIdx}
-                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FAFBF8] border border-[#CAD7C5]/70 text-[11px] font-medium text-forest shadow-2xs"
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-rose-dusty shrink-0" />
-                      <span>{res}</span>
-                    </span>
-                  ))}
-                </div>
+                <span className="absolute bottom-2 left-2 px-2 py-0.5 rounded-md bg-forest/85 text-white text-[9px] font-bold backdrop-blur-xs shadow-2xs">
+                  {exp.extraImages?.length || 1} Foto
+                </span>
               </div>
 
-              {/* Bottom Trigger Button & Link */}
-              <div className="pt-3 border-t border-[#CAD7C5]/50 flex flex-wrap items-center justify-between gap-2">
-                <button
-                  onClick={() => openModal(exp.title, `${exp.tag} • ${exp.period}`, exp.summary, exp.extraImages && exp.extraImages.length > 0 ? exp.extraImages : [exp.image], exp.link, exp.linkLabel)}
-                  className="inline-flex items-center gap-1 text-xs font-bold text-rose-dark hover:text-rose-berry transition-colors cursor-pointer"
-                >
-                  <span>Lihat Dokumentasi Kerja</span>
-                  <span>→</span>
-                </button>
+              {/* Right: Experience Details & Action */}
+              <div className="flex-1 flex flex-col justify-between min-w-0">
+                <div>
+                  {/* Card Header Info */}
+                  <div className="flex items-center justify-between gap-2 mb-1.5">
+                    <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-md border ${exp.badgeColor || 'bg-emerald-100 text-emerald-900 border-emerald-300'} uppercase tracking-wider`}>
+                      {exp.tag}
+                    </span>
+                    <span className="text-xs text-forest/60 font-medium font-mono shrink-0">
+                      {exp.period}
+                    </span>
+                  </div>
 
-                {exp.link && (
-                  <a
-                    href={exp.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-xs font-bold text-forest/80 hover:text-forest transition-colors bg-[#E8EFE5] hover:bg-[#CAD7C5] px-3 py-1 rounded-full border border-[#CAD7C5]/60"
+                  {/* Title */}
+                  <h3 className="font-serif text-base sm:text-lg font-bold text-forest group-hover:text-rose-dark transition-colors line-clamp-2 mb-1.5 tracking-tight">
+                    {exp.title}
+                  </h3>
+
+                  {/* Summary */}
+                  <p className="text-xs text-forest/75 leading-relaxed line-clamp-2 mb-3 font-source">
+                    {exp.summary}
+                  </p>
+
+                  {/* Highlights / Key Focus Tags */}
+                  <div className="flex flex-wrap gap-1.5 mb-3">
+                    {exp.results?.slice(0, 3).map((res, rIdx) => (
+                      <span
+                        key={rIdx}
+                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#FAFBF8] border border-[#CAD7C5]/70 text-[10px] font-medium text-forest shadow-2xs"
+                      >
+                        <span className="w-1 h-1 rounded-full bg-rose-dusty shrink-0" />
+                        <span className="truncate">{res}</span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Bottom Action Row */}
+                <div className="pt-2.5 border-t border-[#CAD7C5]/50 flex items-center justify-between gap-2 text-xs">
+                  <button
+                    onClick={() => openModal(
+                      exp.title,
+                      `${exp.tag} • ${exp.period}`,
+                      exp.summary,
+                      exp.extraImages && exp.extraImages.length > 0 ? exp.extraImages : [exp.image],
+                      exp.link,
+                      exp.linkLabel
+                    )}
+                    className="inline-flex items-center gap-1 font-bold text-rose-dark hover:text-rose-berry transition-colors cursor-pointer py-0.5"
                   >
-                    <span>{exp.linkLabel || 'Kunjungi Tautan ↗'}</span>
-                  </a>
-                )}
+                    <span>Lihat Dokumentasi</span>
+                    <span>→</span>
+                  </button>
+
+                  {exp.link && (
+                    <a
+                      href={exp.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 font-bold text-forest/80 hover:text-forest transition-colors bg-[#E8EFE5] hover:bg-[#CAD7C5] px-2.5 py-0.5 rounded-full border border-[#CAD7C5]/60 text-[11px]"
+                    >
+                      <span>{exp.linkLabel?.replace(' ↗', '') || 'Kunjungi'} ↗</span>
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           ))}
