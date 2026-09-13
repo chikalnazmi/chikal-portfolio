@@ -161,7 +161,7 @@ export default function Home() {
       title: 'Dua Sisi Laundry — Operasional & Sistem Kas',
       tag: 'Operations & SOP',
       period: '2023 - 2024',
-      badgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300',
+      badgeColor: 'bg-rose-blush/90 text-rose-dark border-rose-dusty/40',
       summary: 'Penyusunan alur kerja operasional cuci-setrika, pendataan kas harian, dan koordinasi layanan laundry lokal.',
       challenge: 'Perlunya alur kerja cuci-setrika yang konsisten dan pencatatan kas harian yang rapi.',
       strategy: 'Merumuskan alur pengerjaan terstandarisasi dan pencatatan pembukuan harian.',
@@ -181,7 +181,7 @@ export default function Home() {
       title: 'YarnUp! Studio — Brand Aksesoris Rajut',
       tag: 'Handmade & Content',
       period: '2023 - Sekarang',
-      badgeColor: 'bg-rose-100 text-rose-900 border-rose-300',
+      badgeColor: 'bg-rose-blush/90 text-rose-dark border-rose-dusty/40',
       summary: 'Mengembangkan brand aksesoris rajut handmade, pembuatan katalog foto dan video konten pendek di Instagram.',
       challenge: 'Membangun awareness produk rajut handmade lokal di media sosial.',
       strategy: 'Membuat konten video proses pembuatan rajut dan foto katalog produk estetik.',
@@ -201,7 +201,7 @@ export default function Home() {
       title: 'Manikarumi Indonesia — PR & Event Partner',
       tag: 'Public Relations',
       period: '2023 - 2024',
-      badgeColor: 'bg-amber-100 text-amber-900 border-amber-300',
+      badgeColor: 'bg-rose-blush/90 text-rose-dark border-rose-dusty/40',
       summary: 'Membina kemitraan dengan event organizer di Malang & Jakarta untuk pengadaan stan display bazar dan promosi offline.',
       challenge: 'Memperluas jangkauan stan offline melalui kolaborasi dengan berbagai penyelenggara acara.',
       strategy: 'Menjalin komunikasi aktif dengan event organizer serta menata display stan produk yang menarik.',
@@ -221,7 +221,7 @@ export default function Home() {
       title: 'PT Digivla Indonesia — Software Engineer Intern',
       tag: 'Python & Tech Support',
       period: '2023',
-      badgeColor: 'bg-blue-100 text-blue-900 border-blue-300',
+      badgeColor: 'bg-rose-blush/90 text-rose-dark border-rose-dusty/40',
       summary: 'Magang sebagai software engineer, membantu otomasi pengumpulan berita koran cetak dan pengujian sistem media intelligence.',
       challenge: 'Membantu otomasi pemantauan berita dari koran cetak ke format digital.',
       strategy: 'Membantu pengembangan skrip Python untuk deteksi berita dan verifikasi akurasi data.',
@@ -241,7 +241,7 @@ export default function Home() {
       title: 'Website SurveyKu — Academic Survey Platform',
       tag: 'UI/UX & Web Systems',
       period: '2023 - 2024',
-      badgeColor: 'bg-purple-100 text-purple-900 border-purple-300',
+      badgeColor: 'bg-rose-blush/90 text-rose-dark border-rose-dusty/40',
       summary: 'Merancang arsitektur antarmuka UI/UX dan basis data relasional untuk sistem pengumpulan kuesioner dan evaluasi kepuasan mahasiswa secara daring.',
       challenge: 'Mempermudah distribusi kuesioner dan visualisasi data hasil survei responden secara realtime.',
       strategy: 'Perancangan prototipe Figma berorientasi user-centric dan pemodelan relasional database terstruktur.',
@@ -261,7 +261,7 @@ export default function Home() {
       title: 'Creative Content Strategy & Social Campaigns',
       tag: 'Social Media Strategy',
       period: '2023 - Sekarang',
-      badgeColor: 'bg-rose-100 text-rose-900 border-rose-300',
+      badgeColor: 'bg-rose-blush/90 text-rose-dark border-rose-dusty/40',
       summary: 'Perencanaan kalender konten media sosial, produksi video pendek berdaya jangkau tinggi, serta eksekusi kampanye promosi digital terukur.',
       challenge: 'Meningkatkan retensi penonton dan interaksi organik di tengah algoritma media sosial yang dinamis.',
       strategy: 'Storytelling berdurasi singkat yang informatif dengan visual hooks kuat pada 3 detik pertama.',
@@ -1211,17 +1211,17 @@ export default function Home() {
               <div className="flex-1 flex flex-col justify-between min-w-0">
                 <div>
                   {/* Card Header Info */}
-                  <div className="flex items-center justify-between gap-2 mb-1">
-                    <span className={`text-[9px] font-bold px-2 py-0.5 rounded-md border ${exp.badgeColor || 'bg-emerald-100 text-emerald-900 border-emerald-300'} uppercase tracking-wider`}>
+                  <div className="flex items-center justify-between gap-2 mb-1.5">
+                    <span className="text-[10px] font-sans font-bold px-2.5 py-0.5 rounded-full bg-rose-blush/90 text-rose-dark border border-rose-dusty/40 uppercase tracking-wider shadow-2xs">
                       {exp.tag}
                     </span>
-                    <span className="text-[11px] text-forest/60 font-medium font-mono shrink-0">
+                    <span className="text-xs text-forest/70 font-sans font-medium px-2.5 py-0.5 rounded-full bg-[#F4F7F2] border border-[#CAD7C5]/70 shrink-0">
                       {exp.period}
                     </span>
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-serif text-sm sm:text-base font-bold text-forest group-hover:text-rose-dark transition-colors line-clamp-1 mb-1 tracking-tight">
+                  <h3 className="font-sans text-base sm:text-lg font-bold text-forest group-hover:text-rose-dark transition-colors line-clamp-1 mb-1 tracking-tight">
                     {exp.title}
                   </h3>
 
@@ -1410,7 +1410,7 @@ export default function Home() {
                   </span>
                 </div>
 
-                <h3 className="font-serif text-sm sm:text-base font-bold text-forest uppercase tracking-wide group-hover:text-rose-dark transition-colors line-clamp-1 leading-snug">
+                <h3 className="font-sans text-sm sm:text-base font-bold text-forest uppercase tracking-wide group-hover:text-rose-dark transition-colors line-clamp-1 leading-snug">
                   {project.title}
                 </h3>
 
@@ -1567,7 +1567,7 @@ export default function Home() {
 
                   {/* Default Bottom Teaser with Legible Backdrop */}
                   <div className="relative z-10 bg-black/60 backdrop-blur-xs p-2.5 rounded-xl border border-white/15 text-white group-hover:opacity-0 transition-opacity duration-300">
-                    <h3 className="font-serif text-sm sm:text-base font-bold leading-snug line-clamp-1">
+                    <h3 className="font-sans text-sm sm:text-base font-bold leading-snug line-clamp-1">
                       {award.title}
                     </h3>
                     <p className="text-[10px] font-subheader text-rose-blush tracking-wider uppercase mt-0.5 truncate">
@@ -1584,7 +1584,7 @@ export default function Home() {
                           {award.scope}
                         </span>
                       </div>
-                      <h3 className="font-serif text-base sm:text-lg font-bold leading-snug mb-1 text-white line-clamp-1">
+                      <h3 className="font-sans text-base sm:text-lg font-bold leading-snug mb-1 text-white line-clamp-1">
                         {award.title}
                       </h3>
                       <p className="text-[11px] font-subheader text-[#E8EFE5]/70 tracking-wider uppercase mb-1.5">
@@ -1819,7 +1819,7 @@ export default function Home() {
                               {org.tag}
                             </div>
 
-                            <h3 className="font-serif text-lg sm:text-xl font-bold text-forest mb-0.5 line-clamp-1">
+                            <h3 className="font-sans text-lg sm:text-xl font-bold text-forest mb-0.5 line-clamp-1">
                               {org.role}
                             </h3>
 
@@ -1942,7 +1942,7 @@ export default function Home() {
                 </span>
 
                 {/* Course Title */}
-                <h4 className="font-serif text-xs sm:text-sm font-bold text-forest group-hover:text-rose-dark transition-colors line-clamp-2 leading-snug">
+                <h4 className="font-sans text-xs sm:text-sm font-bold text-forest group-hover:text-rose-dark transition-colors line-clamp-2 leading-snug">
                   {item.title}
                 </h4>
               </div>
@@ -1999,7 +1999,7 @@ export default function Home() {
               <span className="text-[10px] font-bold uppercase tracking-widest text-rose-dark block">
                 ✦ Multi-Platform Production
               </span>
-              <h3 className="font-serif text-lg sm:text-xl font-bold text-forest">
+              <h3 className="font-sans text-lg sm:text-xl font-bold text-forest">
                 Social Media & Video Production
               </h3>
             </div>
@@ -2149,7 +2149,7 @@ export default function Home() {
                     <span className="text-[9px] font-bold uppercase tracking-widest text-rose-blush mb-0.5">
                       {currentCreator.platforms}
                     </span>
-                    <h4 className="font-serif text-base sm:text-lg font-bold leading-tight mb-0.5 line-clamp-1">
+                    <h4 className="font-sans text-base sm:text-lg font-bold leading-tight mb-0.5 line-clamp-1">
                       {currentCreator.centerTitle}
                     </h4>
                     <p className="text-[11px] text-[#E8EFE5]/85 leading-snug line-clamp-2">
