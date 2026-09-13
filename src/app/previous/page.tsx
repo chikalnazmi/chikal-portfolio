@@ -12,7 +12,7 @@ import {
 
 function BotanicalDivider() {
   return (
-    <div className="w-full flex items-center justify-center my-2 pointer-events-none select-none max-w-6xl mx-auto px-4 sm:px-6">
+    <div className="w-full flex items-center justify-center my-2 pointer-events-none select-none max-w-[1380px] mx-auto px-4 sm:px-6">
       <div className="flex-1 max-w-[220px] sm:max-w-sm h-px bg-gradient-to-r from-transparent to-[#CAD7C5]/80" />
       <div className="px-4 text-rose-dusty/70 text-base sm:text-lg">❀</div>
       <div className="flex-1 max-w-[220px] sm:max-w-sm h-px bg-gradient-to-l from-transparent to-[#CAD7C5]/80" />
@@ -631,7 +631,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* NAVBAR: Modern Floating Editorial Pill */}
       {/* ========================================================================= */}
-      <nav className="sticky top-4 z-40 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="sticky top-3 z-40 max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white/85 backdrop-blur-md border border-[#CAD7C5] rounded-full px-5 py-3 shadow-sm flex items-center justify-between transition-all hover:border-rose-dusty/40">
           <a href="#hero" className="flex flex-col group py-0.5">
             <span className="font-serif font-bold text-sm sm:text-base tracking-normal text-forest group-hover:text-rose-dark transition-colors leading-tight">
@@ -740,8 +740,8 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* HERO SECTION: Asymmetric Editorial Split (No Hilman Blueprint) */}
       {/* ========================================================================= */}
-      <section id="hero" className="w-full lg:min-h-[calc(100vh-4.5rem)] flex flex-col justify-between scroll-mt-20">
-        <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex-1 flex items-center py-4">
+      <section id="hero" className="w-full scroll-mt-18">
+        <div className="max-w-[1380px] mx-auto w-full px-4 sm:px-6 lg:px-8 pt-4 pb-5 sm:pt-6 sm:pb-6 lg:pt-8 lg:pb-7">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center w-full">
           
           {/* Left Column: Narrative, Typography & Direct Metrics (7 Cols) */}
@@ -909,7 +909,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION: ACADEMIC BACKGROUND & SPOTLIGHT SKILLS CARD (Paired Side-by-Side) */}
       {/* ========================================================================= */}
-      <section id="academy-skills" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 lg:min-h-[calc(100vh-4.5rem)] flex flex-col justify-center scroll-mt-20">
+      <section id="academy-skills" className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-7 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/60 scroll-mt-18">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4.5">
@@ -1157,7 +1157,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION: WORK & BUSINESS EXPERIENCE (Pengalaman Kerja Otentik)            */}
       {/* ========================================================================= */}
-      <section id="experience" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 lg:min-h-[calc(100vh-4.5rem)] flex flex-col justify-center border-t border-[#CAD7C5]/70 scroll-mt-20">
+      <section id="experience" className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-7 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/60 scroll-mt-18">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4.5">
@@ -1282,7 +1282,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION: MY WORK INCLUDES (Campus Projects / Proyek Kampus & Akademik)    */}
       {/* ========================================================================= */}
-      <section id="projects" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 lg:min-h-[calc(100vh-4.5rem)] flex flex-col justify-center border-t border-[#CAD7C5]/70 scroll-mt-20">
+      <section id="projects" className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-7 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/60 scroll-mt-18">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-3 sm:mb-3.5">
@@ -1452,7 +1452,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION 2: WALL OF RECOGNITION (Visual Mosaic Exhibition Collage) */}
       {/* ========================================================================= */}
-      <section id="recognition" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 lg:min-h-[calc(100vh-4.5rem)] flex flex-col justify-center border-t border-[#CAD7C5]/70 scroll-mt-20">
+      <section id="recognition" className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-7 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/60 scroll-mt-18">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4">
@@ -1637,7 +1637,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION 3: INSTITUTIONAL LEADERSHIP & GOVERNANCE (Infinite Coverflow)    */}
       {/* ========================================================================= */}
-      <section id="leadership" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 lg:min-h-[calc(100vh-4.5rem)] flex flex-col justify-center border-t border-[#CAD7C5]/70 overflow-hidden scroll-mt-20">
+      <section id="leadership" className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-7 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/60 overflow-hidden scroll-mt-18">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-2.5 sm:mb-3">
@@ -1894,7 +1894,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION: PROFESSIONAL COURSES & ACCREDITATIONS (Dedicated Section)        */}
       {/* ========================================================================= */}
-      <section id="certifications" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 lg:min-h-[calc(100vh-4.5rem)] flex flex-col justify-center border-t border-[#CAD7C5]/70 scroll-mt-20">
+      <section id="certifications" className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-7 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/60 scroll-mt-18">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4">
@@ -1978,7 +1978,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION 6: CREATIVE PURSUITS & CONTENT CREATOR HIGHLIGHT                   */}
       {/* ========================================================================= */}
-      <section id="creative" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 lg:min-h-[calc(100vh-4.5rem)] flex flex-col justify-center border-t border-[#CAD7C5]/70 scroll-mt-20">
+      <section id="creative" className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-7 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/60 scroll-mt-18">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4">
@@ -2266,7 +2266,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION 7: BEYOND THE SCREEN — ART, HOBBIES & INTELLECTUAL PURSUITS       */}
       {/* ========================================================================= */}
-      <section id="hobbies" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 lg:min-h-[calc(100vh-4.5rem)] flex flex-col justify-center border-t border-[#CAD7C5]/70 scroll-mt-20">
+      <section id="hobbies" className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-7 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/60 scroll-mt-18">
         
         {/* Section Header */}
         <div className="text-center max-w-xl mx-auto mb-3.5 sm:mb-4">
@@ -2338,7 +2338,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION 8: EDITORIAL COLLABORATION & CONTACT FOOTER (Seamless Design)     */}
       {/* ========================================================================= */}
-      <footer id="contact" className="relative lg:min-h-[calc(100vh-4.5rem)] flex flex-col justify-center pt-8 pb-10 sm:pt-10 sm:pb-12 px-4 sm:px-6 lg:px-8 overflow-hidden border-t border-[#CAD7C5]/70 scroll-mt-20">
+      <footer id="contact" className="relative max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-12 sm:pt-12 sm:pb-14 overflow-hidden border-t border-[#CAD7C5]/60 scroll-mt-18">
         
         {/* Soft Ambient Botanical Glows */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-rose-blush/40 rounded-full blur-3xl pointer-events-none" />
@@ -2463,7 +2463,7 @@ export default function Home() {
         </div>
 
         {/* Bottom Bar: Clean & Seamless */}
-        <div className="w-full max-w-6xl mx-auto mt-8 pt-4 border-t border-[#CAD7C5]/70 flex flex-col sm:flex-row items-center justify-between text-xs text-forest/65 gap-3">
+        <div className="w-full max-w-[1380px] mx-auto mt-8 pt-4 border-t border-[#CAD7C5]/70 flex flex-col sm:flex-row items-center justify-between text-xs text-forest/65 gap-3">
           <div>
             © 2026 Chikal Nazmi Mahira. All rights reserved.
           </div>
