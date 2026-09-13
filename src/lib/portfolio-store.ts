@@ -144,8 +144,8 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
     stat2Label: 'Jangkauan Konten',
     stat3Value: '20+',
     stat3Label: 'Mitra Event',
-    stat4Value: 'D4 SIB',
-    stat4Label: 'Polinema',
+    stat4Value: '775',
+    stat4Label: 'Skor Resmi TOEIC',
   },
   socials: {
     email: 'chikalnazmi@gmail.com',
@@ -693,8 +693,13 @@ const EVENT_NAME = 'chikal_portfolio_updated';
 import { supabase, isSupabaseConfigured } from './supabase';
 
 function mergePortfolioData(raw: Partial<PortfolioData>): PortfolioData {
+  const mergedHero = { ...DEFAULT_PORTFOLIO_DATA.hero, ...(raw.hero || {}) };
+  if (mergedHero.stat4Value === 'D4 SIB') {
+    mergedHero.stat4Value = '775';
+    mergedHero.stat4Label = 'Skor Resmi TOEIC';
+  }
   return {
-    hero: { ...DEFAULT_PORTFOLIO_DATA.hero, ...(raw.hero || {}) },
+    hero: mergedHero,
     academic: raw.academic || DEFAULT_PORTFOLIO_DATA.academic,
     socials: { ...DEFAULT_PORTFOLIO_DATA.socials, ...(raw.socials || {}) },
     creatorAccounts: { ...DEFAULT_PORTFOLIO_DATA.creatorAccounts, ...(raw.creatorAccounts || {}) },

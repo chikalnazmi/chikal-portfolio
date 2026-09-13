@@ -742,8 +742,16 @@ export default function Home() {
                 <span className="text-[11px] text-forest/70 uppercase tracking-wider font-medium">{portfolioData.hero?.stat3Label || 'Event Partners'}</span>
               </div>
               <div className="bg-white/70 border border-[#CAD7C5] rounded-xl p-3 text-center">
-                <span className="block font-serif text-2xl font-bold text-forest">{portfolioData.hero?.stat4Value || 'D4 SIB'}</span>
-                <span className="text-[11px] text-forest/70 uppercase tracking-wider font-medium">{portfolioData.hero?.stat4Label || 'Polinema Honor'}</span>
+                <span className="block font-serif text-2xl font-bold text-forest">
+                  {portfolioData.hero?.stat4Value && portfolioData.hero.stat4Value !== 'D4 SIB'
+                    ? portfolioData.hero.stat4Value
+                    : '775'}
+                </span>
+                <span className="text-[11px] text-forest/70 uppercase tracking-wider font-medium">
+                  {portfolioData.hero?.stat4Label && portfolioData.hero.stat4Label !== 'Polinema' && portfolioData.hero.stat4Label !== 'Polinema Honor'
+                    ? portfolioData.hero.stat4Label
+                    : 'Skor Resmi TOEIC'}
+                </span>
               </div>
             </div>
 

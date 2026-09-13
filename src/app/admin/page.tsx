@@ -531,7 +531,7 @@ export default function AdminPortal() {
                           ...data,
                           hero: { ...data.hero, stat4Value: e.target.value }
                         })}
-                        placeholder="D4 SIB"
+                        placeholder="775"
                         className="w-full text-center font-serif font-bold text-sm text-neutral-900 bg-white rounded-lg border border-[#CAD7C5] py-1 mb-1"
                       />
                       <input
@@ -541,7 +541,7 @@ export default function AdminPortal() {
                           ...data,
                           hero: { ...data.hero, stat4Label: e.target.value }
                         })}
-                        placeholder="Polinema Honor"
+                        placeholder="Skor Resmi TOEIC"
                         className="w-full text-center text-[10px] uppercase font-bold text-neutral-500 bg-transparent"
                       />
                     </div>
