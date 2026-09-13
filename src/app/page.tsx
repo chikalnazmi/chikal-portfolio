@@ -747,30 +747,39 @@ export default function Home() {
           {/* Left Column: Narrative, Typography & Direct Metrics (7 Cols) */}
           <div className="lg:col-span-7 flex flex-col items-start">
             
-            {/* Live Availability Pill */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-forest text-xs font-medium mb-2.5 shadow-xs">
-              <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
-              <span>{portfolioData.hero?.subheadline || 'Available for Management Trainee & BizDev Roles'}</span>
+            {/* Top Meta Kicker matching Hilman Reference Concept */}
+            <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-mono text-forest/70 mb-2 tracking-wide">
+              <span>( 1/1 ) Malang, Indonesia</span>
+              <span className="text-rose-dusty">✦</span>
+              <span className="inline-flex items-center gap-1.5 text-emerald-700 font-semibold font-sans text-xs">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                {portfolioData.hero?.subheadline || 'Open to Work • BizDev & Creative Roles'}
+              </span>
             </div>
 
-            {/* Editorial Headline */}
-            <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold leading-[1.15] text-forest tracking-normal mb-2.5">
-              {portfolioData.hero?.headline || (
+            {/* Iconic Typography Headline: Bold Clean Sans + Luxury Serif Italic */}
+            <h1 className="mb-2 sm:mb-2.5">
+              {portfolioData.hero?.headline && portfolioData.hero.headline !== 'Menghubungkan Strategi Bisnis, Operasional, & Kreativitas Digital.' ? (
+                <span className="block font-sans font-medium text-3xl sm:text-4xl lg:text-5xl text-forest tracking-tight leading-[1.1]">
+                  {portfolioData.hero.headline}
+                </span>
+              ) : (
                 <>
-                  Cultivating Growth through{' '}
-                  <span className="editorial-italic text-rose-dark font-normal">
-                    Analytical Strategy
-                  </span>{' '}
-                  & Creative Tenacity.
+                  <span className="block font-sans font-medium text-4xl sm:text-5xl lg:text-[54px] text-forest tracking-tight leading-[1.05]">
+                    Hi I&apos;m Chikal
+                  </span>
+                  <span className="block font-serif italic font-normal text-4xl sm:text-5xl lg:text-[54px] text-forest tracking-normal leading-[1.1] mt-0.5">
+                    Business &amp; Marketing
+                  </span>
                 </>
               )}
             </h1>
 
             {/* Value Proposition Subtext */}
-            <p className="text-xs sm:text-sm text-forest/85 leading-relaxed font-normal max-w-xl mb-4">
+            <p className="text-xs sm:text-sm text-forest/85 leading-relaxed font-normal max-w-xl mb-3 sm:mb-4 font-source">
               {portfolioData.hero?.bio || (
                 <>
-                  Halo, saya <span className="font-semibold text-forest">Chikal Nazmi Mahira</span>. Mahasiswi / Lulusan D4 Sistem Informasi Bisnis Politeknik Negeri Malang yang berfokus pada operasional bisnis, public relations, dan pembuatan konten kreatif.
+                  Menghubungkan strategi bisnis, operasional, &amp; kreativitas digital. Mahasiswi / Lulusan D4 Sistem Informasi Bisnis Politeknik Negeri Malang yang berfokus pada operasional bisnis, public relations, dan media kreatif.
                 </>
               )}
             </p>
@@ -903,10 +912,13 @@ export default function Home() {
       <section id="academy-skills" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 lg:min-h-[calc(100vh-4.5rem)] flex flex-col justify-center scroll-mt-20">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-4 sm:mb-5">
-          <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-0.5">/ Foundations & Capabilities /</span>
-          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-forest tracking-normal mb-1.5">
-            Academic Background & Core Skills
+        <div className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4.5">
+          <span className="font-mono text-xs sm:text-sm text-forest/60 tracking-widest uppercase block mb-1">
+            ( 01 ) Foundations &amp; Capabilities
+          </span>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl text-forest tracking-tight mb-1.5">
+            <span className="font-sans font-semibold">Academic Background &amp; </span>
+            <span className="font-serif italic font-normal">Core Skills</span>
           </h2>
           <p className="text-xs sm:text-sm text-forest/75 leading-relaxed font-source">
             Kombinasi latar belakang pendidikan formal sistem informasi bisnis dan keahlian praktis lintas disiplin yang teruji.
@@ -1148,10 +1160,13 @@ export default function Home() {
       <section id="experience" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 lg:min-h-[calc(100vh-4.5rem)] flex flex-col justify-center border-t border-[#CAD7C5]/70 scroll-mt-20">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-4 sm:mb-5">
-          <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-0.5">/ Career & Experience /</span>
-          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-forest tracking-normal mb-1.5">
-            Work & Business Experience <span className="font-serif italic font-normal text-rose-dark text-xl sm:text-2xl lg:text-3xl block sm:inline sm:ml-2">Pushing Boundaries since 2020</span>
+        <div className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4.5">
+          <span className="font-mono text-xs sm:text-sm text-forest/60 tracking-widest uppercase block mb-1">
+            ( 02 ) Career &amp; Experience
+          </span>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl text-forest tracking-tight mb-1.5">
+            <span className="font-sans font-semibold">Work &amp; Business </span>
+            <span className="font-serif italic font-normal">Experience</span>
           </h2>
           <p className="text-xs sm:text-sm text-forest/75 leading-relaxed font-source">
             Pengalaman kerja nyata dalam standardisasi operasional, pertumbuhan brand mandiri, kemitraan event komersial, serta riset automasi software.
@@ -1270,13 +1285,16 @@ export default function Home() {
       <section id="projects" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 lg:min-h-[calc(100vh-4.5rem)] flex flex-col justify-center border-t border-[#CAD7C5]/70 scroll-mt-20">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4.5">
-          <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-0.5">/ Portfolio & Case Studies /</span>
-          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-forest tracking-normal mb-1.5">
-            Selected Works & Campus Projects
+        <div className="text-center max-w-2xl mx-auto mb-3 sm:mb-3.5">
+          <span className="font-mono text-xs sm:text-sm text-forest/60 tracking-widest uppercase block mb-1">
+            ( 03 ) Portfolio &amp; Case Studies
+          </span>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl text-forest tracking-tight mb-1.5">
+            <span className="font-sans font-semibold">Selected Works &amp; </span>
+            <span className="font-serif italic font-normal">Campus Projects</span>
           </h2>
           <p className="text-xs sm:text-sm text-forest/75 leading-relaxed font-source">
-            Kompilasi proyek sistem informasi, riset aplikasi, analisis data, dan strategi bisnis yang dikerjakan selama masa studi di D4 Sistem Informasi Bisnis Polinema. Klik untuk membuka dokumentasi lengkap.
+            Kompilasi proyek sistem informasi, riset aplikasi, analisis data, dan strategi bisnis yang dikerjakan selama studi di D4 SIB Polinema.
           </p>
         </div>
 
