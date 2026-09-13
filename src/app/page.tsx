@@ -374,39 +374,41 @@ export default function Home() {
 
         </div>
 
-        {/* 4 Statistical Metrics Bar (Real-time from CMS Tab Hero) */}
-        <div className="relative z-10 max-w-7xl mx-auto mt-12 sm:mt-16 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-          <div className="bg-white/85 backdrop-blur-md rounded-2xl p-4 border border-[#CAD7C5] shadow-xs hover:border-rose-dusty transition-colors text-center">
-            <span className="font-serif font-bold text-2xl sm:text-3xl text-forest block">
-              {portfolioData.hero?.stat1Value || "7x"}
-            </span>
-            <span className="text-[10px] sm:text-[11px] uppercase font-bold text-neutral-500 tracking-wider block mt-1">
-              {portfolioData.hero?.stat1Label || "Penghargaan Lomba"}
-            </span>
-          </div>
-          <div className="bg-white/85 backdrop-blur-md rounded-2xl p-4 border border-[#CAD7C5] shadow-xs hover:border-rose-dusty transition-colors text-center">
-            <span className="font-serif font-bold text-2xl sm:text-3xl text-rose-dark block">
-              {portfolioData.hero?.stat2Value || "10K+"}
-            </span>
-            <span className="text-[10px] sm:text-[11px] uppercase font-bold text-neutral-500 tracking-wider block mt-1">
-              {portfolioData.hero?.stat2Label || "Jangkauan Konten"}
-            </span>
-          </div>
-          <div className="bg-white/85 backdrop-blur-md rounded-2xl p-4 border border-[#CAD7C5] shadow-xs hover:border-rose-dusty transition-colors text-center">
-            <span className="font-serif font-bold text-2xl sm:text-3xl text-forest block">
-              {portfolioData.hero?.stat3Value || "20+"}
-            </span>
-            <span className="text-[10px] sm:text-[11px] uppercase font-bold text-neutral-500 tracking-wider block mt-1">
-              {portfolioData.hero?.stat3Label || "Mitra Event"}
-            </span>
-          </div>
-          <div className="bg-white/85 backdrop-blur-md rounded-2xl p-4 border border-[#CAD7C5] shadow-xs hover:border-rose-dusty transition-colors text-center">
-            <span className="font-serif font-bold text-2xl sm:text-3xl text-rose-dark block">
-              {portfolioData.hero?.stat4Value || "D4 SIB"}
-            </span>
-            <span className="text-[10px] sm:text-[11px] uppercase font-bold text-neutral-500 tracking-wider block mt-1">
-              {portfolioData.hero?.stat4Label || "Polinema"}
-            </span>
+        {/* 4 Statistical Metrics Bar: Sleek, Unified Editorial Ribbon */}
+        <div className="relative z-10 max-w-[1560px] mx-auto mt-14 sm:mt-18">
+          <div className="bg-white/70 backdrop-blur-md rounded-3xl p-4 sm:p-6 border border-[#CAD7C5]/60 shadow-xs grid grid-cols-2 md:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-[#CAD7C5]/40">
+            <div className="text-center py-3 sm:py-2 px-4">
+              <span className="font-serif font-bold text-2xl sm:text-3xl text-forest block tracking-tight">
+                {portfolioData.hero?.stat1Value || "7x"}
+              </span>
+              <span className="text-[10px] sm:text-[11px] uppercase font-semibold text-forest/70 tracking-wider block mt-1">
+                {portfolioData.hero?.stat1Label || "Penghargaan Lomba"}
+              </span>
+            </div>
+            <div className="text-center py-3 sm:py-2 px-4">
+              <span className="font-serif font-bold text-2xl sm:text-3xl text-rose-dark block tracking-tight">
+                {portfolioData.hero?.stat2Value || "10K+"}
+              </span>
+              <span className="text-[10px] sm:text-[11px] uppercase font-semibold text-forest/70 tracking-wider block mt-1">
+                {portfolioData.hero?.stat2Label || "Jangkauan Konten"}
+              </span>
+            </div>
+            <div className="text-center py-3 sm:py-2 px-4">
+              <span className="font-serif font-bold text-2xl sm:text-3xl text-forest block tracking-tight">
+                {portfolioData.hero?.stat3Value || "20+"}
+              </span>
+              <span className="text-[10px] sm:text-[11px] uppercase font-semibold text-forest/70 tracking-wider block mt-1">
+                {portfolioData.hero?.stat3Label || "Mitra Event"}
+              </span>
+            </div>
+            <div className="text-center py-3 sm:py-2 px-4">
+              <span className="font-serif font-bold text-2xl sm:text-3xl text-rose-dark block tracking-tight">
+                {portfolioData.hero?.stat4Value || "D4 SIB"}
+              </span>
+              <span className="text-[10px] sm:text-[11px] uppercase font-semibold text-forest/70 tracking-wider block mt-1">
+                {portfolioData.hero?.stat4Label || "Polinema"}
+              </span>
+            </div>
           </div>
         </div>
 
@@ -415,7 +417,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* 3. LOGO TICKER / CREDENTIAL ROW (Polinema, GDSC, Brands)                 */}
       {/* ========================================================================= */}
-      <section className="py-7 border-y border-[#CAD7C5]/60 bg-white/50 overflow-hidden">
+      <section className="w-full py-7 border-y border-[#CAD7C5]/30 bg-white/30 backdrop-blur-xs overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between flex-wrap gap-6 sm:gap-8 opacity-80 transition-all duration-300">
           <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-forest/75 hover:text-forest transition-colors">
             <span className="text-rose-dusty">✦</span>
@@ -447,8 +449,8 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* 4. BENTO VISUAL SHOWCASE MOSAIC (Curated Project Previews)                */}
       {/* ========================================================================= */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="bg-gradient-to-b from-white/95 via-[#F2F7EF]/70 to-[#E8EFE5]/40 rounded-4xl p-6 sm:p-10 border border-[#CAD7C5] shadow-xs">
+      <section className="w-full py-20 sm:py-28 px-4 sm:px-8 lg:px-12 xl:px-16 relative">
+        <div className="max-w-[1560px] mx-auto">
           
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
             <div>
@@ -609,7 +611,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* 5. VALUE PROPOSITION MANIFESTO ("What I Do" with Floating Skills)         */}
       {/* ========================================================================= */}
-      <section id="about" className="w-full border-t border-[#CAD7C5]/60 py-20 sm:py-28 px-4 sm:px-8 lg:px-12 xl:px-16 text-center relative">
+      <section id="about" className="w-full py-24 sm:py-32 px-4 sm:px-8 lg:px-12 xl:px-16 text-center relative">
         
         {/* Soft Center Aura (Beloved Pink Halo) */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[480px] h-[300px] sm:h-[480px] pink-halo-glow-subtle rounded-full pointer-events-none z-0"></div>
@@ -669,7 +671,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* 6. PROCESS ROADMAP ("Here's how it works" with Curving Connector Doodle)  */}
       {/* ========================================================================= */}
-      <section id="process" className="w-full border-t border-[#CAD7C5]/60 py-20 sm:py-28 px-4 sm:px-8 lg:px-12 xl:px-16 relative">
+      <section id="process" className="w-full border-t border-[#CAD7C5]/30 py-20 sm:py-28 px-4 sm:px-8 lg:px-12 xl:px-16 relative">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
@@ -799,7 +801,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* 7. SELECTED WORKS (2x2 Grid Layout Persis Referensi Elian Ross)           */}
       {/* ========================================================================= */}
-      <section id="projects" className="w-full border-t border-[#CAD7C5]/60 py-20 sm:py-28 px-4 sm:px-8 lg:px-12 xl:px-16">
+      <section id="projects" className="w-full py-20 sm:py-28 px-4 sm:px-8 lg:px-12 xl:px-16">
         
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
@@ -889,7 +891,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* CREATIVE MEDIA & CONTENT CREATOR SHOWCASE (CMS Video & Creator Tab)        */}
       {/* ========================================================================= */}
-      <section id="creator" className="w-full border-t border-[#CAD7C5]/60 py-20 sm:py-28 px-4 sm:px-8 lg:px-12 xl:px-16">
+      <section id="creator" className="w-full border-t border-[#CAD7C5]/30 py-20 sm:py-28 px-4 sm:px-8 lg:px-12 xl:px-16">
         
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
@@ -926,10 +928,10 @@ export default function Home() {
 
         {/* Selected Creator Account Display */}
         {currentCreator && (
-          <div className="bg-white/95 rounded-4xl p-6 sm:p-10 border border-[#CAD7C5] shadow-xs">
+          <div className="space-y-8">
             
-            {/* Account Info Bar */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-8 border-b border-[#CAD7C5]/60">
+            {/* Account Info Bar: Clean Glass Island */}
+            <div className="bg-white/70 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-[#CAD7C5]/60 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-rose-200/80 text-[11px] font-bold text-rose-900 mb-2">
                   <span>✦ {currentCreator.tag}</span>
@@ -1079,7 +1081,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* 8. PUSHING BOUNDARIES (About Story & Clean Career Timeline)              */}
       {/* ========================================================================= */}
-      <section id="experience" className="w-full border-t border-[#CAD7C5]/60 py-20 sm:py-28 px-4 sm:px-8 lg:px-12 xl:px-16">
+      <section id="experience" className="w-full py-20 sm:py-28 px-4 sm:px-8 lg:px-12 xl:px-16">
         
         {/* Kicker & Title (Elian Ross Style: Title Bold + Year Muted Light) */}
         <div className="mb-14">
@@ -1262,7 +1264,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* 9. TROPHY CASE & CERTIFICATIONS (Clean Minimalist Cards)                   */}
       {/* ========================================================================= */}
-      <section id="awards" className="w-full border-t border-[#CAD7C5]/60 py-20 sm:py-28 px-4 sm:px-8 lg:px-12 xl:px-16">
+      <section id="awards" className="w-full border-t border-[#CAD7C5]/30 py-20 sm:py-28 px-4 sm:px-8 lg:px-12 xl:px-16">
         
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
@@ -1399,7 +1401,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* 11. FOOTER & GIANT WATERMARK SIGNATURE (Instrument Serif Italic)          */}
       {/* ========================================================================= */}
-      <footer className="w-full border-t border-[#CAD7C5]/60 pt-12 pb-16 px-4 sm:px-8 lg:px-12 xl:px-16 relative overflow-hidden">
+      <footer className="w-full border-t border-[#CAD7C5]/30 pt-16 pb-20 px-4 sm:px-8 lg:px-12 xl:px-16 relative overflow-hidden">
         
         {/* Navigation & Copyright (Elian Ross Style) */}
         <div className="max-w-[1560px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-neutral-600 pb-12">
