@@ -1400,7 +1400,7 @@ export default function Home() {
                   onClick={() => openModal({
                     title: award.title,
                     category: award.rank,
-                    description: `${award.desc || award.title}\n\nTingkat: ${award.level}\nPenyelenggara: ${award.organizer}\nTahun: ${award.year}`,
+                    description: `${award.desc || award.title}\n\nTingkat: ${award.scope || award.level || 'Nasional'}\nPenyelenggara: ${award.organizer}\nTahun: ${award.year}`,
                     images: award.certImg ? [award.certImg] : ['/11.png'],
                     link: award.link,
                     linkLabel: award.linkLabel || 'Dokumentasi Resmi ↗'

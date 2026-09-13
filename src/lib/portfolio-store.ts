@@ -52,12 +52,14 @@ export interface ProjectDoc {
 }
 
 export interface AwardItem {
+  id?: string;
   year: string;
   rank: string;
   rankBadge: string;
   title: string;
   organizer: string;
   scope: string;
+  level?: string;
   desc: string;
   certImg: string;
   eventImg: string;
