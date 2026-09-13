@@ -625,7 +625,7 @@ export default function Home() {
       {/* Paper & Linen Tactile Texture Overlay (Subtle Organic Grain) */}
       <div className="paper-texture-overlay" />
       {/* Decorative Subtle Background Botanical Glows */}
-      <div className="fixed top-0 left-0 w-[550px] h-[550px] bg-rose-blush/30 rounded-full blur-3xl pointer-events-none -translate-x-1/2 -translate-y-1/2" />
+      <div className="fixed top-0 left-0 w-[550px] h-[550px] bg-[#CAD7C5]/35 rounded-full blur-3xl pointer-events-none -translate-x-1/2 -translate-y-1/2" />
       <div className="fixed bottom-0 right-0 w-[650px] h-[650px] bg-[#CAD7C5]/40 rounded-full blur-3xl pointer-events-none translate-x-1/3 translate-y-1/3" />
 
       {/* ========================================================================= */}
@@ -763,35 +763,40 @@ export default function Home() {
           <div className="hero-stage-container">
             
             {/* Radiant Lime Studio Glow Aura (Completely smooth Gaussian falloff matching reference) */}
-            <div className="hero-radiant-lime-aura" />
+            <div className="hero-radiant-sage-aura" />
 
             {/* Left Flank: Available Status at Mid-Height + Social Proof at Bottom */}
             <div className="hero-flank-left">
               {/* Status Badge */}
               <div className="hero-badge-available inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/95 border border-[#CAD7C5] shadow-xs text-xs sm:text-sm font-medium text-forest w-fit mt-8 lg:mt-12 backdrop-blur-md">
                 <span className="relative flex h-2.5 w-2.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#84cc16] opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#65a30d]"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-600"></span>
                 </span>
                 <span>{portfolioData.hero?.subheadline || 'Available for now opportunities'}</span>
               </div>
 
               {/* Bottom Social Proof */}
               <div className="hero-trusted-proof flex items-center gap-3">
-                <div className="flex -space-x-2 shrink-0">
-                  <div className="w-8 h-8 rounded-full bg-forest text-white flex items-center justify-center text-[10px] font-bold border-2 border-white shadow-xs">
-                    7x
+                <div className="flex -space-x-1.5 shrink-0">
+                  <div className="w-8 h-8 rounded-full bg-forest text-[#E8EFE5] flex flex-col items-center justify-center font-mono font-bold text-[9px] border-2 border-white shadow-2xs">
+                    <span>3.73</span>
                   </div>
-                  <div className="w-8 h-8 rounded-full bg-rose-dark text-white flex items-center justify-center text-[10px] font-bold border-2 border-white shadow-xs">
-                    775
+                  <div className="w-8 h-8 rounded-full bg-rose-dark text-white flex flex-col items-center justify-center font-mono font-bold text-[9px] border-2 border-white shadow-2xs">
+                    <span>775</span>
                   </div>
-                  <div className="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px] font-bold border-2 border-white shadow-xs">
-                    20+
+                  <div className="w-8 h-8 rounded-full bg-[#4E6B47] text-white flex flex-col items-center justify-center font-mono font-bold text-[9px] border-2 border-white shadow-2xs">
+                    <span>7x</span>
                   </div>
                 </div>
-                <span className="text-xs text-forest/75 font-medium leading-tight font-source max-w-[190px]">
-                  Terpercaya di 20+ kemitraan event &amp; 7 penghargaan bisnis nasional.
-                </span>
+                <div className="text-left max-w-[210px]">
+                  <span className="block text-[11px] font-sans font-bold text-forest leading-snug">
+                    Kredensial Resmi Terverifikasi
+                  </span>
+                  <span className="block text-[10px] text-forest/75 font-source leading-tight mt-0.5">
+                    IPK 3.73 (Cum Laude) • TOEIC 775 • 7x Juara Nasional
+                  </span>
+                </div>
               </div>
             </div>
 
@@ -816,7 +821,7 @@ export default function Home() {
                 href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890?text=Halo%20Chikal,%20saya%20tertarik%20berdiskusi%20mengenai%20peluang%20kerjasama."}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hero-cta-btn inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-[#182617] hover:bg-forest text-white text-xs sm:text-sm font-semibold shadow-md hover:shadow-lg transition-all"
+                className="hero-cta-btn inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-forest hover:bg-rose-dark text-[#E8EFE5] text-xs sm:text-sm font-semibold shadow-md hover:shadow-lg transition-all"
               >
                 <span>→</span>
                 <span>Get in Touch</span>

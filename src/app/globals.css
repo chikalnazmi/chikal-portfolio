@@ -296,29 +296,29 @@
 }
 
 .bg-sage-linen {
-  background-color: #E8EFE5;
+  background-color: #F4F7F2;
   background-image:
-    radial-gradient(at 0% 0%, rgba(245, 211, 220, 0.4) 0px, transparent 45%),
-    radial-gradient(at 100% 100%, rgba(148, 171, 139, 0.3) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(245, 211, 220, 0.25) 0px, transparent 40%),
-    radial-gradient(at 0% 100%, rgba(189, 88, 113, 0.12) 0px, transparent 45%);
+    radial-gradient(at 0% 0%, rgba(202, 215, 197, 0.35) 0px, transparent 48%),
+    radial-gradient(at 100% 100%, rgba(180, 200, 175, 0.25) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(202, 215, 197, 0.30) 0px, transparent 45%),
+    radial-gradient(at 0% 100%, rgba(148, 171, 139, 0.20) 0px, transparent 48%);
 }
 
 /* ========================================================================= */
-/* HERO STAGE WITH VIBRANT RADIANT LIME AURA (Reference Layout Match)        */
+/* HERO STAGE WITH VIBRANT RADIANT HIJAU SAGE AURA (Reference Layout Match)  */
 /* ========================================================================= */
 .hero-stage-wrapper {
   position: relative;
   background: 
-    radial-gradient(circle at 12% 18%, rgba(190, 242, 100, 0.50) 0%, transparent 48%),
-    radial-gradient(circle at 88% 18%, rgba(190, 242, 100, 0.50) 0%, transparent 48%),
-    radial-gradient(circle at 50% 10%, rgba(217, 249, 157, 0.40) 0%, transparent 55%),
-    #ffffff;
+    radial-gradient(circle at 12% 16%, rgba(188, 208, 182, 0.45) 0%, transparent 48%),
+    radial-gradient(circle at 88% 16%, rgba(188, 208, 182, 0.45) 0%, transparent 48%),
+    radial-gradient(circle at 50% 10%, rgba(212, 226, 208, 0.55) 0%, transparent 55%),
+    #F4F7F2;
   overflow: hidden;
   width: 100%;
 }
 
-.hero-radiant-lime-aura {
+.hero-radiant-sage-aura {
   position: absolute;
   top: 48%;
   left: 50%;
@@ -327,10 +327,10 @@
   height: min(620px, 85vw);
   background: radial-gradient(
     ellipse at center,
-    rgba(187, 244, 81, 0.78) 0%,
-    rgba(163, 230, 53, 0.58) 28%,
-    rgba(132, 204, 22, 0.32) 50%,
-    rgba(190, 242, 100, 0.16) 68%,
+    rgba(138, 172, 129, 0.68) 0%,
+    rgba(168, 198, 160, 0.48) 28%,
+    rgba(202, 215, 197, 0.32) 50%,
+    rgba(232, 239, 229, 0.14) 68%,
     transparent 80%
   );
   filter: blur(45px);
