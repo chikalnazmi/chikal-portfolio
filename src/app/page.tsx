@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import { 
   getPortfolioData, 
   fetchPortfolioDataFromSupabase,
@@ -11,6 +12,36 @@ import {
   ProjectDoc,
   OrganizationItem
 } from '@/lib/portfolio-store';
+
+// Refined, smooth editorial animation variants (Neat, clean, and elegant)
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] } 
+  },
+};
+
+const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+const cardItemVariant: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } 
+  },
+};
 
 
 function BotanicalDivider() {
@@ -505,7 +536,12 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* NAVBAR: Modern Floating Editorial Pill */}
       {/* ========================================================================= */}
-      <nav className="sticky top-2 sm:top-2.5 z-40 max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 isolate">
+      <motion.nav 
+        initial={{ y: -18, opacity: 0 }} 
+        animate={{ y: 0, opacity: 1 }} 
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        className="sticky top-2 sm:top-2.5 z-40 max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 isolate"
+      >
         <div className="bg-white/95 backdrop-blur-md border border-[#CAD7C5]/90 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 shadow-xs flex items-center justify-between transition-all hover:border-rose-dusty/40">
           <a href="#hero" className="flex flex-col group py-0.5">
             <span className="font-serif font-bold text-xs sm:text-sm tracking-normal text-forest group-hover:text-rose-dark transition-colors leading-tight">
@@ -609,7 +645,7 @@ export default function Home() {
             </a>
           </div>
         )}
-      </nav>
+      </motion.nav>
 
       {/* ========================================================================= */}
       {/* HERO SECTION: Asymmetric Editorial Split (No Hilman Blueprint) */}
@@ -620,7 +656,12 @@ export default function Home() {
         <div className="flex-1 flex flex-col justify-center items-center max-w-[1380px] mx-auto w-full px-4 sm:px-6 lg:px-8 pt-3 pb-2 sm:pt-5 sm:pb-3 relative z-10">
           
           {/* Centered Main Headline (Urbanist + Instrument Serif Italic) */}
-          <div className="text-center max-w-4xl mx-auto mb-2 sm:mb-3 relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="text-center max-w-4xl mx-auto mb-2 sm:mb-3 relative z-10"
+          >
             <h1 className="hero-headline">
               <span className="block font-sans font-medium text-3xl sm:text-5xl lg:text-[72px] text-forest tracking-[-0.035em] leading-[0.98]">
                 Hi I&apos;m Chikal
@@ -629,7 +670,7 @@ export default function Home() {
                 {portfolioData.hero?.headline || 'Menghubungkan Strategi Bisnis, Operasional, & Kreativitas Digital.'}
               </span>
             </h1>
-          </div>
+          </motion.div>
 
           {/* Central Hero Stage (Cutout Portrait Centered, Flanked Left & Right) */}
           <div className="hero-stage-container">
@@ -638,7 +679,12 @@ export default function Home() {
             <div className="hero-radiant-sage-aura" />
 
             {/* Left Flank: Available Status at Mid-Height + Social Proof at Bottom */}
-            <div className="hero-flank-left">
+            <motion.div 
+              initial={{ opacity: 0, x: -24 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="hero-flank-left"
+            >
               {/* Status Badge */}
               <div className="hero-badge-available inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/95 border border-[#CAD7C5] shadow-xs text-xs sm:text-sm font-medium text-forest w-fit mt-8 lg:mt-12 backdrop-blur-md">
                 <span className="relative flex h-2.5 w-2.5">
@@ -651,30 +697,44 @@ export default function Home() {
               {/* Bottom: 3 Credential Cards connected to CMS */}
               <div className="hero-trusted-proof grid grid-cols-3 gap-2 w-full max-w-[320px]">
                 {/* Card 1: IPK */}
-                <div className="bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-xl p-2.5 shadow-2xs text-left hover:border-forest/40 transition-all">
+                <motion.div 
+                  whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                  className="bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-xl p-2.5 shadow-2xs text-left hover:border-forest/40 transition-all cursor-default"
+                >
                   <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-forest/60">{portfolioData.academic?.gpaTitle || 'IPK'}</span>
                   <span className="block text-base sm:text-lg font-mono font-extrabold text-forest leading-tight">{portfolioData.academic?.gpaValue || '3.73'}</span>
                   <span className="block text-[9px] font-medium text-rose-dark leading-tight mt-0.5">{portfolioData.academic?.badge || 'Cum Laude'}</span>
-                </div>
+                </motion.div>
 
                 {/* Card 2: TOEIC */}
-                <div className="bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-xl p-2.5 shadow-2xs text-left hover:border-forest/40 transition-all">
+                <motion.div 
+                  whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                  className="bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-xl p-2.5 shadow-2xs text-left hover:border-forest/40 transition-all cursor-default"
+                >
                   <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-forest/60">{portfolioData.hero?.stat4Label || 'TOEIC'}</span>
                   <span className="block text-base sm:text-lg font-mono font-extrabold text-rose-dark leading-tight">{portfolioData.hero?.stat4Value || '775'}</span>
                   <span className="block text-[9px] font-medium text-forest/70 leading-tight mt-0.5">{portfolioData.academic?.toeicLevel || 'Skor Resmi'}</span>
-                </div>
+                </motion.div>
 
                 {/* Card 3: Lomba / Penghargaan */}
-                <div className="bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-xl p-2.5 shadow-2xs text-left hover:border-forest/40 transition-all">
+                <motion.div 
+                  whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                  className="bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-xl p-2.5 shadow-2xs text-left hover:border-forest/40 transition-all cursor-default"
+                >
                   <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-forest/60">{portfolioData.hero?.stat1Label || 'Lomba'}</span>
                   <span className="block text-base sm:text-lg font-mono font-extrabold text-[#4E6B47] leading-tight">{portfolioData.hero?.stat1Value || '7x'}</span>
                   <span className="block text-[9px] font-medium text-forest/70 leading-tight mt-0.5">Juara Nas.</span>
-                </div>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Center: Cutout Character Portrait with Organic Floral Backdrop */}
-            <div className="hero-portrait-wrap">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.94 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              className="hero-portrait-wrap"
+            >
               {/* Floral Backdrop Elements */}
               {(portfolioData.hero?.heroFloralStyle !== 'none') && (
                 <div
@@ -730,17 +790,24 @@ export default function Home() {
                   mixBlendMode: portfolioData.hero?.avatarBlendMode === 'multiply' ? 'multiply' : 'normal',
                 }}
               />
-            </div>
+            </motion.div>
 
             {/* Right Flank: Value Statement at Mid-Height + Get in Touch CTA at Bottom */}
-            <div className="hero-flank-right">
+            <motion.div 
+              initial={{ opacity: 0, x: 24 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="hero-flank-right"
+            >
               {/* Statement */}
               <p className="hero-statement-right text-xs sm:text-sm text-forest/85 leading-relaxed font-normal max-w-[280px] mt-8 lg:mt-12 font-source text-left sm:text-left">
                 {portfolioData.hero?.bio || 'passionate about creating intuitive digital experiences that connect users with value.'}
               </p>
 
               {/* Get in Touch CTA Button */}
-              <a
+              <motion.a
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
                 href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890?text=Halo%20Chikal,%20saya%20tertarik%20berdiskusi%20mengenai%20peluang%20kerjasama."}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -748,15 +815,20 @@ export default function Home() {
               >
                 <span>→</span>
                 <span>Get in Touch</span>
-              </a>
-            </div>
+              </motion.a>
+            </motion.div>
 
           </div>
 
         </div>
 
         {/* BRAND & ECOSYSTEM TICKER: Anchored at bottom of Hero viewport */}
-        <div className="w-full py-2 sm:py-2.5 border-y border-[#CAD7C5]/50 bg-white/45 backdrop-blur-xs overflow-hidden select-none relative z-10">
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.35 }}
+          className="w-full py-2 sm:py-2.5 border-y border-[#CAD7C5]/50 bg-white/45 backdrop-blur-xs overflow-hidden select-none relative z-10"
+        >
           <div className="relative w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_64px,_black_calc(100%-64px),transparent_100%)]">
             <div className="animate-marquee flex items-center gap-10 sm:gap-14 whitespace-nowrap py-0.5">
               {[
@@ -787,7 +859,7 @@ export default function Home() {
               ))}
             </div>
           </div>
-        </div>
+        </motion.div>
 
       </section>
 
@@ -797,7 +869,13 @@ export default function Home() {
       <section id="academy-skills" className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-7 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/60 scroll-mt-18">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-5 sm:mb-6">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+          variants={fadeUp}
+          className="text-center max-w-2xl mx-auto mb-5 sm:mb-6"
+        >
           <span className="font-mono text-xs sm:text-sm text-forest/60 tracking-widest uppercase block mb-1">
             ( 01 ) Foundations &amp; Capabilities
           </span>
@@ -808,13 +886,23 @@ export default function Home() {
           <p className="text-xs sm:text-sm text-forest/75 leading-relaxed font-source">
             Kombinasi latar belakang pendidikan formal sistem informasi bisnis dan keahlian praktis lintas disiplin yang teruji.
           </p>
-        </div>
+        </motion.div>
 
         {/* Modern Bento Grid: Asymmetric, Dynamic & Highly Readable */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 lg:gap-5">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+          variants={staggerContainer}
+          className="grid grid-cols-1 md:grid-cols-12 gap-4 lg:gap-5"
+        >
           
           {/* BENTO CARD 1: Formal Degree & Official Certifications (Col Span 5) */}
-          <div className="md:col-span-12 lg:col-span-5 bg-white/95 border border-[#CAD7C5] rounded-3xl p-5 sm:p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group">
+          <motion.div 
+            variants={cardItemVariant}
+            whileHover={{ y: -4, transition: { duration: 0.25 } }}
+            className="md:col-span-12 lg:col-span-5 bg-white/95 border border-[#CAD7C5] rounded-3xl p-5 sm:p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group"
+          >
             <div>
               {/* Header Badges */}
               <div className="flex items-center justify-between gap-2 mb-3">
@@ -909,10 +997,14 @@ export default function Home() {
               <span>Buka Dokumen Kelulusan &amp; TOEIC</span>
               <span>↗</span>
             </button>
-          </div>
+          </motion.div>
 
           {/* BENTO CARD 2: Business & Operations Pillar (Col Span 4) */}
-          <div className="md:col-span-6 lg:col-span-4 bg-white/95 border border-[#CAD7C5] rounded-3xl p-5 sm:p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group">
+          <motion.div 
+            variants={cardItemVariant}
+            whileHover={{ y: -4, transition: { duration: 0.25 } }}
+            className="md:col-span-6 lg:col-span-4 bg-white/95 border border-[#CAD7C5] rounded-3xl p-5 sm:p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group"
+          >
             <div>
               {/* Header Badge */}
               <div className="flex items-center justify-between gap-2 mb-3">
@@ -952,10 +1044,14 @@ export default function Home() {
                 <span>✓</span> Verified Applied
               </span>
             </div>
-          </div>
+          </motion.div>
 
           {/* BENTO CARD 3: Creative Media & Brand Growth (Col Span 3) */}
-          <div className="md:col-span-6 lg:col-span-3 bg-white/95 border border-[#CAD7C5] rounded-3xl p-5 sm:p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group">
+          <motion.div 
+            variants={cardItemVariant}
+            whileHover={{ y: -4, transition: { duration: 0.25 } }}
+            className="md:col-span-6 lg:col-span-3 bg-white/95 border border-[#CAD7C5] rounded-3xl p-5 sm:p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group"
+          >
             <div>
               {/* Header Badge */}
               <div className="flex items-center justify-between gap-2 mb-3">
@@ -993,10 +1089,14 @@ export default function Home() {
               <span>YarnUp! &amp; Event PR</span>
               <span className="text-rose-dark font-bold font-mono">+2.089% Reach</span>
             </div>
-          </div>
+          </motion.div>
 
           {/* BENTO CARD 4A: Technical Software & Systems Stack (Col Span 7) */}
-          <div className="md:col-span-12 lg:col-span-7 bg-white/95 border border-[#CAD7C5] rounded-3xl p-5 sm:p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group">
+          <motion.div 
+            variants={cardItemVariant}
+            whileHover={{ y: -4, transition: { duration: 0.25 } }}
+            className="md:col-span-12 lg:col-span-7 bg-white/95 border border-[#CAD7C5] rounded-3xl p-5 sm:p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group"
+          >
             <div>
               <div className="flex items-center justify-between gap-2 mb-2">
                 <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-blue-100 text-blue-900 border border-blue-300 uppercase tracking-wider shadow-2xs">
@@ -1032,10 +1132,14 @@ export default function Home() {
               <span>Jurusan Teknologi Informasi — Politeknik Negeri Malang</span>
               <span className="font-mono text-forest/50">D4 SIB Certified</span>
             </div>
-          </div>
+          </motion.div>
 
           {/* BENTO CARD 4B: Personal Strengths & Fast Contact (Col Span 5) */}
-          <div className="md:col-span-12 lg:col-span-5 bg-white/95 border border-[#CAD7C5] rounded-3xl p-5 sm:p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group">
+          <motion.div 
+            variants={cardItemVariant}
+            whileHover={{ y: -4, transition: { duration: 0.25 } }}
+            className="md:col-span-12 lg:col-span-5 bg-white/95 border border-[#CAD7C5] rounded-3xl p-5 sm:p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group"
+          >
             <div>
               <div className="flex items-center justify-between gap-2 mb-2">
                 <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-purple-100 text-purple-900 border border-purple-300 uppercase tracking-wider shadow-2xs">
@@ -1076,9 +1180,9 @@ export default function Home() {
               <span>Diskusi Peluang Karir via WhatsApp</span>
               <span>↗</span>
             </a>
-          </div>
+          </motion.div>
 
-        </div>
+        </motion.div>
 
       </section>
 
@@ -1088,7 +1192,13 @@ export default function Home() {
       <section id="experience" className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-7 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/60 scroll-mt-18">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4.5">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+          variants={fadeUp}
+          className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4.5"
+        >
           <span className="font-mono text-xs sm:text-sm text-forest/60 tracking-widest uppercase block mb-1">
             ( 02 ) Career &amp; Experience
           </span>
@@ -1099,10 +1209,16 @@ export default function Home() {
           <p className="text-xs sm:text-sm text-forest/75 leading-relaxed font-source">
             Pengalaman kerja nyata dalam standardisasi operasional, pertumbuhan brand mandiri, kemitraan event komersial, serta riset automasi software.
           </p>
-        </div>
+        </motion.div>
 
         {/* 2-Column Balanced Responsive Editorial Bento Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 items-stretch">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+          variants={staggerContainer}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 items-stretch"
+        >
           {experiencesList.map((exp) => {
             const galleryImages = (exp.extraImages && exp.extraImages.length > 0)
               ? exp.extraImages
@@ -1112,8 +1228,10 @@ export default function Home() {
             const isCurrentRole = exp.period.toLowerCase().includes('sekarang') || exp.period.toLowerCase().includes('present');
 
             return (
-              <div
+              <motion.div
                 key={exp.id}
+                variants={cardItemVariant}
+                whileHover={{ y: -4, transition: { duration: 0.25 } }}
                 className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] hover:border-[#8A9E85] rounded-2xl p-4 sm:p-5 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group"
               >
                 {/* Top Meta Bar: Category Pill + Status & Period */}
@@ -1146,114 +1264,72 @@ export default function Home() {
                         exp.link,
                         exp.linkLabel
                       )}
-                      className="w-full h-44 sm:h-48 rounded-xl overflow-hidden relative border border-[#CAD7C5]/80 bg-[#E8EFE5]/40 cursor-pointer group/img shadow-2xs"
+                      className="relative aspect-[4/3] rounded-xl overflow-hidden bg-forest/5 border border-[#CAD7C5] cursor-pointer group/img shadow-2xs"
                     >
                       <img
-                        src={currentImg || exp.image || '/3.png'}
-                        alt={exp.title}
-                        onError={(e) => {
-                          const target = e.currentTarget;
-                          const fallback = exp.image || '/3.png';
-                          if (target.src !== fallback) {
-                            target.src = fallback;
-                          }
-                        }}
+                        src={currentImg}
+                        alt={`${exp.title} showcase`}
                         className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-forest/80 via-forest/20 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity flex items-end p-2.5">
-                        <span className="px-2.5 py-1 rounded-lg bg-white/95 text-forest text-[10px] font-bold shadow-xs flex items-center gap-1">
-                          <span>Buka Galeri</span>
-                          <span>↗</span>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity flex items-end p-2.5">
+                        <span className="text-[10px] font-bold text-white flex items-center gap-1">
+                          <span>🔍 Perbesar Galeri ({galleryImages.length})</span>
                         </span>
-                      </div>
-                      <div className="absolute top-2 right-2 px-2 py-0.5 rounded-md bg-forest/85 text-white text-[9px] font-mono font-bold backdrop-blur-xs shadow-2xs">
-                        {activeIdx + 1} / {galleryImages.length}
                       </div>
                     </div>
 
-                    {/* Mini Interactive Thumbnail Switcher Row */}
+                    {/* Compact Interactive Mini-Thumbnail Selector */}
                     {galleryImages.length > 1 && (
-                      <div className="grid grid-cols-3 gap-1.5">
-                        {galleryImages.slice(0, 3).map((imgUrl, imgIdx) => (
+                      <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 max-w-full">
+                        {galleryImages.map((thumbUrl, tIdx) => (
                           <button
-                            key={imgIdx}
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setExpPhotoIndex(prev => ({ ...prev, [exp.id]: imgIdx }));
-                            }}
-                            className={`h-11 rounded-lg overflow-hidden border transition-all cursor-pointer relative ${
-                              activeIdx === imgIdx
-                                ? 'border-rose-dark ring-2 ring-rose-dark/30 scale-[1.02]'
-                                : 'border-[#CAD7C5]/70 opacity-70 hover:opacity-100'
+                            key={tIdx}
+                            onClick={() => setExpPhotoIndex(prev => ({ ...prev, [exp.id]: tIdx }))}
+                            className={`relative w-8 h-8 rounded-lg overflow-hidden border transition-all shrink-0 cursor-pointer ${
+                              activeIdx === tIdx
+                                ? 'border-rose-dark ring-2 ring-rose-dark/30 scale-105'
+                                : 'border-[#CAD7C5] opacity-60 hover:opacity-100'
                             }`}
+                            title={`Lihat Foto ${tIdx + 1}`}
                           >
-                            <img 
-                              src={imgUrl} 
-                              alt={`Foto ${imgIdx + 1}`} 
-                              onError={(e) => {
-                                const target = e.currentTarget;
-                                target.src = '/3.png';
-                              }}
-                              className="w-full h-full object-cover" 
+                            <img
+                              src={thumbUrl}
+                              alt=""
+                              className="w-full h-full object-cover"
                             />
-                            {activeIdx === imgIdx && (
-                              <div className="absolute inset-0 bg-rose-dark/10" />
-                            )}
                           </button>
                         ))}
                       </div>
                     )}
                   </div>
 
-                  {/* Right (sm:col-span-7): Rich Structured Information */}
+                  {/* Right (sm:col-span-7): Executive Context & Key Deliverables */}
                   <div className="sm:col-span-7 flex flex-col justify-between h-full">
                     <div>
-                      {/* Title & Role */}
-                      <h3 className="font-sans text-base sm:text-lg font-bold text-forest group-hover:text-rose-dark transition-colors tracking-tight leading-snug mb-1.5">
+                      <h3 className="font-sans font-bold text-base sm:text-lg text-forest tracking-tight mb-1 group-hover:text-rose-dark transition-colors leading-snug">
                         {exp.title}
                       </h3>
-
-                      {/* Executive Summary */}
-                      <p className="text-xs sm:text-[13px] text-forest/80 leading-relaxed font-source mb-2.5">
+                      <p className="text-xs text-forest/75 leading-relaxed mb-3 font-source">
                         {exp.summary}
                       </p>
 
-                      {/* Strategic Insight Box */}
-                      {(exp.strategy || exp.challenge) && (
-                        <div className="p-2.5 rounded-xl bg-[#FAFBF8] border border-[#CAD7C5]/70 mb-2.5 text-left">
-                          <span className="text-[10px] font-mono uppercase font-bold text-forest/60 block mb-0.5 tracking-wider">
-                            ✦ Fokus Strategi &amp; Solusi
-                          </span>
-                          <p className="text-[11px] text-forest/85 leading-snug">
-                            {exp.strategy || exp.challenge}
-                          </p>
-                        </div>
-                      )}
-
-                      {/* Key Deliverables & Metric Chips */}
-                      <div>
-                        <span className="text-[10px] font-mono uppercase font-bold text-forest/60 block mb-1 tracking-wider">
-                          Deliverables &amp; Hasil:
-                        </span>
-                        <div className="flex flex-wrap gap-1.5 mb-2">
-                          {exp.results?.map((res, rIdx) => (
-                            <span
-                              key={rIdx}
-                              className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-[#E8EFE5]/60 border border-[#CAD7C5]/80 text-[10px] font-semibold text-forest shadow-2xs"
-                            >
-                              <span className="w-1.5 h-1.5 rounded-full bg-rose-dusty shrink-0" />
-                              <span>{res}</span>
-                            </span>
+                      {/* Strategic Deliverables List */}
+                      {exp.results && exp.results.length > 0 && (
+                        <div className="space-y-1.5 mb-3">
+                          {exp.results.map((res, rIdx) => (
+                            <div key={rIdx} className="flex items-start gap-2 text-xs text-forest/85">
+                              <span className="w-1.5 h-1.5 rounded-full bg-rose-dusty shrink-0 mt-1.5" />
+                              <span className="leading-snug">{res}</span>
+                            </div>
                           ))}
                         </div>
-                      </div>
+                      )}
                     </div>
                   </div>
                 </div>
 
-                {/* Card Bottom Footer: Action Links */}
-                <div className="mt-3.5 pt-3 border-t border-[#CAD7C5]/60 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 sm:gap-2.5">
+                {/* Bottom Action Footer */}
+                <div className="pt-3 mt-3 border-t border-[#CAD7C5]/50 flex flex-wrap items-center justify-between gap-2">
                   <button
                     onClick={() => openModal(
                       exp.title,
@@ -1263,7 +1339,7 @@ export default function Home() {
                       exp.link,
                       exp.linkLabel
                     )}
-                    className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 sm:py-1.5 rounded-xl bg-forest text-white hover:bg-forest/90 font-sans text-xs font-semibold transition-all shadow-xs cursor-pointer group/btn w-full sm:w-auto"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-rose-dark hover:text-rose-berry transition-colors cursor-pointer group/btn"
                   >
                     <span>Dokumentasi &amp; Galeri ({galleryImages.length} Foto)</span>
                     <span className="group-hover/btn:translate-x-0.5 transition-transform">→</span>
@@ -1280,10 +1356,10 @@ export default function Home() {
                     </a>
                   )}
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
       </section>
 
@@ -1293,7 +1369,13 @@ export default function Home() {
       <section id="projects" className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-7 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/60 scroll-mt-18">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-3 sm:mb-3.5">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+          variants={fadeUp}
+          className="text-center max-w-2xl mx-auto mb-3 sm:mb-3.5"
+        >
           <span className="font-mono text-xs sm:text-sm text-forest/60 tracking-widest uppercase block mb-1">
             ( 03 ) Portfolio &amp; Case Studies
           </span>
@@ -1304,7 +1386,7 @@ export default function Home() {
           <p className="text-xs sm:text-sm text-forest/75 leading-relaxed font-source">
             Kompilasi proyek sistem informasi, riset aplikasi, analisis data, dan strategi bisnis yang dikerjakan selama studi di D4 SIB Polinema.
           </p>
-        </div>
+        </motion.div>
 
         {/* Category Filter Pills */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-4 pb-2 border-b border-[#CAD7C5]/60">
@@ -1371,10 +1453,18 @@ export default function Home() {
         </div>
 
         {/* 3-Column Grid Matching User Reference Image */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 items-stretch">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+          variants={staggerContainer}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 items-stretch"
+        >
           {filteredDossier.map((project) => (
-            <div
+            <motion.div
               key={project.id}
+              variants={cardItemVariant}
+              whileHover={{ y: -4, transition: { duration: 0.25 } }}
               onClick={() => openModal(
                 project.title,
                 `${project.tag} • ${project.period}`,
@@ -1383,7 +1473,7 @@ export default function Home() {
                 project.link,
                 project.linkLabel
               )}
-              className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-2xl p-3.5 shadow-2xs hover:shadow-md hover:border-rose-dusty/80 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group cursor-pointer"
+              className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-2xl p-3.5 shadow-2xs hover:shadow-md hover:border-rose-dusty/80 transition-all duration-300 flex flex-col justify-between group cursor-pointer"
             >
               <div>
                 {/* 1. GAMBAR PROYEK (Visual Showcase Clean on Top with 16:10 Ratio) */}
@@ -1451,9 +1541,9 @@ export default function Home() {
                   →
                 </span>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
       </section>
 
@@ -1463,7 +1553,13 @@ export default function Home() {
       <section id="recognition" className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-7 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/60 scroll-mt-18">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+          variants={fadeUp}
+          className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4"
+        >
           <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-0.5">/ Honors & Recognitions /</span>
           <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-forest tracking-normal mb-1.5">
             National Competitions & Honors
@@ -1471,7 +1567,7 @@ export default function Home() {
           <p className="text-xs sm:text-sm text-forest/75 leading-relaxed">
             Galeri visual pencapaian terverifikasi dalam kompetisi business plan dan debat nasional. Klik untuk membuka sertifikat resmi.
           </p>
-        </div>
+        </motion.div>
 
         {/* Filter Pills */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-3 sm:mb-3.5">
@@ -1531,7 +1627,13 @@ export default function Home() {
         <div className="relative p-3 sm:p-3.5 rounded-2xl bg-gradient-to-tr from-rose-blush/40 via-white/60 to-sage-DEFAULT/30 border border-white/80 shadow-md backdrop-blur-sm">
           
           {/* Mosaic Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-3 sm:gap-3.5">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+            variants={staggerContainer}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-3 sm:gap-3.5"
+          >
             {filteredAwards.map((award, idx) => {
               // Calibrated compact asymmetric span pattern
               let colSpan = 'lg:col-span-4 min-h-[200px]';
@@ -1548,8 +1650,10 @@ export default function Home() {
               }
 
               return (
-                <div
+                <motion.div
                   key={idx}
+                  variants={cardItemVariant}
+                  whileHover={{ y: -4, transition: { duration: 0.25 } }}
                   onClick={() => openModal(
                     award.title, 
                     `${award.rank} • ${award.organizer}`, 
@@ -1560,7 +1664,7 @@ export default function Home() {
                     award.videoLink,
                     award.videoLinkLabel
                   )}
-                  className={`group relative rounded-2xl overflow-hidden cursor-pointer bg-forest/20 border-2 border-white/60 shadow-xs transition-all duration-500 hover:-translate-y-1 hover:shadow-lg ${colSpan} flex flex-col justify-between p-3 sm:p-3.5`}
+                  className={`group relative rounded-2xl overflow-hidden cursor-pointer bg-forest/20 border-2 border-white/60 shadow-xs transition-all duration-500 hover:shadow-lg ${colSpan} flex flex-col justify-between p-3 sm:p-3.5`}
                 >
                   {/* Background Event Documentation Image */}
                   <img
@@ -1653,10 +1757,10 @@ export default function Home() {
                     </div>
                   </div>
 
-                </div>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
 
         </div>
 
@@ -1673,7 +1777,13 @@ export default function Home() {
       <section id="leadership" className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-7 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/60 overflow-hidden scroll-mt-18">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-2.5 sm:mb-3">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+          variants={fadeUp}
+          className="text-center max-w-2xl mx-auto mb-2.5 sm:mb-3"
+        >
           <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-0.5">/ Governance & Track Record /</span>
           <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-forest tracking-normal mb-1.5">
             Leadership & Organizational Impact
@@ -1681,7 +1791,7 @@ export default function Home() {
           <p className="text-xs sm:text-sm text-forest/75 leading-relaxed font-source">
             Pengalaman memimpin mahasiswa, mengawal tata kelola organisasi skala jurusan, serta mewakili ekosistem teknologi kampus.
           </p>
-        </div>
+        </motion.div>
 
         {/* Carousel Status Counter */}
         {(() => {
@@ -1737,24 +1847,28 @@ export default function Home() {
                 } as React.CSSProperties}
               >
                 {/* Floating Left Arrow Button (Prominent on Side) */}
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.12 }}
+                  whileTap={{ scale: 0.92 }}
                   onClick={handlePrevOrg}
-                  className="absolute left-1 sm:left-2 lg:left-4 top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 backdrop-blur-md border-2 border-[#CAD7C5] shadow-lg text-forest hover:bg-forest hover:text-[#E8EFE5] hover:scale-110 active:scale-95 transition-all flex items-center justify-center text-xl font-bold cursor-pointer ring-2 ring-forest/5"
+                  className="absolute left-1 sm:left-2 lg:left-4 top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 backdrop-blur-md border-2 border-[#CAD7C5] shadow-lg text-forest hover:bg-forest hover:text-[#E8EFE5] transition-all flex items-center justify-center text-xl font-bold cursor-pointer ring-2 ring-forest/5"
                   title="Peran Sebelumnya (Geser Kiri)"
                   aria-label="Previous Role"
                 >
                   ‹
-                </button>
+                </motion.button>
 
                 {/* Floating Right Arrow Button (Prominent on Side) */}
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.12 }}
+                  whileTap={{ scale: 0.92 }}
                   onClick={handleNextOrg}
-                  className="absolute right-1 sm:right-2 lg:right-4 top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 backdrop-blur-md border-2 border-[#CAD7C5] shadow-lg text-forest hover:bg-forest hover:text-[#E8EFE5] hover:scale-110 active:scale-95 transition-all flex items-center justify-center text-xl font-bold cursor-pointer ring-2 ring-forest/5"
+                  className="absolute right-1 sm:right-2 lg:right-4 top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 backdrop-blur-md border-2 border-[#CAD7C5] shadow-lg text-forest hover:bg-forest hover:text-[#E8EFE5] transition-all flex items-center justify-center text-xl font-bold cursor-pointer ring-2 ring-forest/5"
                   title="Peran Selanjutnya (Geser Kanan)"
                   aria-label="Next Role"
                 >
                   ›
-                </button>
+                </motion.button>
 
                 {/* Track with smooth transition */}
                 <div 
@@ -1904,8 +2018,10 @@ export default function Home() {
               {/* Quick Role Jump Pills (Clickable direct navigation below carousel) */}
               <div className="flex flex-wrap items-center justify-center gap-1.5 mt-2.5 mb-2">
                 {organizationList.map((org, idx) => (
-                  <button
+                  <motion.button
                     key={idx}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => handleJumpOrg(idx)}
                     className={`px-3 py-1 rounded-full text-xs font-medium transition-all cursor-pointer ${
                       idx === activeOrgIdx
@@ -1915,7 +2031,7 @@ export default function Home() {
                   >
                     <span className="opacity-60 mr-1">#{idx + 1}</span>
                     <span>{org.role.split('(')[0].trim()}</span>
-                  </button>
+                  </motion.button>
                 ))}
               </div>
             </>
@@ -1930,7 +2046,13 @@ export default function Home() {
       <section id="certifications" className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-7 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/60 scroll-mt-18">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+          variants={fadeUp}
+          className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4"
+        >
           <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-0.5">/ Continuous Learning /</span>
           <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-forest tracking-normal mb-1.5">
             Professional Certifications & Credentials
@@ -1938,13 +2060,21 @@ export default function Home() {
           <p className="text-xs sm:text-sm text-forest/75 leading-relaxed font-source">
             Lisensi pelatihan industri, sertifikasi kompetensi terakreditasi, dan pengujian standar internasional.
           </p>
-        </div>
+        </motion.div>
 
         {/* Compact Vertical Cards Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-3.5 items-stretch">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+          variants={staggerContainer}
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-3.5 items-stretch"
+        >
           {certificationList.map((item, idx) => (
-            <div
+            <motion.div
               key={idx}
+              variants={cardItemVariant}
+              whileHover={{ y: -4, transition: { duration: 0.25 } }}
               onClick={() => openModal(
                 item.title,
                 `${item.issuer} • ${item.year} (${item.tag})`,
@@ -1953,7 +2083,7 @@ export default function Home() {
                 item.link,
                 item.linkLabel
               )}
-              className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-2xl p-3 hover:shadow-md hover:border-rose-dusty/60 hover:-translate-y-0.5 transition-all flex flex-col justify-between group cursor-pointer"
+              className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-2xl p-3 hover:shadow-md hover:border-rose-dusty/60 transition-all flex flex-col justify-between group cursor-pointer"
             >
               <div>
                 {/* Visual Card Graphic */}
@@ -1991,12 +2121,18 @@ export default function Home() {
                   →
                 </span>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Trust Banner Below Cards */}
-        <div className="mt-4 p-3 rounded-xl bg-[#CAD7C5]/25 border border-[#CAD7C5]/60 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-forest/80">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+          variants={fadeUp}
+          className="mt-4 p-3 rounded-xl bg-[#CAD7C5]/25 border border-[#CAD7C5]/60 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-forest/80"
+        >
           <div className="flex items-center gap-2">
             <span className="text-rose-dark font-serif font-bold text-base select-none">✦</span>
             <span className="font-medium text-[11px] sm:text-xs">
@@ -2006,7 +2142,7 @@ export default function Home() {
           <span className="text-[10px] sm:text-[11px] font-bold text-rose-dark shrink-0">
             Klik kartu untuk pratinjau sertifikat resolusi tinggi ↗
           </span>
-        </div>
+        </motion.div>
 
       </section>
 
@@ -2016,7 +2152,13 @@ export default function Home() {
       <section id="creative" className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-7 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/60 scroll-mt-18">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+          variants={fadeUp}
+          className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4"
+        >
           <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-0.5">/ Content & Media /</span>
           <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-forest tracking-normal mb-1.5">
             Creator Studio & Social Growth
@@ -2024,10 +2166,16 @@ export default function Home() {
           <p className="text-xs sm:text-sm text-forest/75 leading-relaxed">
             Eksplorasi visual dan penceritaan kreatif: Produksi konten lintas platform (Instagram & TikTok) di berbagai akun.
           </p>
-        </div>
+        </motion.div>
 
         {/* CONTENT CREATOR MULTI-DEVICE SHOWCASE */}
-        <div className="bg-white/90 backdrop-blur-md border border-[#CAD7C5] rounded-2xl p-4 sm:p-5 shadow-xs mb-0">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+          variants={fadeUp}
+          className="bg-white/90 backdrop-blur-md border border-[#CAD7C5] rounded-2xl p-4 sm:p-5 shadow-xs mb-0"
+        >
           
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-3">
             <div>
@@ -2294,7 +2442,7 @@ export default function Home() {
             Arahkan kursor ke masing-masing kartu untuk melihat interaksi preview
           </p>
 
-        </div>
+        </motion.div>
 
       </section>
 
@@ -2304,7 +2452,13 @@ export default function Home() {
       <section id="hobbies" className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-7 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/60 scroll-mt-18">
         
         {/* Section Header */}
-        <div className="text-center max-w-xl mx-auto mb-3.5 sm:mb-4">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+          variants={fadeUp}
+          className="text-center max-w-xl mx-auto mb-3.5 sm:mb-4"
+        >
           <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-0.5">/ Creative Balance & Lifestyle /</span>
           <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-forest tracking-normal mb-1.5">
             Arts, Hobbies & Intellectual Pursuits
@@ -2312,14 +2466,22 @@ export default function Home() {
           <p className="text-xs sm:text-sm text-forest/75 leading-relaxed">
             Aktivitas personal yang menjaga keseimbangan kreativitas, wawasan intelektual, dan kesegaran cara pandang.
           </p>
-        </div>
+        </motion.div>
 
         {/* 4 Hobbies Card Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+          variants={staggerContainer}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4"
+        >
           {hobbiesList.map((hobby, hIdx) => (
-            <div
+            <motion.div
               key={hIdx}
-              className="bg-white/90 border border-[#CAD7C5] rounded-2xl p-3.5 hover:border-rose-dusty hover:-translate-y-1 hover:shadow-md transition-all duration-300 flex flex-col justify-between group shadow-2xs"
+              variants={cardItemVariant}
+              whileHover={{ y: -4, transition: { duration: 0.25 } }}
+              className="bg-white/90 border border-[#CAD7C5] rounded-2xl p-3.5 hover:border-rose-dusty hover:shadow-md transition-all duration-300 flex flex-col justify-between group shadow-2xs"
             >
               <div>
                 <div className="w-full aspect-[16/10] rounded-xl overflow-hidden bg-[#E8EFE5] mb-2.5 relative">
@@ -2364,9 +2526,9 @@ export default function Home() {
                   →
                 </span>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
       </section>
 
@@ -2379,7 +2541,13 @@ export default function Home() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-rose-blush/40 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-[#CAD7C5]/30 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center text-center">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+          variants={fadeUp}
+          className="relative z-10 max-w-3xl mx-auto flex flex-col items-center text-center"
+        >
           <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-1">/ Let&apos;s Connect /</span>
           <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold leading-[1.18] mb-2.5 text-forest tracking-normal">
             Let&apos;s Cultivate Meaningful{' '}
@@ -2394,28 +2562,34 @@ export default function Home() {
 
           {/* Primary Direct Contact Buttons */}
           <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-2.5 mb-1 w-full sm:w-auto">
-            <a
+            <motion.a
+              whileHover={{ y: -2, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               href={`mailto:${portfolioData.socials.email}`}
-              className="w-full sm:w-auto justify-center px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-forest text-[#E8EFE5] hover:bg-rose-dark transition-all flex items-center gap-2 shadow-2xs hover:shadow-xs hover:-translate-y-0.5 cursor-pointer text-center"
+              className="w-full sm:w-auto justify-center px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-forest text-[#E8EFE5] hover:bg-rose-dark transition-all flex items-center gap-2 shadow-2xs hover:shadow-xs cursor-pointer text-center"
             >
               <span>Email: {portfolioData.socials.email}</span>
-            </a>
-            <a
+            </motion.a>
+            <motion.a
+              whileHover={{ y: -2, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               href={portfolioData.socials.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto justify-center px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-rose-dark text-white hover:bg-rose-berry transition-all flex items-center gap-2 shadow-2xs hover:shadow-xs hover:-translate-y-0.5 cursor-pointer text-center"
+              className="w-full sm:w-auto justify-center px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-rose-dark text-white hover:bg-rose-berry transition-all flex items-center gap-2 shadow-2xs hover:shadow-xs cursor-pointer text-center"
             >
               <span>WhatsApp Langsung ✦</span>
-            </a>
-            <a
+            </motion.a>
+            <motion.a
+              whileHover={{ y: -2, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               href={portfolioData.socials.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto justify-center px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-white text-forest border border-[#CAD7C5] hover:border-forest hover:bg-[#FAFBF8] transition-all flex items-center gap-2 shadow-2xs hover:shadow-xs hover:-translate-y-0.5 cursor-pointer text-center"
+              className="w-full sm:w-auto justify-center px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-white text-forest border border-[#CAD7C5] hover:border-forest hover:bg-[#FAFBF8] transition-all flex items-center gap-2 shadow-2xs hover:shadow-xs cursor-pointer text-center"
             >
               <span>LinkedIn Profile ↗</span>
-            </a>
+            </motion.a>
           </div>
 
           {/* Subtle Hairline Divider */}
@@ -2428,13 +2602,15 @@ export default function Home() {
           {/* Official Social Media Brand Icon Buttons */}
           <div className="flex items-center justify-center gap-3">
             {/* Instagram */}
-            <a
+            <motion.a
+              whileHover={{ y: -3, scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
               href={portfolioData.socials.instagram}
               target="_blank"
               rel="noopener noreferrer"
               title="Instagram: @chikalnazmi"
               aria-label="Instagram Chikal Nazmi"
-              className="w-10 h-10 rounded-xl bg-white hover:bg-gradient-to-tr hover:from-[#f09433] hover:via-[#dc2743] hover:to-[#bc1888] border border-[#CAD7C5] hover:border-transparent text-forest hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 shadow-2xs group relative"
+              className="w-10 h-10 rounded-xl bg-white hover:bg-gradient-to-tr hover:from-[#f09433] hover:via-[#dc2743] hover:to-[#bc1888] border border-[#CAD7C5] hover:border-transparent text-forest hover:text-white flex items-center justify-center transition-all duration-300 shadow-2xs group relative"
             >
               <svg className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
@@ -2442,16 +2618,18 @@ export default function Home() {
               <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity bg-forest text-white text-[10px] font-mono px-2 py-0.5 rounded pointer-events-none whitespace-nowrap shadow-md z-30">
                 Instagram
               </span>
-            </a>
+            </motion.a>
 
             {/* TikTok */}
-            <a
+            <motion.a
+              whileHover={{ y: -3, scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
               href={portfolioData.socials.tiktok}
               target="_blank"
               rel="noopener noreferrer"
               title="TikTok: @chikalnazmi"
               aria-label="TikTok Chikal Nazmi"
-              className="w-10 h-10 rounded-xl bg-white hover:bg-black border border-[#CAD7C5] hover:border-black text-forest hover:text-[#25F4EE] flex items-center justify-center transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 shadow-2xs group relative"
+              className="w-10 h-10 rounded-xl bg-white hover:bg-black border border-[#CAD7C5] hover:border-black text-forest hover:text-[#25F4EE] flex items-center justify-center transition-all duration-300 shadow-2xs group relative"
             >
               <svg className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.86 4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-3.04-1.52z"/>
@@ -2459,16 +2637,18 @@ export default function Home() {
               <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity bg-forest text-white text-[10px] font-mono px-2 py-0.5 rounded pointer-events-none whitespace-nowrap shadow-md z-30">
                 TikTok
               </span>
-            </a>
+            </motion.a>
 
             {/* YouTube */}
-            <a
+            <motion.a
+              whileHover={{ y: -3, scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
               href={portfolioData.socials.youtube}
               target="_blank"
               rel="noopener noreferrer"
               title="YouTube: Chikal Nazmi"
               aria-label="YouTube Chikal Nazmi"
-              className="w-10 h-10 rounded-xl bg-white hover:bg-[#FF0000] border border-[#CAD7C5] hover:border-[#FF0000] text-forest hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 shadow-2xs group relative"
+              className="w-10 h-10 rounded-xl bg-white hover:bg-[#FF0000] border border-[#CAD7C5] hover:border-[#FF0000] text-forest hover:text-white flex items-center justify-center transition-all duration-300 shadow-2xs group relative"
             >
               <svg className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
@@ -2476,16 +2656,18 @@ export default function Home() {
               <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity bg-forest text-white text-[10px] font-mono px-2 py-0.5 rounded pointer-events-none whitespace-nowrap shadow-md z-30">
                 YouTube
               </span>
-            </a>
+            </motion.a>
 
             {/* Medium */}
-            <a
+            <motion.a
+              whileHover={{ y: -3, scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
               href={portfolioData.socials.medium}
               target="_blank"
               rel="noopener noreferrer"
               title="Medium: @chikalnazmi"
               aria-label="Medium Chikal Nazmi"
-              className="w-10 h-10 rounded-xl bg-white hover:bg-forest border border-[#CAD7C5] hover:border-forest text-forest hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 shadow-2xs group relative"
+              className="w-10 h-10 rounded-xl bg-white hover:bg-forest border border-[#CAD7C5] hover:border-forest text-forest hover:text-white flex items-center justify-center transition-all duration-300 shadow-2xs group relative"
             >
               <svg className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/>
@@ -2493,9 +2675,9 @@ export default function Home() {
               <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity bg-forest text-white text-[10px] font-mono px-2 py-0.5 rounded pointer-events-none whitespace-nowrap shadow-md z-30">
                 Medium
               </span>
-            </a>
+            </motion.a>
           </div>
-        </div>
+        </motion.div>
 
         {/* ========================================================================= */}
         {/* EDITORIAL GRAND FINALE FOOTER (Minimalist Editorial Concept)              */}
@@ -2520,7 +2702,13 @@ export default function Home() {
           </div>
 
           {/* Bottom Row: Colossal Editorial Masthead Matching Brand Font */}
-          <div className="w-full pt-6 sm:pt-8 pb-2 overflow-hidden select-none">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+            variants={fadeUp}
+            className="w-full pt-6 sm:pt-8 pb-2 overflow-hidden select-none"
+          >
             <a
               href="#hero"
               className="group block w-full text-left tracking-normal font-serif font-bold text-forest hover:text-rose-dark transition-colors duration-700 leading-[0.88] cursor-pointer whitespace-nowrap overflow-hidden"
@@ -2533,7 +2721,7 @@ export default function Home() {
             <div className="text-[10px] sm:text-xs font-mono font-medium tracking-widest uppercase text-forest/60 mt-2 sm:mt-3">
               Business &amp; Marketing
             </div>
-          </div>
+          </motion.div>
         </div>
 
       </footer>
@@ -2542,247 +2730,257 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* REUSABLE MODAL DIALOG: High-Visibility Interactive Media Showcase         */}
       {/* ========================================================================= */}
-      {modalData.isOpen && (() => {
-        const currentImg = modalData.images[activeModalPhoto] || modalData.images[0] || '/11.png';
-        const hasMultiple = modalData.images.length > 1;
+      <AnimatePresence>
+        {modalData.isOpen && (() => {
+          const currentImg = modalData.images[activeModalPhoto] || modalData.images[0] || '/11.png';
+          const hasMultiple = modalData.images.length > 1;
 
-        const handlePrevPhoto = (e: React.MouseEvent) => {
-          e.stopPropagation();
-          setActiveModalPhoto(prev => (prev > 0 ? prev - 1 : modalData.images.length - 1));
-        };
+          const handlePrevPhoto = (e: React.MouseEvent) => {
+            e.stopPropagation();
+            setActiveModalPhoto(prev => (prev > 0 ? prev - 1 : modalData.images.length - 1));
+          };
 
-        const handleNextPhoto = (e: React.MouseEvent) => {
-          e.stopPropagation();
-          setActiveModalPhoto(prev => (prev < modalData.images.length - 1 ? prev + 1 : 0));
-        };
+          const handleNextPhoto = (e: React.MouseEvent) => {
+            e.stopPropagation();
+            setActiveModalPhoto(prev => (prev < modalData.images.length - 1 ? prev + 1 : 0));
+          };
 
-        return (
-          <div 
-            className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 bg-black/85 backdrop-blur-md animate-fadeIn select-none"
-            onClick={closeModal}
-          >
-            <div 
-              className="bg-white rounded-2xl sm:rounded-3xl max-w-6xl w-full max-h-[96vh] shadow-2xl border-2 border-[#CAD7C5] p-3.5 sm:p-5 md:p-6 relative flex flex-col md:flex-row gap-4 sm:gap-6 overflow-y-auto md:overflow-hidden"
-              onClick={(e) => e.stopPropagation()}
+          return (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.22 }}
+              className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 bg-black/85 backdrop-blur-md select-none"
+              onClick={closeModal}
             >
-              {/* ================================================================= */}
-              {/* LEFT COLUMN: THE EXPANSIVE HERO VISUAL STAGE (64% on Desktop)     */}
-              {/* ================================================================= */}
-              <div className="w-full md:w-[62%] lg:w-[65%] flex flex-col justify-between h-auto md:h-[84vh] shrink-0">
-                {/* Main Image Stage: Expands up to full available height! */}
-                <div className="relative w-full flex-1 min-h-[340px] sm:min-h-[440px] md:min-h-0 rounded-2xl overflow-hidden bg-[#182315]/5 border border-[#CAD7C5]/80 flex items-center justify-center group shadow-inner">
-                  {/* Soft Ambient Blurred Glow */}
-                  <div 
-                    className="absolute inset-0 bg-cover bg-center opacity-30 filter blur-3xl scale-125 pointer-events-none transition-all duration-700"
-                    style={{ backgroundImage: `url(${currentImg})` }}
-                  />
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.94, y: 16 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.94, y: 16 }}
+                transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                className="bg-white rounded-2xl sm:rounded-3xl max-w-6xl w-full max-h-[96vh] shadow-2xl border-2 border-[#CAD7C5] p-3.5 sm:p-5 md:p-6 relative flex flex-col md:flex-row gap-4 sm:gap-6 overflow-y-auto md:overflow-hidden"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* ================================================================= */}
+                {/* LEFT COLUMN: THE EXPANSIVE HERO VISUAL STAGE (64% on Desktop)     */}
+                {/* ================================================================= */}
+                <div className="w-full md:w-[62%] lg:w-[65%] flex flex-col justify-between h-auto md:h-[84vh] shrink-0">
+                  {/* Main Image Stage: Expands up to full available height! */}
+                  <div className="relative w-full flex-1 min-h-[340px] sm:min-h-[440px] md:min-h-0 rounded-2xl overflow-hidden bg-[#182315]/5 border border-[#CAD7C5]/80 flex items-center justify-center group shadow-inner">
+                    {/* Soft Ambient Blurred Glow */}
+                    <div 
+                      className="absolute inset-0 bg-cover bg-center opacity-30 filter blur-3xl scale-125 pointer-events-none transition-all duration-700"
+                      style={{ backgroundImage: `url(${currentImg})` }}
+                    />
 
-                  {/* The Hero Photo: Uncropped & Maximized in Size */}
-                  <img
-                    src={currentImg}
-                    alt={`${modalData.title} dokumentasi ${activeModalPhoto + 1}`}
-                    className="relative z-10 max-w-full max-h-full object-contain p-2 sm:p-3 drop-shadow-xl transition-all duration-300"
-                  />
+                    {/* The Hero Photo: Uncropped & Maximized in Size */}
+                    <img
+                      src={currentImg}
+                      alt={`${modalData.title} dokumentasi ${activeModalPhoto + 1}`}
+                      className="relative z-10 max-w-full max-h-full object-contain p-2 sm:p-3 drop-shadow-xl transition-all duration-300"
+                    />
 
-                  {/* Navigation Left Arrow */}
-                  {hasMultiple && (
-                    <button
-                      onClick={handlePrevPhoto}
-                      className="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-forest hover:text-rose-dark shadow-xl border border-[#CAD7C5] flex items-center justify-center text-xl sm:text-2xl font-bold transition-all hover:scale-110 active:scale-95 cursor-pointer ring-2 ring-black/5"
-                      title="Foto Sebelumnya (Panah Kiri)"
-                      aria-label="Previous Photo"
+                    {/* Navigation Left Arrow */}
+                    {hasMultiple && (
+                      <button
+                        onClick={handlePrevPhoto}
+                        className="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-forest hover:text-rose-dark shadow-xl border border-[#CAD7C5] flex items-center justify-center text-xl sm:text-2xl font-bold transition-all hover:scale-110 active:scale-95 cursor-pointer ring-2 ring-black/5"
+                        title="Foto Sebelumnya (Panah Kiri)"
+                        aria-label="Previous Photo"
+                      >
+                        ‹
+                      </button>
+                    )}
+
+                    {/* Navigation Right Arrow */}
+                    {hasMultiple && (
+                      <button
+                        onClick={handleNextPhoto}
+                        className="absolute right-2.5 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-forest hover:text-rose-dark shadow-xl border border-[#CAD7C5] flex items-center justify-center text-xl sm:text-2xl font-bold transition-all hover:scale-110 active:scale-95 cursor-pointer ring-2 ring-black/5"
+                        title="Foto Selanjutnya (Panah Kanan)"
+                        aria-label="Next Photo"
+                      >
+                        ›
+                      </button>
+                    )}
+
+                    {/* Top Right: Open Original Photo */}
+                    <a
+                      href={currentImg}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="absolute top-3 right-3 z-20 px-3 py-1.5 rounded-full bg-white/95 hover:bg-white text-forest hover:text-rose-dark text-xs font-bold shadow-md border border-[#CAD7C5]/70 transition-all flex items-center gap-1.5 backdrop-blur-xs"
+                      title="Buka foto asli resolusi penuh di tab baru"
                     >
-                      ‹
-                    </button>
-                  )}
+                      <span>Buka Ukuran Asli</span>
+                      <span>↗</span>
+                    </a>
 
-                  {/* Navigation Right Arrow */}
-                  {hasMultiple && (
-                    <button
-                      onClick={handleNextPhoto}
-                      className="absolute right-2.5 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-forest hover:text-rose-dark shadow-xl border border-[#CAD7C5] flex items-center justify-center text-xl sm:text-2xl font-bold transition-all hover:scale-110 active:scale-95 cursor-pointer ring-2 ring-black/5"
-                      title="Foto Selanjutnya (Panah Kanan)"
-                      aria-label="Next Photo"
-                    >
-                      ›
-                    </button>
-                  )}
-
-                  {/* Top Right: Open Original Photo */}
-                  <a
-                    href={currentImg}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="absolute top-3 right-3 z-20 px-3 py-1.5 rounded-full bg-white/95 hover:bg-white text-forest hover:text-rose-dark text-xs font-bold shadow-md border border-[#CAD7C5]/70 transition-all flex items-center gap-1.5 backdrop-blur-xs"
-                    title="Buka foto asli resolusi penuh di tab baru"
-                  >
-                    <span>Buka Ukuran Asli</span>
-                    <span>↗</span>
-                  </a>
-
-                  {/* Bottom Left: Live Photo Counter Badge */}
-                  <div className="absolute bottom-3 left-3 z-20 px-3.5 py-1 rounded-full bg-black/75 backdrop-blur-md text-white text-[11px] font-mono font-medium shadow-md flex items-center gap-2 border border-white/20">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    <span>Foto {activeModalPhoto + 1} dari {modalData.images.length}</span>
+                    {/* Bottom Left: Live Photo Counter Badge */}
+                    <div className="absolute bottom-3 left-3 z-20 px-3.5 py-1 rounded-full bg-black/75 backdrop-blur-md text-white text-[11px] font-mono font-medium shadow-md flex items-center gap-2 border border-white/20">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                      <span>Foto {activeModalPhoto + 1} dari {modalData.images.length}</span>
+                    </div>
                   </div>
+
+                  {/* Filmstrip Thumbnails Row (Cleanly docked below the main photo) */}
+                  {hasMultiple && (
+                    <div className="mt-3 shrink-0">
+                      <div className="flex items-center gap-2 overflow-x-auto py-1 px-0.5 scrollbar-thin">
+                        {modalData.images.map((img, idx) => {
+                          const isActive = idx === activeModalPhoto;
+                          return (
+                            <button
+                              key={idx}
+                              onClick={() => setActiveModalPhoto(idx)}
+                              className={`relative w-20 sm:w-24 aspect-[4/3] rounded-xl overflow-hidden border-2 transition-all shrink-0 cursor-pointer bg-forest/5 ${
+                                isActive
+                                  ? 'border-rose-dark ring-2 ring-rose-dark/30 scale-102 shadow-md'
+                                  : 'border-[#CAD7C5] opacity-60 hover:opacity-100 hover:border-forest'
+                              }`}
+                              title={`Lihat Foto ${idx + 1}`}
+                            >
+                              <img src={img} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-cover" />
+                              <span className={`absolute bottom-1 right-1 px-1.5 py-0.5 rounded text-[8px] font-bold font-mono ${
+                                isActive ? 'bg-rose-dark text-white' : 'bg-black/75 text-white'
+                              }`}>
+                                #{idx + 1}
+                              </span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
-                {/* Filmstrip Thumbnails Row (Cleanly docked below the main photo) */}
-                {hasMultiple && (
-                  <div className="mt-3 shrink-0">
-                    <div className="flex items-center gap-2 overflow-x-auto py-1 px-0.5 scrollbar-thin">
-                      {modalData.images.map((img, idx) => {
-                        const isActive = idx === activeModalPhoto;
-                        return (
-                          <button
-                            key={idx}
-                            onClick={() => setActiveModalPhoto(idx)}
-                            className={`relative w-20 sm:w-24 aspect-[4/3] rounded-xl overflow-hidden border-2 transition-all shrink-0 cursor-pointer bg-forest/5 ${
-                              isActive
-                                ? 'border-rose-dark ring-2 ring-rose-dark/30 scale-102 shadow-md'
-                                : 'border-[#CAD7C5] opacity-60 hover:opacity-100 hover:border-forest'
-                            }`}
-                            title={`Lihat Foto ${idx + 1}`}
-                          >
-                            <img src={img} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-cover" />
-                            <span className={`absolute bottom-1 right-1 px-1.5 py-0.5 rounded text-[8px] font-bold font-mono ${
-                              isActive ? 'bg-rose-dark text-white' : 'bg-black/75 text-white'
-                            }`}>
-                              #{idx + 1}
-                            </span>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* ================================================================= */}
-              {/* RIGHT COLUMN: THE EDITORIAL STORY & ACTION PANEL (36% on Desktop) */}
-              {/* ================================================================= */}
-              <div className="w-full md:w-[38%] lg:w-[35%] flex flex-col justify-between h-auto md:h-[84vh] pl-0 md:pl-2">
-                {/* Narrative & Info Header */}
-                <div className="overflow-y-auto pr-1 md:pr-2">
-                  {/* Top Action Row: Category + Close Button */}
-                  <div className="flex items-center justify-between gap-3 pb-3 mb-3.5 border-b border-[#CAD7C5]/70">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-rose-dark bg-rose-blush/80 border border-rose-dusty/40 px-3 py-1 rounded-full shadow-2xs">
-                        {modalData.category}
-                      </span>
-                    </div>
-
-                    <button
-                      onClick={closeModal}
-                      className="w-10 h-10 rounded-full bg-[#E8EFE5] hover:bg-rose-dark hover:text-white text-forest flex items-center justify-center transition-all text-lg font-bold shadow-xs cursor-pointer shrink-0"
-                      aria-label="Tutup Dialog"
-                      title="Tutup Dialog"
-                    >
-                      ✕
-                    </button>
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest leading-snug tracking-tight mb-3">
-                    {modalData.title}
-                  </h3>
-
-                  {/* Narrative Description */}
-                  <div className="p-3.5 rounded-2xl bg-[#FAFBF8] border border-[#CAD7C5]/80 mb-4">
-                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-forest/60 block mb-1">
-                      ✦ Rincian &amp; Dokumentasi Kegiatan
-                    </span>
-                    <p className="text-xs sm:text-[13px] text-forest/85 leading-relaxed font-source">
-                      {modalData.description}
-                    </p>
-                  </div>
-
-                  {/* Interactive Action Card for External Links & Video Documentation */}
-                  {(modalData.link || modalData.videoLink) && (
-                    <div className="p-3.5 rounded-2xl bg-gradient-to-br from-rose-50/70 via-white to-sage-50/70 border border-[#CAD7C5] mb-4 space-y-2.5 shadow-2xs">
-                      <div className="flex items-center gap-1.5 text-[10px] font-bold text-forest tracking-wider uppercase">
-                        <span className="w-2 h-2 rounded-full bg-rose-dark animate-pulse" />
-                        <span>Tautan Video &amp; Dokumentasi Eksternal</span>
+                {/* ================================================================= */}
+                {/* RIGHT COLUMN: THE EDITORIAL STORY & ACTION PANEL (36% on Desktop) */}
+                {/* ================================================================= */}
+                <div className="w-full md:w-[38%] lg:w-[35%] flex flex-col justify-between h-auto md:h-[84vh] pl-0 md:pl-2">
+                  {/* Narrative & Info Header */}
+                  <div className="overflow-y-auto pr-1 md:pr-2">
+                    {/* Top Action Row: Category + Close Button */}
+                    <div className="flex items-center justify-between gap-3 pb-3 mb-3.5 border-b border-[#CAD7C5]/70">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-rose-dark bg-rose-blush/80 border border-rose-dusty/40 px-3 py-1 rounded-full shadow-2xs">
+                          {modalData.category}
+                        </span>
                       </div>
 
-                      {/* Video Link Button */}
-                      {modalData.videoLink && (
-                        <a
-                          href={modalData.videoLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-full py-2.5 px-3.5 rounded-xl text-xs font-bold bg-rose-dark text-white hover:bg-rose-berry transition-all shadow-xs flex items-center justify-between group cursor-pointer"
-                        >
-                          <span className="flex items-center gap-2">
-                            <span className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-[10px]">▶</span>
-                            <span>{modalData.videoLinkLabel || 'Tonton Video Dokumentasi Lomba'}</span>
-                          </span>
-                          <span className="text-white/80 group-hover:translate-x-1 transition-transform">↗</span>
-                        </a>
-                      )}
-
-                      {/* Primary / External Link Button */}
-                      {modalData.link && (
-                        <a
-                          href={modalData.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={`w-full py-2.5 px-3.5 rounded-xl text-xs font-bold transition-all shadow-xs flex items-center justify-between group cursor-pointer ${
-                            !modalData.videoLink
-                              ? 'bg-rose-dark text-white hover:bg-rose-berry'
-                              : 'bg-white border border-[#CAD7C5] text-forest hover:bg-sage-50/80 hover:border-forest'
-                          }`}
-                        >
-                          <span className="flex items-center gap-2">
-                            <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] ${
-                              !modalData.videoLink ? 'bg-white/20' : 'bg-forest/10'
-                            }`}>
-                              {modalData.link.includes('youtube') || modalData.link.includes('youtu.be') ? '▶' : '🔗'}
-                            </span>
-                            <span>
-                              {modalData.linkLabel || (
-                                modalData.link.includes('youtube') || modalData.link.includes('youtu.be')
-                                  ? 'Tonton Video Dokumentasi'
-                                  : 'Buka Tautan Eksternal'
-                              )}
-                            </span>
-                          </span>
-                          <span className="group-hover:translate-x-1 transition-transform">↗</span>
-                        </a>
-                      )}
+                      <button
+                        onClick={closeModal}
+                        className="w-10 h-10 rounded-full bg-[#E8EFE5] hover:bg-rose-dark hover:text-white text-forest flex items-center justify-center transition-all text-lg font-bold shadow-xs cursor-pointer shrink-0"
+                        aria-label="Tutup Dialog"
+                        title="Tutup Dialog"
+                      >
+                        ✕
+                      </button>
                     </div>
-                  )}
 
-                  {/* Key Navigation Info */}
-                  <div className="p-3 rounded-xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/60 mb-4 text-xs text-forest/75 space-y-1.5">
-                    <div className="flex items-center gap-2">
-                      <span className="text-rose-dark font-bold text-xs">✔</span>
-                      <span className="text-[11px] font-medium">
-                        Foto ditampilkan dalam rasio asli tanpa distorsi / cropping
+                    {/* Title */}
+                    <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest leading-snug tracking-tight mb-3">
+                      {modalData.title}
+                    </h3>
+
+                    {/* Narrative Description */}
+                    <div className="p-3.5 rounded-2xl bg-[#FAFBF8] border border-[#CAD7C5]/80 mb-4">
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-forest/60 block mb-1">
+                        ✦ Rincian &amp; Dokumentasi Kegiatan
                       </span>
+                      <p className="text-xs sm:text-[13px] text-forest/85 leading-relaxed font-source">
+                        {modalData.description}
+                      </p>
                     </div>
-                    <div className="flex items-center gap-2 text-[10px] text-forest/60 font-mono">
-                      <span>⌨</span>
-                      <span>Navigasi: tombol panah ‹ › di keyboard</span>
+
+                    {/* Interactive Action Card for External Links & Video Documentation */}
+                    {(modalData.link || modalData.videoLink) && (
+                      <div className="p-3.5 rounded-2xl bg-gradient-to-br from-rose-50/70 via-white to-sage-50/70 border border-[#CAD7C5] mb-4 space-y-2.5 shadow-2xs">
+                        <div className="flex items-center gap-1.5 text-[10px] font-bold text-forest tracking-wider uppercase">
+                          <span className="w-2 h-2 rounded-full bg-rose-dark animate-pulse" />
+                          <span>Tautan Video &amp; Dokumentasi Eksternal</span>
+                        </div>
+
+                        {/* Video Link Button */}
+                        {modalData.videoLink && (
+                          <a
+                            href={modalData.videoLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full py-2.5 px-3.5 rounded-xl text-xs font-bold bg-rose-dark text-white hover:bg-rose-berry transition-all shadow-xs flex items-center justify-between group cursor-pointer"
+                          >
+                            <span className="flex items-center gap-2">
+                              <span className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-[10px]">▶</span>
+                              <span>{modalData.videoLinkLabel || 'Tonton Video Dokumentasi Lomba'}</span>
+                            </span>
+                            <span className="text-white/80 group-hover:translate-x-1 transition-transform">↗</span>
+                          </a>
+                        )}
+
+                        {/* Primary / External Link Button */}
+                        {modalData.link && (
+                          <a
+                            href={modalData.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`w-full py-2.5 px-3.5 rounded-xl text-xs font-bold transition-all shadow-xs flex items-center justify-between group cursor-pointer ${
+                              !modalData.videoLink
+                                ? 'bg-rose-dark text-white hover:bg-rose-berry'
+                                : 'bg-white border border-[#CAD7C5] text-forest hover:bg-sage-50/80 hover:border-forest'
+                            }`}
+                          >
+                            <span className="flex items-center gap-2">
+                              <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] ${
+                                !modalData.videoLink ? 'bg-white/20' : 'bg-forest/10'
+                              }`}>
+                                {modalData.link.includes('youtube') || modalData.link.includes('youtu.be') ? '▶' : '🔗'}
+                              </span>
+                              <span>
+                                {modalData.linkLabel || (
+                                  modalData.link.includes('youtube') || modalData.link.includes('youtu.be')
+                                    ? 'Tonton Video Dokumentasi'
+                                    : 'Buka Tautan Eksternal'
+                                )}
+                              </span>
+                            </span>
+                            <span className="group-hover:translate-x-1 transition-transform">↗</span>
+                          </a>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Key Navigation Info */}
+                    <div className="p-3 rounded-xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/60 mb-4 text-xs text-forest/75 space-y-1.5">
+                      <div className="flex items-center gap-2">
+                        <span className="text-rose-dark font-bold text-xs">✔</span>
+                        <span className="text-[11px] font-medium">
+                          Foto ditampilkan dalam rasio asli tanpa distorsi / cropping
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2 text-[10px] text-forest/60 font-mono">
+                        <span>⌨</span>
+                        <span>Navigasi: tombol panah ‹ › di keyboard</span>
+                      </div>
                     </div>
+                  </div>
+
+                  {/* Bottom Sticky Action Footer */}
+                  <div className="pt-3 mt-3 border-t border-[#CAD7C5]/70 flex flex-col gap-2 shrink-0">
+                    <button
+                      onClick={closeModal}
+                      className="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-forest text-[#E8EFE5] hover:bg-rose-dark transition-colors shadow-xs cursor-pointer text-center"
+                    >
+                      Tutup Dialog [ESC]
+                    </button>
                   </div>
                 </div>
 
-                {/* Bottom Sticky Action Footer */}
-                <div className="pt-3 mt-3 border-t border-[#CAD7C5]/70 flex flex-col gap-2 shrink-0">
-                  <button
-                    onClick={closeModal}
-                    className="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-forest text-[#E8EFE5] hover:bg-rose-dark transition-colors shadow-xs cursor-pointer text-center"
-                  >
-                    Tutup Dialog [ESC]
-                  </button>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        );
-      })()}
+              </motion.div>
+            </motion.div>
+          );
+        })()}
+      </AnimatePresence>
 
     </div>
   );
