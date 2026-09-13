@@ -172,7 +172,7 @@ export default function Home() {
             {/* ========================================================================= */}
       {/* NAVBAR: Modern Floating Editorial Pill (Exact Version from a92721e)        */}
       {/* ========================================================================= */}
-      <nav className="sticky top-4 z-40 max-w-7xl mx-auto px-4 sm:px-6">
+      <nav className="sticky top-4 z-40 w-full max-w-[1560px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         <div className="bg-white/85 backdrop-blur-md border border-[#CAD7C5] rounded-full px-5 py-3 shadow-sm flex items-center justify-between transition-all hover:border-rose-dusty/40">
           
           {/* Brand Identity (CN Initial + Two-tier Name & Role) */}
@@ -244,14 +244,14 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* 2. HERO SECTION (2-Column Editorial Layout: Left Content, Right Photo)     */}
       {/* ========================================================================= */}
-      <section className="relative pt-8 sm:pt-14 md:pt-20 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto overflow-hidden">
+      <section className="relative w-full pt-8 sm:pt-14 md:pt-20 pb-16 sm:pb-24 px-4 sm:px-8 lg:px-12 xl:px-16 overflow-hidden">
         
         {/* Subtle Radiant Sage-Rose Glow Backdrop */}
         <div className="absolute top-1/4 -right-20 w-[420px] sm:w-[580px] h-[420px] sm:h-[580px] floral-glow-hero rounded-full pointer-events-none z-0"></div>
         <div className="absolute top-1/3 -left-20 w-[360px] sm:w-[480px] h-[360px] sm:h-[480px] pink-halo-glow-subtle rounded-full pointer-events-none z-0"></div>
 
         {/* Main 2-Column Grid */}
-        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+        <div className="relative z-10 max-w-[1560px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           
           {/* ================= LEFT COLUMN: Kicker, Headline, Info, CTA ================= */}
           <div className="lg:col-span-7 flex flex-col items-start text-left">
@@ -609,7 +609,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* 5. VALUE PROPOSITION MANIFESTO ("What I Do" with Floating Skills)         */}
       {/* ========================================================================= */}
-      <section id="about" className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center relative">
+      <section id="about" className="w-full border-t border-[#CAD7C5]/60 py-20 sm:py-28 px-4 sm:px-8 lg:px-12 xl:px-16 text-center relative">
         
         {/* Soft Center Aura (Beloved Pink Halo) */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[480px] h-[300px] sm:h-[480px] pink-halo-glow-subtle rounded-full pointer-events-none z-0"></div>
@@ -669,7 +669,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* 6. PROCESS ROADMAP ("Here's how it works" with Curving Connector Doodle)  */}
       {/* ========================================================================= */}
-      <section id="process" className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative">
+      <section id="process" className="w-full border-t border-[#CAD7C5]/60 py-20 sm:py-28 px-4 sm:px-8 lg:px-12 xl:px-16 relative">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
@@ -799,7 +799,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* 7. SELECTED WORKS (2x2 Grid Layout Persis Referensi Elian Ross)           */}
       {/* ========================================================================= */}
-      <section id="projects" className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <section id="projects" className="w-full border-t border-[#CAD7C5]/60 py-20 sm:py-28 px-4 sm:px-8 lg:px-12 xl:px-16">
         
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
@@ -833,7 +833,7 @@ export default function Home() {
         </div>
 
         {/* 2x2 Project Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10">
+        <div className="max-w-[1560px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10">
           {filteredProjects.map((project, idx) => (
             <div
               key={project.id || idx}
@@ -889,7 +889,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* CREATIVE MEDIA & CONTENT CREATOR SHOWCASE (CMS Video & Creator Tab)        */}
       {/* ========================================================================= */}
-      <section id="creator" className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#CAD7C5]/60">
+      <section id="creator" className="w-full border-t border-[#CAD7C5]/60 py-20 sm:py-28 px-4 sm:px-8 lg:px-12 xl:px-16">
         
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
@@ -1079,7 +1079,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* 8. PUSHING BOUNDARIES (About Story & Clean Career Timeline)              */}
       {/* ========================================================================= */}
-      <section id="experience" className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#CAD7C5]/60">
+      <section id="experience" className="w-full border-t border-[#CAD7C5]/60 py-20 sm:py-28 px-4 sm:px-8 lg:px-12 xl:px-16">
         
         {/* Kicker & Title (Elian Ross Style: Title Bold + Year Muted Light) */}
         <div className="mb-14">
@@ -1090,7 +1090,7 @@ export default function Home() {
         </div>
 
         {/* 2 Columns: Photo & Bio Left, Clean Horizontal Timeline Right */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-14 items-start">
+        <div className="max-w-[1560px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-14 items-start">
           
           {/* Left Column: Stylized Portrait Card & Social Links */}
           <div className="lg:col-span-5 space-y-6">
@@ -1262,7 +1262,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* 9. TROPHY CASE & CERTIFICATIONS (Clean Minimalist Cards)                   */}
       {/* ========================================================================= */}
-      <section id="awards" className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#CAD7C5]/60">
+      <section id="awards" className="w-full border-t border-[#CAD7C5]/60 py-20 sm:py-28 px-4 sm:px-8 lg:px-12 xl:px-16">
         
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
@@ -1296,7 +1296,7 @@ export default function Home() {
         </div>
 
         {/* Awards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="max-w-[1560px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredAwards.map((award, idx) => (
             <div
               key={idx}
@@ -1399,10 +1399,10 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* 11. FOOTER & GIANT WATERMARK SIGNATURE (Instrument Serif Italic)          */}
       {/* ========================================================================= */}
-      <footer className="pt-12 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#CAD7C5]/60 relative overflow-hidden">
+      <footer className="w-full border-t border-[#CAD7C5]/60 pt-12 pb-16 px-4 sm:px-8 lg:px-12 xl:px-16 relative overflow-hidden">
         
         {/* Navigation & Copyright (Elian Ross Style) */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-neutral-600 pb-12">
+        <div className="max-w-[1560px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-neutral-600 pb-12">
           <div className="flex items-center gap-6 font-medium">
             <a href="#about" className="hover:text-rose-dark transition-colors">Home</a>
             <a href="#about" className="hover:text-rose-dark transition-colors">About</a>
