@@ -6,7 +6,10 @@ import {
   fetchPortfolioDataFromSupabase,
   subscribeToPortfolioUpdates, 
   DEFAULT_PORTFOLIO_DATA, 
-  PortfolioData 
+  PortfolioData,
+  AwardItem,
+  ProjectDoc,
+  OrganizationItem
 } from '@/lib/portfolio-store';
 
 
@@ -87,16 +90,22 @@ export default function Home() {
 
   // Current slide index in infinite circular carousel (starts at 10 = index 0 Google Student Ambassador)
   const [currentSlideIndex, setCurrentSlideIndex] = useState(10);
+  // Organization roles synced with Admin Studio
+  const organizationList = (portfolioData.organizations && portfolioData.organizations.length > 0)
+    ? portfolioData.organizations
+    : (DEFAULT_PORTFOLIO_DATA.organizations || []);
+
   // Active photo index for each organization card
   const [orgPhotoIndex, setOrgPhotoIndex] = useState<{ [key: number]: number }>({ 0: 0, 1: 0, 2: 0, 3: 0, 4: 0 });
 
   // Auto-slide documentation photos every 3 seconds without manual clicks
   useEffect(() => {
+    if (organizationList.length === 0) return;
     const photoTimer = setInterval(() => {
       setOrgPhotoIndex(prev => {
         const nextState = { ...prev };
-        organizationList.forEach((_, idx) => {
-          const totalPhotos = organizationList[idx].images.length;
+        organizationList.forEach((org, idx) => {
+          const totalPhotos = org.images?.length || 1;
           nextState[idx] = ((prev[idx] || 0) + 1) % totalPhotos;
         });
         return nextState;
@@ -104,7 +113,7 @@ export default function Home() {
     }, 3000);
 
     return () => clearInterval(photoTimer);
-  }, []);
+  }, [organizationList]);
 
   // Active photo index inside Landscape Modal Dialog
   const [activeModalPhoto, setActiveModalPhoto] = useState(0);
@@ -292,104 +301,10 @@ export default function Home() {
     ? projectsList 
     : projectsList.filter(p => p.id === activeDossierTab);
 
-  // 7 Trophy Case Awards Data
-  const defaultAwardsList = [
-    {
-      year: '2024',
-      rank: '1st Winner',
-      rankBadge: 'bg-rose-dark text-white',
-      title: 'National Fest Business Plan Competition 2024',
-      organizer: 'Fakultas Ekonomi dan Bisnis, Universitas Islam Malang',
-      scope: 'Tingkat Nasional',
-      desc: 'Juara 1 dalam perancangan ide dan rencana bisnis mahasiswa tingkat nasional.',
-      certImg: '/11.png',
-      eventImg: '/12.png',
-      link: 'https://unisma.ac.id',
-      linkLabel: 'Liputan Berita Unisma ↗',
-    },
-    {
-      year: '2024',
-      rank: 'Top 5 Finalist',
-      rankBadge: 'bg-rose-dusty text-white',
-      title: 'National Business Plan Competition (BPC) 2024',
-      organizer: 'Universitas Negeri Padang',
-      scope: 'Tingkat Nasional',
-      desc: 'Masuk jajaran 5 proposal bisnis terpilih pada kompetisi tingkat nasional.',
-      certImg: '/13.png',
-      eventImg: '/14.png',
-      link: 'https://unp.ac.id',
-      linkLabel: 'Warta Kompetisi UNP ↗',
-    },
-    {
-      year: '2023',
-      rank: '1st Winner',
-      rankBadge: 'bg-rose-dark text-white',
-      title: 'Lomba Business Plan Mahasiswa 2023',
-      organizer: 'Politeknik Negeri Malang',
-      scope: 'Tingkat Institusi',
-      desc: 'Meraih Juara 1 dalam kompetisi business plan mahasiswa tingkat kampus.',
-      certImg: '/15.png',
-      eventImg: '/16.png',
-      link: 'https://polinema.ac.id',
-      linkLabel: 'Pengumuman Resmi Polinema ↗',
-    },
-    {
-      year: '2023',
-      rank: 'Top 5 Finalist',
-      rankBadge: 'bg-rose-dusty text-white',
-      title: 'National Business Plan Competition 2023',
-      organizer: 'Universitas Brawijaya',
-      scope: 'Tingkat Nasional',
-      desc: 'Finalis 5 besar dalam kompetisi rencana bisnis mahasiswa nasional.',
-      certImg: '/17.png',
-      eventImg: '/11.png',
-      link: 'https://ub.ac.id',
-      linkLabel: 'Rilis Berita UB ↗',
-    },
-    {
-      year: '2023',
-      rank: '2nd Winner',
-      rankBadge: 'bg-forest text-white',
-      title: 'National Fest Business Plan Competition 2023',
-      organizer: 'Fakultas Ekonomi dan Bisnis, Universitas Islam Malang',
-      scope: 'Tingkat Nasional',
-      desc: 'Juara 2 dalam perumusan ide dan strategi pemasaran produk.',
-      certImg: '/12.png',
-      eventImg: '/13.png',
-      link: 'https://unisma.ac.id',
-      linkLabel: 'Arsip Berita Nasional ↗',
-    },
-    {
-      year: '2022',
-      rank: '2nd Winner',
-      rankBadge: 'bg-forest text-white',
-      title: 'Business Plan Competition Nasional 2022',
-      organizer: 'Universitas Muhammadiyah Malang',
-      scope: 'Tingkat Nasional',
-      desc: 'Juara 2 dalam perancangan proposal bisnis kreatif mahasiswa.',
-      certImg: '/14.png',
-      eventImg: '/15.png',
-      link: 'https://umm.ac.id',
-      linkLabel: 'Publikasi UMM ↗',
-    },
-    {
-      year: '2022',
-      rank: 'Best Speaker',
-      rankBadge: 'bg-rose-dark text-white',
-      title: 'National Business Plan Competition 2022',
-      organizer: 'Universitas Negeri Surabaya',
-      scope: 'Tingkat Nasional',
-      desc: 'Penghargaan Pembicara Terbaik dalam presentasi bisnis dan sesi tanya jawab.',
-      certImg: '/16.png',
-      eventImg: '/17.png',
-      link: 'https://unesa.ac.id',
-      linkLabel: 'Dokumentasi Unesa ↗',
-    },
-  ];
-
-  const awardsList = (portfolioData.awards && portfolioData.awards.length > 0)
+  // 7 Trophy Case Awards Data (synced with admin / store)
+  const awardsList: AwardItem[] = (portfolioData.awards && portfolioData.awards.length > 0)
     ? portfolioData.awards
-    : defaultAwardsList;
+    : DEFAULT_PORTFOLIO_DATA.awards;
 
   // Dynamic filter for Trophy Case Mosaic
   const filteredAwards = awardsList.filter(award => {
@@ -401,54 +316,6 @@ export default function Home() {
     return true;
   });
 
-  // 5 Organization Roles Data (Authentic & Grounded)
-  const organizationList = [
-    {
-      period: '2024 - Sekarang',
-      role: 'Google Student Ambassador',
-      institution: 'Google Developer Student Clubs (GDSC) Polinema',
-      tag: 'Campus Leadership & Tech Community',
-      desc: 'Representatif ekosistem Google di kampus, memfasilitasi sesi pengenalan teknologi dan kegiatan komunitas mahasiswa.',
-      highlights: ['Google Ecosystem', 'Tech Workshops', 'Komunitas Mahasiswa'],
-      images: ['/11.png', '/12.png', '/10.png'],
-    },
-    {
-      period: '2023 - 2024',
-      role: 'Vice Chairwoman (Wakil Ketua Himpunan)',
-      institution: 'Himpunan Mahasiswa Teknologi Informasi (HMTI) Polinema',
-      tag: 'Executive Governance',
-      desc: 'Membantu koordinasi lintas divisi dan mendukung kelancaran pelaksanaan program kerja mahasiswa Jurusan TI.',
-      highlights: ['Koordinasi Divisi', 'Program Kerja Mahasiswa', 'Aspirasi Mahasiswa'],
-      images: ['/13.png', '/14.png', '/1.png'],
-    },
-    {
-      period: '2023',
-      role: 'Secretary of General Election',
-      institution: 'Komisi Pemilihan Umum Mahasiswa Jurusan TI',
-      tag: 'Administrative & Electoral Governance',
-      desc: 'Mengelola tata kelola administrasi, surat-menyurat, dan dokumentasi pada pemilihan umum raya himpunan mahasiswa.',
-      highlights: ['Administrasi Pemilu', 'Verifikasi Berkas', 'Dokumentasi Acara'],
-      images: ['/15.png', '/16.png', '/3.png'],
-    },
-    {
-      period: '2023',
-      role: 'Chief Executive of New Student Orientation',
-      institution: 'PKKMB Mahasiswa Baru Jurusan TI Polinema',
-      tag: 'Operations & Event Leadership',
-      desc: 'Mengkoordinasikan kepanitiaan dalam penyelenggaraan orientasi mahasiswa baru jurusan TI.',
-      highlights: ['Koordinasi Panitia', 'Alur Acara', 'Penyambutan Mahasiswa Baru'],
-      images: ['/17.png', '/11.png', '/4.png'],
-    },
-    {
-      period: '2022 - 2023',
-      role: 'Store Staff & Merchandise Logistics',
-      institution: 'UKM Korps Protokoler Mahasiswa (KPM) Polinema',
-      tag: 'Retail & Inventory Management',
-      desc: 'Membantu pengelolaan stok merchandise dan pencatatan transaksi kasir seragam UKM.',
-      highlights: ['Merchandise Organisasi', 'Pelayanan Transaksi', 'Pencatatan Kasir'],
-      images: ['/12.png', '/13.png', '/5.png'],
-    },
-  ];
 
   // Academic & Formal Degree Data (synced with admin / store)
   const academicData = portfolioData.academic || DEFAULT_PORTFOLIO_DATA.academic!;
@@ -1547,7 +1414,14 @@ export default function Home() {
               return (
                 <div
                   key={idx}
-                  onClick={() => openModal(award.title, `${award.rank} • ${award.organizer}`, award.desc, [award.certImg, award.eventImg], award.link, award.linkLabel)}
+                  onClick={() => openModal(
+                    award.title, 
+                    `${award.rank} • ${award.organizer}`, 
+                    award.desc, 
+                    [award.certImg, award.eventImg, ...(award.extraImages || [])].filter(Boolean) as string[], 
+                    award.link, 
+                    award.linkLabel
+                  )}
                   className={`group relative rounded-2xl overflow-hidden cursor-pointer bg-forest/20 border-2 border-white/60 shadow-xs transition-all duration-500 hover:-translate-y-1 hover:shadow-lg ${colSpan} flex flex-col justify-between p-3 sm:p-3.5`}
                 >
                   {/* Background Event Documentation Image */}
@@ -1921,7 +1795,9 @@ export default function Home() {
                 item.title,
                 `${item.issuer} • ${item.year} (${item.tag})`,
                 item.desc,
-                [item.image]
+                [item.image, ...(item.extraImages || [])].filter(Boolean) as string[],
+                item.link,
+                item.linkLabel
               )}
               className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-2xl p-3 hover:shadow-md hover:border-rose-dusty/60 hover:-translate-y-0.5 transition-all flex flex-col justify-between group cursor-pointer"
             >

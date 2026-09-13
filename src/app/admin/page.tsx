@@ -11,21 +11,25 @@ import {
   PortfolioData,
   ProjectDoc,
   AwardItem,
+  OrganizationItem,
   SkillCategory 
 } from '@/lib/portfolio-store';
 import { isSupabaseConfigured } from '@/lib/supabase';
 import ImageUploadField from '@/components/ImageUploadField';
+import MultiImageGalleryField from '@/components/MultiImageGalleryField';
 
 export default function AdminPortal() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [pinInput, setPinInput] = useState('');
   const [pinError, setPinError] = useState(false);
-  const [activeTab, setActiveTab] = useState<'hero' | 'education' | 'experience' | 'projects' | 'awards' | 'skills' | 'creator' | 'socials' | 'photoguide' | 'supabase'>('hero');
+  const [activeTab, setActiveTab] = useState<'hero' | 'education' | 'experience' | 'projects' | 'awards' | 'organizations' | 'skills' | 'creator' | 'socials' | 'photoguide' | 'supabase'>('hero');
   const [data, setData] = useState<PortfolioData>(DEFAULT_PORTFOLIO_DATA);
   const [activeCreatorKey, setActiveCreatorKey] = useState<string>('personal');
   const [activeExperienceIdx, setActiveExperienceIdx] = useState<number>(0);
   const [activeProjectIdx, setActiveProjectIdx] = useState<number>(0);
   const [activeAwardIdx, setActiveAwardIdx] = useState<number>(0);
+  const [activeOrgIdx, setActiveOrgIdx] = useState<number>(0);
+  const [newOrgHighlightInput, setNewOrgHighlightInput] = useState<string>('');
   const [activeSkillIdx, setActiveSkillIdx] = useState<number>(0);
   const [activeCertIdx, setActiveCertIdx] = useState<number>(0);
   const [newSkillInput, setNewSkillInput] = useState<string>('');
@@ -329,6 +333,16 @@ export default function AdminPortal() {
             }`}
           >
             Kejuaraan & Prestasi
+          </button>
+          <button
+            onClick={() => setActiveTab('organizations')}
+            className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
+              activeTab === 'organizations'
+                ? 'bg-forest text-white shadow-sm'
+                : 'text-forest/70 hover:text-forest hover:bg-sage-50'
+            }`}
+          >
+            Organisasi & Kepemimpinan
           </button>
           <button
             onClick={() => setActiveTab('skills')}
@@ -777,62 +791,21 @@ export default function AdminPortal() {
 
               {/* Academic Certificate Images (Ijazah / Transkrip / TOEIC) */}
               <div className="pt-2">
-                <label className="block text-xs font-bold text-neutral-900 mb-3">
-                  Berkas Dokumen Kelulusan & TOEIC (Dibuka Saat Tombol Diklik):
-                </label>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <ImageUploadField
-                    label="Dokumen 1 (Ijazah Resmi):"
-                    value={data.academic?.images?.[0] || '/11.png'}
-                    onChange={(newUrl) => {
-                      const updatedImages = [...(data.academic?.images || ['/11.png', '/12.png', '/16.png'])];
-                      updatedImages[0] = newUrl;
-                      setData({
-                        ...data,
-                        academic: {
-                          ...(data.academic || DEFAULT_PORTFOLIO_DATA.academic!),
-                          images: updatedImages
-                        }
-                      });
-                    }}
-                    aspectRatio="certificate"
-                    helperText="Scan Ijazah Resmi D4 SIB"
-                  />
-                  <ImageUploadField
-                    label="Dokumen 2 (Sertifikat TOEIC 775):"
-                    value={data.academic?.images?.[1] || '/12.png'}
-                    onChange={(newUrl) => {
-                      const updatedImages = [...(data.academic?.images || ['/11.png', '/12.png', '/16.png'])];
-                      updatedImages[1] = newUrl;
-                      setData({
-                        ...data,
-                        academic: {
-                          ...(data.academic || DEFAULT_PORTFOLIO_DATA.academic!),
-                          images: updatedImages
-                        }
-                      });
-                    }}
-                    aspectRatio="certificate"
-                    helperText="Sertifikat Resmi Skor TOEIC"
-                  />
-                  <ImageUploadField
-                    label="Dokumen 3 (Transkrip / Pendukung):"
-                    value={data.academic?.images?.[2] || '/16.png'}
-                    onChange={(newUrl) => {
-                      const updatedImages = [...(data.academic?.images || ['/11.png', '/12.png', '/16.png'])];
-                      updatedImages[2] = newUrl;
-                      setData({
-                        ...data,
-                        academic: {
-                          ...(data.academic || DEFAULT_PORTFOLIO_DATA.academic!),
-                          images: updatedImages
-                        }
-                      });
-                    }}
-                    aspectRatio="certificate"
-                    helperText="Transkrip Nilai / Dokumen Lain"
-                  />
-                </div>
+                <MultiImageGalleryField
+                  label="Berkas Dokumen Kelulusan, Ijazah, Transkrip & Bukti Skor TOEIC (Dibuka Saat Tombol Diklik):"
+                  images={data.academic?.images || ['/11.png', '/12.png', '/16.png']}
+                  onChange={(newImages) => {
+                    setData({
+                      ...data,
+                      academic: {
+                        ...(data.academic || DEFAULT_PORTFOLIO_DATA.academic!),
+                        images: newImages,
+                      },
+                    });
+                  }}
+                  aspectRatio="certificate"
+                  helperText="Scan Ijazah Resmi D4 SIB, Sertifikat Skor TOEIC 775, Transkrip Nilai, dan bukti akademik lainnya. Bisa tambah foto sebanyak mungkin!"
+                />
               </div>
             </div>
 
@@ -993,9 +966,9 @@ export default function AdminPortal() {
                     </div>
 
                     {/* Image Upload for Certificate */}
-                    <div className="pt-2">
+                    <div className="pt-2 space-y-4">
                       <ImageUploadField
-                        label="Foto / Scan Sertifikat Resmi:"
+                        label="Foto / Scan Sertifikat Resmi (Sampul Utama):"
                         value={currentCert.image}
                         onChange={(newUrl) => {
                           const updated = [...certs];
@@ -1004,6 +977,18 @@ export default function AdminPortal() {
                         }}
                         aspectRatio="certificate"
                         helperText="Upload gambar sertifikat resmi (rasio 4:3 atau 16:9)"
+                      />
+
+                      <MultiImageGalleryField
+                        label="Dokumen & Foto Tambahan Sertifikasi (Opsional):"
+                        images={currentCert.extraImages || []}
+                        onChange={(newImages) => {
+                          const updated = [...certs];
+                          updated[activeCertIdx] = { ...currentCert, extraImages: newImages };
+                          setData({ ...data, certifications: updated });
+                        }}
+                        aspectRatio="certificate"
+                        helperText="Upload bukti transkrip modul, materi, atau foto dokumentasi pendukung lainnya."
                       />
                     </div>
 
@@ -1239,56 +1224,23 @@ export default function AdminPortal() {
                     </div>
                   </div>
 
-                  {/* Photos Upload */}
-                  <div className="p-4 rounded-2xl bg-sage-50/40 border border-[#CAD7C5] space-y-4">
-                    <h3 className="text-xs font-bold text-neutral-900 uppercase tracking-wider">
-                      Foto Dokumentasi Pekerjaan:
-                    </h3>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <ImageUploadField
-                        label="Foto Utama (Tampil di Kartu):"
-                        value={currentExp.image}
-                        onChange={(newUrl) => {
-                          const updated = [...exps];
-                          const newExtras = [...(currentExp.extraImages || [currentExp.image])];
-                          newExtras[0] = newUrl;
-                          updated[activeExperienceIdx] = { ...currentExp, image: newUrl, extraImages: newExtras };
-                          setData({ ...data, experiences: updated });
-                        }}
-                        aspectRatio="landscape"
-                        helperText="Foto primer untuk kartu dan preview galeri"
-                      />
-
-                      <ImageUploadField
-                        label="Foto Pendukung 1 (Kartu & Modal):"
-                        value={currentExp.extraImages?.[1] || currentExp.image}
-                        onChange={(newUrl) => {
-                          const updated = [...exps];
-                          const newExtras = [...(currentExp.extraImages || [currentExp.image])];
-                          newExtras[1] = newUrl;
-                          updated[activeExperienceIdx] = { ...currentExp, extraImages: newExtras };
-                          setData({ ...data, experiences: updated });
-                        }}
-                        aspectRatio="landscape"
-                        helperText="Foto kedua untuk kartu 2-grid"
-                      />
-
-                      <ImageUploadField
-                        label="Foto Pendukung 2 (Galeri Penuh):"
-                        value={currentExp.extraImages?.[2] || currentExp.image}
-                        onChange={(newUrl) => {
-                          const updated = [...exps];
-                          const newExtras = [...(currentExp.extraImages || [currentExp.image])];
-                          newExtras[2] = newUrl;
-                          updated[activeExperienceIdx] = { ...currentExp, extraImages: newExtras };
-                          setData({ ...data, experiences: updated });
-                        }}
-                        aspectRatio="landscape"
-                        helperText="Dokumentasi ketiga untuk galeri modal"
-                      />
-                    </div>
-                  </div>
+                  {/* Photos Upload Multi-Gallery */}
+                  <MultiImageGalleryField
+                    label="Galeri Foto Dokumentasi Pekerjaan & Bukti Lapangan:"
+                    images={currentExp.extraImages && currentExp.extraImages.length > 0 ? currentExp.extraImages : (currentExp.image ? [currentExp.image] : ['/3.png'])}
+                    onChange={(newImages) => {
+                      const updated = [...exps];
+                      const primaryImg = newImages[0] || currentExp.image || '/3.png';
+                      updated[activeExperienceIdx] = {
+                        ...currentExp,
+                        image: primaryImg,
+                        extraImages: newImages,
+                      };
+                      setData({ ...data, experiences: updated });
+                    }}
+                    aspectRatio="landscape"
+                    helperText="Upload sebanyak mungkin foto dokumentasi pekerjaan (bisa 3, 5, 8, 12+ foto). Foto pertama otomatis menjadi foto sampul kartu."
+                  />
 
                   <div className="pt-4 border-t border-[#CAD7C5]/60 flex items-center justify-between">
                     <button
@@ -1531,58 +1483,23 @@ export default function AdminPortal() {
                   </div>
                 </div>
 
-                {/* Photos & Documentation Section */}
-                <div className="p-5 rounded-2xl bg-sage-50/40 border border-[#CAD7C5] space-y-4">
-                  <div className="flex items-center justify-between">
-                    <h4 className="font-serif font-bold text-sm text-neutral-900">
-                      Foto Sampul & Bukti Dokumentasi Proyek
-                    </h4>
-                    <span className="text-[11px] text-rose-900 font-medium">
-                      Bisa langsung upload file dari laptop
-                    </span>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-                    {/* Primary Image */}
-                    <ImageUploadField
-                      label="Foto Sampul Utama:"
-                      value={data.projects[activeProjectIdx].image}
-                      onChange={(newUrl) => {
-                        const updated = [...data.projects];
-                        updated[activeProjectIdx].image = newUrl;
-                        setData({ ...data, projects: updated });
-                      }}
-                      aspectRatio="landscape"
-                      helperText="Foto sampul landscape utama (rasio 16:10)"
-                    />
-
-                    {/* Extra Image 1 */}
-                    <ImageUploadField
-                      label="Foto Bukti 2 (Slide Dokumentasi):"
-                      value={data.projects[activeProjectIdx].extraImages[1] || ''}
-                      onChange={(newUrl) => {
-                        const updated = [...data.projects];
-                        updated[activeProjectIdx].extraImages[1] = newUrl;
-                        setData({ ...data, projects: updated });
-                      }}
-                      aspectRatio="landscape"
-                      helperText="Dokumentasi kedua untuk galeri modal"
-                    />
-
-                    {/* Extra Image 2 */}
-                    <ImageUploadField
-                      label="Foto Bukti 3 (Slide Dokumentasi):"
-                      value={data.projects[activeProjectIdx].extraImages[2] || ''}
-                      onChange={(newUrl) => {
-                        const updated = [...data.projects];
-                        updated[activeProjectIdx].extraImages[2] = newUrl;
-                        setData({ ...data, projects: updated });
-                      }}
-                      aspectRatio="landscape"
-                      helperText="Dokumentasi ketiga untuk galeri modal"
-                    />
-                  </div>
-                </div>
+                {/* Photos Multi-Gallery Section */}
+                <MultiImageGalleryField
+                  label="Galeri Foto Sampul & Bukti Dokumentasi Proyek:"
+                  images={data.projects[activeProjectIdx].extraImages && data.projects[activeProjectIdx].extraImages.length > 0 ? data.projects[activeProjectIdx].extraImages : (data.projects[activeProjectIdx].image ? [data.projects[activeProjectIdx].image] : ['/15.png'])}
+                  onChange={(newImages) => {
+                    const updated = [...data.projects];
+                    const primaryImg = newImages[0] || data.projects[activeProjectIdx].image || '/15.png';
+                    updated[activeProjectIdx] = {
+                      ...data.projects[activeProjectIdx],
+                      image: primaryImg,
+                      extraImages: newImages,
+                    };
+                    setData({ ...data, projects: updated });
+                  }}
+                  aspectRatio="landscape"
+                  helperText="Upload sebanyak mungkin foto dokumentasi (bisa 3, 5, 8, 12+ foto). Foto pertama otomatis menjadi foto sampul utama."
+                />
 
                 <div className="pt-4 border-t border-[#CAD7C5]/60 flex items-center justify-between">
                   <button
@@ -1823,6 +1740,24 @@ export default function AdminPortal() {
                       helperText="Foto penyerahan piala/dokumentasi panggung"
                     />
                   </div>
+
+                  {/* Extra Award Documentation Gallery */}
+                  <div className="pt-2">
+                    <MultiImageGalleryField
+                      label="Galeri Foto Dokumentasi Tambahan Juara (Piala, Tim, Panggung, dll):"
+                      images={data.awards[activeAwardIdx].extraImages || []}
+                      onChange={(newImages) => {
+                        const updated = [...data.awards];
+                        updated[activeAwardIdx] = {
+                          ...data.awards[activeAwardIdx],
+                          extraImages: newImages,
+                        };
+                        setData({ ...data, awards: updated });
+                      }}
+                      aspectRatio="certificate"
+                      helperText="Tambahkan foto piala, foto tim bersama dewan juri, atau dokumentasi suasana kompetisi. Semua foto akan tampil di galeri modal!"
+                    />
+                  </div>
                 </div>
 
                 <div className="pt-4 border-t border-[#CAD7C5]/60 flex items-center justify-between">
@@ -1854,6 +1789,277 @@ export default function AdminPortal() {
                 </div>
               </div>
             )}
+          </div>
+        )}
+
+        {/* ================================================================= */}
+        {/* TAB: KEPEMIMPINAN & ORGANISASI KAMPUS (ORGANIZATIONS CAROUSEL)    */}
+        {/* ================================================================= */}
+        {activeTab === 'organizations' && (
+          <div className="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 border border-[#CAD7C5] shadow-sm space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <h2 className="font-serif text-xl font-bold text-neutral-900">
+                  Pengaturan Kepemimpinan & Organisasi Kampus
+                </h2>
+                <p className="text-xs text-neutral-500 mt-1">
+                  Kelola peran organisasi (GDSC Google Ambassador, HMTI, KPU, PKKMB, KPM), ringkasan inisiatif, tag sorotan, dan banyak foto dokumentasi kegiatan.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => {
+                  const currentOrgs = data.organizations || DEFAULT_PORTFOLIO_DATA.organizations || [];
+                  const newOrg: OrganizationItem = {
+                    id: `org-${Date.now()}`,
+                    period: '2025 - Sekarang',
+                    role: 'Nama Peran / Posisi Organisasi Baru',
+                    institution: 'Nama Lembaga / Himpunan Kampus',
+                    tag: 'Campus Leadership & Governance',
+                    desc: 'Deskripsi tanggung jawab kepemimpinan, program kerja mahasiswa, dan kontribusi nyata yang dijalankan.',
+                    highlights: ['Program Kerja', 'Inisiatif Tim', 'Kolaborasi'],
+                    images: ['/11.png', '/12.png', '/13.png'],
+                    link: '',
+                    linkLabel: 'Profil Lembaga ↗',
+                  };
+                  const updated = [...currentOrgs, newOrg];
+                  setData({ ...data, organizations: updated });
+                  setActiveOrgIdx(updated.length - 1);
+                }}
+                className="px-4 py-1.5 rounded-full text-xs font-bold bg-forest text-white hover:bg-forest-dark transition-colors shadow-2xs shrink-0 cursor-pointer"
+              >
+                + Tambah Peran Organisasi
+              </button>
+            </div>
+
+            {/* Organization Selector Tabs */}
+            <div className="flex flex-wrap gap-2 border-b border-[#CAD7C5]/70 pb-4">
+              {(data.organizations || DEFAULT_PORTFOLIO_DATA.organizations || []).map((org, idx) => (
+                <button
+                  key={org.id || idx}
+                  onClick={() => setActiveOrgIdx(idx)}
+                  className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
+                    activeOrgIdx === idx
+                      ? 'bg-forest text-white shadow-xs'
+                      : 'bg-sage-50 text-neutral-600 hover:bg-[D2DEC9]'
+                  }`}
+                >
+                  {org.role.split('(')[0].trim()}
+                </button>
+              ))}
+            </div>
+
+            {/* Active Organization Editor */}
+            {(() => {
+              const orgs = data.organizations || DEFAULT_PORTFOLIO_DATA.organizations || [];
+              const currentOrg = orgs[activeOrgIdx];
+              if (!currentOrg) return null;
+
+              return (
+                <div className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="md:col-span-2">
+                      <label className="block text-xs font-bold text-neutral-900 mb-1">Nama Peran / Posisi Kepemimpinan:</label>
+                      <input
+                        type="text"
+                        value={currentOrg.role}
+                        onChange={(e) => {
+                          const updated = [...orgs];
+                          updated[activeOrgIdx] = { ...currentOrg, role: e.target.value };
+                          setData({ ...data, organizations: updated });
+                        }}
+                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-serif font-bold text-neutral-900"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-neutral-900 mb-1">Periode Menjabat:</label>
+                      <input
+                        type="text"
+                        value={currentOrg.period}
+                        onChange={(e) => {
+                          const updated = [...orgs];
+                          updated[activeOrgIdx] = { ...currentOrg, period: e.target.value };
+                          setData({ ...data, organizations: updated });
+                        }}
+                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-mono"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <label className="block text-xs font-bold text-neutral-900 mb-1">Nama Organisasi / Lembaga:</label>
+                      <input
+                        type="text"
+                        value={currentOrg.institution}
+                        onChange={(e) => {
+                          const updated = [...orgs];
+                          updated[activeOrgIdx] = { ...currentOrg, institution: e.target.value };
+                          setData({ ...data, organizations: updated });
+                        }}
+                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-semibold"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-neutral-900 mb-1">Kategori / Tag Kepemimpinan:</label>
+                      <input
+                        type="text"
+                        value={currentOrg.tag}
+                        onChange={(e) => {
+                          const updated = [...orgs];
+                          updated[activeOrgIdx] = { ...currentOrg, tag: e.target.value };
+                          setData({ ...data, organizations: updated });
+                        }}
+                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-neutral-900 mb-1">Link Website / Media (Opsional):</label>
+                      <input
+                        type="text"
+                        value={currentOrg.link || ''}
+                        onChange={(e) => {
+                          const updated = [...orgs];
+                          updated[activeOrgIdx] = { ...currentOrg, link: e.target.value };
+                          setData({ ...data, organizations: updated });
+                        }}
+                        placeholder="https://..."
+                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-mono"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">Deskripsi Tanggung Jawab & Inisiatif:</label>
+                    <textarea
+                      rows={3}
+                      value={currentOrg.desc}
+                      onChange={(e) => {
+                        const updated = [...orgs];
+                        updated[activeOrgIdx] = { ...currentOrg, desc: e.target.value };
+                        setData({ ...data, organizations: updated });
+                      }}
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs leading-relaxed"
+                    />
+                  </div>
+
+                  {/* Highlights pills management */}
+                  <div className="p-4 rounded-2xl bg-sage-50/40 border border-[#CAD7C5] space-y-3">
+                    <label className="block text-xs font-bold text-neutral-900">
+                      Poin Sorotan / Tag Highlight:
+                    </label>
+                    <div className="flex flex-wrap gap-2">
+                      {currentOrg.highlights.map((hl, hIdx) => (
+                        <span
+                          key={hIdx}
+                          className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-forest/30 bg-white text-xs font-semibold text-neutral-900"
+                        >
+                          <span>{hl}</span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const updated = [...orgs];
+                              const newHl = currentOrg.highlights.filter((_, i) => i !== hIdx);
+                              updated[activeOrgIdx] = { ...currentOrg, highlights: newHl };
+                              setData({ ...data, organizations: updated });
+                            }}
+                            className="w-4 h-4 rounded-full bg-rose-100 text-rose-900 hover:bg-forest-dark hover:text-white flex items-center justify-center text-[10px] font-bold transition-colors cursor-pointer"
+                            title="Hapus sorotan ini"
+                          >
+                            ✕
+                          </button>
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="flex items-center gap-2 pt-2">
+                      <input
+                        type="text"
+                        value={newOrgHighlightInput}
+                        onChange={(e) => setNewOrgHighlightInput(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            e.preventDefault();
+                            if (newOrgHighlightInput.trim()) {
+                              const updated = [...orgs];
+                              updated[activeOrgIdx] = {
+                                ...currentOrg,
+                                highlights: [...currentOrg.highlights, newOrgHighlightInput.trim()],
+                              };
+                              setData({ ...data, organizations: updated });
+                              setNewOrgHighlightInput('');
+                            }
+                          }
+                        }}
+                        placeholder="Ketik tag sorotan baru lalu tekan Enter..."
+                        className="flex-1 px-3 py-1.5 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (newOrgHighlightInput.trim()) {
+                            const updated = [...orgs];
+                            updated[activeOrgIdx] = {
+                              ...currentOrg,
+                              highlights: [...currentOrg.highlights, newOrgHighlightInput.trim()],
+                            };
+                            setData({ ...data, organizations: updated });
+                            setNewOrgHighlightInput('');
+                          }
+                        }}
+                        className="px-4 py-1.5 rounded-xl bg-forest text-white text-xs font-bold cursor-pointer"
+                      >
+                        + Tambah
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Multi-Image Gallery for Organization */}
+                  <MultiImageGalleryField
+                    label="Galeri Foto Dokumentasi Kegiatan Organisasi (Auto-slide & Modal):"
+                    images={currentOrg.images || []}
+                    onChange={(newImages) => {
+                      const updated = [...orgs];
+                      updated[activeOrgIdx] = { ...currentOrg, images: newImages };
+                      setData({ ...data, organizations: updated });
+                    }}
+                    aspectRatio="landscape"
+                    helperText="Upload sebanyak mungkin foto dokumentasi kegiatan (bisa 3, 5, 10+ foto). Foto akan otomatis berputar di carousel dan bisa dibuka di modal galeri!"
+                  />
+
+                  <div className="pt-4 border-t border-[#CAD7C5]/60 flex items-center justify-between">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (orgs.length <= 1) {
+                          alert('Minimal harus ada 1 riwayat peran organisasi.');
+                          return;
+                        }
+                        if (window.confirm(`Yakin ingin menghapus peran organisasi "${currentOrg.role}"?`)) {
+                          const updated = orgs.filter((_, i) => i !== activeOrgIdx);
+                          setData({ ...data, organizations: updated });
+                          setActiveOrgIdx(Math.max(0, activeOrgIdx - 1));
+                        }
+                      }}
+                      className="px-3 py-1.5 rounded-lg text-xs font-medium text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
+                    >
+                      Hapus Peran Organisasi Ini
+                    </button>
+
+                    <button
+                      onClick={handleSave}
+                      className="px-6 py-2.5 rounded-full bg-forest text-white text-xs font-bold hover:bg-forest-dark transition-colors shadow-sm cursor-pointer"
+                    >
+                      Simpan Perubahan Organisasi ✦
+                    </button>
+                  </div>
+                </div>
+              );
+            })()}
           </div>
         )}
 
@@ -2087,26 +2293,126 @@ export default function AdminPortal() {
               </p>
             </div>
 
-            {/* Account Selector Pill */}
-            <div className="flex flex-wrap gap-2 border-b border-[#CAD7C5]/70 pb-4">
-              {Object.keys(data.creatorAccounts).map((key) => (
-                <button
-                  key={key}
-                  onClick={() => setActiveCreatorKey(key)}
-                  className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
-                    activeCreatorKey === key
-                      ? 'bg-forest text-white shadow-xs'
-                      : 'bg-sage-50 text-neutral-600 hover:bg-[D2DEC9]'
-                  }`}
-                >
-                  {data.creatorAccounts[key].name}
-                </button>
-              ))}
+            {/* Account Selector Pill & Add Account Button */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#CAD7C5]/70 pb-4">
+              <div className="flex flex-wrap gap-2">
+                {Object.keys(data.creatorAccounts).map((key) => (
+                  <button
+                    key={key}
+                    onClick={() => setActiveCreatorKey(key)}
+                    className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
+                      activeCreatorKey === key
+                        ? 'bg-forest text-white shadow-xs'
+                        : 'bg-sage-50 text-neutral-600 hover:bg-[D2DEC9]'
+                    }`}
+                  >
+                    {data.creatorAccounts[key].name}
+                  </button>
+                ))}
+              </div>
+
+              <button
+                type="button"
+                onClick={() => {
+                  const newKey = `brand_${Date.now()}`;
+                  const newAcc = {
+                    name: 'Brand Kreator Baru',
+                    handle: '@brand.kreator',
+                    tag: 'Lifestyle, Creative & Storytelling',
+                    platforms: 'Instagram Reels & TikTok',
+                    stats: '12K+ Monthly Reach • High Engagement',
+                    hasCenterStage: true,
+                    centerLink: 'https://youtube.com',
+                    centerImg: '/5.png',
+                    centerTitle: 'Brand Storytelling & Video Showcase',
+                    centerDesc: 'Mengeksplorasi pembuatan video kreatif, lifestyle content, dan visual storytelling.',
+                    leftPhoneImg: '/4.png',
+                    leftPhoneTitle: 'Reels & Aesthetics',
+                    leftPhoneTag: 'Instagram',
+                    leftPhoneLink: '',
+                    rightPhoneImg: '/6.png',
+                    rightPhoneTitle: 'Short-Form Video',
+                    rightPhoneTag: 'TikTok',
+                    rightPhoneLink: '',
+                    link: 'https://instagram.com',
+                  };
+                  setData({
+                    ...data,
+                    creatorAccounts: {
+                      ...data.creatorAccounts,
+                      [newKey]: newAcc,
+                    },
+                  });
+                  setActiveCreatorKey(newKey);
+                }}
+                className="px-4 py-1.5 rounded-full text-xs font-bold bg-forest text-white hover:bg-forest-dark transition-colors shadow-2xs shrink-0 cursor-pointer"
+              >
+                + Tambah Akun Kreator
+              </button>
             </div>
 
             {/* Selected Creator Settings */}
             {data.creatorAccounts[activeCreatorKey] && (
               <div className="space-y-6">
+                {/* Account Profile Header Fields */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 p-4 rounded-2xl bg-sage-50/40 border border-[#CAD7C5]">
+                  <div>
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">Nama Brand / Akun:</label>
+                    <input
+                      type="text"
+                      value={data.creatorAccounts[activeCreatorKey].name}
+                      onChange={(e) => {
+                        const updated = { ...data.creatorAccounts };
+                        updated[activeCreatorKey].name = e.target.value;
+                        setData({ ...data, creatorAccounts: updated });
+                      }}
+                      className="w-full px-3 py-1.5 rounded-xl bg-white border border-[#CAD7C5] text-xs font-bold"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">Handle Username:</label>
+                    <input
+                      type="text"
+                      value={data.creatorAccounts[activeCreatorKey].handle}
+                      onChange={(e) => {
+                        const updated = { ...data.creatorAccounts };
+                        updated[activeCreatorKey].handle = e.target.value;
+                        setData({ ...data, creatorAccounts: updated });
+                      }}
+                      className="w-full px-3 py-1.5 rounded-xl bg-white border border-[#CAD7C5] text-xs font-mono text-rose-900 font-bold"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">Niche / Tag Kategori:</label>
+                    <input
+                      type="text"
+                      value={data.creatorAccounts[activeCreatorKey].tag}
+                      onChange={(e) => {
+                        const updated = { ...data.creatorAccounts };
+                        updated[activeCreatorKey].tag = e.target.value;
+                        setData({ ...data, creatorAccounts: updated });
+                      }}
+                      className="w-full px-3 py-1.5 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">Platform Utama:</label>
+                    <input
+                      type="text"
+                      value={data.creatorAccounts[activeCreatorKey].platforms}
+                      onChange={(e) => {
+                        const updated = { ...data.creatorAccounts };
+                        updated[activeCreatorKey].platforms = e.target.value;
+                        setData({ ...data, creatorAccounts: updated });
+                      }}
+                      className="w-full px-3 py-1.5 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                    />
+                  </div>
+                </div>
+
                 {/* Adaptive Stage Toggle */}
                 <div className="p-5 rounded-2xl bg-amber-50 border border-amber-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div>
@@ -2263,7 +2569,28 @@ export default function AdminPortal() {
                   </div>
                 </div>
 
-                <div className="pt-2 flex justify-end">
+                <div className="pt-3 border-t border-[#CAD7C5]/60 flex items-center justify-between">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const keys = Object.keys(data.creatorAccounts);
+                      if (keys.length <= 1) {
+                        alert('Minimal harus ada 1 akun kreator.');
+                        return;
+                      }
+                      if (window.confirm(`Yakin ingin menghapus akun kreator "${data.creatorAccounts[activeCreatorKey]?.name}"?`)) {
+                        const updated = { ...data.creatorAccounts };
+                        delete updated[activeCreatorKey];
+                        const remainingKeys = Object.keys(updated);
+                        setData({ ...data, creatorAccounts: updated });
+                        setActiveCreatorKey(remainingKeys[0] || 'personal');
+                      }
+                    }}
+                    className="px-3 py-1.5 rounded-lg text-xs font-medium text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
+                  >
+                    Hapus Akun Kreator Ini
+                  </button>
+
                   <button
                     onClick={handleSave}
                     className="px-6 py-2.5 rounded-full bg-forest text-white text-xs font-bold hover:bg-forest-dark transition-colors shadow-sm cursor-pointer"

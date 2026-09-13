@@ -63,6 +63,20 @@ export interface AwardItem {
   desc: string;
   certImg: string;
   eventImg: string;
+  extraImages?: string[];
+  link?: string;
+  linkLabel?: string;
+}
+
+export interface OrganizationItem {
+  id: string;
+  period: string;
+  role: string;
+  institution: string;
+  tag: string;
+  desc: string;
+  highlights: string[];
+  images: string[];
   link?: string;
   linkLabel?: string;
 }
@@ -115,6 +129,7 @@ export interface CertificationItem {
   tag: string;
   badgeColor?: string;
   image: string;
+  extraImages?: string[];
   desc: string;
   link?: string;
   linkLabel?: string;
@@ -128,6 +143,7 @@ export interface PortfolioData {
   experiences?: ProjectDoc[];
   projects: ProjectDoc[];
   awards: AwardItem[];
+  organizations?: OrganizationItem[];
   skills?: SkillCategory[];
   certifications?: CertificationItem[];
 }
@@ -684,10 +700,62 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
       linkLabel: 'Sertifikat Resmi TOEIC ↗',
     },
   ],
+  organizations: [
+    {
+      id: 'gdsc',
+      period: '2024 - Sekarang',
+      role: 'Google Student Ambassador',
+      institution: 'Google Developer Student Clubs (GDSC) Polinema',
+      tag: 'Campus Leadership & Tech Community',
+      desc: 'Representatif ekosistem Google di kampus, memfasilitasi sesi pengenalan teknologi dan kegiatan komunitas mahasiswa.',
+      highlights: ['Google Ecosystem', 'Tech Workshops', 'Komunitas Mahasiswa'],
+      images: ['/11.png', '/12.png', '/10.png'],
+    },
+    {
+      id: 'hmti',
+      period: '2023 - 2024',
+      role: 'Vice Chairwoman (Wakil Ketua Himpunan)',
+      institution: 'Himpunan Mahasiswa Teknologi Informasi (HMTI) Polinema',
+      tag: 'Executive Governance',
+      desc: 'Membantu koordinasi lintas divisi dan mendukung kelancaran pelaksanaan program kerja mahasiswa Jurusan TI.',
+      highlights: ['Koordinasi Divisi', 'Program Kerja Mahasiswa', 'Aspirasi Mahasiswa'],
+      images: ['/13.png', '/14.png', '/1.png'],
+    },
+    {
+      id: 'kpu',
+      period: '2023',
+      role: 'Secretary of General Election',
+      institution: 'Komisi Pemilihan Umum Mahasiswa Jurusan TI',
+      tag: 'Administrative & Electoral Governance',
+      desc: 'Mengelola tata kelola administrasi, surat-menyurat, dan dokumentasi pada pemilihan umum raya himpunan mahasiswa.',
+      highlights: ['Administrasi Pemilu', 'Verifikasi Berkas', 'Dokumentasi Acara'],
+      images: ['/15.png', '/16.png', '/3.png'],
+    },
+    {
+      id: 'pkkmb',
+      period: '2023',
+      role: 'Chief Executive of New Student Orientation',
+      institution: 'PKKMB Mahasiswa Baru Jurusan TI Polinema',
+      tag: 'Operations & Event Leadership',
+      desc: 'Mengkoordinasikan kepanitiaan dalam penyelenggaraan orientasi mahasiswa baru jurusan TI.',
+      highlights: ['Koordinasi Panitia', 'Alur Acara', 'Penyambutan Mahasiswa Baru'],
+      images: ['/17.png', '/11.png', '/4.png'],
+    },
+    {
+      id: 'kpm',
+      period: '2022 - 2023',
+      role: 'Store Staff & Merchandise Logistics',
+      institution: 'UKM Korps Protokoler Mahasiswa (KPM) Polinema',
+      tag: 'Retail & Inventory Management',
+      desc: 'Membantu pengelolaan stok merchandise dan pencatatan transaksi kasir seragam UKM.',
+      highlights: ['Merchandise Organisasi', 'Pelayanan Transaksi', 'Pencatatan Kasir'],
+      images: ['/12.png', '/13.png', '/5.png'],
+    },
+  ],
 };
 
-const STORAGE_KEY = 'chikal_portfolio_content_v6';
-const STORAGE_TS_KEY = 'chikal_portfolio_content_v6_ts';
+const STORAGE_KEY = 'chikal_portfolio_content_v7';
+const STORAGE_TS_KEY = 'chikal_portfolio_content_v7_ts';
 const EVENT_NAME = 'chikal_portfolio_updated';
 
 import { supabase, isSupabaseConfigured } from './supabase';
@@ -706,6 +774,7 @@ function mergePortfolioData(raw: Partial<PortfolioData>): PortfolioData {
     experiences: raw.experiences && raw.experiences.length > 0 ? raw.experiences : DEFAULT_PORTFOLIO_DATA.experiences,
     projects: raw.projects && raw.projects.length > 0 ? raw.projects : DEFAULT_PORTFOLIO_DATA.projects,
     awards: raw.awards && raw.awards.length > 0 ? raw.awards : DEFAULT_PORTFOLIO_DATA.awards,
+    organizations: raw.organizations && raw.organizations.length > 0 ? raw.organizations : DEFAULT_PORTFOLIO_DATA.organizations,
     skills: raw.skills && raw.skills.length > 0 ? raw.skills : DEFAULT_PORTFOLIO_DATA.skills,
     certifications: raw.certifications && raw.certifications.length > 0 ? raw.certifications : DEFAULT_PORTFOLIO_DATA.certifications,
   };
@@ -914,6 +983,13 @@ export async function sanitizeAndUploadAllImages(data: PortfolioData): Promise<P
       if (aw.eventImg?.startsWith('data:image/')) {
         aw.eventImg = await uploadDataUrl(aw.eventImg, `award_${i}_event`);
       }
+      if (aw.extraImages && Array.isArray(aw.extraImages)) {
+        for (let j = 0; j < aw.extraImages.length; j++) {
+          if (aw.extraImages[j]?.startsWith('data:image/')) {
+            aw.extraImages[j] = await uploadDataUrl(aw.extraImages[j], `award_${i}_extra_${j}`);
+          }
+        }
+      }
     }
   }
 
@@ -923,6 +999,27 @@ export async function sanitizeAndUploadAllImages(data: PortfolioData): Promise<P
       const cert = cloned.certifications[i];
       if (cert.image?.startsWith('data:image/')) {
         cert.image = await uploadDataUrl(cert.image, `cert_${i}`);
+      }
+      if (cert.extraImages && Array.isArray(cert.extraImages)) {
+        for (let j = 0; j < cert.extraImages.length; j++) {
+          if (cert.extraImages[j]?.startsWith('data:image/')) {
+            cert.extraImages[j] = await uploadDataUrl(cert.extraImages[j], `cert_${i}_extra_${j}`);
+          }
+        }
+      }
+    }
+  }
+
+  // 8. Organizations & Leadership
+  if (cloned.organizations && Array.isArray(cloned.organizations)) {
+    for (let i = 0; i < cloned.organizations.length; i++) {
+      const org = cloned.organizations[i];
+      if (org.images && Array.isArray(org.images)) {
+        for (let j = 0; j < org.images.length; j++) {
+          if (org.images[j]?.startsWith('data:image/')) {
+            org.images[j] = await uploadDataUrl(org.images[j], `org_${i}_img_${j}`);
+          }
+        }
       }
     }
   }
