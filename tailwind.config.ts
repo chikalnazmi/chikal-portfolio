@@ -33,23 +33,23 @@ const config: Config = {
         charcoal: '#212B1E',
       },
       fontFamily: {
-        // Modern geometric sans-serif (Plus Jakarta Sans)
-        sans: ["var(--font-sans)", "'Plus Jakarta Sans'", "system-ui", "-apple-system", "sans-serif"],
-        body: ["var(--font-sans)", "'Plus Jakarta Sans'", "system-ui", "-apple-system", "sans-serif"],
-        source: ["var(--font-sans)", "'Plus Jakarta Sans'", "system-ui", "-apple-system", "sans-serif"],
+        // Modern geometric sans-serif (Urbanist - matching Hilman Portfolio)
+        sans: ["'Urbanist'", "var(--font-sans)", "system-ui", "-apple-system", "sans-serif"],
+        body: ["'Urbanist'", "var(--font-sans)", "system-ui", "-apple-system", "sans-serif"],
+        source: ["'Urbanist'", "var(--font-sans)", "system-ui", "-apple-system", "sans-serif"],
         
-        // Luxury high-contrast editorial serif (Playfair Display)
-        serif: ["var(--font-serif)", "'Playfair Display'", "Georgia", "serif"],
-        title: ["var(--font-serif)", "'Playfair Display'", "Georgia", "serif"],
-        quincy: ["var(--font-serif)", "'Playfair Display'", "Georgia", "serif"],
-        editorial: ["var(--font-serif)", "'Playfair Display'", "Georgia", "serif"],
+        // Luxury high-contrast editorial serif (Instrument Serif - matching Hilman Portfolio)
+        serif: ["'Instrument Serif'", "var(--font-serif)", "Georgia", "serif"],
+        title: ["'Instrument Serif'", "var(--font-serif)", "Georgia", "serif"],
+        quincy: ["'Instrument Serif'", "var(--font-serif)", "Georgia", "serif"],
+        editorial: ["'Instrument Serif'", "var(--font-serif)", "Georgia", "serif"],
         
         // Handwritten script for kickers (Caveat)
         script: ["var(--font-script)", "'Caveat'", "cursive"],
         
         // Clean subheader
-        subheader: ["var(--font-sans)", "'Plus Jakarta Sans'", "system-ui", "sans-serif"],
-        futura: ["var(--font-sans)", "'Plus Jakarta Sans'", "system-ui", "sans-serif"],
+        subheader: ["'Urbanist'", "var(--font-sans)", "system-ui", "sans-serif"],
+        futura: ["'Urbanist'", "var(--font-sans)", "system-ui", "sans-serif"],
         
         mono: ["var(--font-space-mono)", "ui-monospace", "monospace"],
       },

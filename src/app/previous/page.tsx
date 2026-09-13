@@ -747,28 +747,28 @@ export default function Home() {
           {/* Left Column: Narrative, Typography & Direct Metrics (7 Cols) */}
           <div className="lg:col-span-7 flex flex-col items-start">
             
-            {/* Top Meta Kicker matching Hilman Reference Concept */}
-            <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-mono text-forest/70 mb-2 tracking-wide">
+            {/* Location Badge ( 1/1 ) Malang, Indonesia - matching Hilman Zahrawa */}
+            <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-sans font-medium text-[#475569] mb-2 tracking-[0.02em]">
               <span>( 1/1 ) Malang, Indonesia</span>
               <span className="text-rose-dusty">✦</span>
-              <span className="inline-flex items-center gap-1.5 text-emerald-700 font-semibold font-sans text-xs">
+              <span className="inline-flex items-center gap-1.5 text-emerald-700 font-semibold text-xs">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                 {portfolioData.hero?.subheadline || 'Open to Work • BizDev & Creative Roles'}
               </span>
             </div>
 
-            {/* Iconic Typography Headline: Bold Clean Sans + Luxury Serif Italic */}
-            <h1 className="mb-2 sm:mb-2.5">
+            {/* Hero Main Headline (Urbanist + Instrument Serif Italic matching Hilman Zahrawa) */}
+            <h1 className="mb-2.5 sm:mb-3">
               {portfolioData.hero?.headline && portfolioData.hero.headline !== 'Menghubungkan Strategi Bisnis, Operasional, & Kreativitas Digital.' ? (
-                <span className="block font-sans font-medium text-3xl sm:text-4xl lg:text-5xl text-forest tracking-tight leading-[1.1]">
+                <span className="block font-sans font-medium text-3xl sm:text-4xl lg:text-5xl text-forest tracking-[-0.035em] leading-[1.05]">
                   {portfolioData.hero.headline}
                 </span>
               ) : (
                 <>
-                  <span className="block font-sans font-medium text-4xl sm:text-5xl lg:text-[54px] text-forest tracking-tight leading-[1.05]">
+                  <span className="block font-sans font-medium text-4xl sm:text-5xl lg:text-[58px] text-forest tracking-[-0.035em] leading-[0.98]">
                     Hi I&apos;m Chikal
                   </span>
-                  <span className="block font-serif italic font-normal text-4xl sm:text-5xl lg:text-[54px] text-forest tracking-normal leading-[1.1] mt-0.5">
+                  <span className="editorial-serif-italic block text-[1.22em] text-4xl sm:text-5xl lg:text-[58px] text-forest tracking-[-0.02em] font-normal leading-[1.05] mt-[-0.15rem]">
                     Business &amp; Marketing
                   </span>
                 </>

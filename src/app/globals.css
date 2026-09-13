@@ -38,32 +38,90 @@
   background: #781E34;
 }
 
-/* Typography Styling (Playfair Display, Plus Jakarta Sans, Caveat) */
-.font-editorial,
-.font-quincy,
-.font-title {
-  font-family: var(--font-serif), 'Playfair Display', Georgia, serif;
+/* =================================================================
+   LOCAL HIGH-PERFORMANCE TYPOGRAPHY (@font-face)
+   ================================================================= */
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/InstrumentSerif-Regular.ttf') format('truetype');
+  font-display: swap;
 }
 
-.editorial-italic {
-  font-family: var(--font-serif), 'Playfair Display', Georgia, serif;
+@font-face {
+  font-family: 'Instrument Serif';
   font-style: italic;
+  font-weight: 400;
+  src: url('/fonts/InstrumentSerif-Italic.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Urbanist';
+  font-style: normal;
+  font-weight: 300;
+  src: url('/fonts/Urbanist-Light.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Urbanist';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/Urbanist-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Urbanist';
+  font-style: normal;
+  font-weight: 500;
+  src: url('/fonts/Urbanist-Medium.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Urbanist';
+  font-style: normal;
+  font-weight: 600;
+  src: url('/fonts/Urbanist-SemiBold.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Urbanist';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/fonts/Urbanist-Bold.ttf') format('truetype');
+  font-display: swap;
+}
+
+/* Typography Styling (Urbanist & Instrument Serif matching Hilman Portfolio) */
+.font-editorial,
+.font-quincy,
+.font-title,
+.font-serif {
+  font-family: 'Instrument Serif', Georgia, serif;
+}
+
+.editorial-italic,
+.editorial-serif-italic {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
 }
 
 .font-script {
   font-family: var(--font-script), 'Caveat', cursive;
 }
 
+.font-sans,
 .font-futura,
-.font-subheader {
-  font-family: var(--font-sans), 'Plus Jakarta Sans', system-ui, sans-serif;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-}
-
+.font-subheader,
 .font-source,
 .font-body {
-  font-family: var(--font-sans), 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-family: 'Urbanist', system-ui, -apple-system, sans-serif;
 }
 
 /* Bento & Card Styling with Soft Ambient Shadows */
