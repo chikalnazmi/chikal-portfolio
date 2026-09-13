@@ -9,6 +9,28 @@ import {
   PortfolioData 
 } from '@/lib/portfolio-store';
 
+
+function BotanicalDivider() {
+  return (
+    <div className="w-full flex items-center justify-center my-6 sm:my-10 pointer-events-none select-none max-w-[1560px] mx-auto px-4">
+      <div className="flex-1 max-w-[220px] sm:max-w-sm h-px bg-gradient-to-r from-transparent to-[#CAD7C5]/80" />
+      <div className="px-4 text-rose-dusty/70 text-base sm:text-lg">❀</div>
+      <div className="flex-1 max-w-[220px] sm:max-w-sm h-px bg-gradient-to-l from-transparent to-[#CAD7C5]/80" />
+    </div>
+  );
+}
+
+function BotanicalCorner({ className = "top-4 right-4" }: { className?: string }) {
+  return (
+    <div className={`absolute ${className} pointer-events-none opacity-40 group-hover:opacity-80 transition-opacity`}>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-rose-dusty">
+        <path d="M12 2C12 2 13.5 6.5 17 8C13.5 9.5 12 14 12 14C12 14 10.5 9.5 7 8C10.5 6.5 12 2 12 2Z" fill="currentColor" opacity="0.8" />
+        <circle cx="12" cy="8" r="1.5" fill="#455E3F" />
+      </svg>
+    </div>
+  );
+}
+
 export default function Home() {
   // Modal state for certificates and documentation
   const [modalData, setModalData] = useState<{
@@ -121,6 +143,18 @@ export default function Home() {
       linkLabel,
     });
   };
+
+  
+  // Keyboard accessibility: Close modal on Escape
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && modalData.isOpen) {
+        closeModal();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [modalData.isOpen]);
 
   const closeModal = () => {
     setModalData(prev => ({ ...prev, isOpen: false }));
@@ -630,17 +664,17 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* NAVBAR: Modern Floating Editorial Pill */}
       {/* ========================================================================= */}
-      <nav className="sticky top-4 z-40 max-w-6xl mx-auto px-4 sm:px-6">
+      <nav className="sticky top-4 z-40 max-w-[1560px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         <div className="bg-white/85 backdrop-blur-md border border-[#CAD7C5] rounded-full px-5 py-3 shadow-sm flex items-center justify-between transition-all hover:border-rose-dusty/40">
           <a href="#hero" className="flex items-center gap-2.5 group">
             <span className="w-8 h-8 rounded-full bg-forest text-[#E8EFE5] flex items-center justify-center font-serif text-sm font-bold group-hover:bg-rose-dark transition-colors">
               CN
             </span>
             <div className="flex flex-col">
-              <span className="font-serif font-bold text-sm tracking-wide text-forest group-hover:text-rose-dark transition-colors">
+              <span className="font-serif font-bold text-sm tracking-normal text-forest group-hover:text-rose-dark transition-colors">
                 Chikal Nazmi Mahira
               </span>
-              <span className="text-[10px] font-medium tracking-wider uppercase text-forest/60">
+              <span className="text-[10px] font-medium tracking-wider uppercase text-forest/70">
                 Business & Marketing
               </span>
             </div>
@@ -738,7 +772,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* HERO SECTION: Asymmetric Editorial Split (No Hilman Blueprint) */}
       {/* ========================================================================= */}
-      <section id="hero" className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-16 lg:pt-16 lg:pb-24">
+      <section id="hero" className="max-w-[1560px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 pt-12 pb-16 lg:pt-16 lg:pb-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
           {/* Left Column: Narrative, Typography & Direct Metrics (7 Cols) */}
@@ -751,7 +785,7 @@ export default function Home() {
             </div>
 
             {/* Editorial Headline */}
-            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.15] text-forest tracking-tight mb-6">
+            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.18] text-forest tracking-normal mb-6">
               {portfolioData.hero?.headline || (
                 <>
                   Cultivating Growth through{' '}
@@ -872,37 +906,49 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* BRAND & ECOSYSTEM TICKER: Subtle Editorial Tape */}
       {/* ========================================================================= */}
-      <div className="border-y border-[#CAD7C5]/70 bg-white/40 py-3.5 overflow-hidden">
-        <div className="max-w-6xl mx-auto px-4 flex items-center justify-between text-xs font-semibold tracking-widest uppercase text-forest/60 overflow-x-auto gap-8 no-scrollbar">
-          <span className="whitespace-nowrap flex items-center gap-2">
-            <span className="text-rose-dusty">✦</span> Dua Sisi Laundry
-          </span>
-          <span className="whitespace-nowrap flex items-center gap-2">
-            <span className="text-rose-dusty">✦</span> YarnUp! Studio
-          </span>
-          <span className="whitespace-nowrap flex items-center gap-2">
-            <span className="text-rose-dusty">✦</span> Manikarumi Indonesia
-          </span>
-          <span className="whitespace-nowrap flex items-center gap-2">
-            <span className="text-rose-dusty">✦</span> PT Digivla Indonesia
-          </span>
-          <span className="whitespace-nowrap flex items-center gap-2">
-            <span className="text-rose-dusty">✦</span> Polinema Developer Students
-          </span>
+      <section className="w-full py-5 border-y border-[#CAD7C5]/50 bg-white/35 backdrop-blur-xs overflow-hidden select-none">
+        <div className="relative w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_64px,_black_calc(100%-64px),transparent_100%)]">
+          <div className="animate-marquee flex items-center gap-10 sm:gap-14 whitespace-nowrap py-1">
+            {[
+              "Politeknik Negeri Malang",
+              "GDSC Google Polinema",
+              "Dua Sisi Laundry",
+              "YarnUp! Studio",
+              "Manikarumi Indonesia",
+              "PT Digivla Indonesia",
+              "Universitas Islam Malang",
+              "Universitas Negeri Padang",
+              "RevoU Digital Marketing",
+            ].concat([
+              "Politeknik Negeri Malang",
+              "GDSC Google Polinema",
+              "Dua Sisi Laundry",
+              "YarnUp! Studio",
+              "Manikarumi Indonesia",
+              "PT Digivla Indonesia",
+              "Universitas Islam Malang",
+              "Universitas Negeri Padang",
+              "RevoU Digital Marketing",
+            ]).map((partner, pIdx) => (
+              <div key={pIdx} className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold tracking-wide text-forest/75 hover:text-forest transition-colors shrink-0">
+                <span className="text-rose-dusty text-xs">✦</span>
+                <span>{partner}</span>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* ========================================================================= */}
       {/* SECTION: ACADEMIC BACKGROUND & SPOTLIGHT SKILLS CARD (Paired Side-by-Side) */}
       {/* ========================================================================= */}
-      <section id="academy-skills" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
+      <BotanicalDivider />
+      <section id="academy-skills" className="max-w-[1560px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-16 sm:py-20">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-2.5">
-            ✦ Foundations & Capabilities ✦
-          </div>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-forest mb-2.5">
+          <span className="font-script text-3xl sm:text-4xl text-rose-dark block mb-1">/ Foundations & Capabilities /</span>
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-forest tracking-normal mb-2.5">
             Academic Background & Core Skills
           </h2>
           <p className="text-xs sm:text-sm text-forest/75 leading-relaxed font-source">
@@ -1122,15 +1168,14 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION: WORK & BUSINESS EXPERIENCE (Pengalaman Kerja Otentik)            */}
       {/* ========================================================================= */}
-      <section id="experience" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
+      <BotanicalDivider />
+      <section id="experience" className="max-w-[1560px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-20 border-t border-[#CAD7C5]/80">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-3">
-            ✦ Professional Trajectory ✦
-          </div>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-forest mb-3">
-            Work & Business Experience
+          <span className="font-script text-3xl sm:text-4xl text-rose-dark block mb-1">/ Career & Experience /</span>
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-forest tracking-normal mb-3">
+            Work & Business Experience <span className="font-serif italic font-normal text-rose-dark text-2xl sm:text-3xl lg:text-4xl block sm:inline sm:ml-2">Pushing Boundaries since 2020</span>
           </h2>
           <p className="text-sm sm:text-base text-forest/75 leading-relaxed font-source">
             Pengalaman kerja nyata dalam standardisasi operasional, pertumbuhan brand mandiri, kemitraan event komersial, serta riset automasi software.
@@ -1246,15 +1291,14 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION: MY WORK INCLUDES (Campus Projects / Proyek Kampus & Akademik)    */}
       {/* ========================================================================= */}
-      <section id="projects" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
+      <BotanicalDivider />
+      <section id="projects" className="max-w-[1560px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-20 border-t border-[#CAD7C5]/80">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-3">
-            ✦ Academic & Campus Projects ✦
-          </div>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-forest mb-3 tracking-tight uppercase">
-            MY WORK INCLUDES
+          <span className="font-script text-3xl sm:text-4xl text-rose-dark block mb-1">/ Portfolio & Case Studies /</span>
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-forest tracking-normal mb-3">
+            Selected Works & Campus Projects
           </h2>
           <p className="text-sm sm:text-base text-forest/75 leading-relaxed font-source">
             Kompilasi proyek sistem informasi, riset aplikasi, analisis data, dan strategi bisnis yang dikerjakan selama masa studi di D4 Sistem Informasi Bisnis Polinema. Arahkan kursor untuk membaca ringkasan dan klik untuk membuka dokumentasi lengkap.
@@ -1416,15 +1460,14 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION 2: WALL OF RECOGNITION (Visual Mosaic Exhibition Collage) */}
       {/* ========================================================================= */}
-      <section id="recognition" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
+      <BotanicalDivider />
+      <section id="recognition" className="max-w-[1560px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-20 border-t border-[#CAD7C5]/80">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-3">
-            Honors & Achievements
-          </div>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-forest mb-3">
-            National Trophy Case & Recognition
+          <span className="font-script text-3xl sm:text-4xl text-rose-dark block mb-1">/ Honors & Recognitions /</span>
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-forest tracking-normal mb-3">
+            National Competitions & Honors
           </h2>
           <p className="text-sm sm:text-base text-forest/75 leading-relaxed">
             Galeri visual pencapaian terverifikasi dalam kompetisi business plan dan debat nasional. Arahkan kursor ke tiap dokumentasi untuk melihat detail dan klik untuk membuka sertifikat resmi.
@@ -1652,14 +1695,13 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION 3: INSTITUTIONAL LEADERSHIP & GOVERNANCE (Infinite Coverflow)    */}
       {/* ========================================================================= */}
-      <section id="leadership" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80 overflow-hidden">
+      <BotanicalDivider />
+      <section id="leadership" className="max-w-[1560px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-20 border-t border-[#CAD7C5]/80 overflow-hidden">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-3">
-            Governance & Track Record
-          </div>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-forest mb-3">
+          <span className="font-script text-3xl sm:text-4xl text-rose-dark block mb-1">/ Governance & Track Record /</span>
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-forest tracking-normal mb-3">
             Leadership & Organizational Impact
           </h2>
           <p className="text-sm sm:text-base text-forest/75 leading-relaxed font-source">
@@ -1911,15 +1953,14 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION: PROFESSIONAL COURSES & ACCREDITATIONS (Dedicated Section)        */}
       {/* ========================================================================= */}
-      <section id="certifications" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
+      <BotanicalDivider />
+      <section id="certifications" className="max-w-[1560px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-20 border-t border-[#CAD7C5]/80">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-subheader text-rose-dark tracking-subheader uppercase mb-3">
-            ✦ Verified Competencies & Licensures ✦
-          </div>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-forest mb-3">
-            Professional Courses & Accreditations
+          <span className="font-script text-3xl sm:text-4xl text-rose-dark block mb-1">/ Continuous Learning /</span>
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-forest tracking-normal mb-3">
+            Professional Certifications & Credentials
           </h2>
           <p className="text-sm sm:text-base text-forest/75 leading-relaxed font-source">
             Lisensi pelatihan intensif industri, sertifikasi kompetensi terakreditasi, dan pengujian standar internasional untuk mendukung kapabilitas strategis dan eksekusi bisnis.
@@ -1997,15 +2038,14 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION 6: CREATIVE PURSUITS & CONTENT CREATOR HIGHLIGHT */}
       {/* ========================================================================= */}
-      <section id="creative" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 border-t border-[#CAD7C5]/80">
+      <BotanicalDivider />
+      <section id="creative" className="max-w-[1560px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-20 border-t border-[#CAD7C5]/80">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/80 border border-[#CAD7C5] text-xs font-semibold text-rose-dark uppercase tracking-wider mb-3">
-            Creative & Production
-          </div>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-forest mb-3">
-            Content Creator & Creative Pursuits
+          <span className="font-script text-3xl sm:text-4xl text-rose-dark block mb-1">/ Content & Media /</span>
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-forest tracking-normal mb-3">
+            Creator Studio & Social Growth
           </h2>
           <p className="text-sm sm:text-base text-forest/75 leading-relaxed">
             Eksplorasi visual dan penceritaan kreatif: Produksi konten lintas platform (Instagram & TikTok) di berbagai akun, karya rajutan tangan, eksplorasi dunia, serta pemikiran strategis.
@@ -2361,7 +2401,8 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION 5: EDITORIAL COLLABORATION & CONTACT FOOTER */}
       {/* ========================================================================= */}
-      <footer id="contact" className="max-w-6xl mx-auto px-4 sm:px-6 pb-16 pt-8">
+      <BotanicalDivider />
+      <footer id="contact" className="max-w-[1560px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 pb-16 pt-8">
         
         {/* Contact Invitation Card */}
         <div className="bg-forest text-[#E8EFE5] rounded-3xl p-8 sm:p-14 relative overflow-hidden shadow-xl border border-forest-light text-center flex flex-col items-center">
@@ -2370,10 +2411,8 @@ export default function Home() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-rose-dark/20 rounded-full blur-3xl pointer-events-none" />
           
           <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center text-center">
-            <span className="inline-block px-3.5 py-1 rounded-full bg-white/10 border border-white/20 text-xs font-subheader text-rose-blush tracking-subheader uppercase mb-4">
-              Get In Touch
-            </span>
-            <h2 className="font-serif text-3xl sm:text-5xl font-bold leading-tight mb-4 text-white">
+            <span className="font-script text-3xl sm:text-4xl text-rose-blush block mb-2">/ Let's Connect /</span>
+            <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.18] mb-4 text-white tracking-normal">
               Let&apos;s Cultivate Meaningful{' '}
               <span className="editorial-italic text-rose-blush font-normal">
                 Business Growth

@@ -33,19 +33,25 @@ const config: Config = {
         charcoal: '#212B1E',
       },
       fontFamily: {
-        // Title Styling: Quincy
-        serif: ["'Quincy CF'", "'Quincy'", "var(--font-quincy)", "Georgia", "serif"],
-        title: ["'Quincy CF'", "'Quincy'", "var(--font-quincy)", "Georgia", "serif"],
+        // Modern geometric sans-serif (Plus Jakarta Sans)
+        sans: ["var(--font-sans)", "'Plus Jakarta Sans'", "system-ui", "-apple-system", "sans-serif"],
+        body: ["var(--font-sans)", "'Plus Jakarta Sans'", "system-ui", "-apple-system", "sans-serif"],
+        source: ["var(--font-sans)", "'Plus Jakarta Sans'", "system-ui", "-apple-system", "sans-serif"],
         
-        // Subheader Styling: Futura
-        subheader: ["'Futura'", "'Futura-Medium'", "var(--font-futura)", "'Century Gothic'", "sans-serif"],
-        futura: ["'Futura'", "'Futura-Medium'", "var(--font-futura)", "'Century Gothic'", "sans-serif"],
+        // Luxury high-contrast editorial serif (Playfair Display)
+        serif: ["var(--font-serif)", "'Playfair Display'", "Georgia", "serif"],
+        title: ["var(--font-serif)", "'Playfair Display'", "Georgia", "serif"],
+        quincy: ["var(--font-serif)", "'Playfair Display'", "Georgia", "serif"],
+        editorial: ["var(--font-serif)", "'Playfair Display'", "Georgia", "serif"],
         
-        // Paragraph Styling: Source Sans
-        sans: ["var(--font-source-sans)", "'Source Sans 3'", "'Source Sans Pro'", "system-ui", "sans-serif"],
-        body: ["var(--font-source-sans)", "'Source Sans 3'", "'Source Sans Pro'", "system-ui", "sans-serif"],
+        // Handwritten script for kickers (Caveat)
+        script: ["var(--font-script)", "'Caveat'", "cursive"],
         
-        mono: ["var(--font-space-mono)", "monospace"],
+        // Clean subheader
+        subheader: ["var(--font-sans)", "'Plus Jakarta Sans'", "system-ui", "sans-serif"],
+        futura: ["var(--font-sans)", "'Plus Jakarta Sans'", "system-ui", "sans-serif"],
+        
+        mono: ["var(--font-space-mono)", "ui-monospace", "monospace"],
       },
       letterSpacing: {
         'subheader': '0.22em',
