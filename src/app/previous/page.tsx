@@ -740,139 +740,95 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* HERO SECTION: Asymmetric Editorial Split (No Hilman Blueprint) */}
       {/* ========================================================================= */}
-      <section id="hero" className="w-full min-h-[calc(100vh-4.25rem)] flex flex-col justify-between scroll-mt-18">
-        <div className="flex-1 flex items-center max-w-[1380px] mx-auto w-full px-4 sm:px-6 lg:px-8 py-5 sm:py-7 lg:py-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center w-full">
+      <section id="hero" className="hero-stage-wrapper w-full min-h-[calc(100vh-4.25rem)] flex flex-col justify-between scroll-mt-18">
+        
+        {/* Main Centered Stage Container */}
+        <div className="flex-1 flex flex-col justify-center items-center max-w-[1380px] mx-auto w-full px-4 sm:px-6 lg:px-8 pt-3 pb-2 sm:pt-5 sm:pb-3 relative z-10">
           
-          {/* Left Column: Narrative, Typography & Direct Metrics (7 Cols) */}
-          <div className="lg:col-span-7 flex flex-col items-start">
-            
-            {/* Location Badge ( 1/1 ) Malang, Indonesia - matching Hilman Zahrawa */}
-            <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-sans font-medium text-[#475569] mb-2 tracking-[0.02em]">
-              <span>( 1/1 ) Malang, Indonesia</span>
-              <span className="text-rose-dusty">✦</span>
-              <span className="inline-flex items-center gap-1.5 text-emerald-700 font-semibold text-xs">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                {portfolioData.hero?.subheadline || 'Open to Work • BizDev & Creative Roles'}
+          {/* Centered Main Headline (Urbanist + Instrument Serif Italic) */}
+          <div className="text-center max-w-4xl mx-auto mb-2 sm:mb-3 relative z-10">
+            <h1 className="hero-headline">
+              <span className="block font-sans font-medium text-4xl sm:text-6xl lg:text-[72px] text-forest tracking-[-0.035em] leading-[0.98]">
+                Hi I&apos;m Chikal
               </span>
-            </div>
-
-            {/* Hero Main Headline (Urbanist + Instrument Serif Italic matching Hilman Zahrawa) */}
-            <h1 className="mb-2.5 sm:mb-3">
-              {portfolioData.hero?.headline && portfolioData.hero.headline !== 'Menghubungkan Strategi Bisnis, Operasional, & Kreativitas Digital.' ? (
-                <span className="block font-sans font-medium text-3xl sm:text-4xl lg:text-5xl text-forest tracking-[-0.035em] leading-[1.05]">
-                  {portfolioData.hero.headline}
-                </span>
-              ) : (
-                <>
-                  <span className="block font-sans font-medium text-4xl sm:text-5xl lg:text-[58px] text-forest tracking-[-0.035em] leading-[0.98]">
-                    Hi I&apos;m Chikal
-                  </span>
-                  <span className="editorial-serif-italic block text-[1.22em] text-4xl sm:text-5xl lg:text-[58px] text-forest tracking-[-0.02em] font-normal leading-[1.05] mt-[-0.15rem]">
-                    Business &amp; Marketing
-                  </span>
-                </>
-              )}
+              <span className="editorial-serif-italic block text-[1.16em] text-4xl sm:text-6xl lg:text-[72px] text-forest tracking-[-0.02em] font-normal leading-[1.02] mt-[-0.15rem]">
+                {portfolioData.hero?.headline && portfolioData.hero.headline !== 'Menghubungkan Strategi Bisnis, Operasional, & Kreativitas Digital.'
+                  ? portfolioData.hero.headline
+                  : 'Business & Marketing'}
+              </span>
             </h1>
+          </div>
 
-            {/* Value Proposition Subtext */}
-            <p className="text-xs sm:text-sm text-forest/85 leading-relaxed font-normal max-w-xl mb-3 sm:mb-4 font-source">
-              {portfolioData.hero?.bio || (
-                <>
-                  Menghubungkan strategi bisnis, operasional, &amp; kreativitas digital. Mahasiswi / Lulusan D4 Sistem Informasi Bisnis Politeknik Negeri Malang yang berfokus pada operasional bisnis, public relations, dan media kreatif.
-                </>
-              )}
-            </p>
+          {/* Central Hero Stage (Cutout Portrait Centered, Flanked Left & Right) */}
+          <div className="hero-stage-container">
+            
+            {/* Radiant Lime Studio Glow Aura (Completely smooth Gaussian falloff matching reference) */}
+            <div className="hero-radiant-lime-aura" />
 
-            {/* Metrics Ribbon (Clean Statistical Grid) */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5 w-full max-w-xl mb-4">
-              <div className="bg-white/70 border border-[#CAD7C5] rounded-xl p-2.5 text-center">
-                <span className="block font-serif text-xl sm:text-2xl font-bold text-rose-dark">{portfolioData.hero?.stat1Value || '7x'}</span>
-                <span className="text-[10px] text-forest/70 uppercase tracking-wider font-medium">{portfolioData.hero?.stat1Label || 'National Awards'}</span>
-              </div>
-              <div className="bg-white/70 border border-[#CAD7C5] rounded-xl p-2.5 text-center">
-                <span className="block font-serif text-xl sm:text-2xl font-bold text-rose-dark">{portfolioData.hero?.stat2Value || '+2.089%'}</span>
-                <span className="text-[10px] text-forest/70 uppercase tracking-wider font-medium">{portfolioData.hero?.stat2Label || 'Reels Reach Surge'}</span>
-              </div>
-              <div className="bg-white/70 border border-[#CAD7C5] rounded-xl p-2.5 text-center">
-                <span className="block font-serif text-xl sm:text-2xl font-bold text-forest">{portfolioData.hero?.stat3Value || '20+'}</span>
-                <span className="text-[10px] text-forest/70 uppercase tracking-wider font-medium">{portfolioData.hero?.stat3Label || 'Event Partners'}</span>
-              </div>
-              <div className="bg-white/70 border border-[#CAD7C5] rounded-xl p-2.5 text-center">
-                <span className="block font-serif text-xl sm:text-2xl font-bold text-forest">
-                  {portfolioData.hero?.stat4Value && portfolioData.hero.stat4Value !== 'D4 SIB'
-                    ? portfolioData.hero.stat4Value
-                    : '775'}
+            {/* Left Flank: Available Status at Mid-Height + Social Proof at Bottom */}
+            <div className="hero-flank-left">
+              {/* Status Badge */}
+              <div className="hero-badge-available inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/95 border border-[#CAD7C5] shadow-xs text-xs sm:text-sm font-medium text-forest w-fit mt-8 lg:mt-12 backdrop-blur-md">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#84cc16] opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#65a30d]"></span>
                 </span>
-                <span className="text-[10px] text-forest/70 uppercase tracking-wider font-medium">
-                  {portfolioData.hero?.stat4Label && portfolioData.hero.stat4Label !== 'Polinema' && portfolioData.hero.stat4Label !== 'Polinema Honor'
-                    ? portfolioData.hero.stat4Label
-                    : 'Skor Resmi TOEIC'}
+                <span>{portfolioData.hero?.subheadline || 'Available for now opportunities'}</span>
+              </div>
+
+              {/* Bottom Social Proof */}
+              <div className="hero-trusted-proof flex items-center gap-3">
+                <div className="flex -space-x-2 shrink-0">
+                  <div className="w-8 h-8 rounded-full bg-forest text-white flex items-center justify-center text-[10px] font-bold border-2 border-white shadow-xs">
+                    7x
+                  </div>
+                  <div className="w-8 h-8 rounded-full bg-rose-dark text-white flex items-center justify-center text-[10px] font-bold border-2 border-white shadow-xs">
+                    775
+                  </div>
+                  <div className="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px] font-bold border-2 border-white shadow-xs">
+                    20+
+                  </div>
+                </div>
+                <span className="text-xs text-forest/75 font-medium leading-tight font-source max-w-[190px]">
+                  Terpercaya di 20+ kemitraan event &amp; 7 penghargaan bisnis nasional.
                 </span>
               </div>
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3">
+            {/* Center: Cutout Character Portrait with Smooth Bottom Mask Gradient */}
+            <div className="hero-portrait-wrap">
+              <img
+                src={portfolioData.hero?.avatarImg || '/2.png'}
+                alt="Chikal Nazmi Mahira"
+                className="hero-portrait-img"
+              />
+            </div>
+
+            {/* Right Flank: Value Statement at Mid-Height + Get in Touch CTA at Bottom */}
+            <div className="hero-flank-right">
+              {/* Statement */}
+              <p className="hero-statement-right text-xs sm:text-sm text-forest/85 leading-relaxed font-normal max-w-[280px] mt-8 lg:mt-12 font-source text-left sm:text-left">
+                {portfolioData.hero?.bio || 'passionate about creating intuitive digital experiences that connect users with value.'}
+              </p>
+
+              {/* Get in Touch CTA Button */}
               <a
-                href="#projects"
-                className="px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-rose-dark text-white hover:bg-rose-berry transition-all shadow-xs hover:shadow-md flex items-center gap-2"
+                href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890?text=Halo%20Chikal,%20saya%20tertarik%20berdiskusi%20mengenai%20peluang%20kerjasama."}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero-cta-btn inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-[#182617] hover:bg-forest text-white text-xs sm:text-sm font-semibold shadow-md hover:shadow-lg transition-all"
               >
-                <span>Explore Selected Works</span>
-                <span>↓</span>
-              </a>
-              <a
-                href="mailto:chikalnazmi@gmail.com"
-                className="px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-white/80 border border-[#CAD7C5] text-forest hover:bg-white hover:border-rose-dusty transition-all flex items-center gap-2"
-              >
-                <span>Email Inquiries</span>
                 <span>→</span>
+                <span>Get in Touch</span>
               </a>
             </div>
 
           </div>
 
-          {/* Right Column: Modern Arch Frame Portrait & Strategic Highlights (5 Cols) */}
-          <div className="lg:col-span-5 flex justify-center items-center">
-            <div className="relative w-full max-w-[240px] sm:max-w-[270px]">
-              
-              {/* Modern Arch Frame Container */}
-              <div className="relative bg-[#CAD7C5]/30 p-2 rounded-t-[140px] rounded-b-[28px] border-2 border-[#CAD7C5] shadow-lg">
-                <div className="relative w-full aspect-[4/5] rounded-t-[130px] rounded-b-[20px] overflow-hidden bg-forest/10">
-                  <img
-                    src={portfolioData.hero?.avatarImg || '/2.png'}
-                    alt="Chikal Nazmi Mahira"
-                    className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700"
-                  />
-                  {/* Subtle gradient overlay at bottom */}
-                  <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-forest/50 to-transparent pointer-events-none" />
-                </div>
-              </div>
-
-              {/* Floating Pill: Strategic Strengths */}
-              <div className="absolute -bottom-5 -left-3 sm:-left-5 bg-white/95 backdrop-blur-md border border-[#CAD7C5] p-2.5 sm:p-3 rounded-xl shadow-md max-w-[220px]">
-                <div className="flex items-center gap-1.5 mb-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-rose-dark" />
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-rose-dark">Key Competencies</span>
-                </div>
-                <p className="text-[11px] text-forest font-medium leading-snug">
-                  Data-Driven Marketing • Operational SOPs • Cross-Functional Leadership
-                </p>
-              </div>
-
-              {/* Botanical Monogram Stamp */}
-              <div className="absolute -top-2.5 -right-2.5 w-10 h-10 rounded-full bg-rose-blush border border-rose-dusty/50 flex items-center justify-center text-rose-dark font-serif font-bold text-xs shadow-sm rotate-12">
-                CNM
-              </div>
-
-            </div>
-          </div>
-
-        </div>
         </div>
 
         {/* BRAND & ECOSYSTEM TICKER: Anchored at bottom of Hero viewport */}
-        <div className="w-full py-2 sm:py-2.5 border-y border-[#CAD7C5]/50 bg-white/35 backdrop-blur-xs overflow-hidden select-none">
+        <div className="w-full py-2 sm:py-2.5 border-y border-[#CAD7C5]/50 bg-white/45 backdrop-blur-xs overflow-hidden select-none relative z-10">
           <div className="relative w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_64px,_black_calc(100%-64px),transparent_100%)]">
             <div className="animate-marquee flex items-center gap-10 sm:gap-14 whitespace-nowrap py-0.5">
               {[
@@ -904,6 +860,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+
       </section>
 
       {/* ========================================================================= */}

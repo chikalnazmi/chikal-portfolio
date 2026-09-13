@@ -303,3 +303,124 @@
     radial-gradient(at 100% 0%, rgba(245, 211, 220, 0.25) 0px, transparent 40%),
     radial-gradient(at 0% 100%, rgba(189, 88, 113, 0.12) 0px, transparent 45%);
 }
+
+/* ========================================================================= */
+/* HERO STAGE WITH VIBRANT RADIANT LIME AURA (Reference Layout Match)        */
+/* ========================================================================= */
+.hero-stage-wrapper {
+  position: relative;
+  background: 
+    radial-gradient(circle at 12% 18%, rgba(190, 242, 100, 0.50) 0%, transparent 48%),
+    radial-gradient(circle at 88% 18%, rgba(190, 242, 100, 0.50) 0%, transparent 48%),
+    radial-gradient(circle at 50% 10%, rgba(217, 249, 157, 0.40) 0%, transparent 55%),
+    #ffffff;
+  overflow: hidden;
+  width: 100%;
+}
+
+.hero-radiant-lime-aura {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(1040px, 95vw);
+  height: min(620px, 85vw);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(187, 244, 81, 0.78) 0%,
+    rgba(163, 230, 53, 0.58) 28%,
+    rgba(132, 204, 22, 0.32) 50%,
+    rgba(190, 242, 100, 0.16) 68%,
+    transparent 80%
+  );
+  filter: blur(45px);
+  pointer-events: none;
+  z-index: 1;
+  border-radius: 50%;
+}
+
+.hero-stage-container {
+  position: relative;
+  width: 100%;
+  max-width: 1240px;
+  margin: -1rem auto 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  min-height: 480px;
+}
+
+.hero-flank-left {
+  position: absolute;
+  left: 1.5rem;
+  top: 0;
+  bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 290px;
+  z-index: 20;
+  text-align: left;
+}
+
+.hero-flank-right {
+  position: absolute;
+  right: 1.5rem;
+  top: 0;
+  bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  max-width: 290px;
+  z-index: 20;
+  text-align: left;
+}
+
+.hero-portrait-wrap {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: 100%;
+  max-width: 440px;
+  pointer-events: none;
+}
+
+.hero-portrait-img {
+  width: 100%;
+  height: auto;
+  max-height: 520px;
+  object-fit: contain;
+  display: block;
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 76%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 76%, transparent 100%);
+}
+
+@media (max-width: 960px) {
+  .hero-stage-container {
+    flex-direction: column !important;
+    align-items: center !important;
+    min-height: auto !important;
+    margin-top: 1rem !important;
+    gap: 1.5rem !important;
+  }
+  .hero-flank-left,
+  .hero-flank-right {
+    position: static !important;
+    max-width: 100% !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 1.25rem !important;
+  }
+  .hero-statement-right {
+    text-align: center !important;
+    max-width: 100% !important;
+    margin-top: 0 !important;
+  }
+  .hero-badge-available {
+    margin-top: 0 !important;
+  }
+}
+
