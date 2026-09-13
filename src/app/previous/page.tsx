@@ -912,49 +912,49 @@ export default function Home() {
       <section id="academy-skills" className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-7 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/60 scroll-mt-18">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4.5">
+        <div className="text-center max-w-2xl mx-auto mb-5 sm:mb-6">
           <span className="font-mono text-xs sm:text-sm text-forest/60 tracking-widest uppercase block mb-1">
             ( 01 ) Foundations &amp; Capabilities
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl text-forest tracking-tight mb-1.5">
             <span className="font-sans font-semibold">Academic Background &amp; </span>
-            <span className="font-serif italic font-normal">Core Skills</span>
+            <span className="editorial-serif-italic">Core Capabilities</span>
           </h2>
           <p className="text-xs sm:text-sm text-forest/75 leading-relaxed font-source">
             Kombinasi latar belakang pendidikan formal sistem informasi bisnis dan keahlian praktis lintas disiplin yang teruji.
           </p>
         </div>
 
-        {/* 2-Column Balanced Responsive Grid: Formal Degree on Left, Core Skills Matrix on Right */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 items-stretch">
+        {/* Modern Bento Grid: Asymmetric, Dynamic & Highly Readable */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 lg:gap-5">
           
-          {/* LEFT: Formal Academic & Language Credentials Card */}
-          <div className="bg-white/95 border border-[#CAD7C5] rounded-2xl p-4 sm:p-5 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group">
+          {/* BENTO CARD 1: Formal Degree & Official Certifications (Col Span 5) */}
+          <div className="md:col-span-12 lg:col-span-5 bg-white/95 border border-[#CAD7C5] rounded-3xl p-5 sm:p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group">
             <div>
               {/* Header Badges */}
-              <div className="flex items-center justify-between gap-2 mb-2">
-                <span className="text-[10px] font-bold px-3 py-0.5 rounded-full bg-rose-blush/90 text-rose-dark border border-rose-dusty/40 uppercase tracking-wider shadow-2xs">
+              <div className="flex items-center justify-between gap-2 mb-3">
+                <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-rose-blush/90 text-rose-dark border border-rose-dusty/40 uppercase tracking-wider shadow-2xs">
                   {academicData.badge?.replace('', '').trim() || 'FORMAL DEGREE'}
                 </span>
-                <span className="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-[#F4F7F2] text-forest/80 border border-[#CAD7C5]">
+                <span className="text-[11px] font-mono font-bold px-3 py-1 rounded-full bg-[#F4F7F2] text-forest/80 border border-[#CAD7C5]">
                   {academicData.period || '2020 – 2024'}
                 </span>
               </div>
 
               {/* Title & Institution */}
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-forest mt-1.5 mb-1 group-hover:text-rose-dark transition-colors tracking-tight">
+              <h3 className="font-sans font-bold text-xl sm:text-2xl text-forest tracking-tight mb-1 group-hover:text-rose-dark transition-colors">
                 {academicData.degree}
               </h3>
-              <h4 className="text-xs sm:text-sm font-semibold text-forest/75 uppercase tracking-wide mb-3">
+              <h4 className="text-xs sm:text-sm font-semibold text-forest/75 uppercase tracking-wide mb-4 font-mono">
                 {academicData.institution}
               </h4>
 
-              {/* High-Visibility Credential Cards (GPA & TOEIC) */}
-              <div className="space-y-2.5 mb-3">
-                {/* GPA / Cum Laude Highlight */}
-                <div className="p-3 rounded-xl bg-[#F4F7F2]/90 border border-[#CAD7C5] shadow-2xs flex items-center justify-between gap-3">
+              {/* Verified Credentials (GPA & TOEIC) */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2.5 mb-4">
+                {/* GPA Highlight */}
+                <div className="p-3 rounded-2xl bg-[#F4F7F2]/90 border border-[#CAD7C5] shadow-2xs flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-forest text-[#E8EFE5] flex flex-col items-center justify-center font-mono font-bold shrink-0 shadow-2xs">
+                    <div className="w-10 h-10 rounded-xl bg-forest text-[#E8EFE5] flex flex-col items-center justify-center font-mono font-bold shrink-0 shadow-2xs">
                       <span className="text-[11px] font-bold leading-none">GPA</span>
                       <span className="text-[8px] text-white/70 leading-none mt-0.5">HONOR</span>
                     </div>
@@ -962,23 +962,23 @@ export default function Home() {
                       <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-forest/60 block leading-tight">
                         {academicData.gpaTitle || 'ACADEMIC STANDING'}
                       </span>
-                      <span className="text-xs sm:text-sm font-serif font-bold text-forest block leading-snug">
-                        {academicData.gpaValue || 'IPK Memuaskan / Cum Laude Honor'}
+                      <span className="text-sm font-sans font-bold text-forest block leading-snug">
+                        {academicData.gpaValue || 'IPK : 3.73'}
                       </span>
                       <span className="text-[10px] text-forest/70 leading-tight">
-                        Kurikulum Terapan Sistem Informasi & Bisnis
+                        Kurikulum Terapan Bisnis &amp; Sistem
                       </span>
                     </div>
                   </div>
-                  <span className="hidden sm:inline-flex px-2 py-0.5 rounded-md bg-forest/10 text-forest text-[10px] font-bold uppercase tracking-wider shrink-0">
+                  <span className="px-2 py-0.5 rounded-md bg-forest/10 text-forest text-[10px] font-bold uppercase tracking-wider shrink-0">
                     Cum Laude
                   </span>
                 </div>
 
-                {/* TOEIC Official Score 775 Highlight */}
-                <div className="p-3 rounded-xl bg-rose-50/60 border border-rose-200/90 shadow-2xs flex items-center justify-between gap-3">
+                {/* TOEIC Highlight */}
+                <div className="p-3 rounded-2xl bg-rose-50/60 border border-rose-200/90 shadow-2xs flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-rose-dark text-white flex flex-col items-center justify-center font-mono font-bold shrink-0 shadow-2xs">
+                    <div className="w-10 h-10 rounded-xl bg-rose-dark text-white flex flex-col items-center justify-center font-mono font-bold shrink-0 shadow-2xs">
                       <span className="text-[11px] font-bold leading-none">EN</span>
                       <span className="text-[8px] text-rose-100 leading-none mt-0.5">{academicData.toeicScore || '775'}</span>
                     </div>
@@ -986,26 +986,24 @@ export default function Home() {
                       <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-rose-dark/70 block leading-tight">
                         {academicData.toeicTitle || 'GLOBAL ENGLISH PROFICIENCY'}
                       </span>
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-xs sm:text-sm font-serif font-bold text-forest leading-snug">
-                          Official TOEIC: <span className="text-rose-dark font-extrabold">{academicData.toeicScore || '775'}</span>
-                        </span>
-                      </div>
+                      <span className="text-sm font-sans font-bold text-forest block leading-snug">
+                        Official TOEIC: <span className="text-rose-dark font-extrabold">{academicData.toeicScore || '775'}</span>
+                      </span>
                       <span className="text-[10px] text-forest/70 leading-tight">
-                        {academicData.toeicLevel || 'Working Proficiency'} • ETS International
+                        {academicData.toeicLevel || 'Working Proficiency'} • ETS
                       </span>
                     </div>
                   </div>
-                  <span className="hidden sm:inline-flex px-2 py-0.5 rounded-md bg-rose-blush text-rose-dark text-[10px] font-bold uppercase tracking-wider shrink-0 border border-rose-dusty/30">
+                  <span className="px-2 py-0.5 rounded-md bg-rose-blush text-rose-dark text-[10px] font-bold uppercase tracking-wider shrink-0 border border-rose-dusty/30">
                     Certified
                   </span>
                 </div>
               </div>
 
               {/* Focus Summary */}
-              <div className="p-3 rounded-xl bg-[#F9FBF8] border border-[#CAD7C5]/70 mb-3">
+              <div className="p-3 rounded-2xl bg-[#F9FBF8] border border-[#CAD7C5]/70 mb-4">
                 <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-forest/60 block mb-0.5">
-                  Focus & Academic Core
+                  Focus &amp; Academic Core
                 </span>
                 <p className="text-xs text-forest/80 leading-relaxed font-source">
                   {academicData.description}
@@ -1013,7 +1011,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Action Trigger */}
+            {/* Document Modal Trigger Button */}
             <button
               onClick={() => openModal(
                 academicData.degree,
@@ -1021,129 +1019,174 @@ export default function Home() {
                 academicData.description,
                 academicData.images && academicData.images.length > 0 ? academicData.images : ['/11.png', '/12.png', '/16.png']
               )}
-              className="w-full py-2.5 px-4 rounded-xl bg-forest text-[#E8EFE5] hover:bg-rose-dark text-xs sm:text-sm font-bold shadow-2xs hover:shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer mt-1"
+              className="w-full py-2.5 px-4 rounded-xl bg-forest text-[#E8EFE5] hover:bg-rose-dark text-xs sm:text-sm font-bold shadow-2xs hover:shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
-              <span>Buka Dokumen Kelulusan & TOEIC</span>
+              <span>Buka Dokumen Kelulusan &amp; TOEIC</span>
               <span>↗</span>
             </button>
           </div>
 
-          {/* RIGHT: Core Competencies & Skills Matrix Card */}
-          <div className="bg-white/95 border border-[#CAD7C5] rounded-2xl p-4 sm:p-5 shadow-xs hover:shadow-md transition-all text-forest relative flex flex-col justify-between group">
+          {/* BENTO CARD 2: Business & Operations Pillar (Col Span 4) */}
+          <div className="md:col-span-6 lg:col-span-4 bg-white/95 border border-[#CAD7C5] rounded-3xl p-5 sm:p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group">
             <div>
-              {/* Top Badges */}
-              <div className="flex items-center justify-between gap-2 mb-2">
-                <span className="text-[10px] font-bold px-3 py-0.5 rounded-full bg-rose-blush/90 text-rose-dark border border-rose-dusty/40 uppercase tracking-wider shadow-2xs">
-                  CORE COMPETENCIES MATRIX
+              {/* Header Badge */}
+              <div className="flex items-center justify-between gap-2 mb-3">
+                <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-300 uppercase tracking-wider shadow-2xs">
+                  STRATEGY &amp; OPERATIONS
                 </span>
-                <span className="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-[#F4F7F2] text-forest/80 border border-[#CAD7C5]">
-                  Dossier
+                <span className="text-[11px] font-mono font-medium text-forest/60">
+                  {bizSkills.length} Capabilities
                 </span>
               </div>
 
-              {/* Heading */}
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-forest mt-1.5 mb-0.5 tracking-tight">
-                Technical & Domain Expertise
+              <h3 className="font-sans font-bold text-lg sm:text-xl text-forest tracking-tight mb-1">
+                Business Systems &amp; SOPs
               </h3>
-              <p className="text-xs text-forest/70 mb-3 font-source">
-                Keahlian praktis yang siap diaplikasikan dalam lingkungan kerja profesional.
+              <p className="text-xs text-forest/70 mb-4 font-source">
+                Penyusunan alur operasional terstandarisasi, rekonsiliasi kas, dan riset peluang pasar.
               </p>
 
-              {/* Subdivided Domains: IT, Business, Creative */}
-              <div className="space-y-2.5 mb-3">
-                {/* IT / Tech */}
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-1.5">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-forest/80 flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-forest shrink-0" />
-                      <span>IT & Digital Systems</span>
-                    </span>
-                    <span className="text-[9px] font-mono text-forest/50">{itSkills.length} Skills</span>
+              {/* Curated Skill Cards / Highlights */}
+              <div className="space-y-1.5 mb-4">
+                {bizSkills.map((skill, sIdx) => (
+                  <div
+                    key={sIdx}
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl bg-[#FAFBF8] border border-[#CAD7C5]/70 text-xs font-semibold text-forest shadow-2xs group-hover:border-forest/30 transition-colors"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-600 shrink-0" />
+                    <span className="truncate">{skill}</span>
                   </div>
-                  <div className="flex flex-wrap gap-1.5">
-                    {itSkills.map((skill, sIdx) => (
-                      <span
-                        key={sIdx}
-                        className="px-2.5 py-1 rounded-lg bg-[#F4F7F2] border border-[#CAD7C5] text-xs font-semibold text-forest shadow-2xs hover:bg-forest hover:text-white hover:border-forest transition-all cursor-default"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Business */}
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-1.5">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-forest/80 flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-amber-600 shrink-0" />
-                      <span>Business & Operations</span>
-                    </span>
-                    <span className="text-[9px] font-mono text-forest/50">{bizSkills.length} Skills</span>
-                  </div>
-                  <div className="flex flex-wrap gap-1.5">
-                    {bizSkills.map((skill, sIdx) => (
-                      <span
-                        key={sIdx}
-                        className="px-2.5 py-1 rounded-lg bg-[#F4F7F2] border border-[#CAD7C5] text-xs font-semibold text-forest shadow-2xs hover:bg-forest hover:text-white hover:border-forest transition-all cursor-default"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Creative */}
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-1.5">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-forest/80 flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-rose-dark shrink-0" />
-                      <span>Creative & Media</span>
-                    </span>
-                    <span className="text-[9px] font-mono text-forest/50">{creativeSkills.length} Skills</span>
-                  </div>
-                  <div className="flex flex-wrap gap-1.5">
-                    {creativeSkills.map((skill, sIdx) => (
-                      <span
-                        key={sIdx}
-                        className="px-2.5 py-1 rounded-lg bg-[#F4F7F2] border border-[#CAD7C5] text-xs font-semibold text-forest shadow-2xs hover:bg-forest hover:text-white hover:border-forest transition-all cursor-default"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Personal Skills / Leadership Strengths */}
-              <div className="pt-2 border-t border-[#CAD7C5]/60 mb-3">
-                <div className="flex items-center justify-between gap-2 mb-1.5">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-forest/80 flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-purple-600 shrink-0" />
-                    <span>Personal Strengths & Working Style</span>
-                  </span>
-                  <span className="text-[9px] font-mono text-forest/50">Core Values</span>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
-                  {personalSkills.map((skill, pIdx) => (
-                    <div
-                      key={pIdx}
-                      className="flex items-center gap-1.5 p-2 rounded-lg bg-[#FAFBF8] border border-[#CAD7C5] text-xs font-bold text-forest shadow-2xs"
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-rose-dark shrink-0" />
-                      <span className="truncate">{skill}</span>
-                    </div>
-                  ))}
-                </div>
+                ))}
               </div>
             </div>
 
-            {/* Bottom Contact / Action Bar */}
+            {/* Real World Proven Tag */}
+            <div className="pt-3 border-t border-[#CAD7C5]/60 flex items-center justify-between text-xs text-forest/75 font-medium">
+              <span>Dua Sisi &amp; Manikarumi</span>
+              <span className="text-emerald-700 font-bold flex items-center gap-1">
+                <span>✓</span> Verified Applied
+              </span>
+            </div>
+          </div>
+
+          {/* BENTO CARD 3: Creative Media & Brand Growth (Col Span 3) */}
+          <div className="md:col-span-6 lg:col-span-3 bg-white/95 border border-[#CAD7C5] rounded-3xl p-5 sm:p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group">
+            <div>
+              {/* Header Badge */}
+              <div className="flex items-center justify-between gap-2 mb-3">
+                <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-rose-100 text-rose-900 border border-rose-300 uppercase tracking-wider shadow-2xs">
+                  MARKETING &amp; MEDIA
+                </span>
+                <span className="text-[11px] font-mono font-medium text-forest/60">
+                  {creativeSkills.length} Skills
+                </span>
+              </div>
+
+              <h3 className="font-sans font-bold text-lg sm:text-xl text-forest tracking-tight mb-1">
+                Creative &amp; Audience Growth
+              </h3>
+              <p className="text-xs text-forest/70 mb-4 font-source">
+                Strategi video pendek, kurasi visual katalog, dan ekspansi jangkauan organik.
+              </p>
+
+              {/* Creative Capabilities Stack */}
+              <div className="space-y-1.5 mb-4">
+                {creativeSkills.map((skill, sIdx) => (
+                  <div
+                    key={sIdx}
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl bg-[#FAFBF8] border border-[#CAD7C5]/70 text-xs font-semibold text-forest shadow-2xs group-hover:border-rose-dark/30 transition-colors"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-rose-dark shrink-0" />
+                    <span className="truncate">{skill}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Performance Metric Tag */}
+            <div className="pt-3 border-t border-[#CAD7C5]/60 flex items-center justify-between text-xs text-forest/75 font-medium">
+              <span>YarnUp! &amp; Event PR</span>
+              <span className="text-rose-dark font-bold font-mono">+2.089% Reach</span>
+            </div>
+          </div>
+
+          {/* BENTO CARD 4A: Technical Software & Systems Stack (Col Span 7) */}
+          <div className="md:col-span-12 lg:col-span-7 bg-white/95 border border-[#CAD7C5] rounded-3xl p-5 sm:p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group">
+            <div>
+              <div className="flex items-center justify-between gap-2 mb-2">
+                <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-blue-100 text-blue-900 border border-blue-300 uppercase tracking-wider shadow-2xs">
+                  TECH &amp; SYSTEMS STACK
+                </span>
+                <span className="text-[11px] font-mono text-forest/60">
+                  Information Systems Core
+                </span>
+              </div>
+
+              <h3 className="font-sans font-bold text-lg sm:text-xl text-forest tracking-tight mb-1">
+                Digital Systems, UI/UX &amp; Data Tools
+              </h3>
+              <p className="text-xs text-forest/70 mb-3.5 font-source">
+                Fondasi teknologi perancangan antarmuka pengguna, pemodelan data relasional, dan automasi pemrosesan data.
+              </p>
+
+              {/* Badges Flow */}
+              <div className="flex flex-wrap gap-2 mb-2">
+                {itSkills.map((skill, sIdx) => (
+                  <span
+                    key={sIdx}
+                    className="px-3 py-1.5 rounded-xl bg-[#F4F7F2] border border-[#CAD7C5] text-xs font-semibold text-forest shadow-2xs hover:bg-forest hover:text-white hover:border-forest transition-all cursor-default flex items-center gap-1.5"
+                  >
+                    <span className="text-rose-dusty text-[10px]">✦</span>
+                    <span>{skill}</span>
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="pt-3 mt-2 border-t border-[#CAD7C5]/60 flex items-center justify-between text-xs text-forest/70 font-medium font-source">
+              <span>Jurusan Teknologi Informasi — Politeknik Negeri Malang</span>
+              <span className="font-mono text-forest/50">D4 SIB Certified</span>
+            </div>
+          </div>
+
+          {/* BENTO CARD 4B: Personal Strengths & Fast Contact (Col Span 5) */}
+          <div className="md:col-span-12 lg:col-span-5 bg-white/95 border border-[#CAD7C5] rounded-3xl p-5 sm:p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group">
+            <div>
+              <div className="flex items-center justify-between gap-2 mb-2">
+                <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-purple-100 text-purple-900 border border-purple-300 uppercase tracking-wider shadow-2xs">
+                  PROFESSIONAL VALUES
+                </span>
+                <span className="text-[11px] font-mono text-forest/60">
+                  Work Style
+                </span>
+              </div>
+
+              <h3 className="font-sans font-bold text-lg sm:text-xl text-forest tracking-tight mb-1">
+                Collaborative Strengths &amp; Ethics
+              </h3>
+              <p className="text-xs text-forest/70 mb-3 font-source">
+                Karakter kerja adaptif, kepemilikan tanggung jawab tinggi, dan komunikasi proaktif.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 mb-4">
+                {personalSkills.map((skill, pIdx) => (
+                  <div
+                    key={pIdx}
+                    className="flex items-center gap-2 p-2 rounded-xl bg-[#FAFBF8] border border-[#CAD7C5]/70 text-xs font-bold text-forest shadow-2xs"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-purple-600 shrink-0" />
+                    <span className="truncate">{skill}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* WhatsApp Contact Action */}
             <a
               href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890"}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-2.5 px-4 rounded-xl bg-[#F4F7F2] hover:bg-forest border border-[#CAD7C5] hover:border-forest text-forest hover:text-white text-xs sm:text-sm font-bold shadow-2xs hover:shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer mt-1"
+              className="w-full py-2.5 px-4 rounded-xl bg-[#F4F7F2] hover:bg-forest border border-[#CAD7C5] hover:border-forest text-forest hover:text-white text-xs sm:text-sm font-bold shadow-2xs hover:shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
               <span>Diskusi Peluang Karir via WhatsApp</span>
               <span>↗</span>
