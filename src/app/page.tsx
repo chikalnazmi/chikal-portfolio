@@ -129,6 +129,10 @@ export default function Home() {
     ? portfolioData.certifications
     : DEFAULT_PORTFOLIO_DATA.certifications!;
 
+  const skillsList = (portfolioData.skills && portfolioData.skills.length > 0)
+    ? portfolioData.skills
+    : DEFAULT_PORTFOLIO_DATA.skills || [];
+
   const creatorAccounts = portfolioData.creatorAccounts || DEFAULT_PORTFOLIO_DATA.creatorAccounts;
   const currentCreator = creatorAccounts[activeCreatorKey] || Object.values(creatorAccounts)[0];
 
@@ -493,108 +497,36 @@ export default function Home() {
           </p>
         </div>
 
-        {/* 3 Structured Pillar Cards (Solving Tag Cloud Clump into Cohesive Hierarchy) */}
-        <div className="relative z-10 max-w-[1560px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 text-left">
-          
-          {/* Pillar 1: Clear Business Strategy */}
-          <div className="editorial-card p-6 sm:p-7 rounded-3xl bg-white/95 border border-[#CAD7C5] shadow-xs relative group flex flex-col justify-between">
-            <BotanicalCorner />
-            <div>
-              <div className="flex items-center gap-2 text-rose-dusty text-xs font-bold uppercase tracking-wider mb-2">
-                <span>✦</span>
-                <span>PILLAR 01</span>
+        {/* Dynamic Structured Pillar Cards from CMS */}
+        <div className={`relative z-10 max-w-[1560px] mx-auto grid grid-cols-1 ${skillsList.length === 2 ? 'md:grid-cols-2' : skillsList.length >= 4 ? 'sm:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-3'} gap-6 sm:gap-8 text-left`}>
+          {skillsList.map((pillar, pIdx) => (
+            <div key={pillar.id || pIdx} className="editorial-card p-6 sm:p-7 rounded-3xl bg-white/95 border border-[#CAD7C5] shadow-xs relative group flex flex-col justify-between">
+              <BotanicalCorner />
+              <div>
+                <div className="flex items-center gap-2 text-rose-dusty text-xs font-bold uppercase tracking-wider mb-2">
+                  <span>✦</span>
+                  <span>{pillar.subtitle ? pillar.subtitle.toUpperCase() : `PILLAR 0${pIdx + 1}`}</span>
+                </div>
+                <h3 className="font-sans font-bold text-xl sm:text-2xl text-forest mb-2">
+                  {pillar.title}
+                </h3>
+                <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-6">
+                  {pillar.description}
+                </p>
               </div>
-              <h3 className="font-sans font-bold text-xl sm:text-2xl text-forest mb-2">
-                Clear Business Strategy
-              </h3>
-              <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-6">
-                Riset pasar berbasis data, pemodelan kelayakan finansial, dan perumusan strategi kemitraan B2B yang realistis.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-2 pt-4 border-t border-[#CAD7C5]/40">
-              {[
-                'Business Model Canvas (BMC)',
-                'B2B Partnerships Strategy',
-                'Market & Feasibility Study',
-                'Revenue & Pricing Modeling'
-              ].map((pill, idx) => (
-                <span 
-                  key={idx}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F2F7EF] border border-[#CAD7C5] text-[11px] font-semibold text-forest hover:border-rose-dusty/80 transition-all cursor-default"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-forest/70"></span>
-                  <span>{pill}</span>
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Pillar 2: Thoughtful Operational Systems */}
-          <div className="editorial-card p-6 sm:p-7 rounded-3xl bg-white/95 border border-[#CAD7C5] shadow-xs relative group flex flex-col justify-between">
-            <BotanicalCorner />
-            <div>
-              <div className="flex items-center gap-2 text-rose-dusty text-xs font-bold uppercase tracking-wider mb-2">
-                <span>✦</span>
-                <span>PILLAR 02</span>
+              <div className="flex flex-wrap gap-2 pt-4 border-t border-[#CAD7C5]/40">
+                {pillar.skills.map((pill, idx) => (
+                  <span 
+                    key={idx}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F2F7EF] border border-[#CAD7C5] text-[11px] font-semibold text-forest hover:border-rose-dusty/80 transition-all cursor-default"
+                  >
+                    <span className={`w-1.5 h-1.5 rounded-full ${pIdx % 2 === 1 ? 'bg-rose-dusty' : 'bg-forest/70'}`}></span>
+                    <span>{pill}</span>
+                  </span>
+                ))}
               </div>
-              <h3 className="font-sans font-bold text-xl sm:text-2xl text-forest mb-2">
-                Thoughtful Operational Systems
-              </h3>
-              <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-6">
-                Arsitektur sistem informasi bisnis (D4 SIB), SOP terstandarisasi, serta otomasi sirkulasi dan penagihan pelanggan.
-              </p>
             </div>
-            <div className="flex flex-wrap gap-2 pt-4 border-t border-[#CAD7C5]/40">
-              {[
-                'SOP & Operational Flow',
-                'System Architecture & D4 SIB',
-                'Relational Database Modeling',
-                'KPI & Performance Tracking'
-              ].map((pill, idx) => (
-                <span 
-                  key={idx}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F2F7EF] border border-[#CAD7C5] text-[11px] font-semibold text-forest hover:border-rose-dusty/80 transition-all cursor-default"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-rose-dusty"></span>
-                  <span>{pill}</span>
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Pillar 3: Creative Storytelling */}
-          <div className="editorial-card p-6 sm:p-7 rounded-3xl bg-white/95 border border-[#CAD7C5] shadow-xs relative group flex flex-col justify-between">
-            <BotanicalCorner />
-            <div>
-              <div className="flex items-center gap-2 text-rose-dusty text-xs font-bold uppercase tracking-wider mb-2">
-                <span>✦</span>
-                <span>PILLAR 03</span>
-              </div>
-              <h3 className="font-sans font-bold text-xl sm:text-2xl text-forest mb-2">
-                Creative Storytelling
-              </h3>
-              <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-6">
-                Prototipe interaktif antarmuka Figma, penyutradaraan konten video pendek berdaya jangkau tinggi, dan kurasi katalog ritel.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-2 pt-4 border-t border-[#CAD7C5]/40">
-              {[
-                'Figma Interactive Prototyping',
-                'UI/UX User Flow & Wireframe',
-                'Short-Form Video Production',
-                'Brand Campaign Direction'
-              ].map((pill, idx) => (
-                <span 
-                  key={idx}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F2F7EF] border border-[#CAD7C5] text-[11px] font-semibold text-forest hover:border-rose-dusty/80 transition-all cursor-default"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-forest/70"></span>
-                  <span>{pill}</span>
-                </span>
-              ))}
-            </div>
-          </div>
-
+          ))}
         </div>
 
       </section>

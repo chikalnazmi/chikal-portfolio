@@ -8,7 +8,10 @@ import {
   resetPortfolioData, 
   fetchPortfolioDataFromSupabase,
   DEFAULT_PORTFOLIO_DATA,
-  PortfolioData 
+  PortfolioData,
+  ProjectDoc,
+  AwardItem,
+  SkillCategory 
 } from '@/lib/portfolio-store';
 import { isSupabaseConfigured } from '@/lib/supabase';
 import ImageUploadField from '@/components/ImageUploadField';
@@ -1053,20 +1056,55 @@ export default function AdminPortal() {
         {/* ================================================================= */}
         {activeTab === 'experience' && (
           <div className="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 border border-[#CAD7C5] shadow-sm space-y-6">
-            <div>
-              <h2 className="font-serif text-xl font-bold text-neutral-900">
-                Pengaturan Teks & Foto — Pengalaman Kerja Nyata & Bisnis
-              </h2>
-              <p className="text-xs text-neutral-500 mt-1">
-                Pilih pengalaman kerja untuk mengedit judul peran, periode, tag, ringkasan eksekutif, fokus capaian, foto utama, dan galeri kerja.
-              </p>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <h2 className="font-serif text-xl font-bold text-neutral-900">
+                  Pengaturan Teks & Foto — Pengalaman Kerja Nyata & Bisnis
+                </h2>
+                <p className="text-xs text-neutral-500 mt-1">
+                  Pilih pengalaman kerja untuk mengedit judul peran, periode, tag, ringkasan eksekutif, fokus capaian, foto utama, dan galeri kerja.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => {
+                  const currentList = data.experiences || DEFAULT_PORTFOLIO_DATA.experiences || [];
+                  const newExp: ProjectDoc = {
+                    id: `exp-${Date.now()}`,
+                    category: 'BUSINESS OPERATIONS & SOP',
+                    title: 'Peran Baru — Nama Perusahaan/Bisnis',
+                    tag: 'Business Operations',
+                    period: '2025 - Sekarang',
+                    badgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300',
+                    summary: 'Deskripsi singkat mengenai peran, kepemimpinan tim, dan tanggung jawab operasional.',
+                    challenge: 'Tantangan operasional atau bisnis yang dihadapi.',
+                    strategy: 'Strategi atau inisiatif yang diterapkan untuk mencapai target.',
+                    results: [
+                      'Inisiatif operasional terukur',
+                      'Efisiensi alur kerja & SOP',
+                      'Kemitraan & pertumbuhan bisnis',
+                    ],
+                    image: '/3.png',
+                    extraImages: ['/3.png', '/4.png', '/1.png'],
+                    link: '',
+                    linkLabel: 'Profil Bisnis ↗',
+                  };
+                  const updated = [...currentList, newExp];
+                  setData({ ...data, experiences: updated });
+                  setActiveExperienceIdx(updated.length - 1);
+                }}
+                className="px-4 py-1.5 rounded-full text-xs font-bold bg-forest text-white hover:bg-forest-dark transition-colors shadow-2xs shrink-0 cursor-pointer"
+              >
+                + Tambah Pengalaman Baru
+              </button>
             </div>
 
             {/* Experience Selector Tabs */}
             <div className="flex flex-wrap gap-2 border-b border-[#CAD7C5]/70 pb-4">
               {(data.experiences || DEFAULT_PORTFOLIO_DATA.experiences || []).map((exp, idx) => (
                 <button
-                  key={exp.id}
+                  key={exp.id || idx}
                   onClick={() => setActiveExperienceIdx(idx)}
                   className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
                     activeExperienceIdx === idx
@@ -1252,7 +1290,25 @@ export default function AdminPortal() {
                     </div>
                   </div>
 
-                  <div className="pt-2 flex justify-end">
+                  <div className="pt-4 border-t border-[#CAD7C5]/60 flex items-center justify-between">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (exps.length <= 1) {
+                          alert('Minimal harus ada 1 riwayat pengalaman kerja.');
+                          return;
+                        }
+                        if (window.confirm(`Yakin ingin menghapus pengalaman kerja "${currentExp.title}"?`)) {
+                          const updated = exps.filter((_, i) => i !== activeExperienceIdx);
+                          setData({ ...data, experiences: updated });
+                          setActiveExperienceIdx(Math.max(0, activeExperienceIdx - 1));
+                        }
+                      }}
+                      className="px-3 py-1.5 rounded-lg text-xs font-medium text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
+                    >
+                      🗑 Hapus Pengalaman Ini
+                    </button>
+
                     <button
                       onClick={handleSave}
                       className="px-6 py-2.5 rounded-full bg-forest text-white text-xs font-bold hover:bg-forest-dark transition-colors shadow-sm cursor-pointer"
@@ -1271,20 +1327,55 @@ export default function AdminPortal() {
         {/* ================================================================= */}
         {activeTab === 'projects' && (
           <div className="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 border border-[#CAD7C5] shadow-sm space-y-6">
-            <div>
-              <h2 className="font-serif text-xl font-bold text-neutral-900">
-                Pengaturan Teks & Foto — Proyek Kampus & Akademik (MY WORK INCLUDES)
-              </h2>
-              <p className="text-xs text-neutral-500 mt-1">
-                Pilih proyek kampus untuk mengedit judul, ringkasan, tantangan, strategi, metrik hasil, foto sampul, dan foto-foto dokumentasi pendukung.
-              </p>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <h2 className="font-serif text-xl font-bold text-neutral-900">
+                  Pengaturan Teks & Foto — Proyek Kampus & Akademik (MY WORK INCLUDES)
+                </h2>
+                <p className="text-xs text-neutral-500 mt-1">
+                  Pilih proyek kampus untuk mengedit judul, ringkasan, tantangan, strategi, metrik hasil, foto sampul, dan foto-foto dokumentasi pendukung.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => {
+                  const currentProjects = data.projects || DEFAULT_PORTFOLIO_DATA.projects || [];
+                  const newProj: ProjectDoc = {
+                    id: `proj-${Date.now()}`,
+                    category: 'TECH & BUSINESS CASE STUDY',
+                    title: 'Judul Proyek Baru',
+                    tag: 'Product & Business Analyst',
+                    period: '2025',
+                    badgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300',
+                    summary: 'Ringkasan solusi digital atau inovasi bisnis yang dikembangkan.',
+                    challenge: 'Tantangan permasalahan utama yang diselesaikan.',
+                    strategy: 'Strategi perancangan sistem dan metodologi pengerjaan.',
+                    results: [
+                      'Fitur utama berhasil diimplementasikan',
+                      'Uji coba pengguna dengan hasil positif',
+                      'Dokumentasi sistem terstandarisasi',
+                    ],
+                    image: '/1.png',
+                    extraImages: ['/1.png', '/2.png', '/3.png'],
+                    link: '',
+                    linkLabel: 'Buka Dokumentasi ↗',
+                  };
+                  const updated = [...currentProjects, newProj];
+                  setData({ ...data, projects: updated });
+                  setActiveProjectIdx(updated.length - 1);
+                }}
+                className="px-4 py-1.5 rounded-full text-xs font-bold bg-forest text-white hover:bg-forest-dark transition-colors shadow-2xs shrink-0 cursor-pointer"
+              >
+                + Tambah Proyek Baru
+              </button>
             </div>
 
             {/* Project Selector Tabs */}
             <div className="flex flex-wrap gap-2 border-b border-[#CAD7C5]/70 pb-4">
-              {data.projects.map((p, idx) => (
+              {(data.projects || DEFAULT_PORTFOLIO_DATA.projects || []).map((p, idx) => (
                 <button
-                  key={p.id}
+                  key={p.id || idx}
                   onClick={() => setActiveProjectIdx(idx)}
                   className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
                     activeProjectIdx === idx
@@ -1493,7 +1584,26 @@ export default function AdminPortal() {
                   </div>
                 </div>
 
-                <div className="pt-2 flex justify-end">
+                <div className="pt-4 border-t border-[#CAD7C5]/60 flex items-center justify-between">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (data.projects.length <= 1) {
+                        alert('Minimal harus ada 1 proyek dalam portofolio.');
+                        return;
+                      }
+                      const currentProj = data.projects[activeProjectIdx];
+                      if (window.confirm(`Yakin ingin menghapus proyek "${currentProj?.title}"?`)) {
+                        const updated = data.projects.filter((_, i) => i !== activeProjectIdx);
+                        setData({ ...data, projects: updated });
+                        setActiveProjectIdx(Math.max(0, activeProjectIdx - 1));
+                      }
+                    }}
+                    className="px-3 py-1.5 rounded-lg text-xs font-medium text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
+                  >
+                    🗑 Hapus Proyek Ini
+                  </button>
+
                   <button
                     onClick={handleSave}
                     className="px-6 py-2.5 rounded-full bg-forest text-white text-xs font-bold hover:bg-forest-dark transition-colors shadow-sm cursor-pointer"
@@ -1511,20 +1621,50 @@ export default function AdminPortal() {
         {/* ================================================================= */}
         {activeTab === 'awards' && (
           <div className="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 border border-[#CAD7C5] shadow-sm space-y-6">
-            <div>
-              <h2 className="font-serif text-xl font-bold text-neutral-900">
-                Pengaturan Kejuaraan, Sertifikat & Foto Dokumentasi Panggung
-              </h2>
-              <p className="text-xs text-neutral-500 mt-1">
-                Ubah judul lomba, penyelenggara, deskripsi kemenangan, foto sertifikat resmi, foto panggung penghargaan, dan link publikasi berita.
-              </p>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <h2 className="font-serif text-xl font-bold text-neutral-900">
+                  Pengaturan Kejuaraan, Sertifikat & Foto Dokumentasi Panggung
+                </h2>
+                <p className="text-xs text-neutral-500 mt-1">
+                  Ubah judul lomba, penyelenggara, deskripsi kemenangan, foto sertifikat resmi, foto panggung penghargaan, dan link publikasi berita.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => {
+                  const currentAwards = data.awards || DEFAULT_PORTFOLIO_DATA.awards || [];
+                  const newAward: AwardItem = {
+                    id: `award-${Date.now()}`,
+                    year: '2026',
+                    rank: '1st Winner',
+                    rankBadge: 'bg-rose-dark text-white',
+                    title: 'Nama Kompetisi Bisnis / Lomba Baru',
+                    organizer: 'Institusi / Universitas Penyelenggara',
+                    scope: 'Tingkat Nasional',
+                    level: 'Nasional',
+                    desc: 'Deskripsi capaian penghargaan dan keunggulan ide yang dipresentasikan.',
+                    certImg: '/11.png',
+                    eventImg: '/12.png',
+                    link: '',
+                    linkLabel: 'Publikasi Berita ↗',
+                  };
+                  const updated = [...currentAwards, newAward];
+                  setData({ ...data, awards: updated });
+                  setActiveAwardIdx(updated.length - 1);
+                }}
+                className="px-4 py-1.5 rounded-full text-xs font-bold bg-forest text-white hover:bg-forest-dark transition-colors shadow-2xs shrink-0 cursor-pointer"
+              >
+                + Tambah Penghargaan Baru
+              </button>
             </div>
 
             {/* Award Selector Tabs */}
             <div className="flex flex-wrap gap-2 border-b border-[#CAD7C5]/70 pb-4">
-              {data.awards.map((award, idx) => (
+              {(data.awards || DEFAULT_PORTFOLIO_DATA.awards || []).map((award, idx) => (
                 <button
-                  key={idx}
+                  key={award.id || idx}
                   onClick={() => setActiveAwardIdx(idx)}
                   className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
                     activeAwardIdx === idx
@@ -1685,7 +1825,26 @@ export default function AdminPortal() {
                   </div>
                 </div>
 
-                <div className="pt-2 flex justify-end">
+                <div className="pt-4 border-t border-[#CAD7C5]/60 flex items-center justify-between">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (data.awards.length <= 1) {
+                        alert('Minimal harus ada 1 penghargaan dalam portofolio.');
+                        return;
+                      }
+                      const currentAward = data.awards[activeAwardIdx];
+                      if (window.confirm(`Yakin ingin menghapus penghargaan "${currentAward?.title}"?`)) {
+                        const updated = data.awards.filter((_, i) => i !== activeAwardIdx);
+                        setData({ ...data, awards: updated });
+                        setActiveAwardIdx(Math.max(0, activeAwardIdx - 1));
+                      }
+                    }}
+                    className="px-3 py-1.5 rounded-lg text-xs font-medium text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
+                  >
+                    🗑 Hapus Penghargaan Ini
+                  </button>
+
                   <button
                     onClick={handleSave}
                     className="px-6 py-2.5 rounded-full bg-forest text-white text-xs font-bold hover:bg-forest-dark transition-colors shadow-sm cursor-pointer"
@@ -1713,9 +1872,33 @@ export default function AdminPortal() {
                 </p>
               </div>
 
-              <span className="text-xs font-mono bg-sage-50 text-neutral-900 font-bold px-3 py-1.5 rounded-full border border-[#CAD7C5]">
-                {data.skills?.reduce((acc, cat) => acc + cat.skills.length, 0) || 0} Total Skills
-              </span>
+              <div className="flex items-center gap-3">
+                <span className="text-xs font-mono bg-sage-50 text-neutral-900 font-bold px-3 py-1.5 rounded-full border border-[#CAD7C5]">
+                  {data.skills?.reduce((acc, cat) => acc + cat.skills.length, 0) || 0} Total Skills
+                </span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const currentSkills = data.skills || DEFAULT_PORTFOLIO_DATA.skills || [];
+                    const newCat: SkillCategory = {
+                      id: `cat-${Date.now()}`,
+                      title: 'Kategori Keahlian Baru',
+                      subtitle: 'Competency Area',
+                      type: 'hard',
+                      icon: '✨',
+                      badgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300',
+                      description: 'Deskripsi bidang kompetensi dan keahlian.',
+                      skills: ['Skill 1', 'Skill 2', 'Skill 3'],
+                    };
+                    const updated = [...currentSkills, newCat];
+                    setData({ ...data, skills: updated });
+                    setActiveSkillIdx(updated.length - 1);
+                  }}
+                  className="px-4 py-1.5 rounded-full text-xs font-bold bg-forest text-white hover:bg-forest-dark transition-colors shadow-2xs shrink-0 cursor-pointer"
+                >
+                  + Tambah Kategori
+                </button>
+              </div>
             </div>
 
             {/* Category Selector Tabs */}
@@ -1858,7 +2041,26 @@ export default function AdminPortal() {
                   </div>
                 </div>
 
-                <div className="pt-2 flex justify-end">
+                <div className="pt-4 border-t border-[#CAD7C5]/60 flex items-center justify-between">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if ((data.skills || []).length <= 1) {
+                        alert('Minimal harus ada 1 kategori keahlian.');
+                        return;
+                      }
+                      const currentCat = data.skills?.[activeSkillIdx];
+                      if (window.confirm(`Yakin ingin menghapus kategori keahlian "${currentCat?.title}"?`)) {
+                        const updated = (data.skills || []).filter((_, i) => i !== activeSkillIdx);
+                        setData({ ...data, skills: updated });
+                        setActiveSkillIdx(Math.max(0, activeSkillIdx - 1));
+                      }
+                    }}
+                    className="px-3 py-1.5 rounded-lg text-xs font-medium text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
+                  >
+                    🗑 Hapus Kategori Ini
+                  </button>
+
                   <button
                     onClick={handleSave}
                     className="px-6 py-2.5 rounded-full bg-forest text-white text-xs font-bold hover:bg-forest-dark transition-colors shadow-sm cursor-pointer"
