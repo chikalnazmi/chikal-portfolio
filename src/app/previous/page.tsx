@@ -537,7 +537,7 @@ export default function Home() {
       title: 'Knitting & Crochet',
       sub: 'Eksplorasi kreativitas karya handmade',
       tag: 'Artisanal Craft',
-      icon: '🧶',
+      icon: '',
       img: 'https://images.unsplash.com/photo-1605289982774-9a6fef564df8?q=80&w=600&fit=crop',
       desc: 'Mengekspresikan ketelitian melalui rajutan benang manual tangan, eksplorasi pola baru, dan merancang karya aksesoris bernilai artistik tinggi.',
     },
@@ -554,7 +554,7 @@ export default function Home() {
       title: 'Reading & Learning',
       sub: 'Eksplorasi literatur & self-development',
       tag: 'Continuous Growth',
-      icon: '📚',
+      icon: '',
       img: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=600&fit=crop',
       desc: 'Membaca buku-buku strategi bisnis, psikologi konsumen, biografi pemimpin dunia, dan pengembangan diri untuk terus mengasah ketajaman wawasan.',
     },
@@ -806,7 +806,7 @@ export default function Home() {
                 className="px-6 py-3 rounded-full text-sm font-semibold bg-white/80 border border-[#CAD7C5] text-forest hover:bg-white hover:border-rose-dusty transition-all flex items-center gap-2"
               >
                 <span>Email Inquiries</span>
-                <span>✉</span>
+                <span></span>
               </a>
             </div>
 
@@ -821,7 +821,7 @@ export default function Home() {
                 {/* Cute Washi Tape Sticker (Cute Mode) */}
               {isCuteMode && (
                 <div className="absolute -top-3.5 left-4 z-20 px-3.5 py-1 washi-tape rounded-xs -rotate-3 text-[11px] font-serif italic text-[#781E34] flex items-center gap-1.5">
-                  <span>🌸</span> note to self: keep growing ♡
+                  <span></span> note to self: keep growing ♡
                 </div>
               )}
               
@@ -832,7 +832,7 @@ export default function Home() {
                   <p className="font-bold mb-0.5 text-[10px] text-[#A6435B] flex items-center gap-1">
                     <span>daily reminder ♡</span>
                   </p>
-                  <p className="text-[10px] leading-tight text-[#4A3B2C]">live gently, dream freely 🌸</p>
+                  <p className="text-[10px] leading-tight text-[#4A3B2C]">live gently, dream freely </p>
                 </div>
               )}
 
@@ -919,7 +919,7 @@ export default function Home() {
               {/* Header Badge */}
               <div className="flex items-center justify-between gap-2 mb-4">
                 <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-rose-blush/80 text-rose-dark border border-rose-dusty/40 uppercase tracking-wider shadow-2xs">
-                  {academicData.badge || '🎓 FORMAL DEGREE'}
+                  {academicData.badge || ' FORMAL DEGREE'}
                 </span>
                 <span className="text-xs font-mono font-bold text-forest/60">
                   {academicData.period || '2020 – 2024'}
@@ -938,7 +938,7 @@ export default function Home() {
               <div className="space-y-3 mb-6">
                 <div className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-white border border-[#CAD7C5]/70 shadow-2xs">
                   <div className="w-10 h-10 rounded-xl bg-forest text-[#E8EFE5] flex items-center justify-center text-base font-bold shrink-0">
-                    🌟
+                    
                   </div>
                   <div>
                     <span className="text-[10px] font-bold uppercase tracking-wider text-forest/60 block">
@@ -952,7 +952,7 @@ export default function Home() {
 
                 <div className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-white border border-[#CAD7C5]/70 shadow-2xs">
                   <div className="w-10 h-10 rounded-xl bg-rose-dark text-white flex items-center justify-center text-base font-bold shrink-0">
-                    🌐
+                    
                   </div>
                   <div>
                     <span className="text-[10px] font-bold uppercase tracking-wider text-rose-dark block">
@@ -1012,7 +1012,7 @@ export default function Home() {
                 {/* IT / Tech */}
                 <div>
                   <span className="block text-[10px] font-bold uppercase tracking-wider text-forest/60 mb-1.5 flex items-center gap-1.5">
-                    <span>💻</span>
+                    <span></span>
                     <span>IT & Digital Systems</span>
                   </span>
                   <div className="flex flex-wrap gap-1.5">
@@ -1030,7 +1030,7 @@ export default function Home() {
                 {/* Business */}
                 <div>
                   <span className="block text-[10px] font-bold uppercase tracking-wider text-forest/60 mb-1.5 flex items-center gap-1.5">
-                    <span>📈</span>
+                    <span></span>
                     <span>Business & Operations</span>
                   </span>
                   <div className="flex flex-wrap gap-1.5">
@@ -1048,7 +1048,7 @@ export default function Home() {
                 {/* Creative */}
                 <div>
                   <span className="block text-[10px] font-bold uppercase tracking-wider text-forest/60 mb-1.5 flex items-center gap-1.5">
-                    <span>🎬</span>
+                    <span></span>
                     <span>Creative & Media</span>
                   </span>
                   <div className="flex flex-wrap gap-1.5">
@@ -1109,7 +1109,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="px-3.5 py-1.5 rounded-full border border-forest/30 bg-white text-[11px] font-bold text-rose-dark hover:bg-forest hover:text-white transition-all shadow-2xs shrink-0"
               >
-                Scan me! 📱
+                Scan me! 
               </a>
             </div>
 
@@ -1192,7 +1192,7 @@ export default function Home() {
                     className="absolute inset-0 bg-forest/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer"
                   >
                     <span className="px-3.5 py-1.5 rounded-full bg-white text-forest text-xs font-semibold shadow-md">
-                      🔍 Buka Galeri Lengkap ({exp.extraImages?.length || 1} Foto)
+                       Buka Galeri Lengkap ({exp.extraImages?.length || 1} Foto)
                     </span>
                   </div>
                 </div>
@@ -1358,7 +1358,7 @@ export default function Home() {
                   {/* Hover Quick Prompt */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-forest/30 pointer-events-none">
                     <span className="px-3.5 py-1.5 rounded-full bg-white/95 text-rose-dark text-xs font-bold shadow-md flex items-center gap-1.5 backdrop-blur-xs">
-                      <span>🔍 Buka Dokumentasi</span>
+                      <span> Buka Dokumentasi</span>
                       <span>↗</span>
                     </span>
                   </div>
@@ -1451,7 +1451,7 @@ export default function Home() {
                 : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
             }`}
           >
-            🏆 1st Winner (2)
+             1st Winner (2)
           </button>
           <button
             onClick={() => setAwardFilter('2nd')}
@@ -1461,7 +1461,7 @@ export default function Home() {
                 : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
             }`}
           >
-            🥈 2nd Winner (2)
+             2nd Winner (2)
           </button>
           <button
             onClick={() => setAwardFilter('top5')}
@@ -1471,7 +1471,7 @@ export default function Home() {
                 : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
             }`}
           >
-            🌟 Top 5 Finalist (2)
+             Top 5 Finalist (2)
           </button>
           <button
             onClick={() => setAwardFilter('speaker')}
@@ -1481,7 +1481,7 @@ export default function Home() {
                 : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
             }`}
           >
-            🎙️ Best Speaker (1)
+            ️ Best Speaker (1)
           </button>
         </div>
 
@@ -1506,7 +1506,7 @@ export default function Home() {
                 awardFilter === '1st' ? 'bg-rose-dark text-white' : 'text-forest/70 hover:bg-[#E8EFE5]'
               }`}
             >
-              🏆
+              
             </button>
             <button
               onClick={() => setAwardFilter('2nd')}
@@ -1515,7 +1515,7 @@ export default function Home() {
                 awardFilter === '2nd' ? 'bg-rose-dark text-white' : 'text-forest/70 hover:bg-[#E8EFE5]'
               }`}
             >
-              🥈
+              
             </button>
             <button
               onClick={() => setAwardFilter('top5')}
@@ -1533,7 +1533,7 @@ export default function Home() {
                 awardFilter === 'speaker' ? 'bg-rose-dark text-white' : 'text-forest/70 hover:bg-[#E8EFE5]'
               }`}
             >
-              🎙️
+              ️
             </button>
           </div>
 
@@ -1612,7 +1612,7 @@ export default function Home() {
 
                     <div className="pt-3 border-t border-white/20 flex items-center justify-between">
                       <span className="text-[11px] font-bold text-rose-blush flex items-center gap-1">
-                        <span>📜 Bukti Foto</span>
+                        <span> Bukti Foto</span>
                       </span>
                       <div className="flex items-center gap-2">
                         {award.link && (
@@ -1623,7 +1623,7 @@ export default function Home() {
                             onClick={(e) => e.stopPropagation()}
                             className="px-2.5 py-1.5 rounded-full bg-white/20 hover:bg-white text-white hover:text-forest text-[11px] font-bold border border-white/30 transition-colors flex items-center gap-1"
                           >
-                            <span>🔗</span>
+                            <span></span>
                             <span>{award.linkLabel || 'Publikasi'}</span>
                           </a>
                         )}
@@ -1706,7 +1706,7 @@ export default function Home() {
                 </div>
 
                 <div className="text-[11px] text-forest/60 font-medium hidden sm:flex items-center gap-1.5 bg-white/70 px-3 py-1 rounded-full border border-[#CAD7C5]/60">
-                  <span>🔄 Auto-slide foto 3s aktif</span>
+                  <span> Auto-slide foto 3s aktif</span>
                 </div>
               </div>
 
@@ -1825,7 +1825,7 @@ export default function Home() {
                             className="absolute bottom-3 right-3 z-10 px-2.5 py-1 rounded-full bg-white/90 hover:bg-rose-blush text-forest text-[10px] font-bold shadow-xs transition-colors"
                             title="Buka Dokumentasi Resolusi Penuh"
                           >
-                            🔍 Galeri
+                             Galeri
                           </button>
                         </div>
 
@@ -1982,7 +1982,7 @@ export default function Home() {
         {/* Trust Banner Below Cards */}
         <div className="mt-8 p-4 rounded-2xl bg-[#CAD7C5]/25 border border-[#CAD7C5]/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-forest/80">
           <div className="flex items-center gap-2.5">
-            <span className="text-lg">📜</span>
+            <span className="text-lg"></span>
             <span className="font-medium">
               Seluruh sertifikat diterbitkan oleh institusi terakreditasi internasional & nasional (RevoU, MySkill, ETS International).
             </span>
@@ -2214,7 +2214,7 @@ export default function Home() {
             /* ADAPTIVE 2-PHONE STAGE (For Dua Sisi Laundry / Accounts without landscape video) */
             <div className="py-6 flex flex-col items-center justify-center">
               <div className="mb-5 inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#E8EFE5] border border-[#CAD7C5] text-forest text-xs font-medium">
-                <span>📱</span>
+                <span></span>
                 <span>Dual Mobile Showcase — Video Vertikal (Instagram Reels & TikTok) • Format Landscape Segera Hadir</span>
               </div>
 
@@ -2390,7 +2390,7 @@ export default function Home() {
                 href={`mailto:${portfolioData.socials.email}`}
                 className="px-6 py-3 rounded-full text-xs font-bold bg-white text-forest hover:bg-rose-blush transition-colors flex items-center gap-2 shadow-sm"
               >
-                <span>✉ Kirim Email: {portfolioData.socials.email}</span>
+                <span> Kirim Email: {portfolioData.socials.email}</span>
               </a>
               <a
                 href={portfolioData.socials.whatsapp}
@@ -2398,7 +2398,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="px-6 py-3 rounded-full text-xs font-bold bg-rose-dark text-white hover:bg-rose-berry transition-colors flex items-center gap-2 shadow-sm"
               >
-                <span>💬 WhatsApp Langsung</span>
+                <span> WhatsApp Langsung</span>
               </a>
               <a
                 href={portfolioData.socials.linkedin}
@@ -2520,7 +2520,7 @@ export default function Home() {
           }`}
           title="Klik untuk beralih mode tampilan kapan saja"
         >
-          <span className="text-base">{isCuteMode ? '🌸' : '🌿'}</span>
+          <span className="text-base">{isCuteMode ? '' : ''}</span>
           <span>{isCuteMode ? 'Kembalikan ke Editorial' : 'Coba Mode Cute Floral'}</span>
         </button>
       </div>
@@ -2726,7 +2726,7 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="px-4 py-2 rounded-full text-xs font-bold bg-emerald-100 border border-emerald-300 text-emerald-900 hover:bg-emerald-200 transition-colors shadow-xs flex items-center gap-1.5"
                   >
-                    <span>🔗</span>
+                    <span></span>
                     <span>{modalData.linkLabel || 'Buka Tautan Eksternal / Berita ↗'}</span>
                   </a>
                 )}

@@ -1306,7 +1306,7 @@ export default function AdminPortal() {
                       }}
                       className="px-3 py-1.5 rounded-lg text-xs font-medium text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
                     >
-                      🗑 Hapus Pengalaman Ini
+                      Hapus Pengalaman Ini
                     </button>
 
                     <button
@@ -1601,7 +1601,7 @@ export default function AdminPortal() {
                     }}
                     className="px-3 py-1.5 rounded-lg text-xs font-medium text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
                   >
-                    🗑 Hapus Proyek Ini
+                    Hapus Proyek Ini
                   </button>
 
                   <button
@@ -1842,7 +1842,7 @@ export default function AdminPortal() {
                     }}
                     className="px-3 py-1.5 rounded-lg text-xs font-medium text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
                   >
-                    🗑 Hapus Penghargaan Ini
+                    Hapus Penghargaan Ini
                   </button>
 
                   <button
@@ -1885,7 +1885,7 @@ export default function AdminPortal() {
                       title: 'Kategori Keahlian Baru',
                       subtitle: 'Competency Area',
                       type: 'hard',
-                      icon: '✨',
+                      icon: '',
                       badgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300',
                       description: 'Deskripsi bidang kompetensi dan keahlian.',
                       skills: ['Skill 1', 'Skill 2', 'Skill 3'],
@@ -2058,7 +2058,7 @@ export default function AdminPortal() {
                     }}
                     className="px-3 py-1.5 rounded-lg text-xs font-medium text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
                   >
-                    🗑 Hapus Kategori Ini
+                    Hapus Kategori Ini
                   </button>
 
                   <button

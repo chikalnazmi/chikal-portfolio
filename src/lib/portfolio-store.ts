@@ -541,7 +541,7 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
     },
   ],
   academic: {
-    badge: '🎓 Formal Degree',
+    badge: 'Formal Degree',
     period: '2020 – 2024',
     degree: 'Sarjana Terapan Sistem Informasi Bisnis (D4 SIB)',
     institution: 'Jurusan Teknologi Informasi — Politeknik Negeri Malang',
@@ -559,7 +559,7 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
       title: 'IT & Digital Systems',
       subtitle: 'Technical Skills',
       type: 'hard',
-      icon: '💻',
+      icon: '',
       badgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300',
       description: 'Keahlian sistem informasi, riset pengguna, dan perancangan prototipe antarmuka digital.',
       skills: [
@@ -576,7 +576,7 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
       title: 'Business & Operations',
       subtitle: 'Business Skills',
       type: 'hard',
-      icon: '📈',
+      icon: '',
       badgeColor: 'bg-amber-100 text-amber-900 border-amber-300',
       description: 'Penyusunan alur operasional, riset pasar, dan kelayakan pemodelan bisnis.',
       skills: [
@@ -593,7 +593,7 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
       title: 'Creative & Media',
       subtitle: 'Creative Skills',
       type: 'hard',
-      icon: '🎬',
+      icon: '',
       badgeColor: 'bg-rose-100 text-rose-900 border-rose-300',
       description: 'Pembuatan konten visual, video pendek media sosial, dan penceritaan brand.',
       skills: [
@@ -610,7 +610,7 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
       title: 'Personal Skills',
       subtitle: 'Personal Strengths',
       type: 'soft',
-      icon: '✨',
+      icon: '',
       badgeColor: 'bg-purple-100 text-purple-900 border-purple-300',
       description: 'Kemampuan komunikasi, kepemimpinan, dan kerja sama tim.',
       skills: [
