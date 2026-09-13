@@ -139,6 +139,23 @@
   );
 }
 
+/* Botanical Flourishes & Micro-interactions */
+.botanical-corner {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+.group:hover .botanical-corner {
+  transform: scale(1.15) rotate(6deg);
+  opacity: 1 !important;
+}
+
+.botanical-watermark {
+  background-color: #F8FAF7;
+  background-image: radial-gradient(#BD5871 0.75px, transparent 0.75px), radial-gradient(#94AB8B 0.75px, #F8FAF7 0.75px);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+}
+
 
 /* Subtle Animated Float */
 @keyframes softFloat {

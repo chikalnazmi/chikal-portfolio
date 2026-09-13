@@ -22,6 +22,43 @@ const PETAL_PARTICLES = [
   { left: '94%', delay: '6.5s', size: 16, duration: '21s' },
 ];
 
+// Reusable Signature Botanical Flourishes (Lily & Magnolia Motif)
+function BotanicalDivider({ className = "" }: { className?: string }) {
+  return (
+    <div className={`w-full max-w-5xl mx-auto py-10 sm:py-14 flex items-center justify-center gap-4 px-4 opacity-75 ${className}`}>
+      <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#CAD7C5] to-[#CAD7C5]"></div>
+      <div className="flex items-center gap-2 text-rose-dusty select-none">
+        <span className="text-[10px] text-rose-dusty/60">✦</span>
+        <svg className="w-5 h-5 text-rose-dusty" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path d="M12 2C13.5 5.5 17.5 7.5 21 8C17.5 9.5 14.5 13.5 14 17C12.5 13.5 8.5 11.5 5 11C8.5 9.5 11.5 5.5 12 2Z" fill="#BD5871" fillOpacity="0.25" />
+          <circle cx="12" cy="11" r="1.5" fill="#BD5871" />
+        </svg>
+        <span className="text-[10px] text-rose-dusty/60">✦</span>
+      </div>
+      <div className="h-px flex-1 bg-gradient-to-l from-transparent via-[#CAD7C5] to-[#CAD7C5]"></div>
+    </div>
+  );
+}
+
+function BotanicalCorner({ className = "top-3 right-3" }: { className?: string }) {
+  return (
+    <div className={`absolute ${className} pointer-events-none z-10 botanical-corner opacity-40 group-hover:opacity-100 transition-all duration-300`}>
+      <svg className="w-5 h-5 sm:w-6 sm:h-6 text-rose-dusty/80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M4 20c4-4 8-6 16-8-2 8-4 12-8 16-2-2-4-5-8-8z" fill="#BD5871" fillOpacity="0.15" />
+        <path d="M12 12c2-3 5-4 8-5-1 4-2 6-5 8" strokeDasharray="1 1" />
+      </svg>
+    </div>
+  );
+}
+
+function FloralBullet() {
+  return (
+    <svg className="w-3.5 h-3.5 text-rose-dusty shrink-0 mt-0.5" viewBox="0 0 16 16" fill="currentColor">
+      <path d="M8 1c1.5 2.5 3.5 3.5 6 4-2.5 1.5-3.5 3.5-4 6-1.5-2.5-3.5-3.5-6-4 2.5-1.5 3.5-3.5 4-6z" opacity="0.85" />
+    </svg>
+  );
+}
+
 export default function Home() {
   // Modal state for certificates and documentation
   const [modalData, setModalData] = useState<{
@@ -95,10 +132,14 @@ export default function Home() {
   const creatorAccounts = portfolioData.creatorAccounts || DEFAULT_PORTFOLIO_DATA.creatorAccounts;
   const currentCreator = creatorAccounts[activeCreatorKey] || Object.values(creatorAccounts)[0];
 
-  // Filtered projects
+  // Top featured project for full-width highlight card
+  const featuredProject = projectsList[0];
+  const gridProjects = projectsList.slice(1);
+
+  // Filtered projects for grid
   const filteredProjects = activeProjectFilter === 'all'
-    ? projectsList
-    : projectsList.filter(p => 
+    ? gridProjects
+    : gridProjects.filter(p => 
         p.category.toLowerCase().includes(activeProjectFilter.toLowerCase()) || 
         p.tag.toLowerCase().includes(activeProjectFilter.toLowerCase())
       );
@@ -167,10 +208,7 @@ export default function Home() {
       </div>
       
       {/* ========================================================================= */}
-      {/* 1. TOP MINIMALIST NAVIGATION                                              */}
-      {/* ========================================================================= */}
-            {/* ========================================================================= */}
-      {/* NAVBAR: Modern Floating Editorial Pill (Exact Version from a92721e)        */}
+      {/* 1. NAVBAR: Modern Floating Editorial Pill (Sequential Navigation)         */}
       {/* ========================================================================= */}
       <nav className="sticky top-4 z-40 w-full max-w-[1560px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         <div className="bg-white/85 backdrop-blur-md border border-[#CAD7C5] rounded-full px-5 py-3 shadow-sm flex items-center justify-between transition-all hover:border-rose-dusty/40">
@@ -190,12 +228,12 @@ export default function Home() {
             </div>
           </Link>
 
-          {/* Desktop Nav Links */}
+          {/* Desktop Nav Links (100% Sequential Match with Page Content Flow) */}
           <div className="hidden lg:flex items-center gap-5 xl:gap-6 text-xs font-semibold tracking-wider uppercase text-forest/80">
             <a href="#about" className="hover:text-rose-dark transition-colors whitespace-nowrap">About</a>
+            <a href="#process" className="hover:text-rose-dark transition-colors whitespace-nowrap">Process</a>
             <a href="#projects" className="hover:text-rose-dark transition-colors whitespace-nowrap">Works</a>
             <a href="#creator" className="hover:text-rose-dark transition-colors whitespace-nowrap">Creator Studio</a>
-            <a href="#process" className="hover:text-rose-dark transition-colors whitespace-nowrap">Process</a>
             <a href="#experience" className="hover:text-rose-dark transition-colors whitespace-nowrap">Experience</a>
             <a href="#awards" className="hover:text-rose-dark transition-colors whitespace-nowrap">Awards</a>
           </div>
@@ -232,9 +270,9 @@ export default function Home() {
         {mobileMenuOpen && (
           <div className="lg:hidden mt-2 bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-2xl p-4 shadow-lg flex flex-col gap-2 text-xs font-medium text-forest">
             <a href="#about" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 hover:bg-rose-50 rounded-lg transition-colors">About</a>
+            <a href="#process" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 hover:bg-rose-50 rounded-lg transition-colors">Process</a>
             <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 hover:bg-rose-50 rounded-lg transition-colors">Works</a>
             <a href="#creator" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 hover:bg-rose-50 rounded-lg transition-colors">Creator Studio</a>
-            <a href="#process" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 hover:bg-rose-50 rounded-lg transition-colors">Process</a>
             <a href="#experience" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 hover:bg-rose-50 rounded-lg transition-colors">Experience</a>
             <a href="#awards" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 hover:bg-rose-50 rounded-lg transition-colors">Awards</a>
           </div>
@@ -299,10 +337,9 @@ export default function Home() {
 
               <a
                 href="#projects"
-                className="bg-white/90 hover:bg-white text-forest hover:text-rose-dark border border-[#CAD7C5] rounded-full px-6 py-3 text-sm font-semibold shadow-xs hover:shadow-sm transition-all flex items-center gap-2 cursor-pointer active:scale-95 whitespace-nowrap"
+                className="bg-white/80 border border-[#CAD7C5] hover:border-rose-dusty text-forest hover:text-rose-dark rounded-full px-6 sm:px-7 py-3 text-sm font-semibold shadow-xs hover:shadow-sm transition-all cursor-pointer whitespace-nowrap"
               >
-                <span>Explore Works</span>
-                <span>↓</span>
+                Lihat Studi Kasus ↓
               </a>
             </div>
 
@@ -311,25 +348,20 @@ export default function Home() {
               <div className="flex -space-x-2.5 overflow-hidden">
                 <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-2xs" src="/11.png" alt="Award 1" loading="lazy" decoding="async" />
                 <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-2xs" src="/12.png" alt="Award 2" loading="lazy" decoding="async" />
-                <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-2xs" src="/16.png" alt="Award 3" loading="lazy" decoding="async" />
+                <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-2xs" src="/13.png" alt="Award 3" loading="lazy" decoding="async" />
+                <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-2xs" src="/14.png" alt="Award 4" loading="lazy" decoding="async" />
               </div>
-              <div>
-                <p className="text-xs sm:text-sm font-bold text-forest leading-tight flex items-center gap-1.5">
-                  <span className="text-rose-dusty font-serif italic text-sm">✦</span>
-                  <span>{portfolioData.hero?.stat1Value || "7x"} {portfolioData.hero?.stat1Label || "National Awards"}</span>
-                </p>
-                <p className="text-[11px] sm:text-xs text-forest/70 font-medium leading-tight mt-0.5">
-                  {portfolioData.hero?.stat2Value ? `${portfolioData.hero.stat2Value} ${portfolioData.hero.stat2Label || "Reach"}` : "Business Case & IT Innovation"}
-                </p>
+              <div className="text-xs text-forest/75 font-medium">
+                <strong className="font-bold text-forest">7x Juara Nasional</strong> Kompetisi Business Plan &amp; Karya Tulis Ilmiah
               </div>
             </div>
 
           </div>
 
-          {/* ================= RIGHT COLUMN: Slot Foto Pribadi ================= */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end relative">
+          {/* ================= RIGHT COLUMN: Hero Photo Container ================= */}
+          <div className="lg:col-span-5 flex items-center justify-center relative">
             
-            {/* Ambient Halo Behind Image Card */}
+            {/* Halo Ambient Glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] pink-halo-glow rounded-full pointer-events-none z-0"></div>
 
             {/* Photo Frame Container */}
@@ -338,34 +370,23 @@ export default function Home() {
               {/* Photo Subject with Smooth Gradient & Border */}
               <div className="relative rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#F2F7EF]/90 to-[#E8EFE5]/70 flex items-end justify-center min-h-[380px] sm:min-h-[440px] md:min-h-[480px]">
                 <img
-                  src={portfolioData.hero?.avatarImg || "/2.png"}
-                  alt="Chikal Nazmi"
-                  className="w-full h-full max-h-[480px] object-contain object-bottom select-none transition-transform duration-700 hover:scale-[1.03] drop-shadow-md z-10"
+                  src={portfolioData.hero?.avatarImg || "/chikal-hero.png"}
+                  alt="Chikal Nazmi Mahira"
+                  className="w-full h-auto object-cover object-bottom max-h-[490px] drop-shadow-md transform hover:scale-[1.02] transition-transform duration-700 ease-out"
+                  loading="eager"
                   decoding="async"
                 />
+
+                {/* Subtle Gradient Fog at Feet */}
+                <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white/40 to-transparent pointer-events-none"></div>
               </div>
 
-              {/* Floating Badge 1 (Top-Left): Academic / Status */}
-              <div className="absolute top-6 left-6 z-20 bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-full px-3.5 py-1.5 shadow-md flex items-center gap-2 animate-soft-float">
-                <span className="w-2 h-2 rounded-full bg-rose-dusty shadow-[0_0_8px_rgba(189,88,113,0.8)] animate-pulse"></span>
+              {/* Floating Verified Student Pill */}
+              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap bg-white/95 backdrop-blur-md px-4 py-2 rounded-full border border-[#CAD7C5] shadow-lg flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
                 <span className="text-[11px] font-semibold text-forest">
-                  D4 SIB · Cum Laude
+                  D4 SIB Student • Politeknik Negeri Malang
                 </span>
-              </div>
-
-              {/* Floating Badge 2 (Bottom-Right): Reach / Growth */}
-              <div className="absolute bottom-6 right-6 z-20 bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-2xl p-3 shadow-lg text-left">
-                <div className="flex items-center gap-2.5">
-                  <span className="w-7 h-7 rounded-xl bg-[#F2F7EF] text-forest flex items-center justify-center font-bold text-xs">↗</span>
-                  <div>
-                    <p className="text-xs font-bold text-forest leading-tight">
-                      {portfolioData.hero?.stat2Value || "10K+"} Reach
-                    </p>
-                    <p className="text-[10px] text-rose-dark font-semibold">
-                      Digital Growth
-                    </p>
-                  </div>
-                </div>
               </div>
 
             </div>
@@ -374,9 +395,9 @@ export default function Home() {
 
         </div>
 
-        {/* 4 Statistical Metrics Bar: Sleek, Unified Editorial Ribbon */}
-        <div className="relative z-10 max-w-[1560px] mx-auto mt-14 sm:mt-18">
-          <div className="bg-white/70 backdrop-blur-md rounded-3xl p-4 sm:p-6 border border-[#CAD7C5]/60 shadow-xs grid grid-cols-2 md:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-[#CAD7C5]/40">
+        {/* Unified Glass Metric Ribbon Across Full Width */}
+        <div className="max-w-[1560px] mx-auto mt-14 sm:mt-16 bg-white/60 backdrop-blur-md border border-[#CAD7C5]/80 rounded-3xl p-3 sm:p-4 shadow-xs">
+          <div className="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-[#CAD7C5]/60">
             <div className="text-center py-3 sm:py-2 px-4">
               <span className="font-serif font-bold text-2xl sm:text-3xl text-forest block tracking-tight">
                 {portfolioData.hero?.stat1Value || "7x"}
@@ -443,183 +464,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ========================================================================= */}
-      {/* 4. BENTO VISUAL SHOWCASE MOSAIC (Curated Project Previews)                */}
-      {/* ========================================================================= */}
-      <section className="w-full py-20 sm:py-28 px-4 sm:px-8 lg:px-12 xl:px-16 relative">
-        <div className="max-w-[1560px] mx-auto">
-          
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
-            <div>
-              <span className="font-script text-2xl sm:text-3xl text-rose-dark block">/ Curated Portfolio /</span>
-              <h2 className="font-serif font-bold text-3xl sm:text-4xl text-forest tracking-tight mt-1">
-                Visual Work Mosaic
-              </h2>
-            </div>
-            <p className="text-xs sm:text-sm text-neutral-600 max-w-sm">
-              Tangkapan layar nyata dari perancangan sistem informasi, riset antarmuka digital, dan kampanye konten komersial.
-            </p>
-          </div>
-
-          {/* Mosaic Grid of 4 Highlights */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5 sm:gap-6">
-            
-            {/* Card 1 (Large - Sistem Koran) */}
-            <div 
-              onClick={() => openModal({
-                title: projectsList[0]?.title || 'Sistem Manajemen Pelanggan Koran',
-                category: 'WEB APP & SYSTEM ARCHITECTURE',
-                description: projectsList[0]?.summary || 'Sistem informasi terintegrasi untuk pencatatan sirkulasi, tagihan otomatis, dan pemetaan rute kurir harian.',
-                images: projectsList[0]?.extraImages && projectsList[0]?.extraImages.length > 0 ? projectsList[0].extraImages : ['/1.png', '/3.png'],
-                link: projectsList[0]?.link,
-                linkLabel: 'Dokumentasi Sistem ↗'
-              })}
-              className="lg:col-span-7 bg-white/95 backdrop-blur-xs rounded-3xl p-5 sm:p-6 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
-            >
-              <div className="relative overflow-hidden rounded-2xl bg-neutral-100 h-56 sm:h-72 mb-4">
-                <img 
-                  src={projectsList[0]?.image || "/1.png"} 
-                  alt="Sistem Manajemen Koran"
-                  className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500" 
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="font-sans font-bold text-base sm:text-lg text-forest group-hover:text-rose-dark transition-colors">
-                    {projectsList[0]?.title || "Sistem Manajemen Pelanggan Koran"}
-                  </h3>
-                  <p className="text-xs text-neutral-500 mt-0.5">{projectsList[0]?.tag || "Database Relasional & Sirkulasi Otomatis"}</p>
-                </div>
-                <span className="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
-                  Polinema D4 SIB
-                </span>
-              </div>
-            </div>
-
-            {/* Card 2 (Medium - SurveyKu) */}
-            <div 
-              onClick={() => openModal({
-                title: projectsList[1]?.title || 'Website SurveyKu (Riset Pasar & Polling)',
-                category: 'UX RESEARCH & ANALYTICS',
-                description: projectsList[1]?.summary || 'Platform kuesioner digital dengan analisis sentimen dan visualisasi demografi responden secara real-time.',
-                images: projectsList[1]?.extraImages && projectsList[1]?.extraImages.length > 0 ? projectsList[1].extraImages : ['/3.png', '/1.png'],
-                link: projectsList[1]?.link,
-                linkLabel: 'Buka Prototipe ↗'
-              })}
-              className="lg:col-span-5 bg-white/95 backdrop-blur-xs rounded-3xl p-5 sm:p-6 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
-            >
-              <div className="relative overflow-hidden rounded-2xl bg-neutral-100 h-56 sm:h-72 mb-4">
-                <img 
-                  src={projectsList[1]?.image || "/3.png"} 
-                  alt="Website SurveyKu"
-                  className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500" 
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="font-sans font-bold text-base sm:text-lg text-forest group-hover:text-rose-dark transition-colors">
-                    {projectsList[1]?.title || "Website SurveyKu Analytics"}
-                  </h3>
-                  <p className="text-xs text-neutral-500 mt-0.5">{projectsList[1]?.tag || "User Feedback & Data Modeling"}</p>
-                </div>
-                <span className="text-xs font-semibold px-3 py-1 rounded-full bg-rose-50 text-rose-dark font-serif italic border border-rose-200">
-                  UX Analytics
-                </span>
-              </div>
-            </div>
-
-            {/* Card 3 (Medium - JTI Certify) */}
-            <div 
-              onClick={() => openModal({
-                title: projectsList[2]?.title || 'JTI Certify (Verifikasi Sertifikat Online)',
-                category: 'SECURITY & VALIDATION',
-                description: projectsList[2]?.summary || 'Sistem verifikasi keaslian sertifikat digital mahasiswa menggunakan validasi kode unik dan basis data anti-pemalsuan.',
-                images: projectsList[2]?.extraImages && projectsList[2]?.extraImages.length > 0 ? projectsList[2].extraImages : ['/9.png', '/10.png'],
-                link: projectsList[2]?.link,
-                linkLabel: 'Verifikasi Sistem ↗'
-              })}
-              className="lg:col-span-5 bg-white/95 backdrop-blur-xs rounded-3xl p-5 sm:p-6 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
-            >
-              <div className="relative overflow-hidden rounded-2xl bg-neutral-100 h-56 sm:h-72 mb-4">
-                <img 
-                  src={projectsList[2]?.image || "/9.png"} 
-                  alt="JTI Certify"
-                  className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500" 
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="font-sans font-bold text-base sm:text-lg text-forest group-hover:text-rose-dark transition-colors">
-                    {projectsList[2]?.title || "JTI Certify Platform"}
-                  </h3>
-                  <p className="text-xs text-neutral-500 mt-0.5">{projectsList[2]?.tag || "Anti-Forgery Digital Credential"}</p>
-                </div>
-                <span className="text-xs font-semibold px-3 py-1 rounded-full bg-purple-50 text-purple-800 border border-purple-200">
-                  Polinema JTI
-                </span>
-              </div>
-            </div>
-
-            {/* Card 4 (Large - Manikarumi & Yarn Up Campaigns / Dynamic Project 4) */}
-            <div 
-              onClick={() => openModal({
-                title: projectsList[3]?.title || 'Manikarumi & Yarn Up Commercial Campaigns',
-                category: projectsList[3]?.category || 'COMMERCIAL CREATIVE & CAMPAIGN',
-                description: projectsList[3]?.summary || 'Eksekusi strategi konten media sosial berdaya jangkau tinggi, fotografi katalog produk, dan optimalisasi funnel konversi penjualan produk fashion hijab.',
-                images: projectsList[3]?.extraImages && projectsList[3]?.extraImages.length > 0 ? projectsList[3].extraImages : ['/17.png', '/18.png', '/7.png', '/8.png'],
-                link: projectsList[3]?.link || 'https://instagram.com/chikalnazmi',
-                linkLabel: projectsList[3]?.linkLabel || 'Lihat Instagram ↗'
-              })}
-              className="lg:col-span-7 bg-white/95 backdrop-blur-xs rounded-3xl p-5 sm:p-6 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
-            >
-              <div className="relative overflow-hidden rounded-2xl bg-neutral-100 h-56 sm:h-72 mb-4">
-                <img 
-                  src={projectsList[3]?.image || "/17.png"} 
-                  alt={projectsList[3]?.title || "Manikarumi Campaign"}
-                  className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500" 
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="font-sans font-bold text-base sm:text-lg text-forest group-hover:text-rose-dark transition-colors">
-                    {projectsList[3]?.title || "Manikarumi & Yarn Up Commercial Campaigns"}
-                  </h3>
-                  <p className="text-xs text-neutral-500 mt-0.5">{projectsList[3]?.tag || "Short-Form Video Production & Reach Surge"}</p>
-                </div>
-                <span className="text-xs font-semibold px-3 py-1 rounded-full bg-rose-50 text-rose-800 border border-rose-200">
-                  {projectsList[3]?.results?.[0] || "+2,089% Reach"}
-                </span>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
+      <BotanicalDivider />
 
       {/* ========================================================================= */}
-      {/* 5. VALUE PROPOSITION MANIFESTO ("What I Do" with Floating Skills)         */}
+      {/* 4. VALUE PROPOSITION & 3-PILLAR STRUCTURED SKILLS (#about)                 */}
       {/* ========================================================================= */}
-      <section id="about" className="w-full py-24 sm:py-32 px-4 sm:px-8 lg:px-12 xl:px-16 text-center relative">
+      <section id="about" className="w-full py-16 sm:py-24 px-4 sm:px-8 lg:px-12 xl:px-16 text-center relative">
         
-        {/* Soft Center Aura (Beloved Pink Halo) */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[480px] h-[300px] sm:h-[480px] pink-halo-glow-subtle rounded-full pointer-events-none z-0"></div>
+        {/* Soft Center Aura */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] sm:w-[500px] h-[320px] sm:h-[500px] pink-halo-glow-subtle rounded-full pointer-events-none z-0"></div>
 
         {/* Script / Editorial Kicker */}
         <div className="relative z-10 mb-4">
-          <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ What I do /</span>
+          <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ Core Philosophy &amp; Capabilities /</span>
         </div>
 
         {/* Big Bold Statement with Highlighted Words (Elian Ross Style) */}
-        <div className="relative z-10 max-w-3xl mx-auto mb-12">
+        <div className="relative z-10 max-w-3xl mx-auto mb-14">
           <p className="font-sans font-normal text-2xl sm:text-4xl md:text-5xl text-forest leading-snug sm:leading-tight tracking-tight">
             my focus is on blending{' '}
             <strong className="font-semibold text-forest">clear business strategy</strong>,{' '}
@@ -632,41 +493,118 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Floating Skill Pills Around the Statement with Harmonious Botanical Accents */}
-        <div className="relative z-10 flex flex-wrap justify-center gap-2.5 sm:gap-3 max-w-3xl mx-auto">
-          {((portfolioData.skills && portfolioData.skills.length > 0)
-            ? portfolioData.skills.flatMap(cat => cat.skills.map(s => ({ name: s, type: cat.type })))
-            : [
-                { name: 'Business Model Canvas', type: 'hard' },
-                { name: 'UI/UX & Market Research', type: 'hard' },
-                { name: 'SOP & Operational Flow', type: 'hard' },
-                { name: 'Figma Prototyping', type: 'hard' },
-                { name: 'Short-Form Video & CapCut', type: 'hard' },
-                { name: 'B2B Partnerships Strategy', type: 'hard' }
-              ]
-          ).slice(0, 15).map((skill, sIdx) => {
-            const isRoseDot = sIdx % 2 === 1;
-            return (
-              <span 
-                key={sIdx}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur-xs border border-[#CAD7C5] hover:border-rose-dusty/80 shadow-2xs hover:shadow-xs text-xs font-semibold text-forest hover:-translate-y-0.5 transition-all duration-200 cursor-default"
-              >
-                <span className={`w-2 h-2 rounded-full ${
-                  isRoseDot 
-                    ? 'bg-rose-dusty shadow-[0_0_6px_rgba(189,88,113,0.6)]' 
-                    : 'bg-forest/70 shadow-[0_0_6px_rgba(37,53,33,0.4)]'
-                }`}></span>
-                <span>{skill.name}</span>
-              </span>
-            );
-          })}
+        {/* 3 Structured Pillar Cards (Solving Tag Cloud Clump into Cohesive Hierarchy) */}
+        <div className="relative z-10 max-w-[1560px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 text-left">
+          
+          {/* Pillar 1: Clear Business Strategy */}
+          <div className="editorial-card p-6 sm:p-7 rounded-3xl bg-white/95 border border-[#CAD7C5] shadow-xs relative group flex flex-col justify-between">
+            <BotanicalCorner />
+            <div>
+              <div className="flex items-center gap-2 text-rose-dusty text-xs font-bold uppercase tracking-wider mb-2">
+                <span>✦</span>
+                <span>PILLAR 01</span>
+              </div>
+              <h3 className="font-sans font-bold text-xl sm:text-2xl text-forest mb-2">
+                Clear Business Strategy
+              </h3>
+              <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-6">
+                Riset pasar berbasis data, pemodelan kelayakan finansial, dan perumusan strategi kemitraan B2B yang realistis.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2 pt-4 border-t border-[#CAD7C5]/40">
+              {[
+                'Business Model Canvas (BMC)',
+                'B2B Partnerships Strategy',
+                'Market & Feasibility Study',
+                'Revenue & Pricing Modeling'
+              ].map((pill, idx) => (
+                <span 
+                  key={idx}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F2F7EF] border border-[#CAD7C5] text-[11px] font-semibold text-forest hover:border-rose-dusty/80 transition-all cursor-default"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-forest/70"></span>
+                  <span>{pill}</span>
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Pillar 2: Thoughtful Operational Systems */}
+          <div className="editorial-card p-6 sm:p-7 rounded-3xl bg-white/95 border border-[#CAD7C5] shadow-xs relative group flex flex-col justify-between">
+            <BotanicalCorner />
+            <div>
+              <div className="flex items-center gap-2 text-rose-dusty text-xs font-bold uppercase tracking-wider mb-2">
+                <span>✦</span>
+                <span>PILLAR 02</span>
+              </div>
+              <h3 className="font-sans font-bold text-xl sm:text-2xl text-forest mb-2">
+                Thoughtful Operational Systems
+              </h3>
+              <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-6">
+                Arsitektur sistem informasi bisnis (D4 SIB), SOP terstandarisasi, serta otomasi sirkulasi dan penagihan pelanggan.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2 pt-4 border-t border-[#CAD7C5]/40">
+              {[
+                'SOP & Operational Flow',
+                'System Architecture & D4 SIB',
+                'Relational Database Modeling',
+                'KPI & Performance Tracking'
+              ].map((pill, idx) => (
+                <span 
+                  key={idx}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F2F7EF] border border-[#CAD7C5] text-[11px] font-semibold text-forest hover:border-rose-dusty/80 transition-all cursor-default"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-rose-dusty"></span>
+                  <span>{pill}</span>
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Pillar 3: Creative Storytelling */}
+          <div className="editorial-card p-6 sm:p-7 rounded-3xl bg-white/95 border border-[#CAD7C5] shadow-xs relative group flex flex-col justify-between">
+            <BotanicalCorner />
+            <div>
+              <div className="flex items-center gap-2 text-rose-dusty text-xs font-bold uppercase tracking-wider mb-2">
+                <span>✦</span>
+                <span>PILLAR 03</span>
+              </div>
+              <h3 className="font-sans font-bold text-xl sm:text-2xl text-forest mb-2">
+                Creative Storytelling
+              </h3>
+              <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-6">
+                Prototipe interaktif antarmuka Figma, penyutradaraan konten video pendek berdaya jangkau tinggi, dan kurasi katalog ritel.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2 pt-4 border-t border-[#CAD7C5]/40">
+              {[
+                'Figma Interactive Prototyping',
+                'UI/UX User Flow & Wireframe',
+                'Short-Form Video Production',
+                'Brand Campaign Direction'
+              ].map((pill, idx) => (
+                <span 
+                  key={idx}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F2F7EF] border border-[#CAD7C5] text-[11px] font-semibold text-forest hover:border-rose-dusty/80 transition-all cursor-default"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-forest/70"></span>
+                  <span>{pill}</span>
+                </span>
+              ))}
+            </div>
+          </div>
+
         </div>
+
       </section>
 
+      <BotanicalDivider />
+
       {/* ========================================================================= */}
-      {/* 6. PROCESS ROADMAP ("Here's how it works" with Curving Connector Doodle)  */}
+      {/* 5. PROCESS ROADMAP ("Here's how it works" with Clear Deliverables)        */}
       {/* ========================================================================= */}
-      <section id="process" className="w-full border-t border-[#CAD7C5]/30 py-20 sm:py-28 px-4 sm:px-8 lg:px-12 xl:px-16 relative">
+      <section id="process" className="w-full py-16 sm:py-24 px-4 sm:px-8 lg:px-12 xl:px-16 relative">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
@@ -679,10 +617,10 @@ export default function Home() {
           </p>
         </div>
 
-        {/* 3 Process Cards with Connected Curvy Doodle Line (Elian Ross Style) */}
-        <div className="relative">
+        {/* 3 Process Cards with Connected Curvy Line (Desktop) */}
+        <div className="relative max-w-[1560px] mx-auto">
           
-          {/* Curvy Green-Teal Connector Line SVG (Desktop) */}
+          {/* Curvy Connector Line SVG (Desktop) */}
           <div className="hidden md:block absolute top-12 left-1/4 right-1/4 h-24 pointer-events-none z-10">
             <svg className="w-full h-full" viewBox="0 0 500 100" fill="none" preserveAspectRatio="none">
               <path 
@@ -701,692 +639,876 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-20">
             
             {/* Card 01 - Discover */}
-            <div className="process-card p-8 rounded-3xl bg-white border border-[#CAD7C5] shadow-xs flex flex-col justify-between relative group">
+            <div className="process-card p-7 sm:p-8 rounded-3xl bg-white border border-[#CAD7C5] shadow-xs flex flex-col justify-between relative group">
+              <BotanicalCorner />
               <div>
                 <span className="font-serif italic font-normal text-6xl text-rose-dusty/35 group-hover:text-rose-dusty transition-colors">01</span>
                 <h3 className="font-sans font-bold text-2xl text-forest mt-4 mb-2">
                   Discover
                 </h3>
-                <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
-                  Riset pasar mendalam, wawancara pengguna (user interview), analisis kendala operasional (bottlenecks), dan pemetaan peluang bisnis nyata.
+                <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-6">
+                  Riset pasar mendalam, wawancara stakeholder/pengguna, analisis kendala operasional (bottlenecks), dan pemetaan peluang bisnis nyata.
                 </p>
               </div>
-              <div className="mt-8 pt-4 border-t border-[#CAD7C5]/60 flex items-center justify-between text-[11px] font-semibold text-rose-dark">
-                <span>Market &amp; User Needs</span>
-                <span className="text-xs text-rose-700 font-mono">01 ↗</span>
+              
+              {/* Explicit Key Deliverables List with Floral Bullets */}
+              <div className="pt-5 border-t border-[#CAD7C5]/60 space-y-2">
+                <span className="text-[10px] font-bold text-rose-dark uppercase tracking-wider block mb-2">
+                  ✦ Key Deliverables:
+                </span>
+                <div className="flex items-start gap-2 text-xs text-forest/85">
+                  <FloralBullet />
+                  <span>Stakeholder &amp; User In-Depth Interviews</span>
+                </div>
+                <div className="flex items-start gap-2 text-xs text-forest/85">
+                  <FloralBullet />
+                  <span>Operational Bottleneck &amp; Ecosystem Audit</span>
+                </div>
+                <div className="flex items-start gap-2 text-xs text-forest/85">
+                  <FloralBullet />
+                  <span>Competitive Market Landscape Mapping</span>
+                </div>
               </div>
             </div>
 
             {/* Card 02 - Strategize */}
-            <div className="process-card p-8 rounded-3xl bg-white border border-[#CAD7C5] shadow-xs flex flex-col justify-between relative group">
+            <div className="process-card p-7 sm:p-8 rounded-3xl bg-white border border-[#CAD7C5] shadow-xs flex flex-col justify-between relative group">
+              <BotanicalCorner />
               <div>
                 <span className="font-serif italic font-normal text-6xl text-rose-dusty/35 group-hover:text-rose-dusty transition-colors">02</span>
                 <h3 className="font-sans font-bold text-2xl text-forest mt-4 mb-2">
                   Strategize
                 </h3>
-                <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
-                  Merumuskan Business Model Canvas, analisis kelayakan finansial, standard operating procedure (SOP), serta konsep kreatif penceritaan brand.
+                <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-6">
+                  Merumuskan Business Model Canvas, analisis kelayakan finansial, standard operating procedure (SOP), serta arsitektur sistem informasi.
                 </p>
               </div>
-              <div className="mt-8 pt-4 border-t border-[#CAD7C5]/60 flex items-center justify-between text-[11px] font-semibold text-rose-dark">
-                <span>Business Model &amp; SOP</span>
-                <span className="text-xs text-rose-700 font-mono">02 ↗</span>
+
+              {/* Explicit Key Deliverables List with Floral Bullets */}
+              <div className="pt-5 border-t border-[#CAD7C5]/60 space-y-2">
+                <span className="text-[10px] font-bold text-rose-dark uppercase tracking-wider block mb-2">
+                  ✦ Key Deliverables:
+                </span>
+                <div className="flex items-start gap-2 text-xs text-forest/85">
+                  <FloralBullet />
+                  <span>Business Model Canvas (BMC) Blueprint</span>
+                </div>
+                <div className="flex items-start gap-2 text-xs text-forest/85">
+                  <FloralBullet />
+                  <span>Standard Operating Procedure (SOP) Matrix</span>
+                </div>
+                <div className="flex items-start gap-2 text-xs text-forest/85">
+                  <FloralBullet />
+                  <span>Database Schema &amp; Information Flow Architecture</span>
+                </div>
               </div>
             </div>
 
             {/* Card 03 - Deliver */}
-            <div className="process-card p-8 rounded-3xl bg-white border border-[#CAD7C5] shadow-xs flex flex-col justify-between relative group">
+            <div className="process-card p-7 sm:p-8 rounded-3xl bg-white border border-[#CAD7C5] shadow-xs flex flex-col justify-between relative group">
+              <BotanicalCorner />
               <div>
                 <span className="font-serif italic font-normal text-6xl text-rose-dusty/35 group-hover:text-rose-dusty transition-colors">03</span>
                 <h3 className="font-sans font-bold text-2xl text-forest mt-4 mb-2">
                   Deliver
                 </h3>
-                <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
-                  Eksekusi kampanye pemasaran digital, pembuatan prototipe interaktif, dan pelacakan metrik keberhasilan (KPI) yang terukur.
+                <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-6">
+                  Eksekusi kampanye pemasaran digital, pembuatan prototipe interaktif, deployment sistem operasional, dan pelacakan KPI terukur.
                 </p>
               </div>
-              <div className="mt-8 pt-4 border-t border-[#CAD7C5]/60 flex items-center justify-between text-[11px] font-semibold text-rose-dark">
-                <span>Execution &amp; KPI Reach</span>
-                <span className="text-xs text-rose-700 font-mono">03 ↗</span>
+
+              {/* Explicit Key Deliverables List with Floral Bullets */}
+              <div className="pt-5 border-t border-[#CAD7C5]/60 space-y-2">
+                <span className="text-[10px] font-bold text-rose-dark uppercase tracking-wider block mb-2">
+                  ✦ Key Deliverables:
+                </span>
+                <div className="flex items-start gap-2 text-xs text-forest/85">
+                  <FloralBullet />
+                  <span>High-Fidelity Interactive Prototype (Figma)</span>
+                </div>
+                <div className="flex items-start gap-2 text-xs text-forest/85">
+                  <FloralBullet />
+                  <span>Commercial Campaign Launch &amp; Content Asset</span>
+                </div>
+                <div className="flex items-start gap-2 text-xs text-forest/85">
+                  <FloralBullet />
+                  <span>Measurable Growth KPI &amp; Conversion Verification</span>
+                </div>
               </div>
             </div>
 
           </div>
         </div>
 
-        {/* 2 Clean Quote / Highlight Cards Underneath */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 max-w-5xl mx-auto">
+      </section>
+
+      <BotanicalDivider />
+
+      {/* ========================================================================= */}
+      {/* 6. SELECTED WORKS & SYSTEM CASE STUDIES (#projects)                        */}
+      {/* ========================================================================= */}
+      <section id="projects" className="w-full py-16 sm:py-24 px-4 sm:px-8 lg:px-12 xl:px-16">
+        <div className="max-w-[1560px] mx-auto">
           
-          <div className="bg-white p-6 sm:p-7 rounded-3xl border border-[#CAD7C5] shadow-xs flex items-start gap-4">
-            <span className="text-3xl text-rose-300 font-serif leading-none">“</span>
+          {/* Section Header */}
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
             <div>
-              <p className="text-xs sm:text-sm text-forest italic leading-relaxed">
-                {awardsList[0]?.desc ? `${awardsList[0].title} — ${awardsList[0].desc}` : "Kemampuan analisis komprehensif dalam memadukan kelayakan bisnis, tata kelola data sistem informasi, dan presentasi meyakinkan terbukti membawakan 7 gelar juara nasional."}
+              <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ Portfolio &amp; Case Studies /</span>
+              <h2 className="font-sans font-medium text-4xl sm:text-5xl text-forest tracking-tight mt-1">
+                Selected Works &amp; Case Studies
+              </h2>
+              <p className="text-xs sm:text-sm text-neutral-600 mt-2 max-w-lg">
+                Implementasi nyata perancangan model bisnis, sistem informasi operasional, dan optimalisasi kampanye digital komersial.
               </p>
-              <div className="flex items-center gap-3 mt-4">
-                <img src={awardsList[0]?.certImg || "/11.png"} alt="Award" className="w-8 h-8 rounded-full object-cover ring-2 ring-rose-100" loading="lazy" decoding="async" />
-                <div>
-                  <h4 className="font-bold text-xs text-forest">{awardsList[0]?.title || "National Fest Business Plan Competition"}</h4>
-                  <p className="text-[10px] text-rose-700">{awardsList[0]?.rank || "Juara 1 Tingkat Nasional"} {awardsList[0]?.year ? `(${awardsList[0].year})` : ""}</p>
-                </div>
-              </div>
             </div>
-          </div>
 
-          <div className="bg-white p-6 sm:p-7 rounded-3xl border border-[#CAD7C5] shadow-xs flex items-start gap-4">
-            <span className="text-3xl text-rose-300 font-serif leading-none">“</span>
-            <div>
-              <p className="text-xs sm:text-sm text-forest italic leading-relaxed">
-                {portfolioData.creatorAccounts?.manikarumi?.centerDesc || "Inisiatif kepemimpinan di Manikarumi dan GDSC Polinema mempercepat lonjakan jangkauan konten organik hingga +2.089% dengan storytelling yang memikat audiens muda."}
-              </p>
-              <div className="flex items-center gap-3 mt-4">
-                <img src={portfolioData.creatorAccounts?.manikarumi?.centerImg || "/17.png"} alt="Manikarumi" className="w-8 h-8 rounded-full object-cover ring-2 ring-rose-100" loading="lazy" decoding="async" />
-                <div>
-                  <h4 className="font-bold text-xs text-forest">{portfolioData.creatorAccounts?.manikarumi?.name || "Commercial Content Growth"}</h4>
-                  <p className="text-[10px] text-rose-700">{portfolioData.creatorAccounts?.manikarumi?.stats || "Brand Impact & Reach Surge"}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 7. SELECTED WORKS (2x2 Grid Layout Persis Referensi Elian Ross)           */}
-      {/* ========================================================================= */}
-      <section id="projects" className="w-full py-20 sm:py-28 px-4 sm:px-8 lg:px-12 xl:px-16">
-        
-        {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
-          <div>
-            <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ Selected Works /</span>
-            <h2 className="font-sans font-medium text-4xl sm:text-5xl text-forest tracking-tight mt-1">
-              Selected Works
-            </h2>
-          </div>
-
-          {/* Filter Pills */}
-          <div className="flex flex-wrap gap-2">
-            {[
-              { id: 'all', label: 'All Works' },
-              { id: 'system', label: 'Systems & Web' },
-              { id: 'marketing', label: 'Campaign & Marketing' },
-            ].map(tab => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveProjectFilter(tab.id)}
-                className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
-                  activeProjectFilter === tab.id
-                    ? 'bg-rose-dark text-white shadow-xs'
-                    : 'bg-white/80 text-forest/75 border border-[#CAD7C5] hover:border-rose-dusty'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* 2x2 Project Grid */}
-        <div className="max-w-[1560px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10">
-          {filteredProjects.map((project, idx) => (
-            <div
-              key={project.id || idx}
-              onClick={() => openModal({
-                title: project.title,
-                category: project.category,
-                description: project.summary,
-                images: project.extraImages && project.extraImages.length > 0 ? project.extraImages : [project.image || '/1.png'],
-                link: project.link,
-                linkLabel: project.linkLabel || 'Buka Dokumentasi ↗'
-              })}
-              className="editorial-card p-5 sm:p-6 rounded-4xl bg-white/95 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
-            >
-              {/* Project Image Container */}
-              <div className="relative overflow-hidden rounded-3xl bg-neutral-100 aspect-[16/10] sm:aspect-[16/11] mb-5">
-                <img
-                  src={project.image || "/1.png"}
-                  alt={project.title}
-                  className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
-                  <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-4 py-2 rounded-full bg-white/95 backdrop-blur-md text-xs font-bold text-forest shadow-sm">
-                    Lihat Dokumentasi &amp; Hasil ↗
-                  </span>
-                </div>
-              </div>
-
-              {/* Title on Left, Tag Pills on Right */}
-              <div className="flex items-start justify-between gap-4 pt-1">
-                <div>
-                  <h3 className="font-sans font-bold text-lg sm:text-xl text-forest group-hover:text-rose-dark transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="text-xs text-neutral-500 mt-1 line-clamp-1">
-                    {project.summary}
-                  </p>
-                </div>
-
-                <div className="flex flex-wrap gap-1.5 justify-end shrink-0">
-                  <span className="text-[11px] font-semibold px-3 py-1 rounded-full bg-rose-50 text-rose-800 border border-rose-100">
-                    {project.tag || "Case Study"}
-                  </span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-      </section>
-
-      {/* ========================================================================= */}
-      {/* CREATIVE MEDIA & CONTENT CREATOR SHOWCASE (CMS Video & Creator Tab)        */}
-      {/* ========================================================================= */}
-      <section id="creator" className="w-full border-t border-[#CAD7C5]/30 py-20 sm:py-28 px-4 sm:px-8 lg:px-12 xl:px-16">
-        
-        {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
-          <div>
-            <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ Content &amp; Media /</span>
-            <h2 className="font-sans font-medium text-4xl sm:text-5xl text-forest tracking-tight mt-1">
-              Creator Studio &amp; Social Growth
-            </h2>
-            <p className="text-xs sm:text-sm text-neutral-600 mt-2 max-w-md">
-              Produksi video pendek bernuansa sinematik, visual merchandising ritel festival, dan kurasi katalog produk yang mendorong interaksi audiens.
-            </p>
-          </div>
-
-          {/* Account Switcher Tabs (From CMS data.creatorAccounts) */}
-          <div className="flex flex-wrap gap-2">
-            {Object.keys(portfolioData.creatorAccounts || {}).map((accKey) => {
-              const acc = portfolioData.creatorAccounts[accKey];
-              return (
+            {/* Filter Pills */}
+            <div className="flex flex-wrap gap-2">
+              {[
+                { id: 'all', label: 'All Works' },
+                { id: 'system', label: 'Systems & Web' },
+                { id: 'marketing', label: 'Campaign & Marketing' },
+              ].map(tab => (
                 <button
-                  key={accKey}
-                  onClick={() => setActiveCreatorKey(accKey)}
+                  key={tab.id}
+                  onClick={() => setActiveProjectFilter(tab.id)}
                   className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
-                    activeCreatorKey === accKey
+                    activeProjectFilter === tab.id
                       ? 'bg-rose-dark text-white shadow-xs'
                       : 'bg-white/80 text-forest/75 border border-[#CAD7C5] hover:border-rose-dusty'
                   }`}
                 >
-                  <span>{acc.name}</span>
+                  {tab.label}
                 </button>
-              );
-            })}
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* Selected Creator Account Display */}
-        {currentCreator && (
-          <div className="space-y-8">
-            
-            {/* Account Info Bar: Clean Glass Island */}
-            <div className="bg-white/70 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-[#CAD7C5]/60 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-rose-200/80 text-[11px] font-bold text-rose-900 mb-2">
-                  <span>✦ {currentCreator.tag}</span>
-                </div>
-                <h3 className="font-sans font-bold text-2xl sm:text-3xl text-forest">
-                  {currentCreator.name} <span className="font-mono font-normal text-sm sm:text-base text-rose-700">{currentCreator.handle}</span>
-                </h3>
-                <p className="text-xs text-neutral-500 mt-1">
-                  Platform: {currentCreator.platforms}
-                </p>
+          {/* TOP FEATURED FULL-WIDTH CASE STUDY (Breaking Grid Monotony with Editorial Layout) */}
+          {featuredProject && (
+            <div 
+              onClick={() => openModal({
+                title: featuredProject.title,
+                category: featuredProject.category,
+                description: featuredProject.summary,
+                images: featuredProject.extraImages && featuredProject.extraImages.length > 0 ? featuredProject.extraImages : [featuredProject.image || '/1.png'],
+                link: featuredProject.link,
+                linkLabel: featuredProject.linkLabel || 'Buka Dokumentasi Sistem ↗'
+              })}
+              className="editorial-card p-6 sm:p-9 rounded-4xl bg-white/95 border border-[#CAD7C5] shadow-sm hover:shadow-xl hover:border-rose-dusty/70 transition-all duration-300 cursor-pointer group mb-12 relative overflow-hidden"
+            >
+              <BotanicalCorner />
+              
+              <div className="flex items-center gap-2 text-rose-dark text-xs font-bold uppercase tracking-wider mb-6">
+                <span>✦</span>
+                <span>FEATURED FLAGSHIP CASE STUDY</span>
+                <span className="hidden sm:inline text-[#CAD7C5]">•</span>
+                <span className="hidden sm:inline text-neutral-500 font-normal">D4 SIB Polinema</span>
               </div>
 
-              <div className="flex items-center gap-3">
-                <span className="px-4 py-2 rounded-2xl bg-[#F2F7EF] text-forest border border-[#CAD7C5] font-bold text-xs sm:text-sm">
-                  ✦ {currentCreator.stats}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                
+                {/* Left: Large High-Fidelity Mockup Container with Botanical Watermark Texture */}
+                <div className="lg:col-span-7 relative overflow-hidden rounded-3xl bg-neutral-100 aspect-[16/10] sm:aspect-[16/9] border border-[#CAD7C5]/50 botanical-watermark">
+                  <img 
+                    src={featuredProject.image || "/1.png"} 
+                    alt={featuredProject.title}
+                    className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-700" 
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="absolute top-4 left-4">
+                    <span className="px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md text-[11px] font-bold text-forest shadow-xs border border-[#CAD7C5]">
+                      Live Operational System
+                    </span>
+                  </div>
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
+                    <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-5 py-2.5 rounded-full bg-white/95 backdrop-blur-md text-xs font-bold text-forest shadow-md">
+                      Buka Dokumentasi &amp; Hasil Sistem ↗
+                    </span>
+                  </div>
+                </div>
+
+                {/* Right: Rich Editorial Content & Measured Business Impact */}
+                <div className="lg:col-span-5 flex flex-col justify-between space-y-6 text-left">
+                  <div>
+                    <span className="text-[11px] font-bold text-rose-800 uppercase tracking-wider bg-rose-50 px-3 py-1 rounded-full border border-rose-100">
+                      {featuredProject.category}
+                    </span>
+                    <h3 className="font-serif font-bold text-2xl sm:text-3xl text-forest mt-3 mb-3 leading-tight group-hover:text-rose-dark transition-colors">
+                      {featuredProject.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-6">
+                      {featuredProject.summary}
+                    </p>
+
+                    {/* Measured Impact Numbers */}
+                    <div className="grid grid-cols-2 gap-3 p-4 rounded-2xl bg-[#F2F7EF]/70 border border-[#CAD7C5]/80 mb-6">
+                      <div>
+                        <span className="font-serif font-bold text-xl sm:text-2xl text-forest block">
+                          +300%
+                        </span>
+                        <span className="text-[10px] uppercase font-semibold text-neutral-500 tracking-wider">
+                          Efisiensi Distribusi
+                        </span>
+                      </div>
+                      <div>
+                        <span className="font-serif font-bold text-xl sm:text-2xl text-rose-dark block">
+                          100%
+                        </span>
+                        <span className="text-[10px] uppercase font-semibold text-neutral-500 tracking-wider">
+                          Digital Billing Accuracy
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <span className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-forest text-white text-xs font-bold tracking-wide uppercase group-hover:bg-rose-dark transition-colors">
+                      <span>Lihat Detail Studi Kasus</span>
+                      <span>→</span>
+                    </span>
+                    <span className="text-xs text-neutral-400 font-mono">{featuredProject.tag}</span>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          )}
+
+          {/* FILTERABLE PROJECT GRID (2-Column Editorial Grid for Remaining Works) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10">
+            {filteredProjects.map((project, idx) => (
+              <div
+                key={project.id || idx}
+                onClick={() => openModal({
+                  title: project.title,
+                  category: project.category,
+                  description: project.summary,
+                  images: project.extraImages && project.extraImages.length > 0 ? project.extraImages : [project.image || '/1.png'],
+                  link: project.link,
+                  linkLabel: project.linkLabel || 'Buka Dokumentasi ↗'
+                })}
+                className="editorial-card p-5 sm:p-6 rounded-4xl bg-white/95 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between relative overflow-hidden"
+              >
+                <BotanicalCorner />
+
+                {/* Project Image Container with Botanical Watermark Texture */}
+                <div className="relative overflow-hidden rounded-3xl bg-neutral-100 aspect-[16/10] sm:aspect-[16/11] mb-5 border border-[#CAD7C5]/40 botanical-watermark">
+                  <img
+                    src={project.image || "/1.png"}
+                    alt={project.title}
+                    className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
+                    <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-4 py-2 rounded-full bg-white/95 backdrop-blur-md text-xs font-bold text-forest shadow-sm">
+                      Lihat Dokumentasi &amp; Hasil ↗
+                    </span>
+                  </div>
+                </div>
+
+                {/* Title on Left, Tag Pills on Right */}
+                <div className="flex items-start justify-between gap-4 pt-1">
+                  <div>
+                    <h3 className="font-sans font-bold text-lg sm:text-xl text-forest group-hover:text-rose-dark transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="text-xs text-neutral-500 mt-1 line-clamp-1">
+                      {project.summary}
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap gap-1.5 justify-end shrink-0">
+                    <span className="text-[11px] font-semibold px-3 py-1 rounded-full bg-rose-50 text-rose-800 border border-rose-100">
+                      {project.tag || "Case Study"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* MID-PAGE SECONDARY QUICK-CONNECT CTA RIBBON */}
+          <div className="mt-14 sm:mt-16 max-w-5xl mx-auto rounded-3xl p-6 sm:p-8 bg-gradient-to-r from-white/95 via-[#F2F7EF]/90 to-white/95 border border-[#CAD7C5] shadow-xs flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
+            <BotanicalCorner className="top-2 right-2" />
+            <div className="text-left space-y-1">
+              <span className="text-[11px] font-bold text-rose-dark uppercase tracking-wider flex items-center gap-1.5">
+                <span>✦</span> Siap Berkolaborasi?
+              </span>
+              <h3 className="font-serif font-bold text-xl sm:text-2xl text-forest">
+                Punya ide sistem bisnis atau kampanye kreatif?
+              </h3>
+              <p className="text-xs sm:text-sm text-neutral-600 max-w-lg">
+                Mari diskusikan bagaimana perancangan sistem informasi dan strategi konten dapat mendorong pertumbuhan bisnis Anda.
+              </p>
+            </div>
+            <div className="flex items-center gap-3 shrink-0 w-full md:w-auto justify-start md:justify-end">
+              <a
+                href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-5 py-2.5 rounded-full bg-forest hover:bg-forest-dark text-white text-xs font-semibold shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all flex items-center gap-2 whitespace-nowrap"
+              >
+                <span>✦ Chat WhatsApp</span>
+                <span>→</span>
+              </a>
+              <a
+                href={`mailto:${portfolioData.socials?.email || "chikalnazmi@gmail.com"}`}
+                className="px-5 py-2.5 rounded-full bg-white border border-[#CAD7C5] hover:border-rose-dusty text-forest text-xs font-semibold shadow-2xs hover:shadow-xs hover:-translate-y-0.5 transition-all whitespace-nowrap"
+              >
+                Email Inkuiri ✉
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <BotanicalDivider />
+
+      {/* ========================================================================= */}
+      {/* 7. CREATIVE MEDIA & CONTENT CREATOR SHOWCASE (#creator)                    */}
+      {/* ========================================================================= */}
+      <section id="creator" className="w-full py-16 sm:py-24 px-4 sm:px-8 lg:px-12 xl:px-16">
+        <div className="max-w-[1560px] mx-auto">
+          
+          {/* Section Header */}
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+            <div>
+              <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ Content &amp; Media /</span>
+              <h2 className="font-sans font-medium text-4xl sm:text-5xl text-forest tracking-tight mt-1">
+                Creator Studio &amp; Social Growth
+              </h2>
+              <p className="text-xs sm:text-sm text-neutral-600 mt-2 max-w-md">
+                Produksi video pendek bernuansa sinematik, visual merchandising ritel festival, dan kurasi katalog produk yang mendorong interaksi audiens.
+              </p>
+            </div>
+
+            {/* Switchable Account Pills */}
+            <div className="flex flex-wrap gap-2">
+              {Object.entries(creatorAccounts).map(([key, acc]) => (
+                <button
+                  key={key}
+                  onClick={() => setActiveCreatorKey(key)}
+                  className={`px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                    activeCreatorKey === key
+                      ? 'bg-rose-dark text-white shadow-xs'
+                      : 'bg-white/80 text-forest/75 border border-[#CAD7C5] hover:border-rose-dusty'
+                  }`}
+                >
+                  {acc.name} ({acc.handle})
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Active Creator Stage Display */}
+          {currentCreator && (
+            <div className="space-y-6">
+              
+              {/* Creator Metadata Bar */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-white/80 border border-[#CAD7C5] shadow-xs">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-serif font-bold text-2xl text-forest">
+                      {currentCreator.name}
+                    </h3>
+                    <span className="text-xs font-mono text-rose-dusty font-semibold">
+                      {currentCreator.handle}
+                    </span>
+                  </div>
+                  <p className="text-xs text-neutral-500 mt-1">
+                    {currentCreator.tag} · Platform: {currentCreator.platforms}
+                  </p>
+                </div>
+
+                <span className="text-xs font-bold text-rose-dark bg-rose-50 px-4 py-1.5 rounded-full border border-rose-100 self-start sm:self-auto">
+                  {currentCreator.stats}
                 </span>
-                {currentCreator.link && (
+              </div>
+
+              {/* 3 Interactive Phone & Showcase Mockups */}
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
+                
+                {/* Left Media Card (Left Phone Mockup) */}
+                <div 
+                  className="md:col-span-3 bg-white/95 rounded-3xl p-4 sm:p-5 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between relative overflow-hidden"
+                  onClick={() => openModal({
+                    title: currentCreator.leftPhoneTitle || currentCreator.name,
+                    category: currentCreator.leftPhoneTag || 'SOCIAL MEDIA REELS',
+                    description: `Cuplikan konten video vertikal berdaya jangkau tinggi yang dikurasi langsung oleh Chikal Nazmi untuk ${currentCreator.name}.`,
+                    images: [currentCreator.leftPhoneImg || '/7.png', currentCreator.centerImg || '/17.png'],
+                    link: currentCreator.leftPhoneLink || portfolioData.socials?.instagram,
+                    linkLabel: 'Buka Video Reels ↗'
+                  })}
+                >
+                  <BotanicalCorner />
+                  <div className="relative aspect-[9/16] rounded-2xl overflow-hidden bg-neutral-100 mb-3 border border-[#CAD7C5]/40 botanical-watermark">
+                    <img
+                      src={currentCreator.leftPhoneImg || "/7.png"}
+                      alt="Left Reel Preview"
+                      className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div className="absolute inset-0 bg-black/10 flex items-center justify-center">
+                      <span className="w-10 h-10 rounded-full bg-white/90 flex items-center justify-center text-rose-dark shadow-md">▶</span>
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-xs sm:text-sm text-forest group-hover:text-rose-dark transition-colors">
+                      {currentCreator.leftPhoneTitle}
+                    </h4>
+                    <span className="text-[10px] text-rose-600 font-medium">Lihat Media ↗</span>
+                  </div>
+                </div>
+
+                {/* Center Stage Card (Center Showcase) */}
+                <div 
+                  className="md:col-span-6 bg-white/95 rounded-3xl p-5 sm:p-6 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between relative overflow-hidden"
+                  onClick={() => openModal({
+                    title: currentCreator.centerTitle || currentCreator.name,
+                    category: 'CREATIVE SHOWCASE',
+                    description: currentCreator.centerDesc || `Visual pameran dan kurasi kampanye komersial untuk ${currentCreator.name}.`,
+                    images: [currentCreator.centerImg || '/17.png', currentCreator.rightPhoneImg || '/8.png', currentCreator.leftPhoneImg || '/7.png'],
+                    link: currentCreator.centerLink,
+                    linkLabel: 'Buka Dokumentasi Penuh ↗'
+                  })}
+                >
+                  <BotanicalCorner />
+                  <div className="relative aspect-[16/10] sm:aspect-[16/11] rounded-2xl overflow-hidden bg-neutral-100 mb-4 border border-[#CAD7C5]/40 botanical-watermark">
+                    <img
+                      src={currentCreator.centerImg || "/17.png"}
+                      alt="Center Showcase Preview"
+                      className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold text-rose-800 uppercase tracking-wider bg-rose-50 px-2.5 py-0.5 rounded-full border border-rose-100">
+                      Showcase Utama
+                    </span>
+                    <h4 className="font-serif font-bold text-lg sm:text-xl text-forest mt-2 group-hover:text-rose-dark transition-colors">
+                      {currentCreator.centerTitle}
+                    </h4>
+                    <p className="text-xs text-neutral-600 mt-1 line-clamp-2 leading-relaxed">
+                      {currentCreator.centerDesc}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Right Media Card (Right Phone Mockup) */}
+                <div 
+                  className="md:col-span-3 bg-white/95 rounded-3xl p-4 sm:p-5 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between relative overflow-hidden"
+                  onClick={() => openModal({
+                    title: currentCreator.rightPhoneTitle || currentCreator.name,
+                    category: currentCreator.rightPhoneTag || 'TIKTOK CONTENT',
+                    description: `Kampanye konten video pendek TikTok dengan storytelling interaktif untuk ${currentCreator.name}.`,
+                    images: [currentCreator.rightPhoneImg || '/8.png', currentCreator.centerImg || '/17.png'],
+                    link: currentCreator.rightPhoneLink || portfolioData.socials?.tiktok,
+                    linkLabel: 'Buka Video TikTok ↗'
+                  })}
+                >
+                  <BotanicalCorner />
+                  <div className="relative aspect-[9/16] rounded-2xl overflow-hidden bg-neutral-100 mb-3 border border-[#CAD7C5]/40 botanical-watermark">
+                    <img
+                      src={currentCreator.rightPhoneImg || "/8.png"}
+                      alt="Right Reel Preview"
+                      className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div className="absolute inset-0 bg-black/10 flex items-center justify-center">
+                      <span className="w-10 h-10 rounded-full bg-white/90 flex items-center justify-center text-rose-dark shadow-md">▶</span>
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-xs sm:text-sm text-forest group-hover:text-rose-dark transition-colors">
+                      {currentCreator.rightPhoneTitle}
+                    </h4>
+                    <span className="text-[10px] text-rose-600 font-medium">Lihat Media ↗</span>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          )}
+
+        </div>
+      </section>
+
+      <BotanicalDivider />
+
+      {/* ========================================================================= */}
+      {/* 8. CAREER JOURNEY & TIMELINE (#experience - Synchronized with Navbar)      */}
+      {/* ========================================================================= */}
+      <section id="experience" className="w-full py-16 sm:py-24 px-4 sm:px-8 lg:px-12 xl:px-16">
+        <div className="max-w-[1560px] mx-auto">
+          
+          {/* Kicker & Title */}
+          <div className="mb-14">
+            <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ Career &amp; Experience /</span>
+            <h2 className="font-sans font-medium text-4xl sm:text-5xl lg:text-6xl text-forest tracking-tight mt-1">
+              Career Journey &amp; Experience <span className="font-serif italic font-normal text-rose-dark">Pushing Boundaries since 2020</span>
+            </h2>
+          </div>
+
+          {/* 2 Columns: Photo & Bio Left, Clean Horizontal Timeline Right */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-14 items-start">
+            
+            {/* Left Column: Stylized Portrait Card & Official SVG Social Links */}
+            <div className="lg:col-span-5 space-y-6">
+              <div className="relative overflow-hidden rounded-4xl bg-forest p-4 sm:p-5 shadow-lg border border-[#CAD7C5]/30">
+                <div className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-neutral-900">
+                  <img
+                    src={portfolioData.hero?.avatarImg || "/2.png"}
+                    alt="Chikal Portrait"
+                    className="w-full h-full object-cover object-top"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <div className="mt-4 px-2 flex items-center justify-between">
+                  <div>
+                    <h4 className="font-serif italic font-normal text-xl text-white">Chikal Nazmi</h4>
+                    <p className="text-xs text-rose-200/80">Business &amp; Digital Strategist</p>
+                  </div>
+                  <span className="text-xs font-mono text-white/50">2020 — 2026</span>
+                </div>
+              </div>
+
+              {/* Social Icons Row with Official SVG Brand Logos */}
+              <div className="flex items-center justify-center gap-3 p-3 bg-white rounded-full border border-[#CAD7C5] shadow-xs">
+                <a
+                  href={portfolioData.socials?.linkedin || "https://linkedin.com"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-full bg-[#F2F7EF] text-forest hover:bg-forest hover:text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xs flex items-center justify-center"
+                  title="LinkedIn"
+                  aria-label="LinkedIn"
+                >
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452z" />
+                  </svg>
+                </a>
+                <a
+                  href={portfolioData.socials?.instagram || "https://instagram.com/chikalnazmi"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-full bg-[#F2F7EF] text-forest hover:bg-forest hover:text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xs flex items-center justify-center"
+                  title="Instagram"
+                  aria-label="Instagram"
+                >
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                  </svg>
+                </a>
+                <a
+                  href={portfolioData.socials?.tiktok || "https://tiktok.com"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-full bg-[#F2F7EF] text-forest hover:bg-forest hover:text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xs flex items-center justify-center"
+                  title="TikTok"
+                  aria-label="TikTok"
+                >
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
+                  </svg>
+                </a>
+                <a
+                  href={`mailto:${portfolioData.socials?.email || "chikalnazmi@gmail.com"}`}
+                  className="w-9 h-9 rounded-full bg-[#F2F7EF] text-forest hover:bg-forest hover:text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xs flex items-center justify-center"
+                  title="Email"
+                  aria-label="Email"
+                >
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                  </svg>
+                </a>
+                {portfolioData.socials?.youtube && (
                   <a
-                    href={currentCreator.link}
+                    href={portfolioData.socials.youtube}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-2 rounded-full bg-rose-dark text-white text-xs font-semibold hover:bg-rose-berry transition-colors"
+                    className="w-9 h-9 rounded-full bg-[#F2F7EF] text-forest hover:bg-forest hover:text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xs flex items-center justify-center"
+                    title="YouTube"
+                    aria-label="YouTube"
                   >
-                    Buka Akun ↗
+                    <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                    </svg>
+                  </a>
+                )}
+                {portfolioData.socials?.medium && (
+                  <a
+                    href={portfolioData.socials.medium}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-9 h-9 rounded-full bg-[#F2F7EF] text-forest hover:bg-forest hover:text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xs flex items-center justify-center"
+                    title="Medium"
+                    aria-label="Medium"
+                  >
+                    <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z" />
+                    </svg>
                   </a>
                 )}
               </div>
             </div>
 
-            {/* Media Gallery / Phone Mockups + Center Stage */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mt-8 items-stretch">
-              
-              {/* Left Media Card (Left Phone Mockup) */}
-              <div 
-                className="md:col-span-3 bg-white/95 rounded-3xl p-4 sm:p-5 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
-                onClick={() => openModal({
-                  title: currentCreator.leftPhoneTitle || currentCreator.name,
-                  category: currentCreator.leftPhoneTag || 'SOCIAL MEDIA REELS',
-                  description: `${currentCreator.name} — ${currentCreator.leftPhoneTitle}. Platform: ${currentCreator.platforms}.`,
-                  images: [currentCreator.leftPhoneImg || '/1.png'],
-                  link: currentCreator.leftPhoneLink || currentCreator.link,
-                  linkLabel: 'Buka Konten ↗'
-                })}
-              >
-                <div className="relative overflow-hidden rounded-2xl bg-neutral-100 aspect-[9/16] max-h-[320px] mb-3">
-                  <img
-                    src={currentCreator.leftPhoneImg || "/4.png"}
-                    alt={currentCreator.leftPhoneTitle}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div className="absolute top-2 left-2 px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-xs text-[10px] font-bold text-white">
-                    {currentCreator.leftPhoneTag || "Reels"}
-                  </div>
-                </div>
-                <div>
-                  <h4 className="font-bold text-xs sm:text-sm text-forest group-hover:text-rose-dark transition-colors">
-                    {currentCreator.leftPhoneTitle}
-                  </h4>
-                  <span className="text-[10px] text-rose-600 font-medium">Lihat Media ↗</span>
-                </div>
-              </div>
+            {/* Right Column: Narrative Story & Generous Spaced Career Timeline */}
+            <div className="lg:col-span-7 space-y-8">
+              <p className="text-sm sm:text-base text-neutral-700 leading-relaxed font-normal">
+                Lulusan <strong>{academicData.degree || "Sarjana Terapan Sistem Informasi Bisnis (D4 SIB)"} {academicData.institution || "Politeknik Negeri Malang"}</strong> dengan predikat <em>{academicData.badge || "Cum Laude"} (IPK {academicData.gpaValue || "3.84"})</em>{academicData.toeicScore ? ` serta sertifikasi internasional TOEIC ${academicData.toeicScore} (${academicData.toeicLevel || "Working Proficiency"})` : ""}. {academicData.description || "Berfokus pada perancangan model bisnis, tata kelola data sistem informasi, serta optimalisasi strategi media komersial yang terbukti memperluas pangsa pasar dan memenangkan kompetisi nasional."}
+              </p>
 
-              {/* Center Stage Card (Center Showcase) */}
-              <div 
-                className="md:col-span-6 bg-white/95 rounded-3xl p-5 sm:p-6 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
-                onClick={() => openModal({
-                  title: currentCreator.centerTitle || currentCreator.name,
-                  category: 'CREATIVE SHOWCASE',
-                  description: currentCreator.centerDesc,
-                  images: [currentCreator.centerImg || '/2.png'],
-                  link: currentCreator.centerLink || currentCreator.link,
-                  linkLabel: 'Lihat Video / Katalog ↗'
-                })}
-              >
-                <div className="relative overflow-hidden rounded-2xl bg-neutral-100 aspect-[16/10] sm:aspect-[16/11] mb-4">
-                  <img
-                    src={currentCreator.centerImg || "/3.png"}
-                    alt={currentCreator.centerTitle}
-                    className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-4">
+              {/* Clean Timeline Rows with Generous Spacing and Breathing Room */}
+              <div className="border-t border-[#CAD7C5]/60 divide-y divide-[#CAD7C5]/50">
+                {experiencesList.map((exp, idx) => (
+                  <div 
+                    key={exp.id || idx}
+                    className="py-5 sm:py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 hover:bg-white/60 px-3 rounded-2xl transition-all cursor-pointer group"
+                    onClick={() => openModal({
+                      title: exp.title,
+                      category: exp.category || 'WORK EXPERIENCE',
+                      description: `${exp.summary}${exp.results && exp.results.length > 0 ? `\n\nFokus & Capaian:\n• ${exp.results.join('\n• ')}` : ''}`,
+                      images: exp.extraImages && exp.extraImages.length > 0 ? exp.extraImages : [exp.image || '/1.png'],
+                      link: exp.link,
+                      linkLabel: exp.linkLabel || 'Profil Bisnis ↗'
+                    })}
+                  >
                     <div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-rose-200">
-                        Featured Spotlight
-                      </span>
-                      <h4 className="font-serif italic font-normal text-xl sm:text-2xl text-white">
-                        {currentCreator.centerTitle}
+                      <h4 className="font-sans font-bold text-base sm:text-lg text-forest group-hover:text-rose-dark transition-colors">
+                        {exp.title}
                       </h4>
+                      <p className="text-xs text-neutral-500 mt-1">
+                        {exp.category} · <span className="font-medium text-rose-dusty">{exp.tag}</span>
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-3 self-start sm:self-auto shrink-0">
+                      <span className="text-[11px] font-medium text-forest bg-[#F2F7EF] px-3 py-1 rounded-full border border-[#CAD7C5]">
+                        {exp.period}
+                      </span>
+                      <span className="text-xs text-rose-dusty group-hover:text-rose-dark group-hover:translate-x-1 transition-all">→</span>
                     </div>
                   </div>
-                </div>
+                ))}
 
-                <div>
-                  <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
-                    {currentCreator.centerDesc}
-                  </p>
-                  <div className="mt-4 pt-3 border-t border-[#CAD7C5]/60 flex items-center justify-between text-xs font-semibold text-rose-800">
-                    <span>{currentCreator.centerLink ? "Tonton Konten Pilihan ↗" : "Dokumentasi Galeri"}</span>
-                    <span className="group-hover:translate-x-1 transition-transform">→</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Media Card (Right Phone Mockup) */}
-              <div 
-                className="md:col-span-3 bg-white/95 rounded-3xl p-4 sm:p-5 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
-                onClick={() => openModal({
-                  title: currentCreator.rightPhoneTitle || currentCreator.name,
-                  category: currentCreator.rightPhoneTag || 'TIKTOK CONTENT',
-                  description: `${currentCreator.name} — ${currentCreator.rightPhoneTitle}. Platform: ${currentCreator.platforms}.`,
-                  images: [currentCreator.rightPhoneImg || '/1.png'],
-                  link: currentCreator.rightPhoneLink || currentCreator.link,
-                  linkLabel: 'Buka Konten ↗'
-                })}
-              >
-                <div className="relative overflow-hidden rounded-2xl bg-neutral-100 aspect-[9/16] max-h-[320px] mb-3">
-                  <img
-                    src={currentCreator.rightPhoneImg || "/5.png"}
-                    alt={currentCreator.rightPhoneTitle}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div className="absolute top-2 left-2 px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-xs text-[10px] font-bold text-white">
-                    {currentCreator.rightPhoneTag || "TikTok"}
-                  </div>
-                </div>
-                <div>
-                  <h4 className="font-bold text-xs sm:text-sm text-forest group-hover:text-rose-dark transition-colors">
-                    {currentCreator.rightPhoneTitle}
-                  </h4>
-                  <span className="text-[10px] text-rose-600 font-medium">Lihat Media ↗</span>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-        )}
-
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 8. PUSHING BOUNDARIES (About Story & Clean Career Timeline)              */}
-      {/* ========================================================================= */}
-      <section id="experience" className="w-full py-20 sm:py-28 px-4 sm:px-8 lg:px-12 xl:px-16">
-        
-        {/* Kicker & Title (Elian Ross Style: Title Bold + Year Muted Light) */}
-        <div className="mb-14">
-          <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ Who Am I /</span>
-          <h2 className="font-sans font-medium text-4xl sm:text-6xl text-forest tracking-tight mt-1">
-            Pushing Boundaries <span className="font-serif italic font-normal text-rose-dark">since 2020</span>
-          </h2>
-        </div>
-
-        {/* 2 Columns: Photo & Bio Left, Clean Horizontal Timeline Right */}
-        <div className="max-w-[1560px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-14 items-start">
-          
-          {/* Left Column: Stylized Portrait Card & Social Links */}
-          <div className="lg:col-span-5 space-y-6">
-            <div className="relative overflow-hidden rounded-4xl bg-forest p-4 sm:p-5 shadow-lg border border-[#CAD7C5]/30">
-              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-neutral-900">
-                <img
-                  src={portfolioData.hero?.avatarImg || "/2.png"}
-                  alt="Chikal Portrait"
-                  className="w-full h-full object-cover object-top"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-              <div className="mt-4 px-2 flex items-center justify-between">
-                <div>
-                  <h4 className="font-serif italic font-normal text-xl text-white">Chikal Nazmi</h4>
-                  <p className="text-xs text-rose-200/80">Business &amp; Digital Strategist</p>
-                </div>
-                <span className="text-xs font-mono text-white/50">2020 — 2026</span>
-              </div>
-            </div>
-
-            {/* Social Icons Row with Official Brand Logos */}
-            <div className="flex items-center justify-center gap-3 p-3 bg-white rounded-full border border-[#CAD7C5] shadow-xs">
-              <a
-                href={portfolioData.socials?.linkedin || "https://linkedin.com"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-[#F2F7EF] text-forest hover:bg-forest hover:text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xs flex items-center justify-center"
-                title="LinkedIn"
-                aria-label="LinkedIn"
-              >
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452z" />
-                </svg>
-              </a>
-              <a
-                href={portfolioData.socials?.instagram || "https://instagram.com/chikalnazmi"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-[#F2F7EF] text-forest hover:bg-forest hover:text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xs flex items-center justify-center"
-                title="Instagram"
-                aria-label="Instagram"
-              >
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                </svg>
-              </a>
-              <a
-                href={portfolioData.socials?.tiktok || "https://tiktok.com"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-[#F2F7EF] text-forest hover:bg-forest hover:text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xs flex items-center justify-center"
-                title="TikTok"
-                aria-label="TikTok"
-              >
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
-                </svg>
-              </a>
-              <a
-                href={`mailto:${portfolioData.socials?.email || "chikalnazmi@gmail.com"}`}
-                className="w-9 h-9 rounded-full bg-[#F2F7EF] text-forest hover:bg-forest hover:text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xs flex items-center justify-center"
-                title="Email"
-                aria-label="Email"
-              >
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                </svg>
-              </a>
-              {portfolioData.socials?.youtube && (
-                <a
-                  href={portfolioData.socials.youtube}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-[#F2F7EF] text-forest hover:bg-forest hover:text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xs flex items-center justify-center"
-                  title="YouTube"
-                  aria-label="YouTube"
-                >
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                  </svg>
-                </a>
-              )}
-              {portfolioData.socials?.medium && (
-                <a
-                  href={portfolioData.socials.medium}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-[#F2F7EF] text-forest hover:bg-forest hover:text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xs flex items-center justify-center"
-                  title="Medium"
-                  aria-label="Medium"
-                >
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z" />
-                  </svg>
-                </a>
-              )}
-            </div>
-          </div>
-
-          {/* Right Column: Narrative Story & Clean Horizontal Career Rows */}
-          <div className="lg:col-span-7 space-y-8">
-            <p className="text-sm sm:text-base text-neutral-700 leading-relaxed font-normal">
-              Lulusan <strong>{academicData.degree || "Sarjana Terapan Sistem Informasi Bisnis (D4 SIB)"} {academicData.institution || "Politeknik Negeri Malang"}</strong> dengan predikat <em>{academicData.badge || "Cum Laude"} (IPK {academicData.gpaValue || "3.84"})</em>{academicData.toeicScore ? ` serta sertifikasi internasional TOEIC ${academicData.toeicScore} (${academicData.toeicLevel || "Working Proficiency"})` : ""}. {academicData.description || "Berfokus pada perancangan model bisnis, tata kelola data sistem informasi, serta optimalisasi strategi media komersial yang terbukti memperluas pangsa pasar dan memenangkan kompetisi nasional."}
-            </p>
-
-            {/* Clean Timeline Rows (Elian Ross Style) */}
-            <div className="border-t border-[#CAD7C5]/60">
-              {experiencesList.map((exp, idx) => (
+                {/* Education Entry */}
                 <div 
-                  key={exp.id || idx}
-                  className="py-4 sm:py-5 border-b border-[#CAD7C5]/60 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4 hover:bg-white/60 px-2 rounded-xl transition-colors cursor-pointer group"
+                  className="py-5 sm:py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 hover:bg-white/60 px-3 rounded-2xl transition-all cursor-pointer group"
                   onClick={() => openModal({
-                    title: exp.title,
-                    category: exp.category || 'WORK EXPERIENCE',
-                    description: `${exp.summary}${exp.results && exp.results.length > 0 ? `\n\nFokus & Capaian:\n• ${exp.results.join('\n• ')}` : ''}`,
-                    images: exp.extraImages && exp.extraImages.length > 0 ? exp.extraImages : [exp.image || '/1.png'],
-                    link: exp.link,
-                    linkLabel: exp.linkLabel || 'Profil Bisnis ↗'
+                    title: `${academicData.degree} · ${academicData.institution}`,
+                    category: 'FORMAL EDUCATION',
+                    description: academicData.description,
+                    images: academicData.images && academicData.images.length > 0 ? academicData.images : ['/11.png', '/12.png', '/16.png'],
                   })}
                 >
                   <div>
-                    <h4 className="font-sans font-bold text-sm sm:text-base text-forest group-hover:text-rose-dark transition-colors">
-                      {exp.title}
+                    <h4 className="font-sans font-bold text-base sm:text-lg text-forest group-hover:text-rose-dark transition-colors">
+                      {academicData.degree}
                     </h4>
-                    <p className="text-xs text-neutral-500">
-                      {exp.category} · {exp.tag}
+                    <p className="text-xs text-neutral-500 mt-1">
+                      {academicData.institution} · <span className="font-medium text-rose-dusty">GPA {academicData.gpaValue} (Cum Laude)</span>
                     </p>
                   </div>
 
-                  <div className="flex items-center gap-3 self-start sm:self-auto">
-                    <span className="text-[11px] font-medium text-forest bg-[#F2F7EF] px-2.5 py-0.5 rounded-full border border-[#CAD7C5]">
-                      {exp.period}
+                  <div className="flex items-center gap-3 self-start sm:self-auto shrink-0">
+                    <span className="text-[11px] font-medium text-forest bg-[#F2F7EF] px-3 py-1 rounded-full border border-[#CAD7C5]">
+                      {academicData.period}
                     </span>
                     <span className="text-xs text-rose-dusty group-hover:text-rose-dark group-hover:translate-x-1 transition-all">→</span>
                   </div>
                 </div>
-              ))}
-
-              {/* Education Entry */}
-              <div 
-                className="py-4 sm:py-5 border-b border-[#CAD7C5]/60 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4 hover:bg-white/60 px-2 rounded-xl transition-colors cursor-pointer group"
-                onClick={() => openModal({
-                  title: `${academicData.degree} · ${academicData.institution}`,
-                  category: 'FORMAL EDUCATION',
-                  description: academicData.description,
-                  images: academicData.images && academicData.images.length > 0 ? academicData.images : ['/11.png', '/12.png', '/16.png'],
-                })}
-              >
-                <div>
-                  <h4 className="font-sans font-bold text-sm sm:text-base text-forest group-hover:text-rose-dark transition-colors">
-                    {academicData.degree}
-                  </h4>
-                  <p className="text-xs text-neutral-500">
-                    {academicData.institution} · GPA {academicData.gpaValue}
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-3 self-start sm:self-auto">
-                  <span className="text-[11px] font-medium text-forest bg-[#F2F7EF] px-2.5 py-0.5 rounded-full border border-[#CAD7C5]">
-                    {academicData.period}
-                  </span>
-                  <span className="text-xs text-rose-dusty group-hover:text-rose-dark group-hover:translate-x-1 transition-all">→</span>
-                </div>
               </div>
-            </div>
 
-            {/* Micro Callout for CV */}
-            <div className="flex items-center gap-4 pt-2">
-              <a
-                href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs font-semibold text-rose-dark underline underline-offset-4 hover:text-rose-berry transition-colors"
-              >
-                Minta Dokumen Curriculum Vitae (CV) via WhatsApp ↗
-              </a>
+              {/* Micro Callout for CV */}
+              <div className="flex items-center gap-4 pt-2">
+                <a
+                  href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-semibold text-rose-dark underline underline-offset-4 hover:text-rose-berry transition-colors flex items-center gap-1.5"
+                >
+                  <span>Minta Dokumen Curriculum Vitae (CV) via WhatsApp</span>
+                  <span>↗</span>
+                </a>
+              </div>
+
             </div>
 
           </div>
 
         </div>
-
       </section>
 
+      <BotanicalDivider />
+
       {/* ========================================================================= */}
-      {/* 9. TROPHY CASE & CERTIFICATIONS (Clean Minimalist Cards)                   */}
+      {/* 9. HONORS, AWARDS & PROFESSIONAL CERTIFICATIONS (#awards)                  */}
       {/* ========================================================================= */}
-      <section id="awards" className="w-full border-t border-[#CAD7C5]/30 py-20 sm:py-28 px-4 sm:px-8 lg:px-12 xl:px-16">
-        
-        {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+      <section id="awards" className="w-full py-16 sm:py-24 px-4 sm:px-8 lg:px-12 xl:px-16">
+        <div className="max-w-[1560px] mx-auto space-y-16">
+          
+          {/* SUB-SECTION A: NATIONAL HONORS & COMPETITIONS */}
           <div>
-            <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ Accreditations /</span>
-            <h2 className="font-sans font-medium text-4xl sm:text-5xl text-forest tracking-tight mt-1">
-              Awards &amp; Credentials
-            </h2>
-          </div>
-
-          <div className="flex flex-wrap gap-2">
-            {[
-              { id: 'all', label: 'All Honors' },
-              { id: '1st', label: '1st Place' },
-              { id: '2nd', label: '2nd Place' },
-              { id: 'top5', label: 'Finalist & Speaker' },
-            ].map(filter => (
-              <button
-                key={filter.id}
-                onClick={() => setActiveAwardFilter(filter.id as any)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
-                  activeAwardFilter === filter.id
-                    ? 'bg-rose-dark text-white shadow-xs'
-                    : 'bg-white/80 text-forest/75 border border-[#CAD7C5] hover:border-rose-dusty'
-                }`}
-              >
-                {filter.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Awards Grid */}
-        <div className="max-w-[1560px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredAwards.map((award, idx) => (
-            <div
-              key={idx}
-              onClick={() => openModal({
-                title: `${award.rank}: ${award.title}`,
-                category: award.scope || 'NATIONAL COMPETITION',
-                description: `${award.desc} Penyelenggara: ${award.organizer} (${award.year}).`,
-                images: [award.certImg || '/11.png', award.eventImg || '/12.png'],
-                link: award.link,
-                linkLabel: award.linkLabel || 'Dokumentasi Resmi ↗'
-              })}
-              className="editorial-card p-6 rounded-3xl bg-white/95 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
-            >
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-[11px] font-bold px-3 py-1 rounded-full bg-[#F2F7EF] text-forest border border-[#CAD7C5]">
-                    {award.rank}
-                  </span>
-                  <span className="text-xs text-neutral-500 font-mono">{award.year}</span>
-                </div>
-                <h4 className="font-sans font-bold text-base text-forest group-hover:text-rose-dark transition-colors leading-snug">
-                  {award.title}
-                </h4>
-                <p className="text-xs text-neutral-600 mt-2 leading-relaxed">
-                  {award.organizer} · {award.scope}
+                <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ Honors &amp; Recognitions /</span>
+                <h2 className="font-sans font-medium text-4xl sm:text-5xl text-forest tracking-tight mt-1">
+                  National Competitions &amp; Honors
+                </h2>
+                <p className="text-xs sm:text-sm text-neutral-600 mt-2 max-w-lg">
+                  Rekam jejak kompetisi Business Plan dan Karya Tulis Ilmiah tingkat nasional dengan solusi berbasis riset dan kelayakan bisnis nyata.
                 </p>
               </div>
 
-              <div className="mt-6 pt-3 border-t border-[#CAD7C5]/60 flex items-center justify-between text-xs font-semibold text-rose-dark">
-                <span>Lihat Sertifikat &amp; Piala</span>
-                <span className="group-hover:translate-x-1 transition-transform">↗</span>
+              {/* Filter Pills */}
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { id: 'all', label: 'Semua Lomba' },
+                  { id: '1st', label: 'Juara 1 (1st)' },
+                  { id: '2nd', label: 'Juara 2 (2nd)' },
+                  { id: 'top5', label: 'Top 5 & Speaker' },
+                ].map(tab => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveAwardFilter(tab.id as any)}
+                    className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                      activeAwardFilter === tab.id
+                        ? 'bg-rose-dark text-white shadow-xs'
+                        : 'bg-white/80 text-forest/75 border border-[#CAD7C5] hover:border-rose-dusty'
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
               </div>
             </div>
-          ))}
-        </div>
 
-        {/* Professional Certifications Bar */}
-        <div className="mt-14 pt-10 border-t border-[#CAD7C5]">
-          <h3 className="font-sans font-medium text-xl text-forest mb-6">
-            Professional Courses &amp; Certifications
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {certificationList.map((cert, idx) => (
-              <div
-                key={cert.id || idx}
-                onClick={() => openModal({
-                  title: cert.title,
-                  category: cert.issuer,
-                  description: cert.desc || `${cert.title} diterbitkan oleh ${cert.issuer} pada tahun ${cert.year}.`,
-                  images: [cert.image || '/9.png'],
-                  link: cert.link,
-                  linkLabel: cert.linkLabel || 'Verifikasi Kredensial ↗'
-                })}
-                className="p-4 rounded-2xl bg-white/95 border border-[#CAD7C5] hover:border-rose-dusty/60 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer flex flex-col justify-between"
-              >
-                <div>
-                  <span className="text-[10px] font-bold text-rose-dark uppercase tracking-wider">{cert.issuer}</span>
-                  <h4 className="font-bold text-xs text-forest mt-1 leading-snug">{cert.title}</h4>
+            {/* Awards Grid (4-Column Editorial Cards) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {filteredAwards.map((award, idx) => (
+                <div
+                  key={award.id || idx}
+                  onClick={() => openModal({
+                    title: award.title,
+                    category: award.rank,
+                    description: `${award.desc || award.title}\n\nTingkat: ${award.level}\nPenyelenggara: ${award.organizer}\nTahun: ${award.year}`,
+                    images: award.certImg ? [award.certImg] : ['/11.png'],
+                    link: award.link,
+                    linkLabel: award.linkLabel || 'Dokumentasi Resmi ↗'
+                  })}
+                  className="editorial-card p-6 rounded-3xl bg-white/95 border border-[#CAD7C5] shadow-xs hover:shadow-xl hover:border-rose-dusty/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between relative overflow-hidden"
+                >
+                  <BotanicalCorner />
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="w-8 h-8 rounded-full bg-rose-50 text-rose-dark flex items-center justify-center text-sm font-serif font-bold">
+                        🏆
+                      </span>
+                      <span className="text-[11px] font-bold text-rose-800 uppercase tracking-wider bg-rose-50 px-2.5 py-0.5 rounded-full border border-rose-100">
+                        {award.year}
+                      </span>
+                    </div>
+
+                    <h4 className="font-sans font-bold text-base text-forest group-hover:text-rose-dark transition-colors leading-snug">
+                      {award.title}
+                    </h4>
+                    <p className="text-xs text-rose-dark font-medium mt-1">
+                      {award.rank}
+                    </p>
+                    <p className="text-xs text-neutral-500 mt-2 line-clamp-2">
+                      {award.desc}
+                    </p>
+                  </div>
+
+                  <div className="mt-6 pt-3 border-t border-[#CAD7C5]/50 flex items-center justify-between text-[11px] text-neutral-500">
+                    <span>{award.organizer}</span>
+                    <span className="text-rose-dusty group-hover:text-rose-dark font-semibold">Sertifikat ↗</span>
+                  </div>
                 </div>
-                <div className="mt-3 pt-2 border-t border-[#CAD7C5]/40 flex items-center justify-between text-[10px] text-neutral-500">
-                  <span>{cert.year}</span>
-                  <span className="text-rose-dusty group-hover:text-rose-dark font-semibold">Verified ↗</span>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
 
+          {/* Mini Botanical Flower Break */}
+          <div className="w-48 mx-auto h-px bg-[#CAD7C5]/60 flex items-center justify-center">
+            <span className="text-rose-dusty text-xs px-3 bg-[#E8EFE5] select-none">❀</span>
+          </div>
+
+          {/* SUB-SECTION B: PROFESSIONAL CERTIFICATIONS & CREDENTIALS */}
+          <div>
+            <div className="mb-10 text-left">
+              <span className="font-script text-3xl sm:text-4xl text-rose-dark block">/ Continuous Learning /</span>
+              <h3 className="font-sans font-medium text-3xl sm:text-4xl text-forest tracking-tight mt-1">
+                Professional Certifications &amp; Credentials
+              </h3>
+              <p className="text-xs sm:text-sm text-neutral-600 mt-2 max-w-lg">
+                Sertifikasi kompetensi resmi dalam metodologi riset digital, pemasaran komersial, dan tata kelola sistem.
+              </p>
+            </div>
+
+            {/* Certifications Grid (4-Column Aligned Rhythm) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {certificationList.map((cert, idx) => (
+                <div
+                  key={cert.id || idx}
+                  onClick={() => openModal({
+                    title: cert.title,
+                    category: cert.issuer,
+                    description: cert.desc || `${cert.title} diterbitkan oleh ${cert.issuer} pada tahun ${cert.year}.`,
+                    images: [cert.image || '/9.png'],
+                    link: cert.link,
+                    linkLabel: cert.linkLabel || 'Verifikasi Kredensial ↗'
+                  })}
+                  className="editorial-card p-6 rounded-3xl bg-white/95 border border-[#CAD7C5] hover:border-rose-dusty/60 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col justify-between relative overflow-hidden group"
+                >
+                  <BotanicalCorner />
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-[10px] font-bold text-rose-dark uppercase tracking-wider bg-rose-50 px-2.5 py-0.5 rounded-full border border-rose-100">
+                        {cert.issuer}
+                      </span>
+                      <span className="text-[10px] font-mono text-neutral-400">
+                        {cert.year}
+                      </span>
+                    </div>
+                    <h4 className="font-sans font-bold text-sm text-forest group-hover:text-rose-dark transition-colors mt-1 leading-snug">
+                      {cert.title}
+                    </h4>
+                    <p className="text-xs text-neutral-500 mt-2 line-clamp-2">
+                      {cert.desc || `Verifikasi kredensial resmi ${cert.title} yang diterbitkan oleh ${cert.issuer}.`}
+                    </p>
+                  </div>
+                  
+                  <div className="mt-5 pt-3 border-t border-[#CAD7C5]/50 flex items-center justify-between text-[11px]">
+                    <span className="text-neutral-400 font-mono">Issued {cert.year}</span>
+                    <span className="text-rose-dusty group-hover:text-rose-dark font-semibold">Verified ↗</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+        </div>
       </section>
 
+      <BotanicalDivider />
+
       {/* ========================================================================= */}
-      {/* 10. CTA BANNER ("Let's Make It Happen" Persis Referensi Elian Ross)       */}
+      {/* 10. BOTTOM CTA BANNER ("Let's Make It Happen")                            */}
       {/* ========================================================================= */}
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="relative overflow-hidden rounded-4xl p-10 sm:p-16 text-center cta-banner-glow border border-[#CAD7C5] shadow-md">
+          <BotanicalCorner className="top-4 right-4" />
+          <BotanicalCorner className="bottom-4 left-4" />
           
           <div className="relative z-10 max-w-3xl mx-auto space-y-4">
             <h2 className="font-sans font-medium text-4xl sm:text-6xl md:text-7xl text-forest tracking-tight leading-none">
@@ -1412,18 +1534,25 @@ export default function Home() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 11. FOOTER & GIANT WATERMARK SIGNATURE (Instrument Serif Italic)          */}
+      {/* 11. FOOTER WITH LARGE BOTANICAL CLOSING SILHOUETTE & SIGNATURE            */}
       {/* ========================================================================= */}
       <footer className="w-full border-t border-[#CAD7C5]/30 pt-16 pb-20 px-4 sm:px-8 lg:px-12 xl:px-16 relative overflow-hidden">
         
-        {/* Navigation & Copyright (Elian Ross Style) */}
-        <div className="max-w-[1560px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-neutral-600 pb-12">
-          <div className="flex items-center gap-6 font-medium">
-            <a href="#about" className="hover:text-rose-dark transition-colors">Home</a>
+        {/* Large Botanical Lily/Magnolia Closing Silhouette Backdrop */}
+        <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-[600px] sm:w-[800px] h-[350px] pointer-events-none select-none opacity-[0.07] z-0 flex items-center justify-center">
+          <svg viewBox="0 0 400 200" fill="currentColor" className="w-full h-full text-forest">
+            <path d="M200 10 C220 50, 280 80, 350 90 C290 120, 260 160, 200 200 C140 160, 110 120, 50 90 C120 80, 180 50, 200 10 Z" />
+            <path d="M200 60 C210 90, 250 110, 300 120 C250 140, 230 170, 200 190 C170 170, 150 140, 100 120 C150 110, 190 90, 200 60 Z" opacity="0.6" />
+          </svg>
+        </div>
+
+        {/* Navigation & Copyright (Sequential Match with Page Flow) */}
+        <div className="relative z-10 max-w-[1560px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-neutral-600 pb-12">
+          <div className="flex items-center gap-6 font-medium flex-wrap justify-center sm:justify-start">
             <a href="#about" className="hover:text-rose-dark transition-colors">About</a>
-            <a href="#projects" className="hover:text-rose-dark transition-colors">Portfolio</a>
-            <a href="#creator" className="hover:text-rose-dark transition-colors">Creator</a>
             <a href="#process" className="hover:text-rose-dark transition-colors">Process</a>
+            <a href="#projects" className="hover:text-rose-dark transition-colors">Works</a>
+            <a href="#creator" className="hover:text-rose-dark transition-colors">Creator Studio</a>
             <a href="#experience" className="hover:text-rose-dark transition-colors">Experience</a>
             <a href="#awards" className="hover:text-rose-dark transition-colors">Awards</a>
           </div>
@@ -1433,8 +1562,8 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Giant Solid Signature Typography Across Bottom (Persis Referensi Elian Ross) */}
-        <div className="text-center select-none pt-4 overflow-hidden">
+        {/* Giant Solid Signature Typography Across Bottom */}
+        <div className="relative z-10 text-center select-none pt-4 overflow-hidden">
           <span className="font-serif italic font-normal text-6xl sm:text-8xl md:text-9xl lg:text-[150px] xl:text-[170px] text-forest/15 leading-none tracking-tight block">
             Chikal Nazmi
           </span>
@@ -1506,7 +1635,7 @@ export default function Home() {
             {/* Modal Description */}
             <div className="space-y-2">
               <h4 className="font-bold text-xs uppercase tracking-wider text-rose-900">Ringkasan &amp; Informasi</h4>
-              <p className="text-xs sm:text-sm text-forest/75 leading-relaxed">
+              <p className="text-xs sm:text-sm text-forest/75 leading-relaxed whitespace-pre-line">
                 {modalData.description}
               </p>
             </div>
