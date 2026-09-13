@@ -319,14 +319,14 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: min(920px, 90vw);
-  height: min(560px, 80vw);
+  width: min(820px, 85vw);
+  height: min(480px, 70vw);
   background: radial-gradient(
     ellipse at center,
-    rgba(148, 178, 140, 0.60) 0%,
-    rgba(178, 204, 170, 0.40) 30%,
-    rgba(212, 226, 208, 0.22) 52%,
-    rgba(244, 247, 242, 0.08) 68%,
+    rgba(148, 178, 140, 0.55) 0%,
+    rgba(178, 204, 170, 0.35) 30%,
+    rgba(212, 226, 208, 0.18) 52%,
+    rgba(244, 247, 242, 0.06) 68%,
     transparent 78%
   );
   pointer-events: none;
@@ -338,22 +338,22 @@
   position: relative;
   width: 100%;
   max-width: 1240px;
-  margin: -1rem auto 0 auto;
+  margin: 0.5rem auto 0 auto;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  min-height: 480px;
+  min-height: 400px;
 }
 
 .hero-flank-left {
   position: absolute;
   left: 1.5rem;
-  top: 0;
-  bottom: 1.5rem;
+  top: 1.75rem;
+  bottom: 0.75rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  max-width: 290px;
+  max-width: 350px;
   z-index: 20;
   text-align: left;
 }
@@ -361,8 +361,8 @@
 .hero-flank-right {
   position: absolute;
   right: 1.5rem;
-  top: 0;
-  bottom: 1.5rem;
+  top: 1.75rem;
+  bottom: 0.75rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -379,9 +379,9 @@
   justify-content: center;
   align-items: flex-end;
   width: 100%;
-  max-width: 480px;
-  min-height: 480px;
-  margin-top: -1.75rem;
+  max-width: 440px;
+  min-height: 390px;
+  margin-top: 0;
   pointer-events: none;
 }
 
@@ -393,7 +393,7 @@
   transform: translateX(-50%);
   width: 100%;
   height: 100%;
-  max-width: 500px;
+  max-width: 460px;
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -404,33 +404,33 @@
 
 .hero-floral-arch {
   position: absolute;
-  bottom: 6px;
+  bottom: 4px;
   left: 50%;
   transform: translateX(-50%);
   width: auto;
-  height: 106%;
-  max-height: 570px;
+  height: 104%;
+  max-height: 450px;
   object-fit: contain;
-  filter: drop-shadow(0 12px 28px rgba(37, 53, 33, 0.12));
+  filter: drop-shadow(0 10px 24px rgba(37, 53, 33, 0.1));
   animation: floral-breathe 8s ease-in-out infinite alternate;
 }
 
 .hero-floral-oval {
   position: absolute;
-  bottom: 12px;
+  bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
   width: auto;
-  height: 102%;
-  max-height: 550px;
+  height: 100%;
+  max-height: 440px;
   object-fit: contain;
-  filter: drop-shadow(0 12px 28px rgba(37, 53, 33, 0.12));
+  filter: drop-shadow(0 10px 24px rgba(37, 53, 33, 0.1));
   animation: floral-breathe 8s ease-in-out infinite alternate;
 }
 
 .hero-floral-bouquet-wrap {
   position: absolute;
-  bottom: 130px;
+  bottom: 110px;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
@@ -440,34 +440,34 @@
 }
 
 .hero-floral-bouquet {
-  width: 330px;
+  width: 300px;
   height: auto;
-  max-width: 92%;
+  max-width: 90%;
   object-fit: contain;
-  filter: drop-shadow(0 10px 24px rgba(37, 53, 33, 0.1));
+  filter: drop-shadow(0 8px 20px rgba(37, 53, 33, 0.08));
   animation: floral-breathe 7s ease-in-out infinite alternate;
 }
 
 .hero-floral-vine {
   position: absolute;
-  top: -50px;
+  top: -40px;
   right: -10px;
-  width: 210px;
+  width: 190px;
   height: auto;
   object-fit: contain;
   opacity: 0.9;
-  filter: drop-shadow(0 6px 16px rgba(37, 53, 33, 0.08));
+  filter: drop-shadow(0 6px 14px rgba(37, 53, 33, 0.07));
 }
 
 .hero-floral-butterflies {
   position: absolute;
-  top: 14%;
-  left: -20px;
-  width: 125px;
+  top: 12%;
+  left: -15px;
+  width: 110px;
   height: auto;
   pointer-events: none;
   z-index: 6;
-  filter: drop-shadow(0 4px 12px rgba(184, 80, 110, 0.22));
+  filter: drop-shadow(0 4px 10px rgba(184, 80, 110, 0.2));
   animation: butterfly-flutter 7s ease-in-out infinite;
 }
 
@@ -499,8 +499,8 @@
   position: relative;
   z-index: 4;
   width: 100%;
-  height: 520px;
-  max-height: 560px;
+  height: 400px;
+  max-height: 430px;
   object-fit: contain;
   object-position: bottom center;
   display: block;
@@ -508,8 +508,22 @@
   mix-blend-mode: normal;
   -webkit-mask-image: linear-gradient(to bottom, black 0%, black 82%, transparent 100%);
   mask-image: linear-gradient(to bottom, black 0%, black 82%, transparent 100%);
-  filter: drop-shadow(0 15px 30px rgba(37, 53, 33, 0.08));
+  filter: drop-shadow(0 12px 24px rgba(37, 53, 33, 0.07));
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 1180px) and (min-width: 961px) {
+  .hero-flank-left {
+    left: 0.75rem;
+    max-width: 300px;
+  }
+  .hero-flank-right {
+    right: 0.75rem;
+    max-width: 255px;
+  }
+  .hero-portrait-wrap {
+    max-width: 380px;
+  }
 }
 
 @media (max-width: 960px) {

@@ -657,16 +657,16 @@ export default function Home() {
           
           {/* Centered Main Headline (Urbanist + Instrument Serif Italic) */}
           <motion.div 
-            initial={{ opacity: 0, y: 22 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="text-center max-w-4xl mx-auto mb-2 sm:mb-3 relative z-10"
+            className="text-center max-w-3xl mx-auto mb-2 sm:mb-3 relative z-10"
           >
             <h1 className="hero-headline">
-              <span className="block font-sans font-medium text-3xl sm:text-5xl lg:text-[72px] text-forest tracking-[-0.035em] leading-[0.98]">
+              <span className="block font-sans font-semibold text-2xl sm:text-3xl lg:text-[38px] xl:text-[42px] text-forest tracking-tight leading-[1.05]">
                 Hi I&apos;m Chikal
               </span>
-              <span className="editorial-serif-italic block text-[1.12em] text-3xl sm:text-5xl lg:text-[72px] text-forest tracking-[-0.02em] font-normal leading-[1.02] mt-[-0.1rem]">
+              <span className="editorial-serif-italic block text-2xl sm:text-3xl lg:text-[40px] xl:text-[45px] text-forest tracking-normal font-normal leading-[1.12] mt-1">
                 {portfolioData.hero?.headline || 'Menghubungkan Strategi Bisnis, Operasional, & Kreativitas Digital.'}
               </span>
             </h1>
@@ -686,44 +686,73 @@ export default function Home() {
               className="hero-flank-left"
             >
               {/* Status Badge */}
-              <div className="hero-badge-available inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/95 border border-[#CAD7C5] shadow-xs text-xs sm:text-sm font-medium text-forest w-fit mt-8 lg:mt-12 backdrop-blur-md">
-                <span className="relative flex h-2.5 w-2.5">
+              <div className="hero-badge-available inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/95 border border-[#CAD7C5] shadow-2xs text-xs font-medium text-forest w-fit backdrop-blur-md">
+                <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-600"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
                 </span>
-                <span>{portfolioData.hero?.subheadline || 'Available for now opportunities'}</span>
+                <span className="truncate max-w-[270px]">{portfolioData.hero?.subheadline || 'Available for opportunities'}</span>
               </div>
 
               {/* Bottom: 3 Credential Cards connected to CMS */}
-              <div className="hero-trusted-proof grid grid-cols-3 gap-2 w-full max-w-[320px]">
+              <div className="hero-trusted-proof grid grid-cols-3 gap-2 w-full max-w-[340px]">
                 {/* Card 1: IPK */}
                 <motion.div 
                   whileHover={{ y: -3, transition: { duration: 0.2 } }}
-                  className="bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-xl p-2.5 shadow-2xs text-left hover:border-forest/40 transition-all cursor-default"
+                  className="bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-xl p-2 sm:p-2.5 shadow-2xs text-left hover:border-forest/40 transition-all cursor-default"
                 >
-                  <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-forest/60">{portfolioData.academic?.gpaTitle || 'IPK'}</span>
-                  <span className="block text-base sm:text-lg font-mono font-extrabold text-forest leading-tight">{portfolioData.academic?.gpaValue || '3.73'}</span>
-                  <span className="block text-[9px] font-medium text-rose-dark leading-tight mt-0.5">{portfolioData.academic?.badge || 'Cum Laude'}</span>
+                  <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-forest/60 truncate">
+                    {portfolioData.academic?.gpaTitle && portfolioData.academic.gpaTitle.length <= 8 ? portfolioData.academic.gpaTitle : 'IPK / GPA'}
+                  </span>
+                  <span className="block text-base sm:text-lg font-mono font-extrabold text-forest leading-tight truncate">
+                    {(() => {
+                      const raw = portfolioData.academic?.gpaValue || '';
+                      const match = raw.match(/\d+([.,]\d+)?/);
+                      if (match) return match[0].replace(',', '.');
+                      if (raw && raw.length <= 6) return raw;
+                      return '3.73';
+                    })()}
+                  </span>
+                  <span className="block text-[9px] font-medium text-rose-dark leading-tight mt-0.5 truncate">
+                    {(() => {
+                      const raw = portfolioData.academic?.gpaValue || '';
+                      if (/cum\s*laude/i.test(raw)) return 'Cum Laude';
+                      if (portfolioData.academic?.badge && portfolioData.academic.badge.length <= 12) return portfolioData.academic.badge;
+                      return 'Cum Laude';
+                    })()}
+                  </span>
                 </motion.div>
 
                 {/* Card 2: TOEIC */}
                 <motion.div 
                   whileHover={{ y: -3, transition: { duration: 0.2 } }}
-                  className="bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-xl p-2.5 shadow-2xs text-left hover:border-forest/40 transition-all cursor-default"
+                  className="bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-xl p-2 sm:p-2.5 shadow-2xs text-left hover:border-forest/40 transition-all cursor-default"
                 >
-                  <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-forest/60">{portfolioData.hero?.stat4Label || 'TOEIC'}</span>
-                  <span className="block text-base sm:text-lg font-mono font-extrabold text-rose-dark leading-tight">{portfolioData.hero?.stat4Value || '775'}</span>
-                  <span className="block text-[9px] font-medium text-forest/70 leading-tight mt-0.5">{portfolioData.academic?.toeicLevel || 'Skor Resmi'}</span>
+                  <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-forest/60 truncate">
+                    TOEIC
+                  </span>
+                  <span className="block text-base sm:text-lg font-mono font-extrabold text-rose-dark leading-tight truncate">
+                    {portfolioData.academic?.toeicScore || portfolioData.hero?.stat4Value || '775'}
+                  </span>
+                  <span className="block text-[9px] font-medium text-forest/70 leading-tight mt-0.5 truncate">
+                    {portfolioData.academic?.toeicLevel || 'Skor Resmi'}
+                  </span>
                 </motion.div>
 
                 {/* Card 3: Lomba / Penghargaan */}
                 <motion.div 
                   whileHover={{ y: -3, transition: { duration: 0.2 } }}
-                  className="bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-xl p-2.5 shadow-2xs text-left hover:border-forest/40 transition-all cursor-default"
+                  className="bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-xl p-2 sm:p-2.5 shadow-2xs text-left hover:border-forest/40 transition-all cursor-default"
                 >
-                  <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-forest/60">{portfolioData.hero?.stat1Label || 'Lomba'}</span>
-                  <span className="block text-base sm:text-lg font-mono font-extrabold text-[#4E6B47] leading-tight">{portfolioData.hero?.stat1Value || '7x'}</span>
-                  <span className="block text-[9px] font-medium text-forest/70 leading-tight mt-0.5">Juara Nas.</span>
+                  <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-forest/60 truncate">
+                    AWARDS
+                  </span>
+                  <span className="block text-base sm:text-lg font-mono font-extrabold text-[#4E6B47] leading-tight truncate">
+                    {portfolioData.hero?.stat1Value || '7x'}
+                  </span>
+                  <span className="block text-[9px] font-medium text-forest/70 leading-tight mt-0.5 truncate">
+                    Juara Nas.
+                  </span>
                 </motion.div>
               </div>
             </motion.div>
@@ -800,18 +829,18 @@ export default function Home() {
               className="hero-flank-right"
             >
               {/* Statement */}
-              <p className="hero-statement-right text-xs sm:text-sm text-forest/85 leading-relaxed font-normal max-w-[280px] mt-8 lg:mt-12 font-source text-left sm:text-left">
-                {portfolioData.hero?.bio || 'passionate about creating intuitive digital experiences that connect users with value.'}
+              <p className="hero-statement-right text-xs sm:text-[13px] text-forest/80 leading-relaxed font-normal max-w-[270px] font-source text-left">
+                {portfolioData.hero?.bio || 'Mahasiswi Sistem Informasi Bisnis Politeknik Negeri Malang yang berfokus pada operasional bisnis, public relations, dan pembuatan konten kreatif.'}
               </p>
 
               {/* Get in Touch CTA Button */}
               <motion.a
-                whileHover={{ scale: 1.04 }}
+                whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890?text=Halo%20Chikal,%20saya%20tertarik%20berdiskusi%20mengenai%20peluang%20kerjasama."}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hero-cta-btn inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-forest hover:bg-rose-dark text-[#E8EFE5] text-xs sm:text-sm font-semibold shadow-md hover:shadow-lg transition-all"
+                className="hero-cta-btn inline-flex items-center gap-2 px-5 py-2 rounded-full bg-forest hover:bg-rose-dark text-[#E8EFE5] text-xs sm:text-sm font-semibold shadow-xs hover:shadow-md transition-all cursor-pointer"
               >
                 <span>→</span>
                 <span>Get in Touch</span>
