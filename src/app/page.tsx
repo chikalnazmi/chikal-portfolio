@@ -2446,161 +2446,168 @@ export default function Home() {
 
         return (
           <div 
-            className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 bg-black/80 backdrop-blur-md animate-fadeIn select-none"
+            className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 bg-black/85 backdrop-blur-md animate-fadeIn select-none"
             onClick={closeModal}
           >
             <div 
-              className="bg-white rounded-[2rem] sm:rounded-[2.5rem] max-w-5xl w-[96vw] max-h-[94vh] shadow-2xl border-2 border-[#CAD7C5] p-4 sm:p-6 md:p-8 relative flex flex-col justify-between overflow-y-auto"
+              className="bg-white rounded-2xl sm:rounded-3xl max-w-6xl w-full max-h-[96vh] shadow-2xl border-2 border-[#CAD7C5] p-3.5 sm:p-5 md:p-6 relative flex flex-col md:flex-row gap-4 sm:gap-6 overflow-y-auto md:overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* ----------------------------------------------------------------- */}
-              {/* TOP HEADER: Badge, Title & Full Detailed Narrative                */}
-              {/* ----------------------------------------------------------------- */}
-              <div className="flex items-start justify-between gap-4 pb-3.5 mb-3 border-b border-[#CAD7C5]/70">
-                <div className="max-w-3xl pr-2">
-                  <div className="flex flex-wrap items-center gap-2 mb-2">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-rose-dark bg-rose-blush/70 border border-rose-dusty/40 px-3 py-1 rounded-full">
-                      {modalData.category}
-                    </span>
-                    <span className="text-xs font-semibold text-forest/70">
-                      • {modalData.images.length} Dokumentasi Visual
-                    </span>
+              {/* ================================================================= */}
+              {/* LEFT COLUMN: THE EXPANSIVE HERO VISUAL STAGE (64% on Desktop)     */}
+              {/* ================================================================= */}
+              <div className="w-full md:w-[62%] lg:w-[65%] flex flex-col justify-between h-auto md:h-[84vh] shrink-0">
+                {/* Main Image Stage: Expands up to full available height! */}
+                <div className="relative w-full flex-1 min-h-[340px] sm:min-h-[440px] md:min-h-0 rounded-2xl overflow-hidden bg-[#182315]/5 border border-[#CAD7C5]/80 flex items-center justify-center group shadow-inner">
+                  {/* Soft Ambient Blurred Glow */}
+                  <div 
+                    className="absolute inset-0 bg-cover bg-center opacity-30 filter blur-3xl scale-125 pointer-events-none transition-all duration-700"
+                    style={{ backgroundImage: `url(${currentImg})` }}
+                  />
+
+                  {/* The Hero Photo: Uncropped & Maximized in Size */}
+                  <img
+                    src={currentImg}
+                    alt={`${modalData.title} dokumentasi ${activeModalPhoto + 1}`}
+                    className="relative z-10 max-w-full max-h-full object-contain p-2 sm:p-3 drop-shadow-xl transition-all duration-300"
+                  />
+
+                  {/* Navigation Left Arrow */}
+                  {hasMultiple && (
+                    <button
+                      onClick={handlePrevPhoto}
+                      className="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-forest hover:text-rose-dark shadow-xl border border-[#CAD7C5] flex items-center justify-center text-xl sm:text-2xl font-bold transition-all hover:scale-110 active:scale-95 cursor-pointer ring-2 ring-black/5"
+                      title="Foto Sebelumnya (Panah Kiri)"
+                      aria-label="Previous Photo"
+                    >
+                      ‹
+                    </button>
+                  )}
+
+                  {/* Navigation Right Arrow */}
+                  {hasMultiple && (
+                    <button
+                      onClick={handleNextPhoto}
+                      className="absolute right-2.5 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-forest hover:text-rose-dark shadow-xl border border-[#CAD7C5] flex items-center justify-center text-xl sm:text-2xl font-bold transition-all hover:scale-110 active:scale-95 cursor-pointer ring-2 ring-black/5"
+                      title="Foto Selanjutnya (Panah Kanan)"
+                      aria-label="Next Photo"
+                    >
+                      ›
+                    </button>
+                  )}
+
+                  {/* Top Right: Open Original Photo */}
+                  <a
+                    href={currentImg}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute top-3 right-3 z-20 px-3 py-1.5 rounded-full bg-white/95 hover:bg-white text-forest hover:text-rose-dark text-xs font-bold shadow-md border border-[#CAD7C5]/70 transition-all flex items-center gap-1.5 backdrop-blur-xs"
+                    title="Buka foto asli resolusi penuh di tab baru"
+                  >
+                    <span>Buka Ukuran Asli</span>
+                    <span>↗</span>
+                  </a>
+
+                  {/* Bottom Left: Live Photo Counter Badge */}
+                  <div className="absolute bottom-3 left-3 z-20 px-3.5 py-1 rounded-full bg-black/75 backdrop-blur-md text-white text-[11px] font-mono font-medium shadow-md flex items-center gap-2 border border-white/20">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span>Foto {activeModalPhoto + 1} dari {modalData.images.length}</span>
+                  </div>
+                </div>
+
+                {/* Filmstrip Thumbnails Row (Cleanly docked below the main photo) */}
+                {hasMultiple && (
+                  <div className="mt-3 shrink-0">
+                    <div className="flex items-center gap-2 overflow-x-auto py-1 px-0.5 scrollbar-thin">
+                      {modalData.images.map((img, idx) => {
+                        const isActive = idx === activeModalPhoto;
+                        return (
+                          <button
+                            key={idx}
+                            onClick={() => setActiveModalPhoto(idx)}
+                            className={`relative w-20 sm:w-24 aspect-[4/3] rounded-xl overflow-hidden border-2 transition-all shrink-0 cursor-pointer bg-forest/5 ${
+                              isActive
+                                ? 'border-rose-dark ring-2 ring-rose-dark/30 scale-102 shadow-md'
+                                : 'border-[#CAD7C5] opacity-60 hover:opacity-100 hover:border-forest'
+                            }`}
+                            title={`Lihat Foto ${idx + 1}`}
+                          >
+                            <img src={img} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-cover" />
+                            <span className={`absolute bottom-1 right-1 px-1.5 py-0.5 rounded text-[8px] font-bold font-mono ${
+                              isActive ? 'bg-rose-dark text-white' : 'bg-black/75 text-white'
+                            }`}>
+                              #{idx + 1}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* ================================================================= */}
+              {/* RIGHT COLUMN: THE EDITORIAL STORY & ACTION PANEL (36% on Desktop) */}
+              {/* ================================================================= */}
+              <div className="w-full md:w-[38%] lg:w-[35%] flex flex-col justify-between h-auto md:h-[84vh] pl-0 md:pl-2">
+                {/* Narrative & Info Header */}
+                <div className="overflow-y-auto pr-1 md:pr-2">
+                  {/* Top Action Row: Category + Close Button */}
+                  <div className="flex items-center justify-between gap-3 pb-3 mb-3.5 border-b border-[#CAD7C5]/70">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-rose-dark bg-rose-blush/80 border border-rose-dusty/40 px-3 py-1 rounded-full shadow-2xs">
+                        {modalData.category}
+                      </span>
+                    </div>
+
+                    <button
+                      onClick={closeModal}
+                      className="w-10 h-10 rounded-full bg-[#E8EFE5] hover:bg-rose-dark hover:text-white text-forest flex items-center justify-center transition-all text-lg font-bold shadow-xs cursor-pointer shrink-0"
+                      aria-label="Tutup Dialog"
+                      title="Tutup Dialog"
+                    >
+                      ✕
+                    </button>
                   </div>
 
-                  <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest leading-snug mb-2">
+                  {/* Title */}
+                  <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest leading-snug tracking-tight mb-3">
                     {modalData.title}
                   </h3>
 
-                  <p className="text-xs sm:text-sm text-forest/85 leading-relaxed font-source">
-                    {modalData.description}
-                  </p>
-                </div>
-
-                {/* Close Button */}
-                <button
-                  onClick={closeModal}
-                  className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#E8EFE5] hover:bg-rose-dark hover:text-white text-forest flex items-center justify-center transition-all text-lg font-bold shadow-xs cursor-pointer shrink-0"
-                  aria-label="Tutup Dialog"
-                  title="Tutup Dialog"
-                >
-                  ✕
-                </button>
-              </div>
-
-              {/* ----------------------------------------------------------------- */}
-              {/* PROMINENT MEDIA STAGE: 100% VISIBLE & UNCROPPED (object-contain)  */}
-              {/* ----------------------------------------------------------------- */}
-              <div className="relative w-full h-[250px] sm:h-[420px] md:h-[500px] rounded-2xl sm:rounded-3xl overflow-hidden bg-forest/5 border border-[#CAD7C5]/80 my-2 flex items-center justify-center group shadow-inner">
-                {/* Ambient Blurred Backdrop to fit portrait or landscape gracefully */}
-                <div 
-                  className="absolute inset-0 bg-cover bg-center opacity-25 filter blur-2xl scale-125 pointer-events-none transition-all duration-500"
-                  style={{ backgroundImage: `url(${currentImg})` }}
-                />
-
-                {/* Main Uncropped Photo Display */}
-                <img
-                  src={currentImg}
-                  alt={`${modalData.title} dokumentasi ${activeModalPhoto + 1}`}
-                  className="relative z-10 max-w-full max-h-full object-contain p-2 sm:p-4 drop-shadow-md transition-all duration-300"
-                />
-
-                {/* Navigation Left Arrow */}
-                {hasMultiple && (
-                  <button
-                    onClick={handlePrevPhoto}
-                    className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-forest hover:text-rose-dark shadow-xl border border-[#CAD7C5] flex items-center justify-center text-xl sm:text-2xl font-bold transition-all hover:scale-110 active:scale-95 cursor-pointer ring-2 sm:ring-4 ring-black/5"
-                    title="Foto Sebelumnya (Panah Kiri)"
-                    aria-label="Previous Photo"
-                  >
-                    ‹
-                  </button>
-                )}
-
-                {/* Navigation Right Arrow */}
-                {hasMultiple && (
-                  <button
-                    onClick={handleNextPhoto}
-                    className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-forest hover:text-rose-dark shadow-xl border border-[#CAD7C5] flex items-center justify-center text-xl sm:text-2xl font-bold transition-all hover:scale-110 active:scale-95 cursor-pointer ring-2 sm:ring-4 ring-black/5"
-                    title="Foto Selanjutnya (Panah Kanan)"
-                    aria-label="Next Photo"
-                  >
-                    ›
-                  </button>
-                )}
-
-                {/* Top Right: Open Original Photo Button */}
-                <a
-                  href={currentImg}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="absolute top-3 right-3 z-20 px-3 py-1.5 rounded-full bg-white/95 hover:bg-white text-forest hover:text-rose-dark text-xs font-bold shadow-md border border-[#CAD7C5]/70 transition-all flex items-center gap-1.5 backdrop-blur-xs"
-                  title="Buka foto asli resolusi penuh di tab baru"
-                >
-                  <span>Buka Ukuran Asli</span>
-                  <span>↗</span>
-                </a>
-
-                {/* Bottom Left: Live Photo Counter Badge */}
-                <div className="absolute bottom-3 left-3 z-20 px-3.5 py-1.5 rounded-full bg-black/75 backdrop-blur-md text-white text-xs font-mono font-medium shadow-md flex items-center gap-2 border border-white/20">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>Dokumentasi {activeModalPhoto + 1} dari {modalData.images.length}</span>
-                </div>
-              </div>
-
-              {/* ----------------------------------------------------------------- */}
-              {/* INTERACTIVE THUMBNAIL FILMSTRIP: Explore All Photos Easily        */}
-              {/* ----------------------------------------------------------------- */}
-              {hasMultiple && (
-                <div className="mt-2 mb-1">
-                  <div className="text-[11px] font-bold uppercase tracking-wider text-forest/60 mb-1.5 flex items-center justify-between">
-                    <span>Pilih Foto Dokumentasi ({modalData.images.length} Tersedia):</span>
-                    <span className="text-forest/50 font-normal hidden sm:inline">Gunakan tombol ‹ › atau tombol panah keyboard</span>
+                  {/* Narrative Description */}
+                  <div className="p-3.5 rounded-2xl bg-[#FAFBF8] border border-[#CAD7C5]/80 mb-4">
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-forest/60 block mb-1">
+                      ✦ Rincian &amp; Dokumentasi Kegiatan
+                    </span>
+                    <p className="text-xs sm:text-[13px] text-forest/85 leading-relaxed font-source">
+                      {modalData.description}
+                    </p>
                   </div>
-                  <div className="flex items-center gap-2.5 overflow-x-auto py-1.5 px-1 scrollbar-thin">
-                    {modalData.images.map((img, idx) => {
-                      const isActive = idx === activeModalPhoto;
-                      return (
-                        <button
-                          key={idx}
-                          onClick={() => setActiveModalPhoto(idx)}
-                          className={`relative w-20 sm:w-28 aspect-[4/3] rounded-xl overflow-hidden border-2 transition-all shrink-0 cursor-pointer bg-forest/5 ${
-                            isActive
-                              ? 'border-rose-dark ring-3 ring-rose-dark/30 scale-105 shadow-md'
-                              : 'border-[#CAD7C5] opacity-60 hover:opacity-100 hover:border-forest'
-                          }`}
-                          title={`Lihat Foto ${idx + 1}`}
-                        >
-                          <img src={img} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-cover" />
-                          <span className={`absolute bottom-1 right-1 px-1.5 py-0.5 rounded text-[9px] font-bold font-mono ${
-                            isActive ? 'bg-rose-dark text-white' : 'bg-black/75 text-white'
-                          }`}>
-                            #{idx + 1}
-                          </span>
-                        </button>
-                      );
-                    })}
+
+                  {/* Key Navigation Info */}
+                  <div className="p-3 rounded-xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/60 mb-4 text-xs text-forest/75 space-y-1.5">
+                    <div className="flex items-center gap-2">
+                      <span className="text-rose-dark font-bold text-xs">✔</span>
+                      <span className="text-[11px] font-medium">
+                        Foto ditampilkan dalam rasio asli tanpa distorsi / cropping
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 text-[10px] text-forest/60 font-mono">
+                      <span>⌨</span>
+                      <span>Navigasi: tombol panah ‹ › di keyboard</span>
+                    </div>
                   </div>
                 </div>
-              )}
 
-              {/* ----------------------------------------------------------------- */}
-              {/* BOTTOM FOOTER: Status, Adaptive External Link & Close Action     */}
-              {/* ----------------------------------------------------------------- */}
-              <div className="pt-3.5 mt-2 border-t border-[#CAD7C5]/70 flex flex-wrap items-center justify-between gap-3 text-xs text-forest/75">
-                <div className="flex items-center gap-2">
-                  <span className="text-rose-dark font-bold">✔</span>
-                  <span className="text-[11px] font-medium">
-                    Foto ditampilkan dalam rasio asli tanpa pemotongan (uncropped)
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-2.5">
+                {/* Bottom Sticky Action Footer */}
+                <div className="pt-3 mt-3 border-t border-[#CAD7C5]/70 flex flex-col gap-2 shrink-0">
                   {modalData.link && (
                     <a
                       href={modalData.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-4 py-2 rounded-full text-xs font-bold bg-emerald-100 border border-emerald-300 text-emerald-900 hover:bg-emerald-200 transition-colors shadow-xs flex items-center gap-1.5"
+                      className="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-emerald-100 border border-emerald-300 text-emerald-900 hover:bg-emerald-200 transition-colors shadow-xs flex items-center justify-center gap-2 text-center"
                     >
                       <span>↗</span>
                       <span>{modalData.linkLabel || 'Buka Tautan Eksternal ↗'}</span>
@@ -2608,9 +2615,9 @@ export default function Home() {
                   )}
                   <button
                     onClick={closeModal}
-                    className="px-6 py-2 rounded-full text-xs font-bold bg-forest text-[#E8EFE5] hover:bg-rose-dark transition-colors shadow-xs cursor-pointer"
+                    className="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-forest text-[#E8EFE5] hover:bg-rose-dark transition-colors shadow-xs cursor-pointer text-center"
                   >
-                    Tutup Dialog
+                    Tutup Dialog [ESC]
                   </button>
                 </div>
               </div>
