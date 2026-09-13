@@ -568,13 +568,14 @@ export default function AdminPortal() {
                 <div>
                   <ImageUploadField
                     label="Foto Profil Utama (Avatar Hero):"
-                    value={data.hero?.avatarImg || '/2.png'}
+                    value={data.hero?.avatarImg || '/chikal_hero_cutout.webp'}
                     onChange={(newUrl) => setData({
                       ...data,
                       hero: { ...data.hero, avatarImg: newUrl }
                     })}
                     aspectRatio="portrait"
                     helperText="Mendukung PNG cutout transparan tanpa background (sangat direkomendasikan)."
+                    enableCutoutKeying={true}
                   />
                 </div>
 
@@ -594,15 +595,15 @@ export default function AdminPortal() {
                     <div className="flex items-center justify-between text-[11px] font-semibold text-neutral-800 mb-1">
                       <span>Posisi Naik / Turun (Offset Y):</span>
                       <span className="font-mono text-rose-dark font-bold">
-                        {data.hero?.avatarOffsetY ?? -24}px
+                        {data.hero?.avatarOffsetY ?? 0}px
                       </span>
                     </div>
                     <div className="grid grid-cols-4 gap-1.5">
                       {[
-                        { label: 'Naik Banyak', val: -48 },
-                        { label: 'Naik Sedang', val: -24 },
-                        { label: 'Seimbang', val: 0 },
-                        { label: 'Turun', val: 20 },
+                        { label: 'Naik (-20)', val: -20 },
+                        { label: 'Pas (0)', val: 0 },
+                        { label: 'Turun (+20)', val: 20 },
+                        { label: 'Turun (+40)', val: 40 },
                       ].map((pos) => (
                         <button
                           key={pos.val}
@@ -612,7 +613,7 @@ export default function AdminPortal() {
                             hero: { ...data.hero, avatarOffsetY: pos.val }
                           })}
                           className={`text-[10px] py-1 px-1.5 rounded-lg border font-medium transition-all text-center cursor-pointer ${
-                            (data.hero?.avatarOffsetY ?? -24) === pos.val
+                            (data.hero?.avatarOffsetY ?? 0) === pos.val
                               ? 'bg-forest text-white border-forest shadow-2xs'
                               : 'bg-white text-neutral-700 border-[#CAD7C5] hover:bg-sage-50'
                           }`}
@@ -628,15 +629,15 @@ export default function AdminPortal() {
                     <div className="flex items-center justify-between text-[11px] font-semibold text-neutral-800 mb-1">
                       <span>Ukuran Zoom Foto (Scale):</span>
                       <span className="font-mono text-rose-dark font-bold">
-                        {Math.round((data.hero?.avatarScale ?? 1.15) * 100)}%
+                        {Math.round((data.hero?.avatarScale ?? 1.05) * 100)}%
                       </span>
                     </div>
                     <div className="grid grid-cols-4 gap-1.5">
                       {[
+                        { label: '90%', val: 0.9 },
                         { label: '100%', val: 1.0 },
-                        { label: '115%', val: 1.15 },
-                        { label: '130%', val: 1.30 },
-                        { label: '145%', val: 1.45 },
+                        { label: '105%', val: 1.05 },
+                        { label: '120%', val: 1.20 },
                       ].map((scale) => (
                         <button
                           key={scale.val}
@@ -646,7 +647,7 @@ export default function AdminPortal() {
                             hero: { ...data.hero, avatarScale: scale.val }
                           })}
                           className={`text-[10px] py-1 px-1.5 rounded-lg border font-medium transition-all text-center cursor-pointer ${
-                            (data.hero?.avatarScale ?? 1.15) === scale.val
+                            (data.hero?.avatarScale ?? 1.05) === scale.val
                               ? 'bg-forest text-white border-forest shadow-2xs'
                               : 'bg-white text-neutral-700 border-[#CAD7C5] hover:bg-sage-50'
                           }`}
@@ -660,10 +661,10 @@ export default function AdminPortal() {
                   {/* Blend Mode Toggle */}
                   <div className="pt-1">
                     <label className="flex items-center justify-between text-[11px] font-semibold text-neutral-800 cursor-pointer">
-                      <span>Hilangkan Latar Putih Otomatis:</span>
+                      <span>Mode Blend Multiply (Latar Putih):</span>
                       <input
                         type="checkbox"
-                        checked={data.hero?.avatarBlendMode !== 'normal'}
+                        checked={data.hero?.avatarBlendMode === 'multiply'}
                         onChange={(e) => setData({
                           ...data,
                           hero: { ...data.hero, avatarBlendMode: e.target.checked ? 'multiply' : 'normal' }
@@ -672,7 +673,7 @@ export default function AdminPortal() {
                       />
                     </label>
                     <span className="text-[10px] text-neutral-400 block mt-0.5">
-                      Aktifkan jika foto memiliki latar belakang putih solid agar otomatis menyatu dengan gradien sage.
+                      Nonaktifkan jika foto sudah cutout transparan agar warna asli foto tetap jernih dan cerah.
                     </span>
                   </div>
                 </div>

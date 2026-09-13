@@ -812,13 +812,13 @@ export default function Home() {
             {/* Center: Cutout Character Portrait with Smooth Bottom Mask Gradient */}
             <div className="hero-portrait-wrap">
               <img
-                src={portfolioData.hero?.avatarImg || '/2.png'}
+                src={portfolioData.hero?.avatarImg || '/chikal_hero_cutout.webp'}
                 alt="Chikal Nazmi Mahira"
                 className="hero-portrait-img"
                 style={{
-                  transform: `scale(${portfolioData.hero?.avatarScale ?? 1.15}) translateY(${portfolioData.hero?.avatarOffsetY ?? -24}px) translateX(${portfolioData.hero?.avatarOffsetX ?? 0}px)`,
+                  transform: `scale(${portfolioData.hero?.avatarScale ?? 1.05}) translateY(${portfolioData.hero?.avatarOffsetY ?? 0}px) translateX(${portfolioData.hero?.avatarOffsetX ?? 0}px)`,
                   transformOrigin: 'bottom center',
-                  mixBlendMode: portfolioData.hero?.avatarBlendMode === 'normal' ? 'normal' : 'multiply',
+                  mixBlendMode: portfolioData.hero?.avatarBlendMode === 'multiply' ? 'multiply' : 'normal',
                 }}
               />
             </div>

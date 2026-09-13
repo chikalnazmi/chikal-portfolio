@@ -65,11 +65,13 @@ export async function convertHeicIfNeeded(
  * Resizes and compresses an image on client before uploading to reduce bandwidth and storage.
  * Automatically preserves full alpha transparency for PNG and WebP cutout images,
  * and auto-trims excessive transparent padding (e.g. empty space above the head).
+ * If enableCutoutKeying is true, also removes solid white background via border flood-fill.
  */
 export function compressImageToBlob(
   file: File,
   maxDim = 1600,
-  quality = 0.88
+  quality = 0.88,
+  enableCutoutKeying = false
 ): Promise<Blob> {
   return new Promise((resolve) => {
     // If SVG, don't compress via canvas
@@ -80,7 +82,6 @@ export function compressImageToBlob(
 
     const isPng = file.type === 'image/png' || file.name.toLowerCase().endsWith('.png');
     const isWebp = file.type === 'image/webp' || file.name.toLowerCase().endsWith('.webp');
-    const preserveAlpha = isPng || isWebp;
 
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -110,25 +111,94 @@ export function compressImageToBlob(
           return;
         }
 
-        if (preserveAlpha) {
-          // Transparent background: Draw image directly preserving alpha
-          ctx.clearRect(0, 0, width, height);
-          ctx.drawImage(img, 0, 0, width, height);
+        // Draw image directly onto transparent canvas
+        ctx.clearRect(0, 0, width, height);
+        ctx.drawImage(img, 0, 0, width, height);
 
-          // Auto-trim transparent borders (e.g. huge empty space above cutout head)
-          try {
-            const imgData = ctx.getImageData(0, 0, width, height);
-            const data = imgData.data;
+        let imgData: ImageData | null = null;
+        try {
+          imgData = ctx.getImageData(0, 0, width, height);
+        } catch {}
+
+        if (imgData) {
+          const data = imgData.data;
+          let hasTransparency = false;
+
+          // 1. Check if image already has transparent pixels
+          for (let i = 3; i < data.length; i += 4) {
+            if (data[i] < 240) {
+              hasTransparency = true;
+              break;
+            }
+          }
+
+          // 2. If cutout keying requested or if PNG/WebP has white corners, flood-fill remove white background
+          const cornerThreshold = 244;
+          const isCornerWhite = (x: number, y: number) => {
+            const idx = (y * width + x) * 4;
+            return data[idx] >= cornerThreshold && data[idx + 1] >= cornerThreshold && data[idx + 2] >= cornerThreshold;
+          };
+          const cornersAreWhite = isCornerWhite(0, 0) && isCornerWhite(width - 1, 0) && isCornerWhite(0, height - 1) && isCornerWhite(width - 1, height - 1);
+
+          if (enableCutoutKeying || (cornersAreWhite && (isPng || isWebp))) {
+            const visited = new Uint8Array(width * height);
+            const queue: number[] = [];
+
+            const isWhitePixel = (idx4: number) => {
+              return data[idx4] >= 242 && data[idx4 + 1] >= 242 && data[idx4 + 2] >= 242;
+            };
+
+            // Seed queue with border pixels
+            for (let x = 0; x < width; x++) {
+              const topIdx = (0 * width + x);
+              if (isWhitePixel(topIdx * 4)) { queue.push(topIdx); visited[topIdx] = 1; }
+              const botIdx = ((height - 1) * width + x);
+              if (isWhitePixel(botIdx * 4)) { queue.push(botIdx); visited[botIdx] = 1; }
+            }
+            for (let y = 0; y < height; y++) {
+              const lIdx = (y * width + 0);
+              if (isWhitePixel(lIdx * 4)) { queue.push(lIdx); visited[lIdx] = 1; }
+              const rIdx = (y * width + width - 1);
+              if (isWhitePixel(rIdx * 4)) { queue.push(rIdx); visited[rIdx] = 1; }
+            }
+
+            let head = 0;
+            while (head < queue.length) {
+              const curr = queue[head++];
+              const x = curr % width;
+              const y = Math.floor(curr / width);
+
+              data[curr * 4 + 3] = 0; // Make transparent
+              hasTransparency = true;
+
+              const neighbors = [
+                [x + 1, y],
+                [x - 1, y],
+                [x, y + 1],
+                [x, y - 1]
+              ];
+
+              for (const [nx, ny] of neighbors) {
+                if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+                  const nIdx = ny * width + nx;
+                  if (!visited[nIdx] && isWhitePixel(nIdx * 4)) {
+                    visited[nIdx] = 1;
+                    queue.push(nIdx);
+                  }
+                }
+              }
+            }
+
+            ctx.putImageData(imgData, 0, 0);
+          }
+
+          // 3. Auto-trim transparent borders (e.g. empty space above the head)
+          if (hasTransparency) {
             let top = height, bottom = 0, left = width, right = 0;
-            let hasTransparency = false;
-
             for (let y = 0; y < height; y++) {
               for (let x = 0; x < width; x++) {
                 const alpha = data[(y * width + x) * 4 + 3];
-                if (alpha < 245) {
-                  hasTransparency = true;
-                }
-                if (alpha > 20) { // Visible subject pixel
+                if (alpha > 20) {
                   if (y < top) top = y;
                   if (y > bottom) bottom = y;
                   if (x < left) left = x;
@@ -137,8 +207,7 @@ export function compressImageToBlob(
               }
             }
 
-            // If there is significant transparent margin at the top (head pushed down), crop it!
-            if (hasTransparency && top < bottom && left < right && top > 15) {
+            if (top < bottom && left < right && (top > 20 || bottom < height - 20)) {
               const padX = Math.round(width * 0.02);
               const padY = Math.round(height * 0.02);
               const cropX = Math.max(0, left - padX);
@@ -162,27 +231,21 @@ export function compressImageToBlob(
                 }
               }
             }
-          } catch {}
 
-          // Export as WebP preserving transparency
-          canvas.toBlob(
-            (blob) => resolve(blob || file),
-            'image/webp',
-            0.92
-          );
-          return;
+            // Export as WebP preserving alpha
+            canvas.toBlob(
+              (blob) => resolve(blob || file),
+              'image/webp',
+              0.92
+            );
+            return;
+          }
         }
 
-        // Non-transparent (JPG): Fill solid white background and export JPEG
-        ctx.fillStyle = '#FFFFFF';
-        ctx.fillRect(0, 0, width, height);
-        ctx.drawImage(img, 0, 0, width, height);
+        // Regular non-transparent photo: Export as high-quality WebP or JPEG
         canvas.toBlob(
-          (blob) => {
-            if (blob) resolve(blob);
-            else resolve(file);
-          },
-          'image/jpeg',
+          (blob) => resolve(blob || file),
+          'image/webp',
           quality
         );
       };
@@ -197,26 +260,25 @@ export function compressImageToBlob(
  */
 export async function prepareImageForUpload(
   file: File,
-  onStatusUpdate?: (msg: string) => void
+  onStatusUpdate?: (msg: string) => void,
+  enableCutoutKeying = false
 ): Promise<File> {
   // 1. Convert HEIC if needed
   const converted = await convertHeicIfNeeded(file, onStatusUpdate);
 
-  const isPng = converted.type === 'image/png' || converted.name.toLowerCase().endsWith('.png');
-  const isWebp = converted.type === 'image/webp' || converted.name.toLowerCase().endsWith('.webp');
-  const ext = (isPng || isWebp) ? 'webp' : 'jpg';
-  const mime = (isPng || isWebp) ? 'image/webp' : 'image/jpeg';
-
   // 2. Compress for lightning-fast web delivery
   onStatusUpdate?.('Mengompres foto untuk performa web...');
-  const compressedBlob = await compressImageToBlob(converted);
+  const compressedBlob = await compressImageToBlob(converted, 1600, 0.88, enableCutoutKeying);
 
   const cleanBaseName = converted.name
     .replace(/\.[^/.]+$/, '')
     .replace(/[^a-zA-Z0-9_-]/g, '_') || 'photo';
 
+  const isWebp = compressedBlob.type === 'image/webp';
+  const ext = isWebp ? 'webp' : 'jpg';
+
   return new File([compressedBlob], `${cleanBaseName}.${ext}`, {
-    type: mime,
+    type: compressedBlob.type || 'image/webp',
     lastModified: Date.now(),
   });
 }

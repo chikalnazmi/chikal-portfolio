@@ -9,6 +9,7 @@ interface ImageUploadFieldProps {
   onChange: (newUrl: string) => void;
   aspectRatio?: 'square' | 'portrait' | 'landscape' | 'certificate' | 'phone';
   helperText?: string;
+  enableCutoutKeying?: boolean;
 }
 
 export default function ImageUploadField({
@@ -17,6 +18,7 @@ export default function ImageUploadField({
   onChange,
   aspectRatio = 'landscape',
   helperText,
+  enableCutoutKeying = false,
 }: ImageUploadFieldProps) {
   const [isUploading, setIsUploading] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -42,8 +44,8 @@ export default function ImageUploadField({
     setStatusMessage(isHeic ? 'Mengonversi format foto iPhone (HEIC)...' : 'Mengoptimasi foto...');
 
     try {
-      // 1. Process image: Convert HEIC if needed, then compress for web performance
-      const uploadFile = await prepareImageForUpload(file, (msg) => setStatusMessage(msg));
+      // 1. Process image: Convert HEIC if needed, then compress for web performance (with optional cutout keying)
+      const uploadFile = await prepareImageForUpload(file, (msg) => setStatusMessage(msg), enableCutoutKeying);
 
       setStatusMessage('Mengupload foto ke Cloud...');
 
