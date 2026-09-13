@@ -131,16 +131,23 @@ export default function Home() {
   };
 
   
-  // Keyboard accessibility: Close modal on Escape
+  // Keyboard accessibility: Close modal on Escape, Navigate photos with Arrow keys
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && modalData.isOpen) {
+      if (!modalData.isOpen) return;
+      if (e.key === 'Escape') {
         closeModal();
+      } else if (modalData.images.length > 1) {
+        if (e.key === 'ArrowLeft') {
+          setActiveModalPhoto((prev) => (prev > 0 ? prev - 1 : modalData.images.length - 1));
+        } else if (e.key === 'ArrowRight') {
+          setActiveModalPhoto((prev) => (prev < modalData.images.length - 1 ? prev + 1 : 0));
+        }
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [modalData.isOpen]);
+  }, [modalData.isOpen, modalData.images.length]);
 
   const closeModal = () => {
     setModalData(prev => ({ ...prev, isOpen: false }));
@@ -2439,222 +2446,198 @@ export default function Home() {
       </footer>
 
       {/* ========================================================================= */}
-      {/* REUSABLE MODAL DIALOG: Panoramic Adaptive Collage Card (Zero Scroll, Fit) */}
       {/* ========================================================================= */}
-      {modalData.isOpen && (
-        <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-md animate-fadeIn select-none"
-          onClick={closeModal}
-        >
+      {/* REUSABLE MODAL DIALOG: High-Visibility Interactive Media Showcase         */}
+      {/* ========================================================================= */}
+      {modalData.isOpen && (() => {
+        const currentImg = modalData.images[activeModalPhoto] || modalData.images[0] || '/11.png';
+        const hasMultiple = modalData.images.length > 1;
+
+        const handlePrevPhoto = (e: React.MouseEvent) => {
+          e.stopPropagation();
+          setActiveModalPhoto(prev => (prev > 0 ? prev - 1 : modalData.images.length - 1));
+        };
+
+        const handleNextPhoto = (e: React.MouseEvent) => {
+          e.stopPropagation();
+          setActiveModalPhoto(prev => (prev < modalData.images.length - 1 ? prev + 1 : 0));
+        };
+
+        return (
           <div 
-            className="bg-white rounded-[2.5rem] max-w-6xl w-[95vw] max-h-[92vh] shadow-2xl border-2 border-[#CAD7C5] p-5 sm:p-7 relative overflow-hidden flex flex-col justify-between"
-            onClick={(e) => e.stopPropagation()}
+            className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 bg-black/80 backdrop-blur-md animate-fadeIn select-none"
+            onClick={closeModal}
           >
-            {/* ------------------------------------------------------------------- */}
-            {/* TOP HEADER: Badge, Title & Compact 1-Sentence Summary               */}
-            {/* ------------------------------------------------------------------- */}
-            <div className="flex items-start justify-between gap-4 pb-3 mb-3 border-b border-[#CAD7C5]/70">
-              <div className="max-w-4xl pr-4">
-                <div className="flex items-center gap-2.5 mb-1.5">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-rose-dark bg-rose-blush/60 border border-rose-dusty/30 px-3 py-0.5 rounded-full">
-                    {modalData.category}
-                  </span>
-                  <span className="text-[11px] font-medium text-forest/60">
-                    • {modalData.images.length} Dokumentasi Visual
-                  </span>
-                </div>
-
-                <h3 className="font-serif text-xl sm:text-2xl font-bold text-forest leading-snug mb-1">
-                  {modalData.title}
-                </h3>
-
-                <p className="text-xs sm:text-sm text-forest/80 leading-relaxed font-source line-clamp-2">
-                  {modalData.description}
-                </p>
-              </div>
-
-              {/* Close Button at top right */}
-              <button
-                onClick={closeModal}
-                className="w-10 h-10 rounded-full bg-[#E8EFE5] hover:bg-rose-blush text-forest hover:text-rose-dark flex items-center justify-center transition-all text-lg font-bold shadow-xs cursor-pointer shrink-0"
-                aria-label="Tutup Dialog"
-              >
-                ✕
-              </button>
-            </div>
-
-            {/* ------------------------------------------------------------------- */}
-            {/* ADAPTIVE PHOTO COLLAGE CANVAS: Auto-adapts to 1, 2, 3, or 4+ Photos  */}
-            {/* Fits portrait and landscape naturally without vertical scrolling!   */}
-            {/* ------------------------------------------------------------------- */}
-            <div className="w-full grow h-[350px] sm:h-[410px] overflow-hidden my-1">
-              
-              {/* CASE 1: Only 1 Photo */}
-              {modalData.images.length === 1 && (
-                <div className="h-full w-full rounded-2xl overflow-hidden bg-forest/5 border border-[#CAD7C5]/80 flex items-center justify-center group relative">
-                  <img
-                    src={modalData.images[0]}
-                    alt={modalData.title}
-                    className="w-full h-full object-contain p-2 group-hover:scale-[1.02] transition-transform duration-500"
-                  />
-                  <div className="absolute bottom-3 left-3 bg-forest/85 backdrop-blur-xs text-white text-[10px] px-3 py-1 rounded-full shadow-xs flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                    <span>Dokumentasi Utama Terverifikasi</span>
-                  </div>
-                  <a
-                    href={modalData.images[0]}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 text-forest text-xs font-bold px-3 py-1.5 rounded-full shadow-md hover:bg-rose-blush flex items-center gap-1"
-                  >
-                    <span>Resolusi Asli</span>
-                    <span>↗</span>
-                  </a>
-                </div>
-              )}
-
-              {/* CASE 2: Exactly 2 Photos (Balanced Side-by-Side Split) */}
-              {modalData.images.length === 2 && (
-                <div className="grid grid-cols-2 gap-3 sm:gap-4 h-full w-full">
-                  {modalData.images.map((img, i) => (
-                    <div key={i} className="h-full rounded-2xl overflow-hidden bg-forest/5 border border-[#CAD7C5]/80 relative group">
-                      <img
-                        src={img}
-                        alt={`${modalData.title} foto ${i + 1}`}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-                      <span className="absolute bottom-3 left-3 bg-forest/85 backdrop-blur-xs text-white text-[10px] font-medium px-2.5 py-1 rounded-full shadow-xs">
-                        Dokumen {i + 1}
-                      </span>
-                      <a
-                        href={img}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 text-forest text-xs font-bold px-2.5 py-1 rounded-full shadow-md hover:bg-rose-blush"
-                      >
-                        Buka Asli ↗
-                      </a>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* CASE 3: Exactly 3 Photos (Featured Left + 2 Stacked Right Collage) */}
-              {modalData.images.length === 3 && (
-                <div className="grid grid-cols-12 gap-3 sm:gap-4 h-full w-full">
-                  {/* Photo 1: Large Featured (7 cols) */}
-                  <div className="col-span-7 h-full rounded-2xl overflow-hidden bg-forest/5 border border-[#CAD7C5]/80 relative group">
-                    <img
-                      src={modalData.images[0]}
-                      alt={`${modalData.title} dok 1`}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-                    <span className="absolute bottom-3 left-3 bg-forest/85 backdrop-blur-xs text-white text-[10px] font-medium px-3 py-1 rounded-full shadow-xs">
-                      Dokumentasi Utama
+            <div 
+              className="bg-white rounded-[2rem] sm:rounded-[2.5rem] max-w-5xl w-[96vw] max-h-[94vh] shadow-2xl border-2 border-[#CAD7C5] p-4 sm:p-6 md:p-8 relative flex flex-col justify-between overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* ----------------------------------------------------------------- */}
+              {/* TOP HEADER: Badge, Title & Full Detailed Narrative                */}
+              {/* ----------------------------------------------------------------- */}
+              <div className="flex items-start justify-between gap-4 pb-3.5 mb-3 border-b border-[#CAD7C5]/70">
+                <div className="max-w-3xl pr-2">
+                  <div className="flex flex-wrap items-center gap-2 mb-2">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-rose-dark bg-rose-blush/70 border border-rose-dusty/40 px-3 py-1 rounded-full">
+                      {modalData.category}
                     </span>
-                    <a
-                      href={modalData.images[0]}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 text-forest text-xs font-bold px-2.5 py-1 rounded-full shadow-md hover:bg-rose-blush"
-                    >
-                      Buka Asli ↗
-                    </a>
+                    <span className="text-xs font-semibold text-forest/70">
+                      • {modalData.images.length} Dokumentasi Visual
+                    </span>
                   </div>
 
-                  {/* Photo 2 & 3: Stacked (5 cols) */}
-                  <div className="col-span-5 grid grid-rows-2 gap-3 h-full">
-                    {modalData.images.slice(1, 3).map((img, i) => (
-                      <div key={i} className="h-full rounded-2xl overflow-hidden bg-forest/5 border border-[#CAD7C5]/80 relative group">
-                        <img
-                          src={img}
-                          alt={`${modalData.title} dok ${i + 2}`}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-                        <span className="absolute bottom-2.5 left-2.5 bg-forest/85 backdrop-blur-xs text-white text-[9px] font-medium px-2 py-0.5 rounded-full shadow-xs">
-                          Dokumen {i + 2}
-                        </span>
-                        <a
-                          href={img}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="absolute top-2.5 right-2.5 opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 text-forest text-xs font-bold px-2 py-0.5 rounded-full shadow-md hover:bg-rose-blush"
-                        >
-                          ↗
-                        </a>
-                      </div>
-                    ))}
-                  </div>
+                  <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest leading-snug mb-2">
+                    {modalData.title}
+                  </h3>
+
+                  <p className="text-xs sm:text-sm text-forest/85 leading-relaxed font-source">
+                    {modalData.description}
+                  </p>
                 </div>
-              )}
 
-              {/* CASE 4: 4 or More Photos (Panoramic 4-Column Collage Grid) */}
-              {modalData.images.length >= 4 && (
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 h-full w-full">
-                  {modalData.images.slice(0, 4).map((img, i) => (
-                    <div key={i} className="h-full rounded-2xl overflow-hidden bg-forest/5 border border-[#CAD7C5]/80 relative group">
-                      <img
-                        src={img}
-                        alt={`${modalData.title} dok ${i + 1}`}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-                      <span className="absolute bottom-2.5 left-2.5 bg-forest/85 backdrop-blur-xs text-white text-[9px] font-medium px-2 py-0.5 rounded-full shadow-xs">
-                        Dokumen {i + 1}
-                      </span>
-                      <a
-                        href={img}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="absolute top-2.5 right-2.5 opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 text-forest text-xs font-bold px-2 py-0.5 rounded-full shadow-md hover:bg-rose-blush"
-                      >
-                        ↗
-                      </a>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-            </div>
-
-            {/* ------------------------------------------------------------------- */}
-            {/* BOTTOM MINIMAL FOOTER: Status, Adaptive External Link & Close Action */}
-            {/* ------------------------------------------------------------------- */}
-            <div className="pt-2.5 mt-2 border-t border-[#CAD7C5]/60 flex flex-wrap items-center justify-between gap-3 text-xs text-forest/70">
-              <div className="flex items-center gap-2">
-                <span className="text-rose-dusty font-bold">✔</span>
-                <span className="text-[11px] font-medium">
-                  Seluruh dokumentasi dapat diklik untuk dibuka dalam ukuran resolusi penuh asli
-                </span>
-              </div>
-
-              <div className="flex items-center gap-2.5">
-                {modalData.link && (
-                  <a
-                    href={modalData.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-4 py-2 rounded-full text-xs font-bold bg-emerald-100 border border-emerald-300 text-emerald-900 hover:bg-emerald-200 transition-colors shadow-xs flex items-center gap-1.5"
-                  >
-                    <span>↗</span>
-                    <span>{modalData.linkLabel || 'Buka Tautan Eksternal / Berita ↗'}</span>
-                  </a>
-                )}
+                {/* Close Button */}
                 <button
                   onClick={closeModal}
-                  className="px-6 py-2 rounded-full text-xs font-bold bg-forest text-[#E8EFE5] hover:bg-rose-dark transition-colors shadow-xs cursor-pointer"
+                  className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#E8EFE5] hover:bg-rose-dark hover:text-white text-forest flex items-center justify-center transition-all text-lg font-bold shadow-xs cursor-pointer shrink-0"
+                  aria-label="Tutup Dialog"
+                  title="Tutup Dialog"
                 >
-                  Tutup Dialog
+                  ✕
                 </button>
               </div>
-            </div>
 
+              {/* ----------------------------------------------------------------- */}
+              {/* PROMINENT MEDIA STAGE: 100% VISIBLE & UNCROPPED (object-contain)  */}
+              {/* ----------------------------------------------------------------- */}
+              <div className="relative w-full h-[340px] sm:h-[460px] md:h-[520px] rounded-2xl sm:rounded-3xl overflow-hidden bg-forest/5 border border-[#CAD7C5]/80 my-2 flex items-center justify-center group shadow-inner">
+                {/* Ambient Blurred Backdrop to fit portrait or landscape gracefully */}
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-25 filter blur-2xl scale-125 pointer-events-none transition-all duration-500"
+                  style={{ backgroundImage: `url(${currentImg})` }}
+                />
+
+                {/* Main Uncropped Photo Display */}
+                <img
+                  src={currentImg}
+                  alt={`${modalData.title} dokumentasi ${activeModalPhoto + 1}`}
+                  className="relative z-10 max-w-full max-h-full object-contain p-2 sm:p-4 drop-shadow-md transition-all duration-300"
+                />
+
+                {/* Navigation Left Arrow */}
+                {hasMultiple && (
+                  <button
+                    onClick={handlePrevPhoto}
+                    className="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-forest hover:text-rose-dark shadow-xl border border-[#CAD7C5] flex items-center justify-center text-2xl font-bold transition-all hover:scale-110 active:scale-95 cursor-pointer ring-4 ring-black/5"
+                    title="Foto Sebelumnya (Panah Kiri)"
+                    aria-label="Previous Photo"
+                  >
+                    ‹
+                  </button>
+                )}
+
+                {/* Navigation Right Arrow */}
+                {hasMultiple && (
+                  <button
+                    onClick={handleNextPhoto}
+                    className="absolute right-2.5 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-forest hover:text-rose-dark shadow-xl border border-[#CAD7C5] flex items-center justify-center text-2xl font-bold transition-all hover:scale-110 active:scale-95 cursor-pointer ring-4 ring-black/5"
+                    title="Foto Selanjutnya (Panah Kanan)"
+                    aria-label="Next Photo"
+                  >
+                    ›
+                  </button>
+                )}
+
+                {/* Top Right: Open Original Photo Button */}
+                <a
+                  href={currentImg}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute top-3 right-3 z-20 px-3 py-1.5 rounded-full bg-white/95 hover:bg-white text-forest hover:text-rose-dark text-xs font-bold shadow-md border border-[#CAD7C5]/70 transition-all flex items-center gap-1.5 backdrop-blur-xs"
+                  title="Buka foto asli resolusi penuh di tab baru"
+                >
+                  <span>Buka Ukuran Asli</span>
+                  <span>↗</span>
+                </a>
+
+                {/* Bottom Left: Live Photo Counter Badge */}
+                <div className="absolute bottom-3 left-3 z-20 px-3.5 py-1.5 rounded-full bg-black/75 backdrop-blur-md text-white text-xs font-mono font-medium shadow-md flex items-center gap-2 border border-white/20">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>Dokumentasi {activeModalPhoto + 1} dari {modalData.images.length}</span>
+                </div>
+              </div>
+
+              {/* ----------------------------------------------------------------- */}
+              {/* INTERACTIVE THUMBNAIL FILMSTRIP: Explore All Photos Easily        */}
+              {/* ----------------------------------------------------------------- */}
+              {hasMultiple && (
+                <div className="mt-2 mb-1">
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-forest/60 mb-1.5 flex items-center justify-between">
+                    <span>Pilih Foto Dokumentasi ({modalData.images.length} Tersedia):</span>
+                    <span className="text-forest/50 font-normal hidden sm:inline">Gunakan tombol ‹ › atau tombol panah keyboard</span>
+                  </div>
+                  <div className="flex items-center gap-2.5 overflow-x-auto py-1.5 px-1 scrollbar-thin">
+                    {modalData.images.map((img, idx) => {
+                      const isActive = idx === activeModalPhoto;
+                      return (
+                        <button
+                          key={idx}
+                          onClick={() => setActiveModalPhoto(idx)}
+                          className={`relative w-20 sm:w-28 aspect-[4/3] rounded-xl overflow-hidden border-2 transition-all shrink-0 cursor-pointer bg-forest/5 ${
+                            isActive
+                              ? 'border-rose-dark ring-3 ring-rose-dark/30 scale-105 shadow-md'
+                              : 'border-[#CAD7C5] opacity-60 hover:opacity-100 hover:border-forest'
+                          }`}
+                          title={`Lihat Foto ${idx + 1}`}
+                        >
+                          <img src={img} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-cover" />
+                          <span className={`absolute bottom-1 right-1 px-1.5 py-0.5 rounded text-[9px] font-bold font-mono ${
+                            isActive ? 'bg-rose-dark text-white' : 'bg-black/75 text-white'
+                          }`}>
+                            #{idx + 1}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* ----------------------------------------------------------------- */}
+              {/* BOTTOM FOOTER: Status, Adaptive External Link & Close Action     */}
+              {/* ----------------------------------------------------------------- */}
+              <div className="pt-3.5 mt-2 border-t border-[#CAD7C5]/70 flex flex-wrap items-center justify-between gap-3 text-xs text-forest/75">
+                <div className="flex items-center gap-2">
+                  <span className="text-rose-dark font-bold">✔</span>
+                  <span className="text-[11px] font-medium">
+                    Foto ditampilkan dalam rasio asli tanpa pemotongan (uncropped)
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2.5">
+                  {modalData.link && (
+                    <a
+                      href={modalData.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-2 rounded-full text-xs font-bold bg-emerald-100 border border-emerald-300 text-emerald-900 hover:bg-emerald-200 transition-colors shadow-xs flex items-center gap-1.5"
+                    >
+                      <span>↗</span>
+                      <span>{modalData.linkLabel || 'Buka Tautan Eksternal ↗'}</span>
+                    </a>
+                  )}
+                  <button
+                    onClick={closeModal}
+                    className="px-6 py-2 rounded-full text-xs font-bold bg-forest text-[#E8EFE5] hover:bg-rose-dark transition-colors shadow-xs cursor-pointer"
+                  >
+                    Tutup Dialog
+                  </button>
+                </div>
+              </div>
+
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
     </div>
   );
