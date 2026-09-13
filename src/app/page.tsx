@@ -106,21 +106,7 @@ export default function Home() {
     return () => clearInterval(photoTimer);
   }, []);
 
-  // Reversible Cute Cozy Floral Theme state
-  const [isCuteMode, setIsCuteMode] = useState(true);
-
-  // Floating Petal Particles Data for Cute Floral Mode
-  const petalParticles = [
-    { left: '6%', delay: '0s', size: 18, duration: '14s' },
-    { left: '20%', delay: '3.5s', size: 22, duration: '18s' },
-    { left: '34%', delay: '1s', size: 16, duration: '15s' },
-    { left: '48%', delay: '5s', size: 20, duration: '20s' },
-    { left: '64%', delay: '2s', size: 24, duration: '16s' },
-    { left: '78%', delay: '4.5s', size: 16, duration: '19s' },
-    { left: '92%', delay: '6s', size: 20, duration: '17s' },
-  ];
-
-    // Active photo index inside Landscape Modal Dialog
+  // Active photo index inside Landscape Modal Dialog
   const [activeModalPhoto, setActiveModalPhoto] = useState(0);
 
   // Modal open helper
@@ -631,32 +617,6 @@ export default function Home() {
     <div className="min-h-screen font-sans antialiased selection:bg-rose-blush selection:text-rose-dark relative transition-colors duration-700 bg-sage-linen text-[#212B1E]">
       {/* Paper & Linen Tactile Texture Overlay (Subtle Organic Grain) */}
       <div className="paper-texture-overlay" />
-      {/* Cute Floating Falling Petals */}
-      {isCuteMode && (
-        <div className="fixed inset-0 pointer-events-none overflow-hidden z-20">
-          {petalParticles.map((p, idx) => (
-            <div
-              key={idx}
-              className="petal-particle"
-              style={{
-                left: p.left,
-                top: '-40px',
-                animationDelay: p.delay,
-                animationDuration: p.duration,
-              }}
-            >
-              <svg width={p.size} height={p.size} viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M12 2C12 2 15 6 18 10C21 14 20 18 17 21C14 24 10 24 7 21C4 18 3 14 6 10C9 6 12 2 12 2Z"
-                  fill="#F7C6D0"
-                  opacity="0.85"
-                />
-                <circle cx="12" cy="14" r="2.5" fill="#ECA2B3" />
-              </svg>
-            </div>
-          ))}
-        </div>
-      )}
       {/* Decorative Subtle Background Botanical Glows */}
       <div className="fixed top-0 left-0 w-[550px] h-[550px] bg-rose-blush/30 rounded-full blur-3xl pointer-events-none -translate-x-1/2 -translate-y-1/2" />
       <div className="fixed bottom-0 right-0 w-[650px] h-[650px] bg-[#CAD7C5]/40 rounded-full blur-3xl pointer-events-none translate-x-1/3 translate-y-1/3" />
@@ -829,7 +789,7 @@ export default function Home() {
             {/* Action Buttons */}
             <div className="flex flex-wrap items-center gap-4">
               <a
-                href="#works"
+                href="#projects"
                 className="px-6 py-3 rounded-full text-sm font-semibold bg-rose-dark text-white hover:bg-rose-berry transition-all shadow-md hover:shadow-lg flex items-center gap-2"
               >
                 <span>Explore Selected Works</span>
@@ -852,25 +812,7 @@ export default function Home() {
               
               {/* Modern Arch Frame Container */}
               <div className="relative bg-[#CAD7C5]/30 p-2.5 rounded-t-[160px] rounded-b-[32px] border-2 border-[#CAD7C5] shadow-xl">
-                {/* Cute Washi Tape Sticker (Cute Mode) */}
-              {isCuteMode && (
-                <div className="absolute -top-3.5 left-4 z-20 px-3.5 py-1 washi-tape rounded-xs -rotate-3 text-[11px] font-serif italic text-[#781E34] flex items-center gap-1.5">
-                  note to self: keep growing
-                </div>
-              )}
-              
-              {/* Cute Sticky Note Reminder (Cute Mode) */}
-              {isCuteMode && (
-                <div className="hidden sm:flex flex-col absolute -bottom-6 -right-5 z-20 p-3 sticky-note-cute rounded-2xl rotate-2 text-xs font-serif text-[#5C4D3C] max-w-[170px]">
-                  <div className="w-7 h-1.5 bg-[#F5D3DC]/80 mx-auto -mt-3.5 mb-1.5 rounded-xs -rotate-2" />
-                  <p className="font-bold mb-0.5 text-[10px] text-[#A6435B] flex items-center gap-1">
-                    <span>daily reminder</span>
-                  </p>
-                  <p className="text-[10px] leading-tight text-[#4A3B2C]">live gently, dream freely</p>
-                </div>
-              )}
-
-              <div className="relative w-full aspect-[4/5] rounded-t-[150px] rounded-b-[24px] overflow-hidden bg-forest/10">
+                <div className="relative w-full aspect-[4/5] rounded-t-[150px] rounded-b-[24px] overflow-hidden bg-forest/10">
                   <img
                     src={portfolioData.hero?.avatarImg || '/2.png'}
                     alt="Chikal Nazmi Mahira"
@@ -1033,15 +975,12 @@ export default function Home() {
           </div>
 
           {/* RIGHT: The 1 Centered Aesthetic Spotlight Skills Card (Matching Screenshot 1) */}
-          <div className="lg:col-span-7 bg-gradient-to-b from-[#FCEEF1] via-[#F8E3E8] to-[#F3D7DE] border-2 border-rose-300/80 rounded-[2.5rem] p-6 sm:p-8 shadow-md text-forest relative overflow-hidden flex flex-col justify-between">
-            {/* Soft decorative ambient glow */}
-            <div className="absolute -top-12 -right-12 w-36 h-36 bg-white/50 rounded-full blur-2xl pointer-events-none" />
-
+          <div className="lg:col-span-7 bg-white/95 border border-[#CAD7C5] rounded-[2.5rem] p-6 sm:p-8 shadow-sm hover:shadow-md transition-all text-forest relative flex flex-col justify-between group">
             <div>
               {/* Top Badge & Dossier Tag */}
               <div className="flex items-center justify-between gap-2 mb-6">
-                <span className="text-[10px] font-bold px-3.5 py-1 rounded-full bg-white/90 text-rose-dark border border-rose-300 uppercase tracking-wider shadow-2xs">
-                  ★ SPOTLIGHT SKILLS CARD
+                <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-rose-blush/80 text-rose-dark border border-rose-dusty/40 uppercase tracking-wider shadow-2xs">
+                  CORE COMPETENCIES MATRIX
                 </span>
                 <span className="text-xs font-serif italic text-rose-dark/70 font-bold tracking-wider">
                   Dossier
@@ -1422,9 +1361,9 @@ export default function Home() {
                   {project.title}
                 </h3>
 
-                {/* 3. PENJELASAN SINGKAT YANG MUNCUL SAAT KURSOR MENGARAH KE KARTU (HOVER REVEAL) */}
-                <div className="max-h-0 opacity-0 group-hover:max-h-36 group-hover:opacity-100 group-hover:mt-2.5 transition-all duration-400 ease-out overflow-hidden">
-                  <p className="text-xs text-forest/80 font-source leading-relaxed mb-3">
+                {/* 3. RINGKASAN PROYEK (Visible & Readable) */}
+                <div className="mt-3">
+                  <p className="text-xs text-forest/80 font-source leading-relaxed mb-3 line-clamp-2 sm:line-clamp-3">
                     {project.summary}
                   </p>
                   <div className="flex flex-wrap gap-1.5">
@@ -1531,47 +1470,6 @@ export default function Home() {
         {/* Visual Exhibition Mosaic Container (Framed with Pastel Glow like user's reference image!) */}
         <div className="relative p-3 sm:p-5 rounded-[2.5rem] bg-gradient-to-tr from-rose-blush/40 via-white/60 to-sage-DEFAULT/30 border border-white/80 shadow-xl backdrop-blur-sm">
           
-          {/* Floating Left Dock with Quick Filter Icons (like the user reference image!) */}
-          <div className="hidden lg:flex flex-col items-center gap-2 absolute -left-5 top-1/2 -translate-y-1/2 z-20 bg-white/95 backdrop-blur-md p-1.5 rounded-2xl border border-[#CAD7C5] shadow-lg">
-            <button
-              onClick={() => setAwardFilter('all')}
-              title="Semua Penghargaan"
-              className={`w-9 h-9 rounded-xl flex items-center justify-center text-xs transition-colors ${
-                awardFilter === 'all' ? 'bg-rose-dark text-white' : 'text-forest/70 hover:bg-[#E8EFE5]'
-              }`}
-            >
-              ✦
-            </button>
-            <button
-              onClick={() => setAwardFilter('1st')}
-              title="1st Winner"
-              className={`w-9 h-9 rounded-xl flex items-center justify-center text-xs transition-colors ${
-                awardFilter === '1st' ? 'bg-rose-dark text-white' : 'text-forest/70 hover:bg-[#E8EFE5]'
-              }`}
-            >1st</button>
-            <button
-              onClick={() => setAwardFilter('2nd')}
-              title="2nd Winner"
-              className={`w-9 h-9 rounded-xl flex items-center justify-center text-xs transition-colors ${
-                awardFilter === '2nd' ? 'bg-rose-dark text-white' : 'text-forest/70 hover:bg-[#E8EFE5]'
-              }`}
-            >2nd</button>
-            <button
-              onClick={() => setAwardFilter('top5')}
-              title="Top 5 Finalist"
-              className={`w-9 h-9 rounded-xl flex items-center justify-center text-xs transition-colors ${
-                awardFilter === 'top5' ? 'bg-rose-dark text-white' : 'text-forest/70 hover:bg-[#E8EFE5]'
-              }`}
-            >Top</button>
-            <button
-              onClick={() => setAwardFilter('speaker')}
-              title="Best Speaker"
-              className={`w-9 h-9 rounded-xl flex items-center justify-center text-xs transition-colors ${
-                awardFilter === 'speaker' ? 'bg-rose-dark text-white' : 'text-forest/70 hover:bg-[#E8EFE5]'
-              }`}
-            >Spk</button>
-          </div>
-
           {/* Mosaic Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 sm:gap-5">
             {filteredAwards.map((award, idx) => {
@@ -1615,9 +1513,9 @@ export default function Home() {
                     </span>
                   </div>
 
-                  {/* Default Bottom Minimal Teaser (Before Hover) */}
-                  <div className="relative z-10 group-hover:opacity-0 transition-opacity duration-300 text-white">
-                    <h3 className="font-serif text-lg font-bold leading-snug drop-shadow-md">
+                  {/* Default Bottom Teaser with Legible Backdrop */}
+                  <div className="relative z-10 bg-black/60 backdrop-blur-xs p-3.5 rounded-2xl border border-white/15 text-white group-hover:opacity-0 transition-opacity duration-300">
+                    <h3 className="font-serif text-base sm:text-lg font-bold leading-snug">
                       {award.title}
                     </h3>
                     <p className="text-[11px] font-subheader text-rose-blush tracking-wider uppercase mt-0.5 truncate">
@@ -2539,22 +2437,6 @@ export default function Home() {
         </div>
 
       </footer>
-
-      {/* Floating Reversible Mode Switcher (Bottom Right) */}
-      <div className="fixed bottom-5 right-5 z-40">
-        <button
-          onClick={() => setIsCuteMode(!isCuteMode)}
-          className={`px-4 py-2.5 rounded-full text-xs font-subheader tracking-wider font-bold shadow-xl border flex items-center gap-2 transition-all hover:scale-105 active:scale-95 ${
-            isCuteMode
-              ? 'bg-[#FFFDF5] border-[#FAD2E1] text-[#781E34]'
-              : 'bg-white border-[#CAD7C5] text-forest'
-          }`}
-          title="Klik untuk beralih mode tampilan kapan saja"
-        >
-          <span className="text-base">{isCuteMode ? '' : ''}</span>
-          <span>{isCuteMode ? 'Kembalikan ke Editorial' : 'Coba Mode Cute Floral'}</span>
-        </button>
-      </div>
 
       {/* ========================================================================= */}
       {/* REUSABLE MODAL DIALOG: Panoramic Adaptive Collage Card (Zero Scroll, Fit) */}

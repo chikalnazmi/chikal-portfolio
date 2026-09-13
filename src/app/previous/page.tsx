@@ -84,21 +84,7 @@ export default function Home() {
     return () => clearInterval(photoTimer);
   }, []);
 
-  // Reversible Cute Cozy Floral Theme state
-  const [isCuteMode, setIsCuteMode] = useState(true);
-
-  // Floating Petal Particles Data for Cute Floral Mode
-  const petalParticles = [
-    { left: '6%', delay: '0s', size: 18, duration: '14s' },
-    { left: '20%', delay: '3.5s', size: 22, duration: '18s' },
-    { left: '34%', delay: '1s', size: 16, duration: '15s' },
-    { left: '48%', delay: '5s', size: 20, duration: '20s' },
-    { left: '64%', delay: '2s', size: 24, duration: '16s' },
-    { left: '78%', delay: '4.5s', size: 16, duration: '19s' },
-    { left: '92%', delay: '6s', size: 20, duration: '17s' },
-  ];
-
-    // Active photo index inside Landscape Modal Dialog
+  // Active photo index inside Landscape Modal Dialog
   const [activeModalPhoto, setActiveModalPhoto] = useState(0);
 
   // Modal open helper
@@ -597,32 +583,6 @@ export default function Home() {
     <div className="min-h-screen font-sans antialiased selection:bg-rose-blush selection:text-rose-dark relative transition-colors duration-700 bg-sage-linen text-[#212B1E]">
       {/* Paper & Linen Tactile Texture Overlay (Subtle Organic Grain) */}
       <div className="paper-texture-overlay" />
-      {/* Cute Floating Falling Petals */}
-      {isCuteMode && (
-        <div className="fixed inset-0 pointer-events-none overflow-hidden z-20">
-          {petalParticles.map((p, idx) => (
-            <div
-              key={idx}
-              className="petal-particle"
-              style={{
-                left: p.left,
-                top: '-40px',
-                animationDelay: p.delay,
-                animationDuration: p.duration,
-              }}
-            >
-              <svg width={p.size} height={p.size} viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M12 2C12 2 15 6 18 10C21 14 20 18 17 21C14 24 10 24 7 21C4 18 3 14 6 10C9 6 12 2 12 2Z"
-                  fill="#F7C6D0"
-                  opacity="0.85"
-                />
-                <circle cx="12" cy="14" r="2.5" fill="#ECA2B3" />
-              </svg>
-            </div>
-          ))}
-        </div>
-      )}
       {/* Decorative Subtle Background Botanical Glows */}
       <div className="fixed top-0 left-0 w-[550px] h-[550px] bg-rose-blush/30 rounded-full blur-3xl pointer-events-none -translate-x-1/2 -translate-y-1/2" />
       <div className="fixed bottom-0 right-0 w-[650px] h-[650px] bg-[#CAD7C5]/40 rounded-full blur-3xl pointer-events-none translate-x-1/3 translate-y-1/3" />
@@ -818,25 +778,7 @@ export default function Home() {
               
               {/* Modern Arch Frame Container */}
               <div className="relative bg-[#CAD7C5]/30 p-2.5 rounded-t-[160px] rounded-b-[32px] border-2 border-[#CAD7C5] shadow-xl">
-                {/* Cute Washi Tape Sticker (Cute Mode) */}
-              {isCuteMode && (
-                <div className="absolute -top-3.5 left-4 z-20 px-3.5 py-1 washi-tape rounded-xs -rotate-3 text-[11px] font-serif italic text-[#781E34] flex items-center gap-1.5">
-                  <span></span> note to self: keep growing ♡
-                </div>
-              )}
-              
-              {/* Cute Sticky Note Reminder (Cute Mode) */}
-              {isCuteMode && (
-                <div className="hidden sm:flex flex-col absolute -bottom-6 -right-5 z-20 p-3 sticky-note-cute rounded-2xl rotate-2 text-xs font-serif text-[#5C4D3C] max-w-[170px]">
-                  <div className="w-7 h-1.5 bg-[#F5D3DC]/80 mx-auto -mt-3.5 mb-1.5 rounded-xs -rotate-2" />
-                  <p className="font-bold mb-0.5 text-[10px] text-[#A6435B] flex items-center gap-1">
-                    <span>daily reminder ♡</span>
-                  </p>
-                  <p className="text-[10px] leading-tight text-[#4A3B2C]">live gently, dream freely </p>
-                </div>
-              )}
-
-              <div className="relative w-full aspect-[4/5] rounded-t-[150px] rounded-b-[24px] overflow-hidden bg-forest/10">
+                <div className="relative w-full aspect-[4/5] rounded-t-[150px] rounded-b-[24px] overflow-hidden bg-forest/10">
                   <img
                     src={portfolioData.hero?.avatarImg || '/2.png'}
                     alt="Chikal Nazmi Mahira"
@@ -2508,22 +2450,6 @@ export default function Home() {
         </div>
 
       </footer>
-
-      {/* Floating Reversible Mode Switcher (Bottom Right) */}
-      <div className="fixed bottom-5 right-5 z-40">
-        <button
-          onClick={() => setIsCuteMode(!isCuteMode)}
-          className={`px-4 py-2.5 rounded-full text-xs font-subheader tracking-wider font-bold shadow-xl border flex items-center gap-2 transition-all hover:scale-105 active:scale-95 ${
-            isCuteMode
-              ? 'bg-[#FFFDF5] border-[#FAD2E1] text-[#781E34]'
-              : 'bg-white border-[#CAD7C5] text-forest'
-          }`}
-          title="Klik untuk beralih mode tampilan kapan saja"
-        >
-          <span className="text-base">{isCuteMode ? '' : ''}</span>
-          <span>{isCuteMode ? 'Kembalikan ke Editorial' : 'Coba Mode Cute Floral'}</span>
-        </button>
-      </div>
 
       {/* ========================================================================= */}
       {/* REUSABLE MODAL DIALOG: Panoramic Adaptive Collage Card (Zero Scroll, Fit) */}
