@@ -592,18 +592,13 @@ export default function Home() {
       {/* ========================================================================= */}
       <nav className="sticky top-4 z-40 max-w-6xl mx-auto px-4 sm:px-6">
         <div className="bg-white/85 backdrop-blur-md border border-[#CAD7C5] rounded-full px-5 py-3 shadow-sm flex items-center justify-between transition-all hover:border-rose-dusty/40">
-          <a href="#hero" className="flex items-center gap-2.5 group">
-            <span className="w-8 h-8 rounded-full bg-forest text-[#E8EFE5] flex items-center justify-center font-serif text-sm font-bold group-hover:bg-rose-dark transition-colors">
-              CN
+          <a href="#hero" className="flex flex-col group py-0.5">
+            <span className="font-serif font-bold text-sm tracking-wide text-forest group-hover:text-rose-dark transition-colors leading-tight">
+              Chikal Nazmi Mahira
             </span>
-            <div className="flex flex-col">
-              <span className="font-serif font-bold text-sm tracking-wide text-forest group-hover:text-rose-dark transition-colors">
-                Chikal Nazmi Mahira
-              </span>
-              <span className="text-[10px] font-medium tracking-wider uppercase text-forest/60">
-                Business & Marketing
-              </span>
-            </div>
+            <span className="text-[10px] font-medium tracking-wider uppercase text-forest/60 mt-0.5">
+              Business & Marketing
+            </span>
           </a>
 
           {/* Desktop Nav Links */}
