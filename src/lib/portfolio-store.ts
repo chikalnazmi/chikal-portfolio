@@ -66,6 +66,8 @@ export interface AwardItem {
   extraImages?: string[];
   link?: string;
   linkLabel?: string;
+  videoLink?: string;
+  videoLinkLabel?: string;
 }
 
 export interface OrganizationItem {

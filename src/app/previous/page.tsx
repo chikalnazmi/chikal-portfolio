@@ -6,7 +6,8 @@ import {
   fetchPortfolioDataFromSupabase,
   subscribeToPortfolioUpdates, 
   DEFAULT_PORTFOLIO_DATA, 
-  PortfolioData 
+  PortfolioData,
+  AwardItem
 } from '@/lib/portfolio-store';
 
 
@@ -41,6 +42,8 @@ export default function Home() {
     images: string[];
     link?: string;
     linkLabel?: string;
+    videoLink?: string;
+    videoLinkLabel?: string;
   }>({
     isOpen: false,
     title: '',
@@ -49,6 +52,8 @@ export default function Home() {
     images: [],
     link: undefined,
     linkLabel: undefined,
+    videoLink: undefined,
+    videoLinkLabel: undefined,
   });
 
   // Dynamic portfolio store state (synced with /admin and Supabase in real-time)
@@ -116,7 +121,9 @@ export default function Home() {
     description: string, 
     images: string[],
     link?: string,
-    linkLabel?: string
+    linkLabel?: string,
+    videoLink?: string,
+    videoLinkLabel?: string
   ) => {
     setActiveModalPhoto(0);
     setModalData({
@@ -127,6 +134,8 @@ export default function Home() {
       images: images && images.length > 0 ? images : ['/11.png'],
       link,
       linkLabel,
+      videoLink,
+      videoLinkLabel,
     });
   };
 
@@ -293,7 +302,7 @@ export default function Home() {
     : projectsList.filter(p => p.id === activeDossierTab);
 
   // 7 Trophy Case Awards Data
-  const defaultAwardsList = [
+  const defaultAwardsList: AwardItem[] = [
     {
       year: '2024',
       rank: '1st Winner',
@@ -1547,7 +1556,16 @@ export default function Home() {
               return (
                 <div
                   key={idx}
-                  onClick={() => openModal(award.title, `${award.rank} • ${award.organizer}`, award.desc, [award.certImg, award.eventImg], award.link, award.linkLabel)}
+                  onClick={() => openModal(
+                    award.title, 
+                    `${award.rank} • ${award.organizer}`, 
+                    award.desc, 
+                    [award.certImg, award.eventImg, ...(award.extraImages || [])].filter(Boolean) as string[], 
+                    award.link, 
+                    award.linkLabel,
+                    award.videoLink,
+                    award.videoLinkLabel
+                  )}
                   className={`group relative rounded-2xl overflow-hidden cursor-pointer bg-forest/20 border-2 border-white/60 shadow-xs transition-all duration-500 hover:-translate-y-1 hover:shadow-lg ${colSpan} flex flex-col justify-between p-3 sm:p-3.5`}
                 >
                   {/* Background Event Documentation Image */}
@@ -2654,12 +2672,23 @@ export default function Home() {
                 </div>
 
                 <div className="flex items-center gap-2.5">
+                  {modalData.videoLink && (
+                    <a
+                      href={modalData.videoLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-2 rounded-full text-xs font-bold bg-rose-dark text-white hover:bg-rose-berry transition-colors shadow-xs flex items-center gap-1.5"
+                    >
+                      <span>▶</span>
+                      <span>{modalData.videoLinkLabel || 'Tonton Video Lomba'}</span>
+                    </a>
+                  )}
                   {modalData.link && (
                     <a
                       href={modalData.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-4 py-2 rounded-full text-xs font-bold bg-emerald-100 border border-emerald-300 text-emerald-900 hover:bg-emerald-200 transition-colors shadow-xs flex items-center gap-1.5"
+                      className="px-4 py-2 rounded-full text-xs font-bold bg-white border border-[#CAD7C5] text-forest hover:bg-sage-50 transition-colors shadow-xs flex items-center gap-1.5"
                     >
                       <span>↗</span>
                       <span>{modalData.linkLabel || 'Buka Tautan Eksternal ↗'}</span>

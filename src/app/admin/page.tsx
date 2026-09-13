@@ -1566,6 +1566,8 @@ export default function AdminPortal() {
                     eventImg: '/12.png',
                     link: '',
                     linkLabel: 'Publikasi Berita ↗',
+                    videoLink: '',
+                    videoLinkLabel: '▶ Tonton Video Dokumentasi ↗',
                   };
                   const updated = [...currentAwards, newAward];
                   setData({ ...data, awards: updated });
@@ -1597,7 +1599,7 @@ export default function AdminPortal() {
             {/* Active Award Editor */}
             {data.awards[activeAwardIdx] && (
               <div className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="md:col-span-2">
                     <label className="block text-xs font-bold text-neutral-900 mb-1">Judul Kompetisi / Penghargaan:</label>
                     <input
@@ -1612,6 +1614,22 @@ export default function AdminPortal() {
                     />
                   </div>
 
+                  <div>
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">Penyelenggara Institusi:</label>
+                    <input
+                      type="text"
+                      value={data.awards[activeAwardIdx].organizer}
+                      onChange={(e) => {
+                        const updated = [...data.awards];
+                        updated[activeAwardIdx].organizer = e.target.value;
+                        setData({ ...data, awards: updated });
+                      }}
+                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
                     <label className="block text-xs font-bold text-neutral-900 mb-1">Gelar / Peringkat (Rank):</label>
                     <input
@@ -1640,49 +1658,18 @@ export default function AdminPortal() {
                       className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-mono"
                     />
                   </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div>
-                    <label className="block text-xs font-bold text-neutral-900 mb-1">Penyelenggara Institusi:</label>
-                    <input
-                      type="text"
-                      value={data.awards[activeAwardIdx].organizer}
-                      onChange={(e) => {
-                        const updated = [...data.awards];
-                        updated[activeAwardIdx].organizer = e.target.value;
-                        setData({ ...data, awards: updated });
-                      }}
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs"
-                    />
-                  </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-neutral-900 mb-1">Link Berita / Warta (Opsional):</label>
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">Cakupan / Tingkat (Scope):</label>
                     <input
                       type="text"
-                      value={data.awards[activeAwardIdx].link || ''}
+                      value={data.awards[activeAwardIdx].scope || ''}
                       onChange={(e) => {
                         const updated = [...data.awards];
-                        updated[activeAwardIdx].link = e.target.value;
+                        updated[activeAwardIdx].scope = e.target.value;
                         setData({ ...data, awards: updated });
                       }}
-                      placeholder="https://..."
-                      className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-mono"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-neutral-900 mb-1">Label Tombol Tautan:</label>
-                    <input
-                      type="text"
-                      value={data.awards[activeAwardIdx].linkLabel || ''}
-                      onChange={(e) => {
-                        const updated = [...data.awards];
-                        updated[activeAwardIdx].linkLabel = e.target.value;
-                        setData({ ...data, awards: updated });
-                      }}
-                      placeholder="Liputan Berita Kampus ↗"
+                      placeholder="Tingkat Nasional / Internasional / Institusi"
                       className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs"
                     />
                   </div>
@@ -1700,6 +1687,152 @@ export default function AdminPortal() {
                     }}
                     className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs leading-relaxed"
                   />
+                </div>
+
+                {/* External Links & Video Documentation Section */}
+                <div className="p-5 rounded-2xl bg-gradient-to-r from-rose-50/60 via-white to-sage-50/50 border border-[#CAD7C5] space-y-4">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-rose-dark" />
+                      <h4 className="font-serif font-bold text-sm text-neutral-900">
+                        Tautan Eksternal &amp; Video Dokumentasi Lomba
+                      </h4>
+                    </div>
+                    <p className="text-[11px] text-neutral-500 mt-1">
+                      Tambahkan link video presentasi/pitching (YouTube, Google Drive, Instagram Reels, TikTok) atau publikasi berita resmi lomba. Tautan ini akan tampil sebagai tombol interaktif di dalam dialog detail kejuaraan.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Primary Link (Video / External) */}
+                    <div className="p-3.5 rounded-xl bg-white border border-[#CAD7C5] space-y-3 shadow-2xs">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold text-neutral-900 flex items-center gap-1.5">
+                          <span>🔗</span>
+                          <span>Tautan Utama (Video / Berita / Drive):</span>
+                        </span>
+                        <span className="text-[10px] text-rose-dark font-mono font-semibold">Opsional</span>
+                      </div>
+                      <div>
+                        <label className="block text-[11px] font-semibold text-neutral-700 mb-1">URL Tautan Eksternal:</label>
+                        <input
+                          type="text"
+                          value={data.awards[activeAwardIdx].link || ''}
+                          onChange={(e) => {
+                            const updated = [...data.awards];
+                            updated[activeAwardIdx].link = e.target.value;
+                            setData({ ...data, awards: updated });
+                          }}
+                          placeholder="https://youtube.com/watch?v=... atau https://drive.google.com/..."
+                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-mono text-neutral-900 placeholder:text-neutral-400"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[11px] font-semibold text-neutral-700 mb-1">Label Teks Tombol:</label>
+                        <input
+                          type="text"
+                          value={data.awards[activeAwardIdx].linkLabel || ''}
+                          onChange={(e) => {
+                            const updated = [...data.awards];
+                            updated[activeAwardIdx].linkLabel = e.target.value;
+                            setData({ ...data, awards: updated });
+                          }}
+                          placeholder="Contoh: ▶ Tonton Video Presentasi / 📰 Liputan Berita Kampus"
+                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs text-neutral-900 placeholder:text-neutral-400"
+                        />
+                      </div>
+                      {/* Preset Label Suggestions */}
+                      <div>
+                        <span className="text-[10px] text-neutral-400 block mb-1">Preset Cepat Label:</span>
+                        <div className="flex flex-wrap gap-1.5">
+                          {[
+                            '▶ Tonton Video Dokumentasi',
+                            '▶ Video Presentasi & Pitching',
+                            '📰 Liputan Berita Resmi',
+                            '📁 Google Drive Berkas & Video',
+                            '🌐 Website Resmi Penyelenggara',
+                          ].map((preset) => (
+                            <button
+                              key={preset}
+                              type="button"
+                              onClick={() => {
+                                const updated = [...data.awards];
+                                updated[activeAwardIdx].linkLabel = preset;
+                                setData({ ...data, awards: updated });
+                              }}
+                              className="text-[10px] px-2 py-0.5 rounded-md bg-sage-50 hover:bg-sage-100 text-forest border border-[#CAD7C5] transition-colors cursor-pointer"
+                            >
+                              {preset}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Secondary Link (Dedicated Video or Additional Documentation) */}
+                    <div className="p-3.5 rounded-xl bg-white border border-[#CAD7C5] space-y-3 shadow-2xs">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold text-neutral-900 flex items-center gap-1.5">
+                          <span>🎥</span>
+                          <span>Tautan Video Tambahan (Opsional):</span>
+                        </span>
+                        <span className="text-[10px] text-rose-dark font-mono font-semibold">Opsional</span>
+                      </div>
+                      <div>
+                        <label className="block text-[11px] font-semibold text-neutral-700 mb-1">URL Video (YouTube/Drive/Reels):</label>
+                        <input
+                          type="text"
+                          value={data.awards[activeAwardIdx].videoLink || ''}
+                          onChange={(e) => {
+                            const updated = [...data.awards];
+                            updated[activeAwardIdx].videoLink = e.target.value;
+                            setData({ ...data, awards: updated });
+                          }}
+                          placeholder="https://youtube.com/watch?v=..."
+                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-mono text-neutral-900 placeholder:text-neutral-400"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[11px] font-semibold text-neutral-700 mb-1">Label Tombol Video:</label>
+                        <input
+                          type="text"
+                          value={data.awards[activeAwardIdx].videoLinkLabel || ''}
+                          onChange={(e) => {
+                            const updated = [...data.awards];
+                            updated[activeAwardIdx].videoLinkLabel = e.target.value;
+                            setData({ ...data, awards: updated });
+                          }}
+                          placeholder="Contoh: ▶ Video Demo Inovasi Produk"
+                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs text-neutral-900 placeholder:text-neutral-400"
+                        />
+                      </div>
+                      {/* Preset Label Suggestions */}
+                      <div>
+                        <span className="text-[10px] text-neutral-400 block mb-1">Preset Cepat Label:</span>
+                        <div className="flex flex-wrap gap-1.5">
+                          {[
+                            '▶ Video Demo Produk / Pitching',
+                            '▶ Aftermovie Acara Lomba',
+                            '▶ Rekaman Presentasi Finalis',
+                            '▶ Video TikTok / Reels Dokumentasi',
+                          ].map((preset) => (
+                            <button
+                              key={preset}
+                              type="button"
+                              onClick={() => {
+                                const updated = [...data.awards];
+                                updated[activeAwardIdx].videoLinkLabel = preset;
+                                setData({ ...data, awards: updated });
+                              }}
+                              className="text-[10px] px-2 py-0.5 rounded-md bg-rose-50 hover:bg-rose-100 text-rose-dark border border-rose-200 transition-colors cursor-pointer"
+                            >
+                              {preset}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Photos: Certificate and Event Image */}

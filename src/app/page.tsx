@@ -44,6 +44,8 @@ export default function Home() {
     images: string[];
     link?: string;
     linkLabel?: string;
+    videoLink?: string;
+    videoLinkLabel?: string;
   }>({
     isOpen: false,
     title: '',
@@ -52,6 +54,8 @@ export default function Home() {
     images: [],
     link: undefined,
     linkLabel: undefined,
+    videoLink: undefined,
+    videoLinkLabel: undefined,
   });
 
   // Dynamic portfolio store state (synced with /admin and Supabase in real-time)
@@ -128,7 +132,9 @@ export default function Home() {
     description: string, 
     images: string[],
     link?: string,
-    linkLabel?: string
+    linkLabel?: string,
+    videoLink?: string,
+    videoLinkLabel?: string
   ) => {
     setActiveModalPhoto(0);
     setModalData({
@@ -139,6 +145,8 @@ export default function Home() {
       images: images && images.length > 0 ? images : ['/11.png'],
       link,
       linkLabel,
+      videoLink,
+      videoLinkLabel,
     });
   };
 
@@ -1485,7 +1493,9 @@ export default function Home() {
                     award.desc, 
                     [award.certImg, award.eventImg, ...(award.extraImages || [])].filter(Boolean) as string[], 
                     award.link, 
-                    award.linkLabel
+                    award.linkLabel,
+                    award.videoLink,
+                    award.videoLinkLabel
                   )}
                   className={`group relative rounded-2xl overflow-hidden cursor-pointer bg-forest/20 border-2 border-white/60 shadow-xs transition-all duration-500 hover:-translate-y-1 hover:shadow-lg ${colSpan} flex flex-col justify-between p-3 sm:p-3.5`}
                 >
@@ -1544,6 +1554,19 @@ export default function Home() {
                         <span>Bukti Foto</span>
                       </span>
                       <div className="flex items-center gap-1.5">
+                        {award.videoLink && (
+                          <a
+                            href={award.videoLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="px-2 py-1 rounded-full bg-rose-dark hover:bg-rose-berry text-white text-[10px] font-bold shadow-xs transition-colors flex items-center gap-1"
+                            title={award.videoLinkLabel || 'Tonton Video'}
+                          >
+                            <span>▶</span>
+                            <span>Video</span>
+                          </a>
+                        )}
                         {award.link && (
                           <a
                             href={award.link}
@@ -2585,6 +2608,62 @@ export default function Home() {
                     </p>
                   </div>
 
+                  {/* Interactive Action Card for External Links & Video Documentation */}
+                  {(modalData.link || modalData.videoLink) && (
+                    <div className="p-3.5 rounded-2xl bg-gradient-to-br from-rose-50/70 via-white to-sage-50/70 border border-[#CAD7C5] mb-4 space-y-2.5 shadow-2xs">
+                      <div className="flex items-center gap-1.5 text-[10px] font-bold text-forest tracking-wider uppercase">
+                        <span className="w-2 h-2 rounded-full bg-rose-dark animate-pulse" />
+                        <span>Tautan Video &amp; Dokumentasi Eksternal</span>
+                      </div>
+
+                      {/* Video Link Button */}
+                      {modalData.videoLink && (
+                        <a
+                          href={modalData.videoLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full py-2.5 px-3.5 rounded-xl text-xs font-bold bg-rose-dark text-white hover:bg-rose-berry transition-all shadow-xs flex items-center justify-between group cursor-pointer"
+                        >
+                          <span className="flex items-center gap-2">
+                            <span className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-[10px]">▶</span>
+                            <span>{modalData.videoLinkLabel || 'Tonton Video Dokumentasi Lomba'}</span>
+                          </span>
+                          <span className="text-white/80 group-hover:translate-x-1 transition-transform">↗</span>
+                        </a>
+                      )}
+
+                      {/* Primary / External Link Button */}
+                      {modalData.link && (
+                        <a
+                          href={modalData.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`w-full py-2.5 px-3.5 rounded-xl text-xs font-bold transition-all shadow-xs flex items-center justify-between group cursor-pointer ${
+                            !modalData.videoLink
+                              ? 'bg-rose-dark text-white hover:bg-rose-berry'
+                              : 'bg-white border border-[#CAD7C5] text-forest hover:bg-sage-50/80 hover:border-forest'
+                          }`}
+                        >
+                          <span className="flex items-center gap-2">
+                            <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] ${
+                              !modalData.videoLink ? 'bg-white/20' : 'bg-forest/10'
+                            }`}>
+                              {modalData.link.includes('youtube') || modalData.link.includes('youtu.be') ? '▶' : '🔗'}
+                            </span>
+                            <span>
+                              {modalData.linkLabel || (
+                                modalData.link.includes('youtube') || modalData.link.includes('youtu.be')
+                                  ? 'Tonton Video Dokumentasi'
+                                  : 'Buka Tautan Eksternal'
+                              )}
+                            </span>
+                          </span>
+                          <span className="group-hover:translate-x-1 transition-transform">↗</span>
+                        </a>
+                      )}
+                    </div>
+                  )}
+
                   {/* Key Navigation Info */}
                   <div className="p-3 rounded-xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/60 mb-4 text-xs text-forest/75 space-y-1.5">
                     <div className="flex items-center gap-2">
@@ -2602,17 +2681,6 @@ export default function Home() {
 
                 {/* Bottom Sticky Action Footer */}
                 <div className="pt-3 mt-3 border-t border-[#CAD7C5]/70 flex flex-col gap-2 shrink-0">
-                  {modalData.link && (
-                    <a
-                      href={modalData.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-emerald-100 border border-emerald-300 text-emerald-900 hover:bg-emerald-200 transition-colors shadow-xs flex items-center justify-center gap-2 text-center"
-                    >
-                      <span>↗</span>
-                      <span>{modalData.linkLabel || 'Buka Tautan Eksternal ↗'}</span>
-                    </a>
-                  )}
                   <button
                     onClick={closeModal}
                     className="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-forest text-[#E8EFE5] hover:bg-rose-dark transition-colors shadow-xs cursor-pointer text-center"
