@@ -855,65 +855,92 @@ export default function Home() {
           </p>
         </div>
 
-        {/* 2-Column Responsive Grid: Formal Degree on Left, Spotlight Skills on Right */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+        {/* 2-Column Balanced Responsive Grid: Formal Degree on Left, Core Skills Matrix on Right */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
           
-          {/* LEFT: Formal Academic & Language Anchor Card (Matching Screenshot 2) */}
-          <div className="lg:col-span-5 bg-gradient-to-br from-white via-white/95 to-[#E8EFE5]/60 border border-[#CAD7C5] rounded-[2.5rem] p-6 sm:p-8 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+          {/* LEFT: Formal Academic & Language Credentials Card */}
+          <div className="bg-white/95 border border-[#CAD7C5] rounded-[2rem] p-6 sm:p-8 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
             <div>
-              {/* Header Badge */}
+              {/* Header Badges */}
               <div className="flex items-center justify-between gap-2 mb-4">
-                <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-rose-blush/80 text-rose-dark border border-rose-dusty/40 uppercase tracking-wider shadow-2xs">
-                  {academicData.badge || ' FORMAL DEGREE'}
+                <span className="text-[11px] font-bold px-3.5 py-1 rounded-full bg-rose-blush/90 text-rose-dark border border-rose-dusty/40 uppercase tracking-wider shadow-2xs">
+                  {academicData.badge?.replace('', '').trim() || 'FORMAL DEGREE'}
                 </span>
-                <span className="text-xs font-mono font-bold text-forest/60">
+                <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-[#F4F7F2] text-forest/80 border border-[#CAD7C5]">
                   {academicData.period || '2020 – 2024'}
                 </span>
               </div>
 
               {/* Title & Institution */}
-              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest mb-1.5 group-hover:text-rose-dark transition-colors tracking-tight">
+              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest mt-3 mb-1.5 group-hover:text-rose-dark transition-colors tracking-tight">
                 {academicData.degree}
               </h3>
-              <h4 className="text-xs font-subheader text-forest/70 uppercase tracking-wide mb-6">
+              <h4 className="text-xs sm:text-sm font-semibold text-forest/75 uppercase tracking-wide mb-6">
                 {academicData.institution}
               </h4>
 
-              {/* Key Credentials Badges (IPK & TOEIC Score 775) */}
-              <div className="space-y-3 mb-6">
-                <div className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-white border border-[#CAD7C5]/70 shadow-2xs">
-                  <div className="w-10 h-10 rounded-xl bg-forest text-[#E8EFE5] flex items-center justify-center text-base font-bold shrink-0">
-                    
+              {/* High-Visibility Credential Cards (GPA & TOEIC) */}
+              <div className="space-y-3.5 mb-6">
+                {/* GPA / Cum Laude Highlight */}
+                <div className="p-4 rounded-2xl bg-[#F4F7F2]/90 border border-[#CAD7C5] shadow-2xs flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-12 h-12 rounded-xl bg-forest text-[#E8EFE5] flex flex-col items-center justify-center font-mono font-bold shrink-0 shadow-2xs">
+                      <span className="text-xs font-bold leading-none">GPA</span>
+                      <span className="text-[9px] text-white/70 leading-none mt-1">HONOR</span>
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-forest/60 block mb-0.5">
+                        {academicData.gpaTitle || 'ACADEMIC STANDING'}
+                      </span>
+                      <span className="text-sm sm:text-base font-serif font-bold text-forest block">
+                        {academicData.gpaValue || 'IPK Memuaskan / Cum Laude Honor'}
+                      </span>
+                      <span className="text-[11px] text-forest/70">
+                        Kurikulum Terapan Sistem Informasi & Bisnis
+                      </span>
+                    </div>
                   </div>
-                  <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-forest/60 block">
-                      {academicData.gpaTitle || 'ACADEMIC STANDING'}
-                    </span>
-                    <span className="text-xs sm:text-sm font-bold text-forest">
-                      {academicData.gpaValue || 'IPK Memuaskan / Cum Laude Honor'}
-                    </span>
-                  </div>
+                  <span className="hidden sm:inline-flex px-2.5 py-1 rounded-md bg-forest/10 text-forest text-[11px] font-bold uppercase tracking-wider shrink-0">
+                    Cum Laude
+                  </span>
                 </div>
 
-                <div className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-white border border-[#CAD7C5]/70 shadow-2xs">
-                  <div className="w-10 h-10 rounded-xl bg-rose-dark text-white flex items-center justify-center text-base font-bold shrink-0">
-                    
+                {/* TOEIC Official Score 775 Highlight */}
+                <div className="p-4 rounded-2xl bg-rose-50/60 border border-rose-200/90 shadow-2xs flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-12 h-12 rounded-xl bg-rose-dark text-white flex flex-col items-center justify-center font-mono font-bold shrink-0 shadow-2xs">
+                      <span className="text-xs font-bold leading-none">EN</span>
+                      <span className="text-[9px] text-rose-100 leading-none mt-1">{academicData.toeicScore || '775'}</span>
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-rose-dark/70 block mb-0.5">
+                        {academicData.toeicTitle || 'GLOBAL ENGLISH PROFICIENCY'}
+                      </span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm sm:text-base font-serif font-bold text-forest">
+                          Official TOEIC: <span className="text-rose-dark font-extrabold">{academicData.toeicScore || '775'}</span>
+                        </span>
+                      </div>
+                      <span className="text-[11px] text-forest/70">
+                        {academicData.toeicLevel || 'Working Proficiency'} • ETS International
+                      </span>
+                    </div>
                   </div>
-                  <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-rose-dark block">
-                      {academicData.toeicTitle || 'GLOBAL ENGLISH PROFICIENCY'}
-                    </span>
-                    <span className="text-xs sm:text-sm font-bold text-forest">
-                      Official TOEIC Score: <span className="text-rose-dark font-extrabold">{academicData.toeicScore || '775'}</span> ({academicData.toeicLevel || 'Working Proficiency'})
-                    </span>
-                  </div>
+                  <span className="hidden sm:inline-flex px-2.5 py-1 rounded-md bg-rose-blush text-rose-dark text-[11px] font-bold uppercase tracking-wider shrink-0 border border-rose-dusty/30">
+                    Certified
+                  </span>
                 </div>
               </div>
 
               {/* Focus Summary */}
-              <p className="text-xs sm:text-sm text-forest/80 leading-relaxed font-source mb-6">
-                {academicData.description}
-              </p>
+              <div className="p-4 rounded-2xl bg-[#F9FBF8] border border-[#CAD7C5]/70 mb-6">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-forest/60 block mb-1">
+                  Focus & Academic Core
+                </span>
+                <p className="text-xs sm:text-sm text-forest/80 leading-relaxed font-source">
+                  {academicData.description}
+                </p>
+              </div>
             </div>
 
             {/* Action Trigger */}
@@ -924,47 +951,50 @@ export default function Home() {
                 academicData.description,
                 academicData.images && academicData.images.length > 0 ? academicData.images : ['/11.png', '/12.png', '/16.png']
               )}
-              className="w-full py-3 rounded-full bg-forest text-[#E8EFE5] hover:bg-rose-dark text-xs font-bold shadow-xs hover:shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer mt-2"
+              className="w-full py-3.5 px-6 rounded-2xl bg-forest text-[#E8EFE5] hover:bg-rose-dark text-xs sm:text-sm font-bold shadow-xs hover:shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer mt-2"
             >
               <span>Buka Dokumen Kelulusan & TOEIC</span>
               <span>↗</span>
             </button>
           </div>
 
-          {/* RIGHT: The 1 Centered Aesthetic Spotlight Skills Card (Matching Screenshot 1) */}
-          <div className="lg:col-span-7 bg-gradient-to-b from-[#FCEEF1] via-[#F8E3E8] to-[#F3D7DE] border-2 border-rose-300/80 rounded-[2.5rem] p-6 sm:p-8 shadow-md text-forest relative overflow-hidden flex flex-col justify-between">
-            {/* Soft decorative ambient glow */}
-            <div className="absolute -top-12 -right-12 w-36 h-36 bg-white/50 rounded-full blur-2xl pointer-events-none" />
-
+          {/* RIGHT: Core Competencies & Skills Matrix Card */}
+          <div className="bg-white/95 border border-[#CAD7C5] rounded-[2rem] p-6 sm:p-8 shadow-sm hover:shadow-md transition-all text-forest relative flex flex-col justify-between group">
             <div>
-              {/* Top Badge & Dossier Tag */}
-              <div className="flex items-center justify-between gap-2 mb-6">
-                <span className="text-[10px] font-bold px-3.5 py-1 rounded-full bg-white/90 text-rose-dark border border-rose-300 uppercase tracking-wider shadow-2xs">
-                  ★ SPOTLIGHT SKILLS CARD
+              {/* Top Badges */}
+              <div className="flex items-center justify-between gap-2 mb-4">
+                <span className="text-[11px] font-bold px-3.5 py-1 rounded-full bg-rose-blush/90 text-rose-dark border border-rose-dusty/40 uppercase tracking-wider shadow-2xs">
+                  CORE COMPETENCIES MATRIX
                 </span>
-                <span className="text-xs font-serif italic text-rose-dark/70 font-bold tracking-wider">
+                <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-[#F4F7F2] text-forest/80 border border-[#CAD7C5]">
                   Dossier
                 </span>
               </div>
 
-              {/* Technical Skills Header */}
-              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest mb-4 tracking-tight">
-                Technical Skills
+              {/* Heading */}
+              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest mt-3 mb-1.5 tracking-tight">
+                Technical & Domain Expertise
               </h3>
+              <p className="text-xs sm:text-sm text-forest/70 mb-5 font-source">
+                Keahlian praktis yang siap diaplikasikan dalam lingkungan kerja profesional.
+              </p>
 
-              {/* Subdivided Domains: IT, Business, Creative — Fully dynamic from store! */}
-              <div className="space-y-4 mb-6">
+              {/* Subdivided Domains: IT, Business, Creative */}
+              <div className="space-y-4 mb-5">
                 {/* IT / Tech */}
                 <div>
-                  <span className="block text-[10px] font-bold uppercase tracking-wider text-forest/60 mb-1.5 flex items-center gap-1.5">
-                    <span></span>
-                    <span>IT & Digital Systems</span>
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-forest/80 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-forest shrink-0" />
+                      <span>IT & Digital Systems</span>
+                    </span>
+                    <span className="text-[10px] font-mono text-forest/50">{itSkills.length} Skills</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
                     {itSkills.map((skill, sIdx) => (
                       <span
                         key={sIdx}
-                        className="inline-block px-3 py-1 rounded-full border border-forest/30 bg-white/80 text-[11px] font-medium text-forest shadow-2xs hover:border-forest transition-colors"
+                        className="px-3 py-1.5 rounded-xl bg-[#F4F7F2] border border-[#CAD7C5] text-xs font-semibold text-forest shadow-2xs hover:bg-forest hover:text-white hover:border-forest transition-all cursor-default"
                       >
                         {skill}
                       </span>
@@ -974,15 +1004,18 @@ export default function Home() {
 
                 {/* Business */}
                 <div>
-                  <span className="block text-[10px] font-bold uppercase tracking-wider text-forest/60 mb-1.5 flex items-center gap-1.5">
-                    <span></span>
-                    <span>Business & Operations</span>
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-forest/80 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-amber-600 shrink-0" />
+                      <span>Business & Operations</span>
+                    </span>
+                    <span className="text-[10px] font-mono text-forest/50">{bizSkills.length} Skills</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
                     {bizSkills.map((skill, sIdx) => (
                       <span
                         key={sIdx}
-                        className="inline-block px-3 py-1 rounded-full border border-forest/30 bg-white/80 text-[11px] font-medium text-forest shadow-2xs hover:border-forest transition-colors"
+                        className="px-3 py-1.5 rounded-xl bg-[#F4F7F2] border border-[#CAD7C5] text-xs font-semibold text-forest shadow-2xs hover:bg-forest hover:text-white hover:border-forest transition-all cursor-default"
                       >
                         {skill}
                       </span>
@@ -992,15 +1025,18 @@ export default function Home() {
 
                 {/* Creative */}
                 <div>
-                  <span className="block text-[10px] font-bold uppercase tracking-wider text-forest/60 mb-1.5 flex items-center gap-1.5">
-                    <span></span>
-                    <span>Creative & Media</span>
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-forest/80 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-rose-dark shrink-0" />
+                      <span>Creative & Media</span>
+                    </span>
+                    <span className="text-[10px] font-mono text-forest/50">{creativeSkills.length} Skills</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
                     {creativeSkills.map((skill, sIdx) => (
                       <span
                         key={sIdx}
-                        className="inline-block px-3 py-1 rounded-full border border-forest/30 bg-white/80 text-[11px] font-medium text-forest shadow-2xs hover:border-forest transition-colors"
+                        className="px-3 py-1.5 rounded-xl bg-[#F4F7F2] border border-[#CAD7C5] text-xs font-semibold text-forest shadow-2xs hover:bg-forest hover:text-white hover:border-forest transition-all cursor-default"
                       >
                         {skill}
                       </span>
@@ -1009,55 +1045,39 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Personal Skills Header */}
-              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest mb-3 tracking-tight">
-                Personal Skills
-              </h3>
-
-              {/* Big Pill Marquee Badge */}
-              <div className="inline-block w-full text-center px-4 py-2 rounded-full border border-forest/30 bg-white/85 text-xs font-bold text-forest shadow-2xs mb-4">
-                Creative — Openness — Teamwork
-              </div>
-
-              {/* Bulleted Strengths */}
-              <div className="space-y-2 text-xs text-forest/90 font-medium pl-1 mb-6">
-                {personalSkills.map((skill, pIdx) => (
-                  <div key={pIdx} className="flex items-center gap-2.5">
-                    <span className="w-2 h-2 rounded-full bg-rose-dark shrink-0" />
-                    <span>{skill}</span>
-                  </div>
-                ))}
+              {/* Personal Skills / Leadership Strengths */}
+              <div className="pt-3 border-t border-[#CAD7C5]/60 mb-5">
+                <div className="flex items-center justify-between gap-2 mb-2.5">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-forest/80 flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-purple-600 shrink-0" />
+                    <span>Personal Strengths & Working Style</span>
+                  </span>
+                  <span className="text-[10px] font-mono text-forest/50">Core Values</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {personalSkills.map((skill, pIdx) => (
+                    <div
+                      key={pIdx}
+                      className="flex items-center gap-2 p-2.5 rounded-xl bg-[#FAFBF9] border border-[#CAD7C5] text-xs font-bold text-forest shadow-2xs"
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-rose-dark shrink-0" />
+                      <span className="truncate">{skill}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
-            {/* Bottom QR & Connect Widget */}
-            <div className="pt-3 border-t border-rose-300/60 flex items-center justify-between gap-3 bg-white/70 p-3.5 rounded-2xl border border-rose-200/90 shadow-2xs">
-              <div className="flex items-center gap-3">
-                <div className="w-11 h-11 rounded-xl bg-white p-1 border border-forest/25 shadow-2xs shrink-0 flex items-center justify-center">
-                  <svg viewBox="0 0 24 24" className="w-9 h-9 text-forest" fill="currentColor">
-                    <path d="M2 2h8v8H2V2zm2 2v4h4V4H4zm10-2h8v8h-8V2zm2 2v4h4V4h-4zM2 14h8v8H2v-8zm2 2v4h4v-4H4zm14 0h4v2h-4v-2zm-4 0h2v4h-2v-4zm4 4h4v2h-4v-2zm-2-2h2v2h-2v-2zm-2 2h2v2h-2v-2zm6 0h2v2h-2v-2z" />
-                  </svg>
-                </div>
-                <div>
-                  <span className="text-[9px] font-mono uppercase text-forest/60 block font-bold tracking-wider">
-                    Portfolio Quick QR
-                  </span>
-                  <span className="text-xs font-bold text-forest">
-                    Chikal Nazmi
-                  </span>
-                </div>
-              </div>
-
-              <a
-                href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-3.5 py-1.5 rounded-full border border-forest/30 bg-white text-[11px] font-bold text-rose-dark hover:bg-forest hover:text-white transition-all shadow-2xs shrink-0"
-              >
-                Scan me! 
-              </a>
-            </div>
-
+            {/* Bottom Contact / Action Bar */}
+            <a
+              href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full py-3.5 px-6 rounded-2xl bg-[#F4F7F2] hover:bg-forest border border-[#CAD7C5] hover:border-forest text-forest hover:text-white text-xs sm:text-sm font-bold shadow-xs hover:shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer mt-2"
+            >
+              <span>Diskusi Peluang Karir via WhatsApp</span>
+              <span>↗</span>
+            </a>
           </div>
 
         </div>
