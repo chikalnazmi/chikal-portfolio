@@ -34,6 +34,7 @@ export default function AdminPortal() {
   const [activeCertIdx, setActiveCertIdx] = useState<number>(0);
   const [newSkillInput, setNewSkillInput] = useState<string>('');
   const [isSaving, setIsSaving] = useState(false);
+  const [isLoadingData, setIsLoadingData] = useState<boolean>(true);
   const [toastNotification, setToastNotification] = useState<{ type: 'success' | 'error'; message: string; detail?: string } | null>(null);
 
   // Secret PIN (Default: chikal2026)
@@ -46,22 +47,21 @@ export default function AdminPortal() {
     if (authSession === 'authenticated') {
       setIsAuthenticated(true);
     }
-    setData(getPortfolioData());
-    fetchPortfolioDataFromSupabase().then((remoteData) => {
-      if (remoteData) {
-        setData(remoteData);
-      }
-    });
 
-    // Check live server-side Supabase connectivity
-    fetch('/api/portfolio')
-      .then((res) => res.json())
-      .then((resJson) => {
-        if (resJson && resJson.isSupabaseConnected) {
+    // Load live single-source-of-truth portfolio data from Supabase Cloud
+    fetchPortfolioDataFromSupabase()
+      .then((remoteData) => {
+        if (remoteData) {
+          setData(remoteData);
           setIsCloudConnected(true);
         }
       })
-      .catch(() => {});
+      .catch((err) => {
+        console.error('Failed to load portfolio data in admin:', err);
+      })
+      .finally(() => {
+        setIsLoadingData(false);
+      });
   }, []);
 
   const handleLogin = (e: React.FormEvent) => {
@@ -92,13 +92,13 @@ export default function AdminPortal() {
         setToastNotification({
           type: 'success',
           message: 'Perubahan Berhasil Disimpan!',
-          detail: 'Teks, foto, dan pengaturan portofolio telah tersinkronisasi ke Cloud Database Supabase.',
+          detail: 'Teks, foto, dan pengaturan portofolio telah tersinkronisasi langsung ke Cloud Database Supabase.',
         });
       } else {
         setToastNotification({
           type: 'error',
-          message: 'Tersimpan di Browser Lokal',
-          detail: res.error || 'Gagal sinkron ke Cloud Supabase, namun tersimpan aman di browser laptop Anda.',
+          message: 'Gagal Menyimpan ke Cloud Database',
+          detail: res.error || 'Gagal tersambung ke database Supabase Cloud.',
         });
       }
     } catch (err: any) {
@@ -3106,14 +3106,14 @@ export default function AdminPortal() {
                 <span>{isSupabaseConfigured ? 'Terhubung' : 'Belum Terhubung'}</span>
                 <span className={isSupabaseConfigured ? 'text-emerald-900' : 'text-amber-900'}>
                   {isSupabaseConfigured 
-                    ? 'Status: Terhubung ke Supabase Cloud (Live Sync Aktif!)' 
-                    : 'Status: Mode Penyimpanan Lokal (Supabase belum dikonfigurasi)'}
+                    ? 'Status: Terhubung ke Supabase Cloud (Single Source of Truth Aktif)' 
+                    : 'Status: Menunggu Konfigurasi Supabase'}
                 </span>
               </div>
               <p className="text-xs text-neutral-900/90 leading-relaxed">
                 {isSupabaseConfigured
-                  ? 'Setiap kali kamu mengklik "Simpan Data", data otomatis tersinkronisasi ke database cloud Supabase Anda sekaligus ke browser lokal!'
-                  : 'Saat ini studio beroperasi menggunakan penyimpanan lokal browser (localStorage). Ikuti 4 langkah di bawah ini untuk menghubungkan ke database Supabase agar konten bisa diedit dari mana saja dan tersimpan aman di cloud.'}
+                  ? 'Database Supabase Cloud terhubung sebagai satu-satunya sumber kebenaran (Single Source of Truth). Setiap perubahan teks dan foto yang Anda simpan akan langsung disinkronkan ke cloud dan tampil seketika di website!'
+                  : 'Supabase Cloud belum terhubung. Konfigurasikan environment variable Supabase agar seluruh data tersimpan permanen di cloud.'}
               </p>
             </div>
 

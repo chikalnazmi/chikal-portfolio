@@ -59,10 +59,9 @@ export default function Home() {
   });
 
   // Dynamic portfolio store state (synced with /admin and Supabase in real-time)
-  const [portfolioData, setPortfolioData] = useState<PortfolioData>(DEFAULT_PORTFOLIO_DATA);
+  const [portfolioData, setPortfolioData] = useState<PortfolioData>(getPortfolioData());
 
   useEffect(() => {
-    setPortfolioData(getPortfolioData());
     fetchPortfolioDataFromSupabase().then((remoteData) => {
       if (remoteData) {
         setPortfolioData(remoteData);
@@ -627,9 +626,7 @@ export default function Home() {
                 Hi I&apos;m Chikal
               </span>
               <span className="editorial-serif-italic block text-[1.12em] text-3xl sm:text-5xl lg:text-[72px] text-forest tracking-[-0.02em] font-normal leading-[1.02] mt-[-0.1rem]">
-                {portfolioData.hero?.headline && portfolioData.hero.headline !== 'Menghubungkan Strategi Bisnis, Operasional, & Kreativitas Digital.'
-                  ? portfolioData.hero.headline
-                  : 'Business & Marketing'}
+                {portfolioData.hero?.headline || 'Menghubungkan Strategi Bisnis, Operasional, & Kreativitas Digital.'}
               </span>
             </h1>
           </div>
@@ -651,26 +648,26 @@ export default function Home() {
                 <span>{portfolioData.hero?.subheadline || 'Available for now opportunities'}</span>
               </div>
 
-              {/* Bottom: 3 Credential Cards */}
+              {/* Bottom: 3 Credential Cards connected to CMS */}
               <div className="hero-trusted-proof grid grid-cols-3 gap-2 w-full max-w-[320px]">
-                {/* Card 1: IPK 3.73 */}
+                {/* Card 1: IPK */}
                 <div className="bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-xl p-2.5 shadow-2xs text-left hover:border-forest/40 transition-all">
-                  <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-forest/60">IPK</span>
-                  <span className="block text-base sm:text-lg font-mono font-extrabold text-forest leading-tight">3.73</span>
-                  <span className="block text-[9px] font-medium text-rose-dark leading-tight mt-0.5">Cum Laude</span>
+                  <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-forest/60">{portfolioData.academic?.gpaTitle || 'IPK'}</span>
+                  <span className="block text-base sm:text-lg font-mono font-extrabold text-forest leading-tight">{portfolioData.academic?.gpaValue || '3.73'}</span>
+                  <span className="block text-[9px] font-medium text-rose-dark leading-tight mt-0.5">{portfolioData.academic?.badge || 'Cum Laude'}</span>
                 </div>
 
-                {/* Card 2: TOEIC 775 */}
+                {/* Card 2: TOEIC */}
                 <div className="bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-xl p-2.5 shadow-2xs text-left hover:border-forest/40 transition-all">
-                  <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-forest/60">TOEIC</span>
-                  <span className="block text-base sm:text-lg font-mono font-extrabold text-rose-dark leading-tight">775</span>
-                  <span className="block text-[9px] font-medium text-forest/70 leading-tight mt-0.5">Skor Resmi</span>
+                  <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-forest/60">{portfolioData.hero?.stat4Label || 'TOEIC'}</span>
+                  <span className="block text-base sm:text-lg font-mono font-extrabold text-rose-dark leading-tight">{portfolioData.hero?.stat4Value || '775'}</span>
+                  <span className="block text-[9px] font-medium text-forest/70 leading-tight mt-0.5">{portfolioData.academic?.toeicLevel || 'Skor Resmi'}</span>
                 </div>
 
-                {/* Card 3: 7x Juara Nasional */}
+                {/* Card 3: Lomba / Penghargaan */}
                 <div className="bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-xl p-2.5 shadow-2xs text-left hover:border-forest/40 transition-all">
-                  <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-forest/60">Lomba</span>
-                  <span className="block text-base sm:text-lg font-mono font-extrabold text-[#4E6B47] leading-tight">7x</span>
+                  <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-forest/60">{portfolioData.hero?.stat1Label || 'Lomba'}</span>
+                  <span className="block text-base sm:text-lg font-mono font-extrabold text-[#4E6B47] leading-tight">{portfolioData.hero?.stat1Value || '7x'}</span>
                   <span className="block text-[9px] font-medium text-forest/70 leading-tight mt-0.5">Juara Nas.</span>
                 </div>
               </div>

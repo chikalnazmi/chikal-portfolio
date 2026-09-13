@@ -769,206 +769,121 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
   ],
 };
 
-const STORAGE_KEY = 'chikal_portfolio_content_v8';
-const STORAGE_TS_KEY = 'chikal_portfolio_content_v8_ts';
-const EVENT_NAME = 'chikal_portfolio_updated';
+
+// ============================================================================
+// SINGLE SOURCE OF TRUTH (SUPABASE CLOUD DATABASE - ZERO LOCALSTORAGE)
+// ============================================================================
 
 import { supabase, isSupabaseConfigured } from './supabase';
 
-function mergePortfolioData(raw: Partial<PortfolioData>): PortfolioData {
-  const mergedHero = { ...DEFAULT_PORTFOLIO_DATA.hero, ...(raw.hero || {}) };
-  if (mergedHero.stat4Value === 'D4 SIB') {
-    mergedHero.stat4Value = '775';
-    mergedHero.stat4Label = 'Skor Resmi TOEIC';
-  }
+const EVENT_NAME = 'chikal_portfolio_updated';
+const CHANNEL_NAME = 'chikal_portfolio_sync';
 
-  // Robust per-item merge for experiences to ensure extraImages & image are never lost
-  const experiences = (raw.experiences && raw.experiences.length > 0 ? raw.experiences : (DEFAULT_PORTFOLIO_DATA.experiences || [])).map((exp, idx) => {
-    const def = DEFAULT_PORTFOLIO_DATA.experiences?.[idx] || DEFAULT_PORTFOLIO_DATA.experiences?.[0];
-    const fallbackImgs = def?.extraImages || [exp.image || def?.image || '/3.png'];
-    const validExtra = (exp.extraImages && exp.extraImages.length > 0)
-      ? exp.extraImages.filter(Boolean)
-      : fallbackImgs;
-    return {
-      ...def,
-      ...exp,
-      image: exp.image || def?.image || validExtra[0] || '/3.png',
-      extraImages: validExtra.length > 0 ? validExtra : fallbackImgs,
-    };
-  });
+// In-memory active state cache for ultra-fast synchronous reads
+let activePortfolioData: PortfolioData = DEFAULT_PORTFOLIO_DATA;
 
-  // Robust per-item merge for projects
-  const projects = (raw.projects && raw.projects.length > 0 ? raw.projects : (DEFAULT_PORTFOLIO_DATA.projects || [])).map((proj, idx) => {
-    const def = DEFAULT_PORTFOLIO_DATA.projects?.[idx] || DEFAULT_PORTFOLIO_DATA.projects?.[0];
-    const fallbackImgs = def?.extraImages || [proj.image || def?.image || '/15.png'];
-    const validExtra = (proj.extraImages && proj.extraImages.length > 0)
-      ? proj.extraImages.filter(Boolean)
-      : fallbackImgs;
-    return {
-      ...def,
-      ...proj,
-      image: proj.image || def?.image || validExtra[0] || '/15.png',
-      extraImages: validExtra.length > 0 ? validExtra : fallbackImgs,
-    };
-  });
-
-  // Robust per-item merge for awards
-  const awards = (raw.awards && raw.awards.length > 0 ? raw.awards : (DEFAULT_PORTFOLIO_DATA.awards || [])).map((aw, idx) => {
-    const def = DEFAULT_PORTFOLIO_DATA.awards?.[idx] || DEFAULT_PORTFOLIO_DATA.awards?.[0];
-    const fallbackImgs = def?.extraImages || [aw.certImg || def?.certImg || '/1.png'];
-    const validExtra = (aw.extraImages && aw.extraImages.length > 0)
-      ? aw.extraImages.filter(Boolean)
-      : fallbackImgs;
-    return {
-      ...def,
-      ...aw,
-      certImg: aw.certImg || def?.certImg || '/1.png',
-      eventImg: aw.eventImg || def?.eventImg || '/2.png',
-      extraImages: validExtra.length > 0 ? validExtra : fallbackImgs,
-    };
-  });
-
-  // Robust per-item merge for organizations
-  const organizations = (raw.organizations && raw.organizations.length > 0 ? raw.organizations : (DEFAULT_PORTFOLIO_DATA.organizations || [])).map((org, idx) => {
-    const def = DEFAULT_PORTFOLIO_DATA.organizations?.[idx] || DEFAULT_PORTFOLIO_DATA.organizations?.[0];
-    const validImages = (org.images && org.images.length > 0)
-      ? org.images.filter(Boolean)
-      : (def?.images || ['/12.png', '/13.png', '/5.png']);
-    return {
-      ...def,
-      ...org,
-      images: validImages,
-    };
-  });
-
-  // Robust per-item merge for certifications
-  const certifications = (raw.certifications && raw.certifications.length > 0 ? raw.certifications : (DEFAULT_PORTFOLIO_DATA.certifications || [])).map((cert, idx) => {
-    const def = DEFAULT_PORTFOLIO_DATA.certifications?.[idx] || DEFAULT_PORTFOLIO_DATA.certifications?.[0];
-    const fallbackImgs = def?.extraImages || [cert.image || def?.image || '/11.png'];
-    const validExtra = (cert.extraImages && cert.extraImages.length > 0)
-      ? cert.extraImages.filter(Boolean)
-      : fallbackImgs;
-    return {
-      ...def,
-      ...cert,
-      image: cert.image || def?.image || validExtra[0] || '/11.png',
-      extraImages: validExtra.length > 0 ? validExtra : fallbackImgs,
-    };
-  });
+/**
+ * Normalizes and ensures all required sections exist without destructively 
+ * overriding or re-injecting deleted items into user arrays.
+ */
+export function cleanPortfolioData(raw?: Partial<PortfolioData> | null): PortfolioData {
+  if (!raw) return DEFAULT_PORTFOLIO_DATA;
 
   return {
-    hero: mergedHero,
+    hero: raw.hero ? { ...DEFAULT_PORTFOLIO_DATA.hero, ...raw.hero } : DEFAULT_PORTFOLIO_DATA.hero,
     academic: raw.academic || DEFAULT_PORTFOLIO_DATA.academic,
-    socials: { ...DEFAULT_PORTFOLIO_DATA.socials, ...(raw.socials || {}) },
-    creatorAccounts: { ...DEFAULT_PORTFOLIO_DATA.creatorAccounts, ...(raw.creatorAccounts || {}) },
-    experiences,
-    projects,
-    awards,
-    organizations,
-    skills: raw.skills && raw.skills.length > 0 ? raw.skills : DEFAULT_PORTFOLIO_DATA.skills,
-    certifications,
+    socials: raw.socials ? { ...DEFAULT_PORTFOLIO_DATA.socials, ...raw.socials } : DEFAULT_PORTFOLIO_DATA.socials,
+    creatorAccounts: raw.creatorAccounts || DEFAULT_PORTFOLIO_DATA.creatorAccounts,
+    experiences: Array.isArray(raw.experiences) ? raw.experiences : (DEFAULT_PORTFOLIO_DATA.experiences || []),
+    projects: Array.isArray(raw.projects) ? raw.projects : DEFAULT_PORTFOLIO_DATA.projects,
+    awards: Array.isArray(raw.awards) ? raw.awards : DEFAULT_PORTFOLIO_DATA.awards,
+    organizations: Array.isArray(raw.organizations) ? raw.organizations : (DEFAULT_PORTFOLIO_DATA.organizations || []),
+    skills: Array.isArray(raw.skills) ? raw.skills : (DEFAULT_PORTFOLIO_DATA.skills || []),
+    certifications: Array.isArray(raw.certifications) ? raw.certifications : (DEFAULT_PORTFOLIO_DATA.certifications || []),
   };
 }
 
-// Helper to get portfolio data (reads localStorage on client, or defaults)
+/**
+ * Synchronously returns current active in-memory portfolio data.
+ * Zero localStorage access.
+ */
 export function getPortfolioData(): PortfolioData {
-  if (typeof window === 'undefined') return DEFAULT_PORTFOLIO_DATA;
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return DEFAULT_PORTFOLIO_DATA;
-    const parsed = JSON.parse(raw);
-    return mergePortfolioData(parsed);
-  } catch {
-    return DEFAULT_PORTFOLIO_DATA;
+  return activePortfolioData;
+}
+
+/**
+ * Sets current in-memory data and broadcasts update across all open tabs/components.
+ */
+export function setPortfolioDataLocally(data: PortfolioData): void {
+  activePortfolioData = data;
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent(EVENT_NAME, { detail: data }));
+    try {
+      if ('BroadcastChannel' in window) {
+        const bc = new BroadcastChannel(CHANNEL_NAME);
+        bc.postMessage({ type: 'PORTFOLIO_DATA_UPDATED', data });
+        bc.close();
+      }
+    } catch {}
   }
 }
 
-// Fetch from Supabase Cloud Database (via server API or direct Supabase client)
+/**
+ * Fetches the definitive portfolio content from Supabase Cloud Database via the server API.
+ * Never overwrites with localStorage or stale timestamps.
+ */
 export async function fetchPortfolioDataFromSupabase(): Promise<PortfolioData | null> {
   if (typeof window === 'undefined') {
-    return null;
+    return activePortfolioData;
   }
 
-  // Check local timestamp
-  let localTs = 0;
   try {
-    const storedTs = localStorage.getItem(STORAGE_TS_KEY);
-    if (storedTs) localTs = parseInt(storedTs, 10) || 0;
-  } catch {}
-
-  // 1. Try server-side API first for ultra-reliable fetching with fast timeout (3.5s max)
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 3500);
-    const res = await fetch('/api/portfolio', { cache: 'no-store', signal: controller.signal });
-    clearTimeout(timeoutId);
+    const res = await fetch('/api/portfolio', {
+      cache: 'no-store',
+      headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' },
+    });
 
     if (res.ok) {
       const json = await res.json();
-      if (json && json.data && json.data.hero) {
-        const remoteUpdated = json.updatedAt ? new Date(json.updatedAt).getTime() : 0;
-
-        // If local has newer edits that haven't been pushed, do NOT overwrite with older data
-        if (localTs > 0 && remoteUpdated > 0 && localTs > remoteUpdated + 2000) {
-          console.log('Local data is newer than remote Supabase timestamp. Retaining local data.');
-          return getPortfolioData();
+      if (json && json.data) {
+        const cleaned = cleanPortfolioData(json.data);
+        activePortfolioData = cleaned;
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent(EVENT_NAME, { detail: cleaned }));
         }
-
-        const merged = mergePortfolioData(json.data);
-        try {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
-          if (remoteUpdated > 0) {
-            localStorage.setItem(STORAGE_TS_KEY, remoteUpdated.toString());
-          }
-          window.dispatchEvent(new CustomEvent(EVENT_NAME, { detail: merged }));
-        } catch {}
-        return merged;
+        return cleaned;
       }
     }
   } catch (e) {
-    console.warn('API /api/portfolio fetch notice (falling back):', e);
+    console.warn('API /api/portfolio fetch error, attempting direct client fallback:', e);
   }
 
-  // 2. Direct client-side Supabase query fallback
-  if (!isSupabaseConfigured || !supabase) {
-    return null;
-  }
-
-  try {
-    const { data, error } = await supabase
-      .from('portfolio_content')
-      .select('content, updated_at')
-      .eq('id', 'main')
-      .single();
-
-    if (error || !data || !data.content || !data.content.hero) {
-      return null;
-    }
-
-    const remoteUpdated = data.updated_at ? new Date(data.updated_at).getTime() : 0;
-    if (localTs > 0 && remoteUpdated > 0 && localTs > remoteUpdated + 2000) {
-      console.log('Local data is newer than Supabase. Keeping local data.');
-      return getPortfolioData();
-    }
-
-    const merged = mergePortfolioData(data.content as Partial<PortfolioData>);
-
-    // Cache locally
+  // Direct Supabase client query fallback
+  if (isSupabaseConfigured && supabase) {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
-      if (remoteUpdated > 0) {
-        localStorage.setItem(STORAGE_TS_KEY, remoteUpdated.toString());
-      }
-      window.dispatchEvent(new CustomEvent(EVENT_NAME, { detail: merged }));
-    } catch {}
+      const { data, error } = await supabase
+        .from('portfolio_content')
+        .select('content')
+        .eq('id', 'main')
+        .single();
 
-    return merged;
-  } catch (err) {
-    console.warn('Supabase fetch notice:', err);
-    return null;
+      if (!error && data?.content) {
+        const cleaned = cleanPortfolioData(data.content as Partial<PortfolioData>);
+        activePortfolioData = cleaned;
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent(EVENT_NAME, { detail: cleaned }));
+        }
+        return cleaned;
+      }
+    } catch (err) {
+      console.warn('Direct Supabase fetch error:', err);
+    }
   }
+
+  return activePortfolioData;
 }
 
+// Helper to upload any residual raw data-url base64 images before saving
 async function uploadDataUrl(dataUrl: string, prefix = 'photo'): Promise<string> {
   if (!dataUrl || !dataUrl.startsWith('data:image/')) return dataUrl;
   try {
@@ -1100,7 +1015,7 @@ export async function sanitizeAndUploadAllImages(data: PortfolioData): Promise<P
     }
   }
 
-  // 8. Organizations & Leadership
+  // 8. Organizations
   if (cloned.organizations && Array.isArray(cloned.organizations)) {
     for (let i = 0; i < cloned.organizations.length; i++) {
       const org = cloned.organizations[i];
@@ -1124,92 +1039,61 @@ export interface SaveResult {
   error?: string;
 }
 
-// Helper to save portfolio data (saves locally + awaits sync to Supabase Cloud)
+/**
+ * Saves portfolio data directly to Supabase Cloud Database via the server API.
+ * Single source of truth. Zero localStorage.
+ */
 export async function savePortfolioData(data: PortfolioData): Promise<SaveResult> {
   if (typeof window === 'undefined') {
     return { success: false, data, error: 'Window not defined' };
   }
 
-  // 1. Auto-upload any embedded base64 images so payload is lightweight (<20KB) and never hits 413
+  // 1. Sanitize any base64 images so the payload remains tiny (<25KB)
   const cleanData = await sanitizeAndUploadAllImages(data);
-  const nowTs = Date.now();
 
-  // 2. Instant local persistence for zero latency
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(cleanData));
-    localStorage.setItem(STORAGE_TS_KEY, nowTs.toString());
-    window.dispatchEvent(new CustomEvent(EVENT_NAME, { detail: cleanData }));
-  } catch (e: any) {
-    console.error('Error saving portfolio data to localStorage:', e);
-  }
-
-  // 3. Cloud Sync via API and direct Supabase
-  let apiSuccess = false;
-  let errorMsg = '';
-
+  // 2. Submit directly to Server API (which uses Supabase Service Role Key)
   try {
     const res = await fetch('/api/portfolio', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(cleanData),
     });
 
-    if (res.ok) {
-      apiSuccess = true;
+    const json = await res.json().catch(() => ({}));
+
+    if (res.ok && json.success) {
+      // Update in-memory active cache and notify listeners
+      setPortfolioDataLocally(cleanData);
+
+      return {
+        success: true,
+        data: cleanData,
+        message: 'Perubahan berhasil disimpan ke Cloud Database Supabase!',
+      };
     } else {
-      const errJson = await res.json().catch(() => ({}));
-      errorMsg = errJson.error || `Server responded with status ${res.status}`;
+      return {
+        success: false,
+        data: cleanData,
+        error: json.error || `Server responded with status ${res.status}`,
+      };
     }
-  } catch (e: any) {
-    errorMsg = e?.message || 'Network error connecting to /api/portfolio';
-  }
-
-  // Direct Supabase fallback / complementary sync
-  if (isSupabaseConfigured && supabase) {
-    try {
-      const { error } = await supabase
-        .from('portfolio_content')
-        .upsert({
-          id: 'main',
-          content: cleanData,
-          updated_at: new Date(nowTs).toISOString(),
-        });
-
-      if (!error) {
-        apiSuccess = true;
-      } else if (!apiSuccess) {
-        errorMsg = error.message;
-      }
-    } catch (sbErr: any) {
-      if (!apiSuccess) {
-        errorMsg = sbErr?.message || errorMsg;
-      }
-    }
-  }
-
-  if (apiSuccess) {
+  } catch (err: any) {
+    console.error('Error saving portfolio data to /api/portfolio:', err);
     return {
-      success: true,
+      success: false,
       data: cleanData,
-      message: 'Perubahan berhasil disimpan ke Cloud Database Supabase!',
+      error: err?.message || 'Gagal tersambung ke server / database Supabase Cloud.',
     };
   }
-
-  // If both failed to connect to cloud, but saved locally
-  return {
-    success: false,
-    data: cleanData,
-    error: errorMsg || 'Gagal tersambung ke database Supabase Cloud. Data tersimpan di browser.',
-  };
 }
 
-// Reset to default
+/**
+ * Resets portfolio data to factory defaults directly in Supabase Cloud.
+ */
 export async function resetPortfolioData(): Promise<SaveResult> {
   if (typeof window === 'undefined') return { success: false };
-  const nowTs = Date.now();
-  localStorage.removeItem(STORAGE_KEY);
-  localStorage.removeItem(STORAGE_TS_KEY);
-  window.dispatchEvent(new CustomEvent(EVENT_NAME, { detail: DEFAULT_PORTFOLIO_DATA }));
 
   try {
     const res = await fetch('/api/portfolio', {
@@ -1217,39 +1101,53 @@ export async function resetPortfolioData(): Promise<SaveResult> {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(DEFAULT_PORTFOLIO_DATA),
     });
-    if (res.ok) {
-      return { success: true, message: 'Data berhasil direset ke default!' };
-    }
-  } catch {}
 
-  if (isSupabaseConfigured && supabase) {
-    await supabase
-      .from('portfolio_content')
-      .upsert({
-        id: 'main',
-        content: DEFAULT_PORTFOLIO_DATA,
-        updated_at: new Date(nowTs).toISOString(),
-      });
+    if (res.ok) {
+      setPortfolioDataLocally(DEFAULT_PORTFOLIO_DATA);
+      return { success: true, message: 'Data berhasil direset ke pengaturan default!' };
+    }
+  } catch (err: any) {
+    console.error('Reset error:', err);
   }
 
-  return { success: true };
+  return { success: false, error: 'Gagal mereset data di server.' };
 }
 
-// Subscribe to updates in real time
+/**
+ * Subscribes to real-time portfolio updates across components and tabs.
+ */
 export function subscribeToPortfolioUpdates(callback: (data: PortfolioData) => void): () => void {
   if (typeof window === 'undefined') return () => {};
-  const handler = (e: Event) => {
+
+  const handleCustomEvent = (e: Event) => {
     const customEvent = e as CustomEvent<PortfolioData>;
     if (customEvent.detail) {
       callback(customEvent.detail);
     } else {
-      callback(getPortfolioData());
+      callback(activePortfolioData);
     }
   };
-  window.addEventListener(EVENT_NAME, handler);
-  window.addEventListener('storage', handler);
+
+  window.addEventListener(EVENT_NAME, handleCustomEvent);
+
+  let bc: BroadcastChannel | null = null;
+  if ('BroadcastChannel' in window) {
+    try {
+      bc = new BroadcastChannel(CHANNEL_NAME);
+      bc.onmessage = (event) => {
+        if (event.data?.type === 'PORTFOLIO_DATA_UPDATED' && event.data?.data) {
+          activePortfolioData = event.data.data;
+          callback(event.data.data);
+        }
+      };
+    } catch {}
+  }
+
   return () => {
-    window.removeEventListener(EVENT_NAME, handler);
-    window.removeEventListener('storage', handler);
+    window.removeEventListener(EVENT_NAME, handleCustomEvent);
+    if (bc) {
+      bc.close();
+    }
   };
 }
+
