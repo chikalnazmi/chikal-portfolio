@@ -1567,8 +1567,11 @@ export default function Home() {
                 >
                   {/* Background Event Documentation Image */}
                   <img
-                    src={award.eventImg}
+                    src={award.eventImg || award.certImg || '/2.png'}
                     alt={award.title}
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = '/2.png';
+                    }}
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 pointer-events-none"
                   />
                   

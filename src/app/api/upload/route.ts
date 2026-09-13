@@ -23,10 +23,27 @@ export async function POST(req: NextRequest) {
     const client = supabaseAdmin || supabase;
     if (isSupabaseConfigured && client) {
       try {
+        // Ensure bucket exists
+        const { data: buckets } = await client.storage.listBuckets();
+        const hasBucket = buckets?.some(b => b.name === 'portfolio');
+        if (!hasBucket) {
+          await client.storage.createBucket('portfolio', {
+            public: true,
+            fileSizeLimit: 20971520,
+            allowedMimeTypes: ['image/png', 'image/jpeg', 'image/webp', 'image/gif', 'image/svg+xml', 'image/avif'],
+          });
+        }
+
+        // Determine content type safely
+        let contentType = file.type || 'image/jpeg';
+        if (cleanName.endsWith('.webp')) contentType = 'image/webp';
+        else if (cleanName.endsWith('.png')) contentType = 'image/png';
+        else if (cleanName.endsWith('.jpg') || cleanName.endsWith('.jpeg')) contentType = 'image/jpeg';
+
         const { data: uploadData, error: uploadErr } = await client.storage
           .from('portfolio')
           .upload(`uploads/${filename}`, buffer, {
-            contentType: file.type || 'image/jpeg',
+            contentType,
             upsert: true,
           });
 
@@ -36,7 +53,7 @@ export async function POST(req: NextRequest) {
             .getPublicUrl(`uploads/${filename}`);
 
           if (publicUrlData?.publicUrl) {
-            // Also mirror to local public/uploads for local backup
+            // Also mirror to local public/uploads for backup
             try {
               const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
               await fs.mkdir(uploadsDir, { recursive: true });
@@ -45,6 +62,8 @@ export async function POST(req: NextRequest) {
 
             return NextResponse.json({ success: true, url: publicUrlData.publicUrl });
           }
+        } else if (uploadErr) {
+          console.warn('Supabase storage upload error:', uploadErr);
         }
       } catch (storageErr) {
         console.warn('Supabase storage upload fallback to local disk:', storageErr);
