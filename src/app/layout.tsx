@@ -45,7 +45,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`scroll-smooth ${plusJakarta.variable} ${playfair.variable} ${caveat.variable} ${spaceMono.variable}`}>
+    <html lang="id" className={`scroll-smooth scroll-pt-20 ${plusJakarta.variable} ${playfair.variable} ${caveat.variable} ${spaceMono.variable}`}>
       <body className="bg-sage-linen text-[#212B1E] font-sans antialiased selection:bg-rose-blush selection:text-rose-dark">
         {children}
       </body>

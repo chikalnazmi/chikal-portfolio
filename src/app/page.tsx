@@ -740,8 +740,9 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* HERO SECTION: Asymmetric Editorial Split (No Hilman Blueprint) */}
       {/* ========================================================================= */}
-      <section id="hero" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-5 pb-6 sm:pt-6 sm:pb-8 lg:pt-8 lg:pb-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+      <section id="hero" className="w-full lg:min-h-[calc(100vh-4.5rem)] flex flex-col justify-between scroll-mt-20">
+        <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex-1 flex items-center py-4">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center w-full">
           
           {/* Left Column: Narrative, Typography & Direct Metrics (7 Cols) */}
           <div className="lg:col-span-7 flex flex-col items-start">
@@ -859,40 +860,39 @@ export default function Home() {
           </div>
 
         </div>
-      </section>
+        </div>
 
-      {/* ========================================================================= */}
-      {/* BRAND & ECOSYSTEM TICKER: Subtle Editorial Tape */}
-      {/* ========================================================================= */}
-      <section className="w-full py-2.5 sm:py-3 border-y border-[#CAD7C5]/50 bg-white/35 backdrop-blur-xs overflow-hidden select-none">
-        <div className="relative w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_64px,_black_calc(100%-64px),transparent_100%)]">
-          <div className="animate-marquee flex items-center gap-10 sm:gap-14 whitespace-nowrap py-1">
-            {[
-              "Politeknik Negeri Malang",
-              "GDSC Google Polinema",
-              "Dua Sisi Laundry",
-              "YarnUp! Studio",
-              "Manikarumi Indonesia",
-              "PT Digivla Indonesia",
-              "Universitas Islam Malang",
-              "Universitas Negeri Padang",
-              "RevoU Digital Marketing",
-            ].concat([
-              "Politeknik Negeri Malang",
-              "GDSC Google Polinema",
-              "Dua Sisi Laundry",
-              "YarnUp! Studio",
-              "Manikarumi Indonesia",
-              "PT Digivla Indonesia",
-              "Universitas Islam Malang",
-              "Universitas Negeri Padang",
-              "RevoU Digital Marketing",
-            ]).map((partner, pIdx) => (
-              <div key={pIdx} className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold tracking-wide text-forest/75 hover:text-forest transition-colors shrink-0">
-                <span className="text-rose-dusty text-xs">✦</span>
-                <span>{partner}</span>
-              </div>
-            ))}
+        {/* BRAND & ECOSYSTEM TICKER: Anchored at bottom of Hero viewport */}
+        <div className="w-full py-2 sm:py-2.5 border-y border-[#CAD7C5]/50 bg-white/35 backdrop-blur-xs overflow-hidden select-none">
+          <div className="relative w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_64px,_black_calc(100%-64px),transparent_100%)]">
+            <div className="animate-marquee flex items-center gap-10 sm:gap-14 whitespace-nowrap py-0.5">
+              {[
+                "Politeknik Negeri Malang",
+                "GDSC Google Polinema",
+                "Dua Sisi Laundry",
+                "YarnUp! Studio",
+                "Manikarumi Indonesia",
+                "PT Digivla Indonesia",
+                "Universitas Islam Malang",
+                "Universitas Negeri Padang",
+                "RevoU Digital Marketing",
+              ].concat([
+                "Politeknik Negeri Malang",
+                "GDSC Google Polinema",
+                "Dua Sisi Laundry",
+                "YarnUp! Studio",
+                "Manikarumi Indonesia",
+                "PT Digivla Indonesia",
+                "Universitas Islam Malang",
+                "Universitas Negeri Padang",
+                "RevoU Digital Marketing",
+              ]).map((partner, pIdx) => (
+                <div key={pIdx} className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold tracking-wide text-forest/75 hover:text-forest transition-colors shrink-0">
+                  <span className="text-rose-dusty text-xs">✦</span>
+                  <span>{partner}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -900,8 +900,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION: ACADEMIC BACKGROUND & SPOTLIGHT SKILLS CARD (Paired Side-by-Side) */}
       {/* ========================================================================= */}
-      <BotanicalDivider />
-      <section id="academy-skills" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10">
+      <section id="academy-skills" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 lg:min-h-[calc(100vh-4.5rem)] flex flex-col justify-center scroll-mt-20">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-4 sm:mb-5">
@@ -1146,8 +1145,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION: WORK & BUSINESS EXPERIENCE (Pengalaman Kerja Otentik)            */}
       {/* ========================================================================= */}
-      <BotanicalDivider />
-      <section id="experience" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/70">
+      <section id="experience" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 lg:min-h-[calc(100vh-4.5rem)] flex flex-col justify-center border-t border-[#CAD7C5]/70 scroll-mt-20">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-4 sm:mb-5">
@@ -1269,8 +1267,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION: MY WORK INCLUDES (Campus Projects / Proyek Kampus & Akademik)    */}
       {/* ========================================================================= */}
-      <BotanicalDivider />
-      <section id="projects" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/70">
+      <section id="projects" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 lg:min-h-[calc(100vh-4.5rem)] flex flex-col justify-center border-t border-[#CAD7C5]/70 scroll-mt-20">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4.5">
@@ -1437,8 +1434,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION 2: WALL OF RECOGNITION (Visual Mosaic Exhibition Collage) */}
       {/* ========================================================================= */}
-      <BotanicalDivider />
-      <section id="recognition" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/70">
+      <section id="recognition" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 lg:min-h-[calc(100vh-4.5rem)] flex flex-col justify-center border-t border-[#CAD7C5]/70 scroll-mt-20">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4">
@@ -1623,8 +1619,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION 3: INSTITUTIONAL LEADERSHIP & GOVERNANCE (Infinite Coverflow)    */}
       {/* ========================================================================= */}
-      <BotanicalDivider />
-      <section id="leadership" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/70 overflow-hidden">
+      <section id="leadership" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 lg:min-h-[calc(100vh-4.5rem)] flex flex-col justify-center border-t border-[#CAD7C5]/70 overflow-hidden scroll-mt-20">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-2.5 sm:mb-3">
@@ -1881,8 +1876,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION: PROFESSIONAL COURSES & ACCREDITATIONS (Dedicated Section)        */}
       {/* ========================================================================= */}
-      <BotanicalDivider />
-      <section id="certifications" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/70">
+      <section id="certifications" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 lg:min-h-[calc(100vh-4.5rem)] flex flex-col justify-center border-t border-[#CAD7C5]/70 scroll-mt-20">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4">
@@ -1966,8 +1960,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION 6: CREATIVE PURSUITS & CONTENT CREATOR HIGHLIGHT                   */}
       {/* ========================================================================= */}
-      <BotanicalDivider />
-      <section id="creative" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/70">
+      <section id="creative" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 lg:min-h-[calc(100vh-4.5rem)] flex flex-col justify-center border-t border-[#CAD7C5]/70 scroll-mt-20">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4">
@@ -2255,8 +2248,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION 7: BEYOND THE SCREEN — ART, HOBBIES & INTELLECTUAL PURSUITS       */}
       {/* ========================================================================= */}
-      <BotanicalDivider />
-      <section id="hobbies" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10 border-t border-[#CAD7C5]/70">
+      <section id="hobbies" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 lg:min-h-[calc(100vh-4.5rem)] flex flex-col justify-center border-t border-[#CAD7C5]/70 scroll-mt-20">
         
         {/* Section Header */}
         <div className="text-center max-w-xl mx-auto mb-3.5 sm:mb-4">
@@ -2328,8 +2320,7 @@ export default function Home() {
       {/* ========================================================================= */}
       {/* SECTION 8: EDITORIAL COLLABORATION & CONTACT FOOTER (Seamless Design)     */}
       {/* ========================================================================= */}
-      <BotanicalDivider />
-      <footer id="contact" className="relative pt-8 pb-10 sm:pt-10 sm:pb-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <footer id="contact" className="relative lg:min-h-[calc(100vh-4.5rem)] flex flex-col justify-center pt-8 pb-10 sm:pt-10 sm:pb-12 px-4 sm:px-6 lg:px-8 overflow-hidden border-t border-[#CAD7C5]/70 scroll-mt-20">
         
         {/* Soft Ambient Botanical Glows */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-rose-blush/40 rounded-full blur-3xl pointer-events-none" />
