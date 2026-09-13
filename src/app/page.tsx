@@ -2496,19 +2496,39 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Bottom Bar: Clean & Seamless */}
-        <div className="w-full max-w-[1380px] mx-auto mt-8 pt-4 border-t border-[#CAD7C5]/70 flex flex-col sm:flex-row items-center justify-between text-xs text-forest/65 gap-3">
-          <div>
-            © 2026 Chikal Nazmi Mahira. All rights reserved.
+        {/* ========================================================================= */}
+        {/* EDITORIAL GRAND FINALE FOOTER (Minimalist Editorial Concept)              */}
+        {/* ========================================================================= */}
+        <div className="w-full max-w-[1380px] mx-auto mt-12 sm:mt-16 pt-8 sm:pt-12 border-t border-[#CAD7C5]/70">
+          {/* Top Row: Navigation Links (Left) + Copyright Notice (Right) */}
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6 pb-6 sm:pb-10 border-b border-[#CAD7C5]/40">
+            {/* Left-Aligned Clean Editorial Navigation */}
+            <nav className="flex flex-wrap items-center justify-center md:justify-start gap-5 sm:gap-7 lg:gap-8 text-xs sm:text-sm font-sans font-medium text-forest/75">
+              <a href="#hero" className="hover:text-rose-dark transition-colors tracking-wide">Home</a>
+              <a href="#about" className="hover:text-rose-dark transition-colors tracking-wide">About</a>
+              <a href="#experience" className="hover:text-rose-dark transition-colors tracking-wide">Experience</a>
+              <a href="#projects" className="hover:text-rose-dark transition-colors tracking-wide">Projects</a>
+              <a href="#awards" className="hover:text-rose-dark transition-colors tracking-wide">Awards</a>
+              <a href="#contact" className="hover:text-rose-dark transition-colors tracking-wide">Contact</a>
+            </nav>
+
+            {/* Right-Aligned Clean Copyright */}
+            <div className="text-xs sm:text-[13px] text-forest/60 font-sans tracking-tight text-center md:text-right">
+              © {new Date().getFullYear()} Chikal Nazmi Mahira. All rights reserved.
+            </div>
           </div>
-          <div className="flex items-center gap-4">
-            <a href="#hero" className="hover:text-rose-dark transition-colors font-semibold">
-              Back to Top ↑
+
+          {/* Bottom Row: Colossal Editorial Italic Name Masthead */}
+          <div className="w-full pt-4 sm:pt-6 pb-2 overflow-hidden select-none">
+            <a
+              href="#hero"
+              className="group block w-full text-left tracking-tight font-serif italic text-forest hover:text-rose-dark transition-colors duration-700 leading-[0.82] cursor-pointer whitespace-nowrap overflow-hidden"
+              title="Chikal Nazmi — Kembali ke Atas ↑"
+            >
+              <span className="block text-[13.5vw] sm:text-[12.5vw] lg:text-[11.8vw] xl:text-[10.5rem] 2xl:text-[12.5rem] transition-transform duration-700 group-hover:translate-x-1.5">
+                Chikal Nazmi
+              </span>
             </a>
-            <span>•</span>
-            <span className="font-serif italic text-rose-dark/80 font-medium">
-              Designed with Sage & Rose Aesthetic
-            </span>
           </div>
         </div>
 
