@@ -1271,8 +1271,11 @@ export default function Home() {
                         className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity flex items-end p-2.5">
-                        <span className="text-[10px] font-bold text-white flex items-center gap-1">
-                          <span>🔍 Perbesar Galeri ({galleryImages.length})</span>
+                        <span className="text-[10px] font-bold text-white flex items-center gap-1.5">
+                          <svg className="w-3.5 h-3.5 text-white stroke-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
+                          </svg>
+                          <span>Perbesar Galeri ({galleryImages.length})</span>
                         </span>
                       </div>
                     </div>
@@ -2936,7 +2939,13 @@ export default function Home() {
                               <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] ${
                                 !modalData.videoLink ? 'bg-white/20' : 'bg-forest/10'
                               }`}>
-                                {modalData.link.includes('youtube') || modalData.link.includes('youtu.be') ? '▶' : '🔗'}
+                                {modalData.link.includes('youtube') || modalData.link.includes('youtu.be') ? (
+                                  <span>▶</span>
+                                ) : (
+                                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                                  </svg>
+                                )}
                               </span>
                               <span>
                                 {modalData.linkLabel || (
@@ -2955,13 +2964,17 @@ export default function Home() {
                     {/* Key Navigation Info */}
                     <div className="p-3 rounded-xl bg-[#E8EFE5]/40 border border-[#CAD7C5]/60 mb-4 text-xs text-forest/75 space-y-1.5">
                       <div className="flex items-center gap-2">
-                        <span className="text-rose-dark font-bold text-xs">✔</span>
+                        <svg className="w-3.5 h-3.5 text-rose-dark shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                        </svg>
                         <span className="text-[11px] font-medium">
                           Foto ditampilkan dalam rasio asli tanpa distorsi / cropping
                         </span>
                       </div>
                       <div className="flex items-center gap-2 text-[10px] text-forest/60 font-mono">
-                        <span>⌨</span>
+                        <svg className="w-3.5 h-3.5 text-forest/60 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
+                        </svg>
                         <span>Navigasi: tombol panah ‹ › di keyboard</span>
                       </div>
                     </div>
