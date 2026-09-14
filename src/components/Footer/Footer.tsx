@@ -21,14 +21,14 @@ export default function Footer() {
       <div className="w-full pt-6 sm:pt-8 pb-2 overflow-hidden select-none">
         <a
           href="#hero"
-          className="group block w-full text-left tracking-normal font-serif font-bold text-[#212B1E] hover:text-[#893941] transition-colors duration-700 leading-[0.88] cursor-pointer whitespace-nowrap overflow-hidden"
+          className="group block w-full text-left tracking-normal font-serif font-normal text-[#212B1E] hover:text-[#893941] transition-colors duration-700 leading-[0.88] cursor-pointer whitespace-nowrap overflow-hidden"
           title="Chikal Nazmi Mahira — Kembali ke Atas ↑"
         >
-          <span className="block text-[8.5vw] sm:text-[8vw] md:text-[7.8vw] lg:text-[7.5vw] xl:text-[7.2rem] 2xl:text-[8.5rem] transition-transform duration-700 group-hover:translate-x-1.5">
+          <span className="block text-[8.5vw] sm:text-[8vw] md:text-[7.8vw] lg:text-[7.5vw] xl:text-[7.2rem] 2xl:text-[8.5rem] transition-transform duration-700 group-hover:translate-x-1.5 font-normal">
             Chikal Nazmi Mahira
           </span>
         </a>
-        <div className="text-[10px] sm:text-xs font-mono font-medium tracking-widest uppercase text-[#2C3E2B]/60 mt-2 sm:mt-3">
+        <div className="text-[10px] sm:text-xs font-sans font-medium tracking-widest uppercase text-[#2C3E2B]/60 mt-2 sm:mt-3">
           Business &amp; Marketing
         </div>
       </div>

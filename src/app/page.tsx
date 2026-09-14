@@ -544,10 +544,10 @@ export default function Home() {
       >
         <div className="bg-white/95 backdrop-blur-md border border-[#CAD7C5]/90 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 shadow-xs flex items-center justify-between transition-all hover:border-rose-dusty/40">
           <a href="#hero" className="flex flex-col group py-0.5">
-            <span className="font-serif font-bold text-xs sm:text-sm tracking-normal text-forest group-hover:text-rose-dark transition-colors leading-tight">
+            <span className="font-serif font-normal text-sm sm:text-base tracking-normal text-forest group-hover:text-rose-dark transition-colors leading-tight">
               Chikal Nazmi Mahira
             </span>
-            <span className="text-[9px] font-mono font-medium tracking-wider uppercase text-forest/60">
+            <span className="text-[9px] font-sans font-semibold tracking-wider uppercase text-forest/60">
               Business &amp; Marketing
             </span>
           </a>
@@ -2264,8 +2264,8 @@ export default function Home() {
           {/* Account Meta Ribbon */}
           <div className="flex flex-wrap items-center justify-between gap-2 p-2.5 rounded-xl bg-[#E8EFE5]/50 border border-[#CAD7C5]/70 mb-3 text-xs">
             <div className="flex items-center gap-2 sm:gap-3">
-              <span className="font-bold text-forest text-xs sm:text-sm font-serif">{currentCreator.name}</span>
-              <span className="text-rose-dark font-mono font-medium text-xs">{currentCreator.handle}</span>
+              <span className="font-bold text-forest text-xs sm:text-sm font-sans">{currentCreator.name}</span>
+              <span className="text-rose-dark font-sans font-semibold text-xs">{currentCreator.handle}</span>
               <span className="hidden sm:inline text-forest/40">•</span>
               <span className="hidden sm:inline text-forest/70 font-medium text-xs">{currentCreator.tag}</span>
             </div>
@@ -2570,143 +2570,146 @@ export default function Home() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-rose-blush/40 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-[#CAD7C5]/30 rounded-full blur-3xl pointer-events-none" />
 
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-40px" }}
-          variants={fadeUp}
-          className="relative z-10 max-w-3xl mx-auto flex flex-col items-center text-center"
-        >
-          <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-1">/ Let&apos;s Connect /</span>
-          <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold leading-[1.18] mb-2.5 text-forest tracking-normal">
-            Let&apos;s Cultivate Meaningful{' '}
-            <span className="editorial-italic text-rose-dark font-normal">
-              Business Growth
-            </span>{' '}
-            Together.
-          </h2>
-          <p className="text-xs sm:text-sm text-forest/75 leading-relaxed mb-5 max-w-xl mx-auto font-source">
-            Terbuka untuk posisi Management Trainee, Business Development, Strategic Marketing Specialist, serta inisiatif kemitraan baru. Mari berdiskusi bagaimana saya dapat berkontribusi nyata bagi organisasi Anda.
-          </p>
+        {/* Card Banner Container */}
+        <div className="editorial-cta-card max-w-5xl mx-auto p-8 sm:p-12 lg:p-16 relative z-10 text-center">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+            variants={fadeUp}
+            className="relative z-10 max-w-3xl mx-auto flex flex-col items-center text-center"
+          >
+            <span className="editorial-kicker text-2xl sm:text-3xl text-rose-dark block mb-2">/ Let&apos;s Connect /</span>
+            <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-normal leading-[1.12] mb-3 text-forest tracking-normal">
+              Let&apos;s Cultivate Meaningful{' '}
+              <span className="editorial-serif-italic text-rose-dark font-normal">
+                Business Growth
+              </span>{' '}
+              Together.
+            </h2>
+            <p className="text-xs sm:text-sm md:text-base text-forest/75 leading-relaxed mb-8 max-w-xl mx-auto font-sans">
+              Terbuka untuk posisi Management Trainee, Business Development, Strategic Marketing Specialist, serta inisiatif kemitraan baru. Mari berdiskusi bagaimana saya dapat berkontribusi nyata bagi organisasi Anda.
+            </p>
 
-          {/* Primary Direct Contact Buttons */}
-          <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-2.5 mb-1 w-full sm:w-auto">
-            <motion.a
-              whileHover={{ y: -2, scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              href={`mailto:${portfolioData.socials.email}`}
-              className="w-full sm:w-auto justify-center px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-forest text-[#E8EFE5] hover:bg-rose-dark transition-all flex items-center gap-2 shadow-2xs hover:shadow-xs cursor-pointer text-center"
-            >
-              <span>Email: {portfolioData.socials.email}</span>
-            </motion.a>
-            <motion.a
-              whileHover={{ y: -2, scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              href={portfolioData.socials.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto justify-center px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-rose-dark text-white hover:bg-rose-berry transition-all flex items-center gap-2 shadow-2xs hover:shadow-xs cursor-pointer text-center"
-            >
-              <span>WhatsApp Langsung ✦</span>
-            </motion.a>
-            <motion.a
-              whileHover={{ y: -2, scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              href={portfolioData.socials.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto justify-center px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-white text-forest border border-[#CAD7C5] hover:border-forest hover:bg-[#FAFBF8] transition-all flex items-center gap-2 shadow-2xs hover:shadow-xs cursor-pointer text-center"
-            >
-              <span>LinkedIn Profile ↗</span>
-            </motion.a>
-          </div>
+            {/* Primary Direct Contact Buttons */}
+            <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 mb-6 w-full sm:w-auto">
+              <motion.a
+                whileHover={{ y: -2, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                href={`mailto:${portfolioData.socials.email}`}
+                className="w-full sm:w-auto justify-center px-6 py-3 rounded-full text-xs sm:text-sm font-semibold bg-forest text-[#E8EFE5] hover:bg-rose-dark transition-all flex items-center gap-2 shadow-sm hover:shadow-md cursor-pointer text-center"
+              >
+                <span>Email: {portfolioData.socials.email}</span>
+              </motion.a>
+              <motion.a
+                whileHover={{ y: -2, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                href={portfolioData.socials.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto justify-center px-6 py-3 rounded-full text-xs sm:text-sm font-semibold bg-rose-dark text-white hover:bg-rose-berry transition-all flex items-center gap-2 shadow-sm hover:shadow-md cursor-pointer text-center"
+              >
+                <span>WhatsApp Langsung ✦</span>
+              </motion.a>
+              <motion.a
+                whileHover={{ y: -2, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                href={portfolioData.socials.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto justify-center px-6 py-3 rounded-full text-xs sm:text-sm font-semibold bg-white text-forest border border-[#CAD7C5] hover:border-forest hover:bg-[#FAFBF8] transition-all flex items-center gap-2 shadow-sm hover:shadow-md cursor-pointer text-center"
+              >
+                <span>LinkedIn Profile ↗</span>
+              </motion.a>
+            </div>
 
-          {/* Subtle Hairline Divider */}
-          <div className="flex items-center gap-3 my-4 w-full max-w-xs justify-center opacity-60">
-            <div className="h-px bg-[#CAD7C5] grow" />
-            <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-forest/70">Connect & Social Media</span>
-            <div className="h-px bg-[#CAD7C5] grow" />
-          </div>
+            {/* Subtle Hairline Divider */}
+            <div className="flex items-center gap-3 my-4 w-full max-w-xs justify-center opacity-60">
+              <div className="h-px bg-[#CAD7C5] grow" />
+              <span className="text-[10px] uppercase font-sans font-bold tracking-widest text-forest/70">Connect & Social Media</span>
+              <div className="h-px bg-[#CAD7C5] grow" />
+            </div>
 
-          {/* Official Social Media Brand Icon Buttons */}
-          <div className="flex items-center justify-center gap-3">
-            {/* Instagram */}
-            <motion.a
-              whileHover={{ y: -3, scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              href={portfolioData.socials.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              title="Instagram: @chikalnazmi"
-              aria-label="Instagram Chikal Nazmi"
-              className="w-10 h-10 rounded-xl bg-white hover:bg-gradient-to-tr hover:from-[#f09433] hover:via-[#dc2743] hover:to-[#bc1888] border border-[#CAD7C5] hover:border-transparent text-forest hover:text-white flex items-center justify-center transition-all duration-300 shadow-2xs group relative"
-            >
-              <svg className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-              </svg>
-              <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity bg-forest text-white text-[10px] font-mono px-2 py-0.5 rounded pointer-events-none whitespace-nowrap shadow-md z-30">
-                Instagram
-              </span>
-            </motion.a>
+            {/* Official Social Media Brand Icon Buttons */}
+            <div className="flex items-center justify-center gap-3">
+              {/* Instagram */}
+              <motion.a
+                whileHover={{ y: -3, scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                href={portfolioData.socials.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Instagram: @chikalnazmi"
+                aria-label="Instagram Chikal Nazmi"
+                className="w-10 h-10 rounded-xl bg-white hover:bg-gradient-to-tr hover:from-[#f09433] hover:via-[#dc2743] hover:to-[#bc1888] border border-[#CAD7C5] hover:border-transparent text-forest hover:text-white flex items-center justify-center transition-all duration-300 shadow-2xs group relative"
+              >
+                <svg className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+                <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity bg-forest text-white text-[10px] font-sans px-2 py-0.5 rounded pointer-events-none whitespace-nowrap shadow-md z-30">
+                  Instagram
+                </span>
+              </motion.a>
 
-            {/* TikTok */}
-            <motion.a
-              whileHover={{ y: -3, scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              href={portfolioData.socials.tiktok}
-              target="_blank"
-              rel="noopener noreferrer"
-              title="TikTok: @chikalnazmi"
-              aria-label="TikTok Chikal Nazmi"
-              className="w-10 h-10 rounded-xl bg-white hover:bg-black border border-[#CAD7C5] hover:border-black text-forest hover:text-[#25F4EE] flex items-center justify-center transition-all duration-300 shadow-2xs group relative"
-            >
-              <svg className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.86 4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-3.04-1.52z"/>
-              </svg>
-              <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity bg-forest text-white text-[10px] font-mono px-2 py-0.5 rounded pointer-events-none whitespace-nowrap shadow-md z-30">
-                TikTok
-              </span>
-            </motion.a>
+              {/* TikTok */}
+              <motion.a
+                whileHover={{ y: -3, scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                href={portfolioData.socials.tiktok}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="TikTok: @chikalnazmi"
+                aria-label="TikTok Chikal Nazmi"
+                className="w-10 h-10 rounded-xl bg-white hover:bg-black border border-[#CAD7C5] hover:border-black text-forest hover:text-[#25F4EE] flex items-center justify-center transition-all duration-300 shadow-2xs group relative"
+              >
+                <svg className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.86 4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-3.04-1.52z"/>
+                </svg>
+                <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity bg-forest text-white text-[10px] font-sans px-2 py-0.5 rounded pointer-events-none whitespace-nowrap shadow-md z-30">
+                  TikTok
+                </span>
+              </motion.a>
 
-            {/* YouTube */}
-            <motion.a
-              whileHover={{ y: -3, scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              href={portfolioData.socials.youtube}
-              target="_blank"
-              rel="noopener noreferrer"
-              title="YouTube: Chikal Nazmi"
-              aria-label="YouTube Chikal Nazmi"
-              className="w-10 h-10 rounded-xl bg-white hover:bg-[#FF0000] border border-[#CAD7C5] hover:border-[#FF0000] text-forest hover:text-white flex items-center justify-center transition-all duration-300 shadow-2xs group relative"
-            >
-              <svg className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-              </svg>
-              <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity bg-forest text-white text-[10px] font-mono px-2 py-0.5 rounded pointer-events-none whitespace-nowrap shadow-md z-30">
-                YouTube
-              </span>
-            </motion.a>
+              {/* YouTube */}
+              <motion.a
+                whileHover={{ y: -3, scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                href={portfolioData.socials.youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="YouTube: Chikal Nazmi"
+                aria-label="YouTube Chikal Nazmi"
+                className="w-10 h-10 rounded-xl bg-white hover:bg-[#FF0000] border border-[#CAD7C5] hover:border-[#FF0000] text-forest hover:text-white flex items-center justify-center transition-all duration-300 shadow-2xs group relative"
+              >
+                <svg className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+                <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity bg-forest text-white text-[10px] font-sans px-2 py-0.5 rounded pointer-events-none whitespace-nowrap shadow-md z-30">
+                  YouTube
+                </span>
+              </motion.a>
 
-            {/* Medium */}
-            <motion.a
-              whileHover={{ y: -3, scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              href={portfolioData.socials.medium}
-              target="_blank"
-              rel="noopener noreferrer"
-              title="Medium: @chikalnazmi"
-              aria-label="Medium Chikal Nazmi"
-              className="w-10 h-10 rounded-xl bg-white hover:bg-forest border border-[#CAD7C5] hover:border-forest text-forest hover:text-white flex items-center justify-center transition-all duration-300 shadow-2xs group relative"
-            >
-              <svg className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/>
-              </svg>
-              <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity bg-forest text-white text-[10px] font-mono px-2 py-0.5 rounded pointer-events-none whitespace-nowrap shadow-md z-30">
-                Medium
-              </span>
-            </motion.a>
-          </div>
-        </motion.div>
+              {/* Medium */}
+              <motion.a
+                whileHover={{ y: -3, scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                href={portfolioData.socials.medium}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Medium: @chikalnazmi"
+                aria-label="Medium Chikal Nazmi"
+                className="w-10 h-10 rounded-xl bg-white hover:bg-forest border border-[#CAD7C5] hover:border-forest text-forest hover:text-white flex items-center justify-center transition-all duration-300 shadow-2xs group relative"
+              >
+                <svg className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/>
+                </svg>
+                <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-opacity bg-forest text-white text-[10px] font-sans px-2 py-0.5 rounded pointer-events-none whitespace-nowrap shadow-md z-30">
+                  Medium
+                </span>
+              </motion.a>
+            </div>
+          </motion.div>
+        </div>
 
         {/* ========================================================================= */}
         {/* EDITORIAL GRAND FINALE FOOTER (Minimalist Editorial Concept)              */}
@@ -2740,14 +2743,14 @@ export default function Home() {
           >
             <a
               href="#hero"
-              className="group block w-full text-left tracking-normal font-serif font-bold text-forest hover:text-rose-dark transition-colors duration-700 leading-[0.88] cursor-pointer whitespace-nowrap overflow-hidden"
+              className="group block w-full text-left tracking-normal font-serif font-normal text-forest hover:text-rose-dark transition-colors duration-700 leading-[0.88] cursor-pointer whitespace-nowrap overflow-hidden"
               title="Chikal Nazmi Mahira — Kembali ke Atas ↑"
             >
-              <span className="block text-[8.5vw] sm:text-[8vw] md:text-[7.8vw] lg:text-[7.5vw] xl:text-[7.2rem] 2xl:text-[8.5rem] transition-transform duration-700 group-hover:translate-x-1.5">
+              <span className="block text-[8.5vw] sm:text-[8vw] md:text-[7.8vw] lg:text-[7.5vw] xl:text-[7.2rem] 2xl:text-[8.5rem] transition-transform duration-700 group-hover:translate-x-1.5 font-normal">
                 Chikal Nazmi Mahira
               </span>
             </a>
-            <div className="text-[10px] sm:text-xs font-mono font-medium tracking-widest uppercase text-forest/60 mt-2 sm:mt-3">
+            <div className="text-[10px] sm:text-xs font-sans font-medium tracking-widest uppercase text-forest/60 mt-2 sm:mt-3">
               Business &amp; Marketing
             </div>
           </motion.div>

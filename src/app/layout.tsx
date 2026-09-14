@@ -4,6 +4,13 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Chikal Nazmi Mahira | Business Development & Digital Strategist",
   description: "Portfolio of Chikal Nazmi Mahira. Specializing in Business Strategy, Operations, Partnerships, and Creative Digital Media.",
+  icons: {
+    icon: [
+      { url: "/favicon-flower.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/favicon-flower.svg",
+    apple: "/favicon-flower.svg",
+  },
 };
 
 export default function RootLayout({
@@ -14,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="id" className="scroll-smooth scroll-pt-20">
       <head>
+        <link rel="icon" href="/favicon-flower.svg" type="image/svg+xml" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link 

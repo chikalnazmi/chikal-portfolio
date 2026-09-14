@@ -115,6 +115,7 @@
 .font-title,
 .font-serif {
   font-family: 'Instrument Serif', Georgia, serif;
+  font-weight: 400;
 }
 
 .editorial-italic,
@@ -124,9 +125,11 @@
   font-weight: 400;
 }
 
-.font-script {
+.font-script,
+.editorial-kicker {
   font-family: 'Instrument Serif', Georgia, serif;
   font-style: italic;
+  font-weight: 400;
 }
 
 .font-sans,
@@ -135,6 +138,44 @@
 .font-source,
 .font-body {
   font-family: 'Urbanist', system-ui, -apple-system, sans-serif;
+}
+
+/* =========================================================================
+   EDITORIAL COLLABORATION CTA CARD BANNER
+   ========================================================================= */
+.editorial-cta-card {
+  position: relative;
+  background: linear-gradient(145deg, #FFFFFF 0%, #F5F8F3 50%, #FAF1F3 100%);
+  border: 1.5px solid rgba(202, 215, 197, 0.85);
+  border-radius: 36px;
+  box-shadow: 0 25px 60px -15px rgba(37, 53, 33, 0.08), 0 0 2px rgba(189, 88, 113, 0.15);
+  overflow: hidden;
+}
+
+.editorial-cta-card::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -20%;
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(245, 211, 220, 0.45) 0%, rgba(245, 211, 220, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.editorial-cta-card::after {
+  content: '';
+  position: absolute;
+  bottom: -40%;
+  left: -20%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(202, 215, 197, 0.4) 0%, rgba(202, 215, 197, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
 }
 
 
