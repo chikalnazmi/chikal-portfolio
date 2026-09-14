@@ -98,6 +98,15 @@
   font-display: swap;
 }
 
+:root {
+  --font-body: 'Urbanist', system-ui, -apple-system, sans-serif;
+  --font-display: 'Urbanist', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Urbanist', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-serif-display: 'Instrument Serif', Georgia, serif;
+  --font-script: 'Instrument Serif', Georgia, serif;
+}
+
 /* Typography Styling (Urbanist & Instrument Serif matching Hilman Portfolio) */
 .font-editorial,
 .font-quincy,
@@ -114,7 +123,8 @@
 }
 
 .font-script {
-  font-family: var(--font-script), 'Caveat', cursive;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
 }
 
 .font-sans,
@@ -124,6 +134,7 @@
 .font-body {
   font-family: 'Urbanist', system-ui, -apple-system, sans-serif;
 }
+
 
 /* Bento & Card Styling with Soft Ambient Shadows */
 .editorial-card {

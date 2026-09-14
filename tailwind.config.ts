@@ -34,24 +34,19 @@ const config: Config = {
       },
       fontFamily: {
         // Modern geometric sans-serif (Urbanist - matching Hilman Portfolio)
-        sans: ["'Urbanist'", "var(--font-sans)", "system-ui", "-apple-system", "sans-serif"],
-        body: ["'Urbanist'", "var(--font-sans)", "system-ui", "-apple-system", "sans-serif"],
-        source: ["'Urbanist'", "var(--font-sans)", "system-ui", "-apple-system", "sans-serif"],
+        sans: ["'Urbanist'", "system-ui", "-apple-system", "sans-serif"],
+        body: ["'Urbanist'", "system-ui", "-apple-system", "sans-serif"],
+        source: ["'Urbanist'", "system-ui", "-apple-system", "sans-serif"],
+        subheader: ["'Urbanist'", "system-ui", "-apple-system", "sans-serif"],
+        futura: ["'Urbanist'", "system-ui", "-apple-system", "sans-serif"],
+        mono: ["'Urbanist'", "ui-monospace", "monospace"],
         
         // Luxury high-contrast editorial serif (Instrument Serif - matching Hilman Portfolio)
-        serif: ["'Instrument Serif'", "var(--font-serif)", "Georgia", "serif"],
-        title: ["'Instrument Serif'", "var(--font-serif)", "Georgia", "serif"],
-        quincy: ["'Instrument Serif'", "var(--font-serif)", "Georgia", "serif"],
-        editorial: ["'Instrument Serif'", "var(--font-serif)", "Georgia", "serif"],
-        
-        // Handwritten script for kickers (Caveat)
-        script: ["var(--font-script)", "'Caveat'", "cursive"],
-        
-        // Clean subheader
-        subheader: ["'Urbanist'", "var(--font-sans)", "system-ui", "sans-serif"],
-        futura: ["'Urbanist'", "var(--font-sans)", "system-ui", "sans-serif"],
-        
-        mono: ["var(--font-space-mono)", "ui-monospace", "monospace"],
+        serif: ["'Instrument Serif'", "Georgia", "serif"],
+        title: ["'Instrument Serif'", "Georgia", "serif"],
+        quincy: ["'Instrument Serif'", "Georgia", "serif"],
+        editorial: ["'Instrument Serif'", "Georgia", "serif"],
+        script: ["'Instrument Serif'", "Georgia", "serif"],
       },
       letterSpacing: {
         'subheader': '0.22em',
