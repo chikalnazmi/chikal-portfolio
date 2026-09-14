@@ -903,8 +903,6 @@ export default function Home() {
                 "YarnUp! Studio",
                 "Manikarumi Indonesia",
                 "PT Digivla Indonesia",
-                "Universitas Islam Malang",
-                "Universitas Negeri Padang",
                 "RevoU Digital Marketing",
               ].concat([
                 "Politeknik Negeri Malang",
@@ -913,8 +911,6 @@ export default function Home() {
                 "YarnUp! Studio",
                 "Manikarumi Indonesia",
                 "PT Digivla Indonesia",
-                "Universitas Islam Malang",
-                "Universitas Negeri Padang",
                 "RevoU Digital Marketing",
               ]).map((partner, pIdx) => (
                 <div key={pIdx} className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold tracking-wide text-forest/75 hover:text-forest transition-colors shrink-0">
