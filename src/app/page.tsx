@@ -917,97 +917,81 @@ export default function Home() {
           </p>
         </motion.div>
 
-        {/* Modern Bento Grid: Asymmetric, Dynamic & Highly Readable */}
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-40px" }}
-          variants={staggerContainer}
-          className="grid grid-cols-1 md:grid-cols-12 gap-4 lg:gap-5"
-        >
+        {/* Modern Clean Layout: Balanced 2-Column Architecture (Spacious & Decluttered) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 lg:gap-8 items-start">
           
-          {/* BENTO CARD 1: Formal Degree & Official Certifications (Col Span 5) */}
+          {/* COLUMN 1: Academic Credential & Formal Education (5 Cols) */}
           <motion.div 
-            variants={cardItemVariant}
-            whileHover={{ y: -4, transition: { duration: 0.25 } }}
-            className="md:col-span-12 lg:col-span-5 bg-white/95 border border-[#CAD7C5] rounded-3xl p-5 sm:p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+            variants={fadeUp}
+            className="lg:col-span-5 bg-white/95 border border-[#CAD7C5] rounded-3xl p-6 sm:p-7 shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
           >
             <div>
               {/* Header Badges */}
-              <div className="flex items-center justify-between gap-2 mb-3">
+              <div className="flex items-center justify-between gap-2 mb-4">
                 <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-rose-blush/90 text-rose-dark border border-rose-dusty/40 uppercase tracking-wider shadow-2xs">
                   {academicData.badge?.replace('', '').trim() || 'FORMAL DEGREE'}
                 </span>
-                <span className="text-[11px] font-mono font-bold px-3 py-1 rounded-full bg-[#F4F7F2] text-forest/80 border border-[#CAD7C5]">
+                <span className="text-[11px] font-sans font-semibold px-3 py-1 rounded-full bg-[#F4F7F2] text-forest/80 border border-[#CAD7C5]">
                   {academicData.period || '2020 – 2024'}
                 </span>
               </div>
 
               {/* Title & Institution */}
-              <h3 className="font-sans font-bold text-xl sm:text-2xl text-forest tracking-tight mb-1 group-hover:text-rose-dark transition-colors">
+              <h3 className="font-sans font-bold text-xl sm:text-2xl text-forest tracking-tight mb-1">
                 {academicData.degree}
               </h3>
-              <h4 className="text-xs sm:text-sm font-semibold text-forest/75 uppercase tracking-wide mb-4 font-mono">
+              <h4 className="text-xs sm:text-sm font-semibold text-rose-dark tracking-wide mb-5">
                 {academicData.institution}
               </h4>
 
-              {/* Verified Credentials (GPA & TOEIC) */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2.5 mb-4">
-                {/* GPA Highlight */}
-                <div className="p-3 rounded-2xl bg-[#F4F7F2]/90 border border-[#CAD7C5] shadow-2xs flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-forest text-[#E8EFE5] flex flex-col items-center justify-center font-mono font-bold shrink-0 shadow-2xs">
-                      <span className="text-[11px] font-bold leading-none">GPA</span>
-                      <span className="text-[8px] text-white/70 leading-none mt-0.5">HONOR</span>
-                    </div>
-                    <div>
-                      <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-forest/60 block leading-tight">
-                        {academicData.gpaTitle || 'ACADEMIC STANDING'}
-                      </span>
-                      <span className="text-sm font-sans font-bold text-forest block leading-snug">
-                        {academicData.gpaValue || 'IPK : 3.73'}
-                      </span>
-                      <span className="text-[10px] text-forest/70 leading-tight">
-                        Kurikulum Terapan Bisnis &amp; Sistem
-                      </span>
-                    </div>
+              {/* Clean Metric Pills (IPK & TOEIC side-by-side) */}
+              <div className="grid grid-cols-2 gap-3 mb-5">
+                {/* GPA Pill */}
+                <div className="p-3.5 rounded-2xl bg-[#F4F7F2] border border-[#CAD7C5]/80 flex flex-col">
+                  <span className="text-[10px] font-bold text-forest/60 uppercase tracking-wider mb-0.5">
+                    {academicData.gpaTitle || 'IPK / GPA'}
+                  </span>
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-xl sm:text-2xl font-bold text-forest leading-none">
+                      {academicData.gpaValue?.match(/\d+([.,]\d+)?/)?.[0]?.replace(',', '.') || '3.73'}
+                    </span>
+                    <span className="text-[10px] font-bold text-emerald-700 uppercase">
+                      Cum Laude
+                    </span>
                   </div>
-                  <span className="px-2 py-0.5 rounded-md bg-forest/10 text-forest text-[10px] font-bold uppercase tracking-wider shrink-0">
-                    Cum Laude
+                  <span className="text-[10px] text-forest/70 mt-1">
+                    Skala 4.00
                   </span>
                 </div>
 
-                {/* TOEIC Highlight */}
-                <div className="p-3 rounded-2xl bg-rose-50/60 border border-rose-200/90 shadow-2xs flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-rose-dark text-white flex flex-col items-center justify-center font-mono font-bold shrink-0 shadow-2xs">
-                      <span className="text-[11px] font-bold leading-none">EN</span>
-                      <span className="text-[8px] text-rose-100 leading-none mt-0.5">{academicData.toeicScore || '775'}</span>
-                    </div>
-                    <div>
-                      <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-rose-dark/70 block leading-tight">
-                        {academicData.toeicTitle || 'GLOBAL ENGLISH PROFICIENCY'}
-                      </span>
-                      <span className="text-sm font-sans font-bold text-forest block leading-snug">
-                        Official TOEIC: <span className="text-rose-dark font-extrabold">{academicData.toeicScore || '775'}</span>
-                      </span>
-                      <span className="text-[10px] text-forest/70 leading-tight">
-                        {academicData.toeicLevel || 'Working Proficiency'} • ETS
-                      </span>
-                    </div>
+                {/* TOEIC Pill */}
+                <div className="p-3.5 rounded-2xl bg-rose-50/70 border border-rose-200/90 flex flex-col">
+                  <span className="text-[10px] font-bold text-rose-dark/70 uppercase tracking-wider mb-0.5">
+                    {academicData.toeicTitle || 'TOEIC ETS'}
+                  </span>
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-xl sm:text-2xl font-bold text-rose-dark leading-none">
+                      {academicData.toeicScore || '775'}
+                    </span>
+                    <span className="text-[10px] font-bold text-rose-dark/80 uppercase">
+                      Certified
+                    </span>
                   </div>
-                  <span className="px-2 py-0.5 rounded-md bg-rose-blush text-rose-dark text-[10px] font-bold uppercase tracking-wider shrink-0 border border-rose-dusty/30">
-                    Certified
+                  <span className="text-[10px] text-forest/70 mt-1">
+                    {academicData.toeicLevel || 'Working Proficiency'}
                   </span>
                 </div>
               </div>
 
-              {/* Focus Summary */}
-              <div className="p-3 rounded-2xl bg-[#F9FBF8] border border-[#CAD7C5]/70 mb-4">
-                <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-forest/60 block mb-0.5">
+              {/* Brief Academic Focus Description */}
+              <div className="p-4 rounded-2xl bg-[#FAFBF8] border border-[#CAD7C5]/70 mb-5">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-forest/60 block mb-1">
                   Focus &amp; Academic Core
                 </span>
-                <p className="text-xs text-forest/80 leading-relaxed font-source">
+                <p className="text-xs sm:text-[13px] text-forest/80 leading-relaxed font-sans">
                   {academicData.description}
                 </p>
               </div>
@@ -1021,197 +1005,154 @@ export default function Home() {
                 academicData.description,
                 academicData.images && academicData.images.length > 0 ? academicData.images : ['/11.png', '/12.png', '/16.png']
               )}
-              className="w-full py-2.5 px-4 rounded-xl bg-forest text-[#E8EFE5] hover:bg-rose-dark text-xs sm:text-sm font-bold shadow-2xs hover:shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full py-2.5 px-4 rounded-xl bg-forest text-[#E8EFE5] hover:bg-rose-dark text-xs sm:text-sm font-semibold shadow-2xs hover:shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
               <span>Buka Dokumen Kelulusan &amp; TOEIC</span>
               <span>↗</span>
             </button>
           </motion.div>
 
-          {/* BENTO CARD 2: Business & Operations Pillar (Col Span 4) */}
+          {/* COLUMN 2: Core Capabilities & Skills Matrix (7 Cols) */}
           <motion.div 
-            variants={cardItemVariant}
-            whileHover={{ y: -4, transition: { duration: 0.25 } }}
-            className="md:col-span-6 lg:col-span-4 bg-white/95 border border-[#CAD7C5] rounded-3xl p-5 sm:p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+            variants={fadeUp}
+            className="lg:col-span-7 bg-white/95 border border-[#CAD7C5] rounded-3xl p-6 sm:p-7 shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
           >
             <div>
-              {/* Header Badge */}
-              <div className="flex items-center justify-between gap-2 mb-3">
-                <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-300 uppercase tracking-wider shadow-2xs">
-                  STRATEGY &amp; OPERATIONS
-                </span>
-                <span className="text-[11px] font-mono font-medium text-forest/60">
-                  {bizSkills.length} Capabilities
-                </span>
+              {/* Category Filter Pills for decluttered viewing */}
+              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-5">
+                {[
+                  { id: 'all', label: 'All Capabilities' },
+                  { id: 'business', label: 'Strategy & Ops' },
+                  { id: 'tech', label: 'Systems & Tools' },
+                  { id: 'creative', label: 'Media & Marketing' },
+                  { id: 'soft', label: 'Work Ethics' },
+                ].map(tab => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveSkillCategory(tab.id)}
+                    className={`px-3 py-1 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                      activeSkillCategory === tab.id
+                        ? 'bg-forest text-white shadow-2xs'
+                        : 'bg-[#F4F7F2] text-forest/75 hover:bg-white hover:text-forest border border-[#CAD7C5]/70'
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
               </div>
 
-              <h3 className="font-sans font-bold text-lg sm:text-xl text-forest tracking-tight mb-1">
-                Business Systems &amp; SOPs
-              </h3>
-              <p className="text-xs text-forest/70 mb-4 font-source">
-                Penyusunan alur operasional terstandarisasi, rekonsiliasi kas, dan riset peluang pasar.
-              </p>
-
-              {/* Curated Skill Cards / Highlights */}
-              <div className="space-y-1.5 mb-4">
-                {bizSkills.map((skill, sIdx) => (
-                  <div
-                    key={sIdx}
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl bg-[#FAFBF8] border border-[#CAD7C5]/70 text-xs font-semibold text-forest shadow-2xs group-hover:border-forest/30 transition-colors"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-600 shrink-0" />
-                    <span className="truncate">{skill}</span>
+              {/* Organized 3-Pillar Clean Showcase */}
+              <div className="space-y-4">
+                {/* Pillar 1: Strategy & Operations */}
+                {(activeSkillCategory === 'all' || activeSkillCategory === 'business') && (
+                  <div className="p-4 rounded-2xl bg-[#FAFBF8] border border-[#CAD7C5]/70">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-amber-600" />
+                        <h4 className="font-sans font-bold text-sm text-forest">
+                          Business Strategy &amp; Operational SOPs
+                        </h4>
+                      </div>
+                      <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                        ✓ Verified Applied
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-forest/70 mb-3">
+                      Penyusunan alur operasional terstandarisasi, rekonsiliasi kas, dan riset model bisnis.
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {bizSkills.map((skill, sIdx) => (
+                        <span
+                          key={sIdx}
+                          className="px-2.5 py-1 rounded-lg bg-white border border-[#CAD7C5]/80 text-xs font-medium text-forest/90"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                ))}
-              </div>
-            </div>
+                )}
 
-            {/* Real World Proven Tag */}
-            <div className="pt-3 border-t border-[#CAD7C5]/60 flex items-center justify-between text-xs text-forest/75 font-medium">
-              <span>Dua Sisi &amp; Manikarumi</span>
-              <span className="text-emerald-700 font-bold flex items-center gap-1">
-                <span>✓</span> Verified Applied
-              </span>
-            </div>
-          </motion.div>
-
-          {/* BENTO CARD 3: Creative Media & Brand Growth (Col Span 3) */}
-          <motion.div 
-            variants={cardItemVariant}
-            whileHover={{ y: -4, transition: { duration: 0.25 } }}
-            className="md:col-span-6 lg:col-span-3 bg-white/95 border border-[#CAD7C5] rounded-3xl p-5 sm:p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group"
-          >
-            <div>
-              {/* Header Badge */}
-              <div className="flex items-center justify-between gap-2 mb-3">
-                <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-rose-100 text-rose-900 border border-rose-300 uppercase tracking-wider shadow-2xs">
-                  MARKETING &amp; MEDIA
-                </span>
-                <span className="text-[11px] font-mono font-medium text-forest/60">
-                  {creativeSkills.length} Skills
-                </span>
-              </div>
-
-              <h3 className="font-sans font-bold text-lg sm:text-xl text-forest tracking-tight mb-1">
-                Creative &amp; Audience Growth
-              </h3>
-              <p className="text-xs text-forest/70 mb-4 font-source">
-                Strategi video pendek, kurasi visual katalog, dan ekspansi jangkauan organik.
-              </p>
-
-              {/* Creative Capabilities Stack */}
-              <div className="space-y-1.5 mb-4">
-                {creativeSkills.map((skill, sIdx) => (
-                  <div
-                    key={sIdx}
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl bg-[#FAFBF8] border border-[#CAD7C5]/70 text-xs font-semibold text-forest shadow-2xs group-hover:border-rose-dark/30 transition-colors"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-rose-dark shrink-0" />
-                    <span className="truncate">{skill}</span>
+                {/* Pillar 2: Systems, UI/UX & Digital Tools */}
+                {(activeSkillCategory === 'all' || activeSkillCategory === 'tech') && (
+                  <div className="p-4 rounded-2xl bg-[#FAFBF8] border border-[#CAD7C5]/70">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-blue-600" />
+                        <h4 className="font-sans font-bold text-sm text-forest">
+                          Information Systems &amp; Digital Tools
+                        </h4>
+                      </div>
+                      <span className="text-[10px] font-semibold text-blue-800 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">
+                        Polinema D4 SIB
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-forest/70 mb-3">
+                      Fondasi teknologi perancangan antarmuka pengguna, pemodelan data relasional, dan analisis data.
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {itSkills.map((skill, sIdx) => (
+                        <span
+                          key={sIdx}
+                          className="px-2.5 py-1 rounded-lg bg-white border border-[#CAD7C5]/80 text-xs font-medium text-forest/90"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                ))}
-              </div>
-            </div>
+                )}
 
-            {/* Performance Metric Tag */}
-            <div className="pt-3 border-t border-[#CAD7C5]/60 flex items-center justify-between text-xs text-forest/75 font-medium">
-              <span>YarnUp! &amp; Event PR</span>
-              <span className="text-rose-dark font-bold font-mono">+2.089% Reach</span>
-            </div>
-          </motion.div>
-
-          {/* BENTO CARD 4A: Technical Software & Systems Stack (Col Span 7) */}
-          <motion.div 
-            variants={cardItemVariant}
-            whileHover={{ y: -4, transition: { duration: 0.25 } }}
-            className="md:col-span-12 lg:col-span-7 bg-white/95 border border-[#CAD7C5] rounded-3xl p-5 sm:p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group"
-          >
-            <div>
-              <div className="flex items-center justify-between gap-2 mb-2">
-                <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-blue-100 text-blue-900 border border-blue-300 uppercase tracking-wider shadow-2xs">
-                  TECH &amp; SYSTEMS STACK
-                </span>
-                <span className="text-[11px] font-mono text-forest/60">
-                  Information Systems Core
-                </span>
-              </div>
-
-              <h3 className="font-sans font-bold text-lg sm:text-xl text-forest tracking-tight mb-1">
-                Digital Systems, UI/UX &amp; Data Tools
-              </h3>
-              <p className="text-xs text-forest/70 mb-3.5 font-source">
-                Fondasi teknologi perancangan antarmuka pengguna, pemodelan data relasional, dan automasi pemrosesan data.
-              </p>
-
-              {/* Badges Flow */}
-              <div className="flex flex-wrap gap-2 mb-2">
-                {itSkills.map((skill, sIdx) => (
-                  <span
-                    key={sIdx}
-                    className="px-3 py-1.5 rounded-xl bg-[#F4F7F2] border border-[#CAD7C5] text-xs font-semibold text-forest shadow-2xs hover:bg-forest hover:text-white hover:border-forest transition-all cursor-default flex items-center gap-1.5"
-                  >
-                    <span className="text-rose-dusty text-[10px]">✦</span>
-                    <span>{skill}</span>
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="pt-3 mt-2 border-t border-[#CAD7C5]/60 flex items-center justify-between text-xs text-forest/70 font-medium font-source">
-              <span>Jurusan Teknologi Informasi — Politeknik Negeri Malang</span>
-              <span className="font-mono text-forest/50">D4 SIB Certified</span>
-            </div>
-          </motion.div>
-
-          {/* BENTO CARD 4B: Personal Strengths & Fast Contact (Col Span 5) */}
-          <motion.div 
-            variants={cardItemVariant}
-            whileHover={{ y: -4, transition: { duration: 0.25 } }}
-            className="md:col-span-12 lg:col-span-5 bg-white/95 border border-[#CAD7C5] rounded-3xl p-5 sm:p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group"
-          >
-            <div>
-              <div className="flex items-center justify-between gap-2 mb-2">
-                <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-purple-100 text-purple-900 border border-purple-300 uppercase tracking-wider shadow-2xs">
-                  PROFESSIONAL VALUES
-                </span>
-                <span className="text-[11px] font-mono text-forest/60">
-                  Work Style
-                </span>
-              </div>
-
-              <h3 className="font-sans font-bold text-lg sm:text-xl text-forest tracking-tight mb-1">
-                Collaborative Strengths &amp; Ethics
-              </h3>
-              <p className="text-xs text-forest/70 mb-3 font-source">
-                Karakter kerja adaptif, kepemilikan tanggung jawab tinggi, dan komunikasi proaktif.
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 mb-4">
-                {personalSkills.map((skill, pIdx) => (
-                  <div
-                    key={pIdx}
-                    className="flex items-center gap-2 p-2 rounded-xl bg-[#FAFBF8] border border-[#CAD7C5]/70 text-xs font-bold text-forest shadow-2xs"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-purple-600 shrink-0" />
-                    <span className="truncate">{skill}</span>
+                {/* Pillar 3: Media, Marketing & Work Values */}
+                {(activeSkillCategory === 'all' || activeSkillCategory === 'creative' || activeSkillCategory === 'soft') && (
+                  <div className="p-4 rounded-2xl bg-[#FAFBF8] border border-[#CAD7C5]/70">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-rose-dusty" />
+                        <h4 className="font-sans font-bold text-sm text-forest">
+                          Creative Media, Growth &amp; Collaboration
+                        </h4>
+                      </div>
+                      <span className="text-[10px] font-semibold text-rose-dark bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200">
+                        +2.089% Reach
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-forest/70 mb-3">
+                      Produksi konten lintas platform, kurasi visual, dan komunikasi strategis tim.
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {(activeSkillCategory === 'soft' ? personalSkills : [...creativeSkills, ...personalSkills]).map((skill, sIdx) => (
+                        <span
+                          key={sIdx}
+                          className="px-2.5 py-1 rounded-lg bg-white border border-[#CAD7C5]/80 text-xs font-medium text-forest/90"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                ))}
+                )}
               </div>
             </div>
 
-            {/* WhatsApp Contact Action */}
-            <a
-              href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full py-2.5 px-4 rounded-xl bg-[#F4F7F2] hover:bg-forest border border-[#CAD7C5] hover:border-forest text-forest hover:text-white text-xs sm:text-sm font-bold shadow-2xs hover:shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <span>Diskusi Peluang Karir via WhatsApp</span>
-              <span>↗</span>
-            </a>
+            {/* Bottom Note */}
+            <div className="pt-4 mt-5 border-t border-[#CAD7C5]/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-forest/70 font-sans">
+              <span>Kurikulum Terpadu &amp; Implementasi Lapangan Mandiri</span>
+              <a
+                href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-rose-dark hover:text-rose-berry underline cursor-pointer"
+              >
+                Konsultasikan Kebutuhan Proyek ↗
+              </a>
+            </div>
           </motion.div>
 
-        </motion.div>
+        </div>
 
       </section>
 
