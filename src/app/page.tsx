@@ -614,9 +614,8 @@ export default function Home() {
                 href="https://wa.me/6281234567890?text=Halo%20Chikal,%20saya%20tertarik%20berdiskusi%20mengenai%20peluang%20kerjasama."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-floral px-3.5 py-1 rounded-full text-[11px] font-semibold bg-rose-dark text-white hover:bg-rose-berry shadow-2xs cursor-pointer flex items-center gap-1.5"
+                className="btn-floral px-3.5 py-1 rounded-full text-[11px] font-semibold bg-rose-dark text-white hover:bg-rose-berry shadow-2xs cursor-pointer flex items-center gap-1"
               >
-                <span>🌸</span>
                 <span>Let&apos;s Connect ↗</span>
               </a>
             </div>
@@ -872,9 +871,8 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="hero-cta-btn btn-floral inline-flex items-center gap-2 px-5 py-2 rounded-full bg-forest hover:bg-rose-dark text-[#E8EFE5] text-xs sm:text-sm font-semibold shadow-xs hover:shadow-md cursor-pointer"
               >
-                <span>🌸</span>
-                <span>Get in Touch</span>
                 <span>→</span>
+                <span>Get in Touch</span>
               </motion.a>
             </motion.div>
 
@@ -1038,7 +1036,6 @@ export default function Home() {
               )}
               className="btn-floral w-full py-2.5 px-4 rounded-xl bg-forest text-[#E8EFE5] hover:bg-rose-dark text-xs sm:text-sm font-semibold shadow-2xs hover:shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
-              <span>🌸</span>
               <span>Buka Dokumen Kelulusan &amp; TOEIC</span>
               <span>↗</span>
             </button>
@@ -2572,7 +2569,6 @@ export default function Home() {
                 href={`mailto:${portfolioData.socials.email}`}
                 className="btn-floral w-full sm:w-auto justify-center px-6 py-3 rounded-full text-xs sm:text-sm font-semibold bg-forest text-[#E8EFE5] hover:bg-rose-dark flex items-center gap-2 shadow-sm hover:shadow-md cursor-pointer text-center"
               >
-                <span>✉</span>
                 <span>Email: {portfolioData.socials.email}</span>
               </motion.a>
               <motion.a
@@ -2583,8 +2579,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="btn-floral w-full sm:w-auto justify-center px-6 py-3 rounded-full text-xs sm:text-sm font-semibold bg-rose-dark text-white hover:bg-rose-berry flex items-center gap-2 shadow-sm hover:shadow-md cursor-pointer text-center"
               >
-                <span>🌸</span>
-                <span>WhatsApp Langsung ✦</span>
+                <span>WhatsApp Langsung ↗</span>
               </motion.a>
               <motion.a
                 whileHover={{ y: -2, scale: 1.02 }}
@@ -2594,7 +2589,6 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="btn-floral-light w-full sm:w-auto justify-center px-6 py-3 rounded-full text-xs sm:text-sm font-semibold bg-white text-forest border border-[#CAD7C5] hover:border-rose-dark hover:bg-[#FAFBF8] flex items-center gap-2 shadow-sm hover:shadow-md cursor-pointer text-center"
               >
-                <span>🌿</span>
                 <span>LinkedIn Profile ↗</span>
               </motion.a>
             </div>

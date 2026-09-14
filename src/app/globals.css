@@ -748,115 +748,43 @@
 }
 
 /* =========================================================
-   FLORAL BUTTON INTERACTION SYSTEM (Hover & On-Click)
+   FLORAL BUTTON INTERACTION SYSTEM (Optimized, GPU-Accelerated)
    ========================================================= */
-
-@keyframes floralPetalPulse {
-  0% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(189, 88, 113, 0.45);
-  }
-  70% {
-    transform: scale(1);
-    box-shadow: 0 0 0 14px rgba(189, 88, 113, 0);
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(189, 88, 113, 0);
-  }
-}
-
-@keyframes floralPetalShimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
 
 /* Base Floral Interactive Button */
 .btn-floral {
   position: relative;
   isolation: isolate;
-  overflow: hidden;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Gentle botanical glow aura on hover */
-.btn-floral::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  background: radial-gradient(circle at center, rgba(245, 211, 220, 0.45) 0%, rgba(189, 88, 113, 0.2) 60%, transparent 100%);
-  opacity: 0;
-  transform: scale(0.85);
-  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: -1;
-  pointer-events: none;
-}
-
-/* Soft petal sheen sweep */
-.btn-floral::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -150%;
-  width: 150%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.28),
-    rgba(245, 211, 220, 0.35),
-    transparent
-  );
-  transform: skewX(-20deg);
-  transition: left 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-  pointer-events: none;
-  z-index: 1;
+  will-change: transform;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, background-color 0.25s ease;
 }
 
 .btn-floral:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px -4px rgba(189, 88, 113, 0.35), 0 0 16px rgba(245, 211, 220, 0.45);
+  box-shadow: 0 8px 20px -3px rgba(189, 88, 113, 0.3), 0 0 12px rgba(245, 211, 220, 0.35);
 }
 
-.btn-floral:hover::before {
-  opacity: 1;
-  transform: scale(1.05);
-}
-
-.btn-floral:hover::after {
-  left: 150%;
-}
-
-/* On Click / Active state: Tactile floral bloom burst */
 .btn-floral:active {
   transform: scale(0.96);
-  animation: floralPetalPulse 0.5s ease-out;
-  box-shadow: 0 4px 12px rgba(189, 88, 113, 0.4), 0 0 20px rgba(245, 211, 220, 0.6);
+  box-shadow: 0 2px 8px rgba(189, 88, 113, 0.4);
 }
 
 /* Secondary / Light Floral Button Variant */
 .btn-floral-light {
   position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
 }
 
 .btn-floral-light:hover {
   transform: translateY(-1.5px);
   border-color: rgba(189, 88, 113, 0.5);
-  box-shadow: 0 6px 20px -3px rgba(189, 88, 113, 0.2), 0 0 10px rgba(245, 211, 220, 0.3);
+  box-shadow: 0 4px 14px -2px rgba(189, 88, 113, 0.2);
   color: #BD5871;
 }
 
 .btn-floral-light:active {
   transform: scale(0.96);
-  box-shadow: 0 0 0 6px rgba(245, 211, 220, 0.4);
 }
 
 
