@@ -543,44 +543,31 @@ export default function Home() {
         className="sticky top-2 sm:top-2.5 z-40 max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 isolate"
       >
         <div className="relative group">
-          {/* Animated Botanical Corner Ornament (Top-Left) */}
-          <div className="absolute -top-3 -left-3 sm:-top-3.5 sm:-left-3.5 z-20 pointer-events-none nav-floral-sway-left select-none">
-            <svg width="46" height="46" viewBox="0 0 64 64" fill="none" className="drop-shadow-xs">
-              {/* Stem / Vine */}
-              <path d="M10 52 C16 40 24 30 40 22 C34 32 26 44 14 54" fill="#94AB8B" opacity="0.9" />
-              {/* Rose Petals */}
-              <circle cx="34" cy="22" r="11" fill="#F5D3DC" opacity="0.95" />
-              <path d="M26 18 C30 12 40 12 44 18 C40 24 30 24 26 18 Z" fill="#BD5871" />
-              <path d="M28 24 C31 28 37 28 40 24 C38 21 30 21 28 24 Z" fill="#781E34" />
-              <circle cx="34" cy="21" r="3.5" fill="#FFE873" />
-              {/* Sage Leaves */}
-              <path d="M18 36 C12 28 22 22 26 28 C22 34 20 38 18 36 Z" fill="#455E3F" />
-              <path d="M38 34 C44 28 50 36 44 40 C38 42 34 38 38 34 Z" fill="#94AB8B" opacity="0.85" />
-            </svg>
+          {/* Animated Botanical Corner (Left: Authentic Watercolor Rose Branch) */}
+          <div className="absolute -top-4 -left-5 sm:-top-5 sm:-left-6 z-20 pointer-events-none nav-floral-sway-left select-none">
+            <img
+              src="/floral_rose_branch.webp"
+              alt="Botanical Rose Branch"
+              className="w-12 h-12 sm:w-14 sm:h-14 object-contain drop-shadow-sm"
+            />
           </div>
 
-          {/* Animated Botanical Corner Ornament (Top-Right) */}
-          <div className="absolute -top-3 -right-3 sm:-top-3.5 sm:-right-3.5 z-20 pointer-events-none nav-floral-sway-right select-none">
-            <svg width="46" height="46" viewBox="0 0 64 64" fill="none" className="drop-shadow-xs">
-              {/* Stem / Vine */}
-              <path d="M54 52 C48 40 40 30 24 22 C30 32 38 44 50 54" fill="#94AB8B" opacity="0.9" />
-              {/* Rose Petals */}
-              <circle cx="30" cy="22" r="11" fill="#F5D3DC" opacity="0.95" />
-              <path d="M22 18 C26 12 36 12 40 18 C36 24 26 24 22 18 Z" fill="#BD5871" />
-              <path d="M26 24 C29 28 35 28 38 24 C36 21 28 21 26 24 Z" fill="#781E34" />
-              <circle cx="31" cy="21" r="3.5" fill="#FFE873" />
-              {/* Sage Leaves */}
-              <path d="M46 36 C52 28 42 22 38 28 C42 34 44 38 46 36 Z" fill="#455E3F" />
-              <path d="M26 34 C20 28 14 36 20 40 C26 42 30 38 26 34 Z" fill="#94AB8B" opacity="0.85" />
-            </svg>
+          {/* Animated Botanical Corner (Right: Mirrored Authentic Watercolor Rose Branch) */}
+          <div className="absolute -top-4 -right-5 sm:-top-5 sm:-right-6 z-20 pointer-events-none nav-floral-sway-right select-none">
+            <img
+              src="/floral_rose_branch.webp"
+              alt="Botanical Rose Branch"
+              className="w-12 h-12 sm:w-14 sm:h-14 object-contain drop-shadow-sm -scale-x-100"
+            />
           </div>
 
-          {/* Floating Petal Accents */}
-          <div className="hidden sm:block absolute -bottom-2 left-1/4 z-10 pointer-events-none nav-petal-drift-1 select-none">
-            <span className="inline-block text-xs text-rose-dusty opacity-75">🌸</span>
-          </div>
-          <div className="hidden sm:block absolute -top-2 right-1/3 z-10 pointer-events-none nav-petal-drift-2 select-none">
-            <span className="inline-block text-[10px] text-rose-dusty opacity-65">✨</span>
+          {/* Animated Fluttering Butterflies Accent */}
+          <div className="hidden sm:block absolute -top-5 right-1/4 z-20 pointer-events-none nav-butterfly-flutter select-none">
+            <img
+              src="/floral_butterflies.webp"
+              alt="Botanical Butterfly"
+              className="w-9 h-9 object-contain drop-shadow-xs"
+            />
           </div>
 
           <div className="nav-floral-frame-pulse bg-white/95 backdrop-blur-md border border-[#CAD7C5]/90 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 shadow-xs flex items-center justify-between transition-all hover:border-rose-dusty/50 relative z-10">
