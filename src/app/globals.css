@@ -12,6 +12,7 @@
   }
 
   body {
+    font-family: var(--font-main);
     background-color: #E8EFE5;
     color: #212B1E;
     overflow-x: hidden;
@@ -99,6 +100,7 @@
 }
 
 :root {
+  --font-main: 'Urbanist', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-body: 'Urbanist', system-ui, -apple-system, sans-serif;
   --font-display: 'Urbanist', system-ui, -apple-system, sans-serif;
   --font-sans: 'Urbanist', system-ui, -apple-system, sans-serif;
