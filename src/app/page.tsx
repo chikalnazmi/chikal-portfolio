@@ -614,9 +614,10 @@ export default function Home() {
                 href="https://wa.me/6281234567890?text=Halo%20Chikal,%20saya%20tertarik%20berdiskusi%20mengenai%20peluang%20kerjasama."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-3.5 py-1 rounded-full text-[11px] font-semibold bg-rose-dark text-white hover:bg-rose-berry transition-colors shadow-2xs"
+                className="btn-floral px-3.5 py-1 rounded-full text-[11px] font-semibold bg-rose-dark text-white hover:bg-rose-berry shadow-2xs cursor-pointer flex items-center gap-1.5"
               >
-                Let&apos;s Connect ↗
+                <span>🌸</span>
+                <span>Let&apos;s Connect ↗</span>
               </a>
             </div>
 
@@ -865,14 +866,15 @@ export default function Home() {
               {/* Get in Touch CTA Button */}
               <motion.a
                 whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
+                whileTap={{ scale: 0.96 }}
                 href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890?text=Halo%20Chikal,%20saya%20tertarik%20berdiskusi%20mengenai%20peluang%20kerjasama."}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hero-cta-btn inline-flex items-center gap-2 px-5 py-2 rounded-full bg-forest hover:bg-rose-dark text-[#E8EFE5] text-xs sm:text-sm font-semibold shadow-xs hover:shadow-md transition-all cursor-pointer"
+                className="hero-cta-btn btn-floral inline-flex items-center gap-2 px-5 py-2 rounded-full bg-forest hover:bg-rose-dark text-[#E8EFE5] text-xs sm:text-sm font-semibold shadow-xs hover:shadow-md cursor-pointer"
               >
-                <span>→</span>
+                <span>🌸</span>
                 <span>Get in Touch</span>
+                <span>→</span>
               </motion.a>
             </motion.div>
 
@@ -1034,8 +1036,9 @@ export default function Home() {
                 academicData.description,
                 academicData.images && academicData.images.length > 0 ? academicData.images : ['/11.png', '/12.png', '/16.png']
               )}
-              className="w-full py-2.5 px-4 rounded-xl bg-forest text-[#E8EFE5] hover:bg-rose-dark text-xs sm:text-sm font-semibold shadow-2xs hover:shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="btn-floral w-full py-2.5 px-4 rounded-xl bg-forest text-[#E8EFE5] hover:bg-rose-dark text-xs sm:text-sm font-semibold shadow-2xs hover:shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
+              <span>🌸</span>
               <span>Buka Dokumen Kelulusan &amp; TOEIC</span>
               <span>↗</span>
             </button>
@@ -1064,8 +1067,8 @@ export default function Home() {
                     onClick={() => setActiveSkillCategory(tab.id)}
                     className={`px-3 py-1 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                       activeSkillCategory === tab.id
-                        ? 'bg-forest text-white shadow-2xs'
-                        : 'bg-[#F4F7F2] text-forest/75 hover:bg-white hover:text-forest border border-[#CAD7C5]/70'
+                        ? 'btn-floral bg-forest text-white shadow-2xs'
+                        : 'btn-floral-light bg-[#F4F7F2] text-forest/75 hover:bg-white hover:text-rose-dark border border-[#CAD7C5]/70'
                     }`}
                   >
                     {tab.label}
@@ -2565,30 +2568,33 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 mb-6 w-full sm:w-auto">
               <motion.a
                 whileHover={{ y: -2, scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileTap={{ scale: 0.96 }}
                 href={`mailto:${portfolioData.socials.email}`}
-                className="w-full sm:w-auto justify-center px-6 py-3 rounded-full text-xs sm:text-sm font-semibold bg-forest text-[#E8EFE5] hover:bg-rose-dark transition-all flex items-center gap-2 shadow-sm hover:shadow-md cursor-pointer text-center"
+                className="btn-floral w-full sm:w-auto justify-center px-6 py-3 rounded-full text-xs sm:text-sm font-semibold bg-forest text-[#E8EFE5] hover:bg-rose-dark flex items-center gap-2 shadow-sm hover:shadow-md cursor-pointer text-center"
               >
+                <span>✉</span>
                 <span>Email: {portfolioData.socials.email}</span>
               </motion.a>
               <motion.a
                 whileHover={{ y: -2, scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileTap={{ scale: 0.96 }}
                 href={portfolioData.socials.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto justify-center px-6 py-3 rounded-full text-xs sm:text-sm font-semibold bg-rose-dark text-white hover:bg-rose-berry transition-all flex items-center gap-2 shadow-sm hover:shadow-md cursor-pointer text-center"
+                className="btn-floral w-full sm:w-auto justify-center px-6 py-3 rounded-full text-xs sm:text-sm font-semibold bg-rose-dark text-white hover:bg-rose-berry flex items-center gap-2 shadow-sm hover:shadow-md cursor-pointer text-center"
               >
+                <span>🌸</span>
                 <span>WhatsApp Langsung ✦</span>
               </motion.a>
               <motion.a
                 whileHover={{ y: -2, scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileTap={{ scale: 0.96 }}
                 href={portfolioData.socials.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto justify-center px-6 py-3 rounded-full text-xs sm:text-sm font-semibold bg-white text-forest border border-[#CAD7C5] hover:border-forest hover:bg-[#FAFBF8] transition-all flex items-center gap-2 shadow-sm hover:shadow-md cursor-pointer text-center"
+                className="btn-floral-light w-full sm:w-auto justify-center px-6 py-3 rounded-full text-xs sm:text-sm font-semibold bg-white text-forest border border-[#CAD7C5] hover:border-rose-dark hover:bg-[#FAFBF8] flex items-center gap-2 shadow-sm hover:shadow-md cursor-pointer text-center"
               >
+                <span>🌿</span>
                 <span>LinkedIn Profile ↗</span>
               </motion.a>
             </div>
@@ -2910,7 +2916,7 @@ export default function Home() {
                             href={modalData.videoLink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="w-full py-2.5 px-3.5 rounded-xl text-xs font-bold bg-rose-dark text-white hover:bg-rose-berry transition-all shadow-xs flex items-center justify-between group cursor-pointer"
+                            className="btn-floral w-full py-2.5 px-3.5 rounded-xl text-xs font-bold bg-rose-dark text-white hover:bg-rose-berry shadow-xs flex items-center justify-between group cursor-pointer"
                           >
                             <span className="flex items-center gap-2">
                               <span className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-[10px]">▶</span>
@@ -2926,7 +2932,7 @@ export default function Home() {
                             href={modalData.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className={`w-full py-2.5 px-3.5 rounded-xl text-xs font-bold transition-all shadow-xs flex items-center justify-between group cursor-pointer ${
+                            className={`btn-floral w-full py-2.5 px-3.5 rounded-xl text-xs font-bold shadow-xs flex items-center justify-between group cursor-pointer ${
                               !modalData.videoLink
                                 ? 'bg-rose-dark text-white hover:bg-rose-berry'
                                 : 'bg-white border border-[#CAD7C5] text-forest hover:bg-sage-50/80 hover:border-forest'
@@ -2971,7 +2977,7 @@ export default function Home() {
                   <div className="pt-3 mt-3 border-t border-[#CAD7C5]/70 flex flex-col gap-2 shrink-0">
                     <button
                       onClick={closeModal}
-                      className="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-forest text-[#E8EFE5] hover:bg-rose-dark transition-colors shadow-xs cursor-pointer text-center"
+                      className="btn-floral w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-forest text-[#E8EFE5] hover:bg-rose-dark shadow-xs cursor-pointer text-center"
                     >
                       Tutup Dialog [ESC]
                     </button>
