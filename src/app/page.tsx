@@ -12,6 +12,7 @@ import {
   ProjectDoc,
   OrganizationItem
 } from '@/lib/portfolio-store';
+import { Language, translations } from '@/lib/translations';
 
 // Refined, smooth editorial animation variants (Neat, clean, and elegant)
 const fadeUp: Variants = {
@@ -66,6 +67,27 @@ function BotanicalCorner({ className = "top-4 right-4" }: { className?: string }
 }
 
 export default function Home() {
+  // Bilingual state with localStorage persistence
+  const [lang, setLang] = useState<Language>('id');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedLang = localStorage.getItem('portfolio_lang') as Language;
+      if (savedLang === 'id' || savedLang === 'en') {
+        setLang(savedLang);
+      }
+    }
+  }, []);
+
+  const handleSetLang = (newLang: Language) => {
+    setLang(newLang);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('portfolio_lang', newLang);
+    }
+  };
+
+  const t = translations[lang];
+
   // Modal state for certificates and documentation
   const [modalData, setModalData] = useState<{
     isOpen: boolean;
@@ -461,37 +483,37 @@ export default function Home() {
   // 4 Beyond The Screen Hobbies & Intellectual Pursuits
   const hobbiesList = [
     {
-      title: 'Travelling',
-      sub: 'Melihat dunia untuk perspektif baru',
+      title: t.hobbies.travelTitle,
+      sub: t.hobbies.travelSub,
       tag: 'World Exploration',
       icon: '',
       img: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=600&fit=crop',
-      desc: 'Menjelajahi beragam kota dan keindahan alam untuk menyerap inspirasi budaya, arsitektur lokal, serta memperluas sudut pandang dalam memecahkan masalah.',
+      desc: t.hobbies.travelDesc,
     },
     {
-      title: 'Knitting & Crochet',
-      sub: 'Eksplorasi kreativitas karya handmade',
+      title: t.hobbies.knittingTitle,
+      sub: t.hobbies.knittingSub,
       tag: 'Artisanal Craft',
       icon: '',
       img: 'https://images.unsplash.com/photo-1605289982774-9a6fef564df8?q=80&w=600&fit=crop',
-      desc: 'Mengekspresikan ketelitian melalui rajutan benang manual tangan, eksplorasi pola baru, dan merancang karya aksesoris bernilai artistik tinggi.',
+      desc: t.hobbies.knittingDesc,
     },
     {
-      title: 'Writing (Medium)',
-      sub: 'Berbagi pemikiran dan strategi bisnis',
+      title: t.hobbies.writingTitle,
+      sub: t.hobbies.writingSub,
       tag: 'Strategic Essays',
       icon: '',
       img: 'https://images.unsplash.com/photo-1455390582262-044cdead2708?q=80&w=600&fit=crop',
-      desc: 'Menuangkan pemikiran analitis seputar dinamika bisnis, kepemimpinan tim, dan strategi operasional ke dalam esai terstruktur di platform Medium.',
+      desc: t.hobbies.writingDesc,
       link: 'https://medium.com',
     },
     {
-      title: 'Reading & Learning',
-      sub: 'Eksplorasi literatur & self-development',
+      title: t.hobbies.readingTitle,
+      sub: t.hobbies.readingSub,
       tag: 'Continuous Growth',
       icon: '',
       img: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=600&fit=crop',
-      desc: 'Membaca buku-buku strategi bisnis, psikologi konsumen, biografi pemimpin dunia, dan pengembangan diri untuk terus mengasah ketajaman wawasan.',
+      desc: t.hobbies.readingDesc,
     },
   ];
 
@@ -583,40 +605,64 @@ export default function Home() {
             {/* Desktop Nav Links */}
             <div className="hidden md:flex items-center gap-3.5 lg:gap-5 text-[11px] font-medium tracking-wide uppercase text-forest/75">
               <a href="#academy-skills" className="hover:text-rose-dark transition-colors">
-                Academy &amp; Skills
+                {t.nav.academy}
               </a>
               <a href="#experience" className="hover:text-rose-dark transition-colors">
-                Experience
+                {t.nav.experience}
               </a>
               <a href="#projects" className="hover:text-rose-dark transition-colors">
-                Projects
+                {t.nav.projects}
               </a>
               <a href="#recognition" className="hover:text-rose-dark transition-colors">
-                Awards (7)
+                {t.nav.awards}
               </a>
               <a href="#leadership" className="hover:text-rose-dark transition-colors">
-                Leadership
+                {t.nav.leadership}
               </a>
               <a href="#certifications" className="hover:text-rose-dark transition-colors">
-                Certifications
+                {t.nav.certifications}
               </a>
               <a href="#creative" className="hover:text-rose-dark transition-colors">
-                Creative &amp; Content
+                {t.nav.creative}
               </a>
               <a href="#hobbies" className="hover:text-rose-dark transition-colors">
-                Hobbies
+                {t.nav.hobbies}
               </a>
             </div>
 
-            {/* Action CTA */}
-            <div className="hidden sm:flex items-center gap-2.5">
+            {/* Action CTA & Bilingual Language Switcher */}
+            <div className="hidden sm:flex items-center gap-2">
+              {/* Language Switcher Pill */}
+              <div className="flex items-center bg-[#F4F7F2] border border-[#CAD7C5] rounded-full p-0.5 shadow-2xs">
+                <button
+                  onClick={() => handleSetLang('id')}
+                  className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold transition-all cursor-pointer ${
+                    lang === 'id' ? 'bg-forest text-white shadow-2xs' : 'text-forest/70 hover:text-forest'
+                  }`}
+                  title="Bahasa Indonesia"
+                  aria-label="Bahasa Indonesia"
+                >
+                  ID
+                </button>
+                <button
+                  onClick={() => handleSetLang('en')}
+                  className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold transition-all cursor-pointer ${
+                    lang === 'en' ? 'bg-forest text-white shadow-2xs' : 'text-forest/70 hover:text-forest'
+                  }`}
+                  title="English"
+                  aria-label="English"
+                >
+                  EN
+                </button>
+              </div>
+
               <a
-                href="https://wa.me/6281234567890?text=Halo%20Chikal,%20saya%20tertarik%20berdiskusi%20mengenai%20peluang%20kerjasama."
+                href={portfolioData.socials.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-floral px-3.5 py-1 rounded-full text-[11px] font-semibold bg-rose-dark text-white hover:bg-rose-berry shadow-2xs cursor-pointer flex items-center gap-1"
               >
-                <span>Let&apos;s Connect ↗</span>
+                <span>{t.nav.connectBtn}</span>
               </a>
             </div>
 
@@ -640,37 +686,58 @@ export default function Home() {
         {/* Mobile Dropdown */}
         {mobileMenuOpen && (
           <div className="md:hidden mt-2 bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-2xl p-3 sm:p-4 shadow-lg flex flex-col gap-1 text-sm font-medium text-forest max-h-[75vh] overflow-y-auto">
+            <div className="flex items-center justify-between pb-2 mb-1 border-b border-[#CAD7C5]/50">
+              <span className="text-xs font-sans text-forest/70">Bahasa / Language:</span>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={() => { handleSetLang('id'); setMobileMenuOpen(false); }}
+                  className={`px-3 py-1 rounded-full text-xs font-bold ${
+                    lang === 'id' ? 'bg-forest text-white' : 'bg-[#F4F7F2] text-forest/80'
+                  }`}
+                >
+                  🇮🇩 ID
+                </button>
+                <button
+                  onClick={() => { handleSetLang('en'); setMobileMenuOpen(false); }}
+                  className={`px-3 py-1 rounded-full text-xs font-bold ${
+                    lang === 'en' ? 'bg-forest text-white' : 'bg-[#F4F7F2] text-forest/80'
+                  }`}
+                >
+                  🇬🇧 EN
+                </button>
+              </div>
+            </div>
             <a href="#academy-skills" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded-xl hover:bg-[#F4F7F2] hover:text-rose-dark transition-colors">
-              Academy &amp; Skills
+              {t.nav.academy}
             </a>
             <a href="#experience" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded-xl hover:bg-[#F4F7F2] hover:text-rose-dark transition-colors">
-              Experience
+              {t.nav.experience}
             </a>
             <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded-xl hover:bg-[#F4F7F2] hover:text-rose-dark transition-colors">
-              Projects
+              {t.nav.projects}
             </a>
             <a href="#recognition" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded-xl hover:bg-[#F4F7F2] hover:text-rose-dark transition-colors">
-              Awards (7)
+              {t.nav.awards}
             </a>
             <a href="#leadership" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded-xl hover:bg-[#F4F7F2] hover:text-rose-dark transition-colors">
-              Leadership
+              {t.nav.leadership}
             </a>
             <a href="#certifications" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded-xl hover:bg-[#F4F7F2] hover:text-rose-dark transition-colors">
-              Certifications
+              {t.nav.certifications}
             </a>
             <a href="#creative" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded-xl hover:bg-[#F4F7F2] hover:text-rose-dark transition-colors">
-              Creative &amp; Content
+              {t.nav.creative}
             </a>
             <a href="#hobbies" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded-xl hover:bg-[#F4F7F2] hover:text-rose-dark transition-colors">
-              Hobbies
+              {t.nav.hobbies}
             </a>
             <a
-              href="https://wa.me/6281234567890"
+              href={portfolioData.socials.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-2 text-center py-2.5 rounded-xl bg-rose-dark text-white text-xs font-semibold shadow-xs"
             >
-              Hubungi via WhatsApp ↗
+              {t.nav.connectBtn}
             </a>
           </div>
         )}
@@ -693,10 +760,10 @@ export default function Home() {
           >
             <h1 className="hero-headline">
               <span className="block font-sans font-semibold text-2xl sm:text-3xl lg:text-[38px] xl:text-[42px] text-forest tracking-tight leading-[1.05]">
-                Hi I&apos;m Chikal
+                {t.hero.greeting}
               </span>
               <span className="editorial-serif-italic block text-2xl sm:text-3xl lg:text-[40px] xl:text-[45px] text-forest tracking-normal font-normal leading-[1.12] mt-1">
-                {portfolioData.hero?.headline || 'Menghubungkan Strategi Bisnis, Operasional, & Kreativitas Digital.'}
+                {lang === 'en' ? t.hero.subheadline : (portfolioData.hero?.headline || t.hero.subheadline)}
               </span>
             </h1>
           </motion.div>
@@ -720,7 +787,7 @@ export default function Home() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
                 </span>
-                <span className="truncate max-w-[270px]">{portfolioData.hero?.subheadline || 'Available for opportunities'}</span>
+                <span className="truncate max-w-[270px]">{lang === 'en' ? t.hero.openToWorkBadge : (portfolioData.hero?.subheadline || t.hero.openToWorkBadge)}</span>
               </div>
 
               {/* Bottom: 3 Credential Cards connected to CMS */}
@@ -731,7 +798,7 @@ export default function Home() {
                   className="bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-xl p-2 sm:p-2.5 shadow-2xs text-left hover:border-forest/40 transition-all cursor-default"
                 >
                   <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-forest/60 truncate">
-                    {portfolioData.academic?.gpaTitle && portfolioData.academic.gpaTitle.length <= 8 ? portfolioData.academic.gpaTitle : 'IPK / GPA'}
+                    {t.hero.statGpaLabel}
                   </span>
                   <span className="block text-base sm:text-lg font-mono font-extrabold text-forest leading-tight truncate">
                     {(() => {
@@ -743,12 +810,7 @@ export default function Home() {
                     })()}
                   </span>
                   <span className="block text-[9px] font-medium text-rose-dark leading-tight mt-0.5 truncate">
-                    {(() => {
-                      const raw = portfolioData.academic?.gpaValue || '';
-                      if (/cum\s*laude/i.test(raw)) return 'Cum Laude';
-                      if (portfolioData.academic?.badge && portfolioData.academic.badge.length <= 12) return portfolioData.academic.badge;
-                      return 'Cum Laude';
-                    })()}
+                    {t.hero.statGpaHonor}
                   </span>
                 </motion.div>
 
@@ -758,13 +820,13 @@ export default function Home() {
                   className="bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-xl p-2 sm:p-2.5 shadow-2xs text-left hover:border-forest/40 transition-all cursor-default"
                 >
                   <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-forest/60 truncate">
-                    TOEIC
+                    {t.hero.statToeicLabel}
                   </span>
                   <span className="block text-base sm:text-lg font-mono font-extrabold text-rose-dark leading-tight truncate">
                     {portfolioData.academic?.toeicScore || portfolioData.hero?.stat4Value || '775'}
                   </span>
                   <span className="block text-[9px] font-medium text-forest/70 leading-tight mt-0.5 truncate">
-                    {portfolioData.academic?.toeicLevel || 'Skor Resmi'}
+                    {t.hero.statToeicHonor}
                   </span>
                 </motion.div>
 
@@ -774,13 +836,13 @@ export default function Home() {
                   className="bg-white/95 backdrop-blur-md border border-[#CAD7C5] rounded-xl p-2 sm:p-2.5 shadow-2xs text-left hover:border-forest/40 transition-all cursor-default"
                 >
                   <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-forest/60 truncate">
-                    AWARDS
+                    {t.hero.statAwardsLabel}
                   </span>
                   <span className="block text-base sm:text-lg font-mono font-extrabold text-[#4E6B47] leading-tight truncate">
                     {portfolioData.hero?.stat1Value || '7x'}
                   </span>
                   <span className="block text-[9px] font-medium text-forest/70 leading-tight mt-0.5 truncate">
-                    Juara Nas.
+                    {t.hero.statAwardsHonor}
                   </span>
                 </motion.div>
               </div>
@@ -859,7 +921,7 @@ export default function Home() {
             >
               {/* Statement */}
               <p className="hero-statement-right text-xs sm:text-[13px] text-forest/80 leading-relaxed font-normal max-w-[270px] font-source text-left">
-                {portfolioData.hero?.bio || 'Mahasiswi Sistem Informasi Bisnis Politeknik Negeri Malang yang berfokus pada operasional bisnis, public relations, dan pembuatan konten kreatif.'}
+                {lang === 'en' ? t.hero.bio : (portfolioData.hero?.bio || t.hero.bio)}
               </p>
 
               {/* Get in Touch CTA Button */}
@@ -872,7 +934,7 @@ export default function Home() {
                 className="hero-cta-btn btn-floral inline-flex items-center gap-2 px-5 py-2 rounded-full bg-forest hover:bg-rose-dark text-[#E8EFE5] text-xs sm:text-sm font-semibold shadow-xs hover:shadow-md cursor-pointer"
               >
                 <span>→</span>
-                <span>Get in Touch</span>
+                <span>{t.hero.ctaBtn}</span>
               </motion.a>
             </motion.div>
 
@@ -931,14 +993,14 @@ export default function Home() {
           className="text-center max-w-2xl mx-auto mb-5 sm:mb-6"
         >
           <span className="font-mono text-xs sm:text-sm text-forest/60 tracking-widest uppercase block mb-1">
-            ( 01 ) Foundations &amp; Capabilities
+            {t.academy.kicker}
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl text-forest tracking-tight mb-1.5">
-            <span className="font-sans font-semibold">Academic Background &amp; </span>
-            <span className="editorial-serif-italic">Core Capabilities</span>
+            <span className="font-sans font-semibold">{t.academy.titleMain} </span>
+            <span className="editorial-serif-italic">{t.academy.titleItalic}</span>
           </h2>
           <p className="text-xs sm:text-sm text-forest/75 leading-relaxed font-source">
-            Kombinasi latar belakang pendidikan formal sistem informasi bisnis dan keahlian praktis lintas disiplin yang teruji.
+            {t.academy.subtitle}
           </p>
         </motion.div>
 
@@ -957,7 +1019,7 @@ export default function Home() {
               {/* Header Badges */}
               <div className="flex items-center justify-between gap-2 mb-4">
                 <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-rose-blush/90 text-rose-dark border border-rose-dusty/40 uppercase tracking-wider shadow-2xs">
-                  {academicData.badge?.replace('', '').trim() || 'FORMAL DEGREE'}
+                  {lang === 'en' ? t.academy.degreeBadge : (academicData.badge?.replace('', '').trim() || t.academy.degreeBadge)}
                 </span>
                 <span className="text-[11px] font-sans font-semibold px-3 py-1 rounded-full bg-[#F4F7F2] text-forest/80 border border-[#CAD7C5]">
                   {academicData.period || '2020 – 2024'}
@@ -966,10 +1028,10 @@ export default function Home() {
 
               {/* Title & Institution */}
               <h3 className="font-sans font-bold text-xl sm:text-2xl text-forest tracking-tight mb-1">
-                {academicData.degree}
+                {lang === 'en' ? t.academy.degreeTitle : academicData.degree}
               </h3>
               <h4 className="text-xs sm:text-sm font-semibold text-rose-dark tracking-wide mb-5">
-                {academicData.institution}
+                {lang === 'en' ? t.academy.degreeInstitution : academicData.institution}
               </h4>
 
               {/* Clean Metric Pills (IPK & TOEIC side-by-side) */}
@@ -977,36 +1039,36 @@ export default function Home() {
                 {/* GPA Pill */}
                 <div className="p-3.5 rounded-2xl bg-[#F4F7F2] border border-[#CAD7C5]/80 flex flex-col">
                   <span className="text-[10px] font-bold text-forest/60 uppercase tracking-wider mb-0.5">
-                    {academicData.gpaTitle || 'IPK / GPA'}
+                    {t.academy.academicStandingLabel}
                   </span>
                   <div className="flex items-baseline gap-1.5">
                     <span className="text-xl sm:text-2xl font-bold text-forest leading-none">
                       {academicData.gpaValue?.match(/\d+([.,]\d+)?/)?.[0]?.replace(',', '.') || '3.73'}
                     </span>
                     <span className="text-[10px] font-bold text-emerald-700 uppercase">
-                      Cum Laude
+                      {t.academy.cumLaudeTag}
                     </span>
                   </div>
                   <span className="text-[10px] text-forest/70 mt-1">
-                    Skala 4.00
+                    {t.academy.scaleTag}
                   </span>
                 </div>
 
                 {/* TOEIC Pill */}
                 <div className="p-3.5 rounded-2xl bg-rose-50/70 border border-rose-200/90 flex flex-col">
                   <span className="text-[10px] font-bold text-rose-dark/70 uppercase tracking-wider mb-0.5">
-                    {academicData.toeicTitle || 'TOEIC ETS'}
+                    {t.academy.globalEnglishLabel}
                   </span>
                   <div className="flex items-baseline gap-1.5">
                     <span className="text-xl sm:text-2xl font-bold text-rose-dark leading-none">
                       {academicData.toeicScore || '775'}
                     </span>
                     <span className="text-[10px] font-bold text-rose-dark/80 uppercase">
-                      Certified
+                      {t.academy.certifiedTag}
                     </span>
                   </div>
                   <span className="text-[10px] text-forest/70 mt-1">
-                    {academicData.toeicLevel || 'Working Proficiency'}
+                    {t.academy.workingProficiencyTag}
                   </span>
                 </div>
               </div>
@@ -1014,10 +1076,10 @@ export default function Home() {
               {/* Brief Academic Focus Description */}
               <div className="p-4 rounded-2xl bg-[#FAFBF8] border border-[#CAD7C5]/70 mb-5">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-forest/60 block mb-1">
-                  Focus &amp; Academic Core
+                  {t.academy.coreLabel}
                 </span>
                 <p className="text-xs sm:text-[13px] text-forest/80 leading-relaxed font-sans">
-                  {academicData.description}
+                  {lang === 'en' ? t.academy.coreDesc : academicData.description}
                 </p>
               </div>
             </div>
@@ -1025,14 +1087,14 @@ export default function Home() {
             {/* Document Modal Trigger Button */}
             <button
               onClick={() => openModal(
-                academicData.degree,
+                lang === 'en' ? t.academy.degreeTitle : academicData.degree,
                 `${academicData.institution} (${academicData.period})`,
-                academicData.description,
+                lang === 'en' ? t.academy.coreDesc : academicData.description,
                 academicData.images && academicData.images.length > 0 ? academicData.images : ['/11.png', '/12.png', '/16.png']
               )}
               className="btn-floral w-full py-2.5 px-4 rounded-xl bg-forest text-[#E8EFE5] hover:bg-rose-dark text-xs sm:text-sm font-semibold shadow-2xs hover:shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
-              <span>Buka Dokumen Kelulusan &amp; TOEIC</span>
+              <span>{t.academy.docBtn}</span>
               <span>↗</span>
             </button>
           </motion.div>
@@ -1049,11 +1111,11 @@ export default function Home() {
               {/* Category Filter Pills for decluttered viewing */}
               <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-5">
                 {[
-                  { id: 'all', label: 'All Capabilities' },
-                  { id: 'business', label: 'Strategy & Ops' },
-                  { id: 'tech', label: 'Systems & Tools' },
-                  { id: 'creative', label: 'Media & Marketing' },
-                  { id: 'soft', label: 'Work Ethics' },
+                  { id: 'all', label: t.academy.tabs.all },
+                  { id: 'business', label: t.academy.tabs.strategy },
+                  { id: 'tech', label: t.academy.tabs.systems },
+                  { id: 'creative', label: t.academy.tabs.media },
+                  { id: 'soft', label: t.academy.tabs.ethics },
                 ].map(tab => (
                   <button
                     key={tab.id}
@@ -1078,15 +1140,15 @@ export default function Home() {
                       <div className="flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-amber-600" />
                         <h4 className="font-sans font-bold text-sm text-forest">
-                          Business Strategy &amp; Operational SOPs
+                          {t.academy.skills.strategyTitle}
                         </h4>
                       </div>
                       <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
-                        ✓ Verified Applied
+                        {t.academy.skills.strategyStatus}
                       </span>
                     </div>
                     <p className="text-[11px] text-forest/70 mb-3">
-                      Penyusunan alur operasional terstandarisasi, rekonsiliasi kas, dan riset model bisnis.
+                      {t.academy.skills.strategyDesc}
                     </p>
                     <div className="flex flex-wrap gap-1.5">
                       {bizSkills.map((skill, sIdx) => (
@@ -1108,7 +1170,7 @@ export default function Home() {
                       <div className="flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-blue-600" />
                         <h4 className="font-sans font-bold text-sm text-forest">
-                          Information Systems &amp; Digital Tools
+                          {t.academy.skills.systemsTitle}
                         </h4>
                       </div>
                       <span className="text-[10px] font-semibold text-blue-800 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">
@@ -1116,7 +1178,7 @@ export default function Home() {
                       </span>
                     </div>
                     <p className="text-[11px] text-forest/70 mb-3">
-                      Fondasi teknologi perancangan antarmuka pengguna, pemodelan data relasional, dan analisis data.
+                      {t.academy.skills.systemsDesc}
                     </p>
                     <div className="flex flex-wrap gap-1.5">
                       {itSkills.map((skill, sIdx) => (
@@ -1138,7 +1200,7 @@ export default function Home() {
                       <div className="flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-rose-dusty" />
                         <h4 className="font-sans font-bold text-sm text-forest">
-                          Creative Media, Growth &amp; Collaboration
+                          {t.academy.skills.mediaTitle}
                         </h4>
                       </div>
                       <span className="text-[10px] font-semibold text-rose-dark bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200">
@@ -1146,7 +1208,7 @@ export default function Home() {
                       </span>
                     </div>
                     <p className="text-[11px] text-forest/70 mb-3">
-                      Produksi konten lintas platform, kurasi visual, dan komunikasi strategis tim.
+                      {t.academy.skills.mediaDesc}
                     </p>
                     <div className="flex flex-wrap gap-1.5">
                       {(activeSkillCategory === 'soft' ? personalSkills : [...creativeSkills, ...personalSkills]).map((skill, sIdx) => (
@@ -1165,14 +1227,14 @@ export default function Home() {
 
             {/* Bottom Note */}
             <div className="pt-4 mt-5 border-t border-[#CAD7C5]/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-forest/70 font-sans">
-              <span>Kurikulum Terpadu &amp; Implementasi Lapangan Mandiri</span>
+              <span>{t.academy.curriculumNotice}</span>
               <a
                 href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-semibold text-rose-dark hover:text-rose-berry underline cursor-pointer"
               >
-                Konsultasikan Kebutuhan Proyek ↗
+                {t.academy.consultLink}
               </a>
             </div>
           </motion.div>
@@ -1195,14 +1257,14 @@ export default function Home() {
           className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4.5"
         >
           <span className="font-mono text-xs sm:text-sm text-forest/60 tracking-widest uppercase block mb-1">
-            ( 02 ) Career &amp; Experience
+            {t.experience.kicker}
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl text-forest tracking-tight mb-1.5">
-            <span className="font-sans font-semibold">Work &amp; Business </span>
-            <span className="font-serif italic font-normal">Experience</span>
+            <span className="font-sans font-semibold">{t.experience.titleMain} </span>
+            <span className="font-serif italic font-normal">{t.experience.titleItalic}</span>
           </h2>
           <p className="text-xs sm:text-sm text-forest/75 leading-relaxed font-source">
-            Pengalaman kerja nyata dalam standardisasi operasional, pertumbuhan brand mandiri, kemitraan event komersial, serta riset automasi software.
+            {t.experience.subtitle}
           </p>
         </motion.div>
 
@@ -1241,7 +1303,7 @@ export default function Home() {
                     </span>
                   </div>
                   <span className="text-xs text-forest/80 font-mono font-medium px-2.5 py-1 rounded-lg bg-[#E8EFE5]/70 border border-[#CAD7C5]/70 shrink-0">
-                    {exp.period}
+                    {lang === 'en' ? exp.period.replace(/Sekarang/i, t.experience.presentText) : exp.period}
                   </span>
                 </div>
 
@@ -1271,7 +1333,7 @@ export default function Home() {
                           <svg className="w-3.5 h-3.5 text-white stroke-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
                           </svg>
-                          <span>Perbesar Galeri ({galleryImages.length})</span>
+                          <span>{lang === 'en' ? `Zoom Gallery (${galleryImages.length})` : `Perbesar Galeri (${galleryImages.length})`}</span>
                         </span>
                       </div>
                     </div>
@@ -1339,7 +1401,7 @@ export default function Home() {
                     )}
                     className="inline-flex items-center gap-1.5 text-xs font-bold text-rose-dark hover:text-rose-berry transition-colors cursor-pointer group/btn"
                   >
-                    <span>Dokumentasi &amp; Galeri ({galleryImages.length} Foto)</span>
+                    <span>{t.experience.docGalleryBtn.replace('{count}', String(galleryImages.length))}</span>
                     <span className="group-hover/btn:translate-x-0.5 transition-transform">→</span>
                   </button>
 
@@ -1350,7 +1412,7 @@ export default function Home() {
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 sm:py-1.5 rounded-xl bg-white hover:bg-[#F4F7F2] text-forest font-sans text-xs font-semibold border border-[#CAD7C5] transition-all shadow-2xs hover:border-rose-dusty/60 w-full sm:w-auto text-center"
                     >
-                      <span>{exp.linkLabel?.replace(' ↗', '') || 'Kunjungi'} ↗</span>
+                      <span>{exp.linkLabel?.replace(' ↗', '') || (lang === 'en' ? 'Visit' : 'Kunjungi')} ↗</span>
                     </a>
                   )}
                 </div>
@@ -1375,14 +1437,14 @@ export default function Home() {
           className="text-center max-w-2xl mx-auto mb-3 sm:mb-3.5"
         >
           <span className="font-mono text-xs sm:text-sm text-forest/60 tracking-widest uppercase block mb-1">
-            ( 03 ) Portfolio &amp; Case Studies
+            {t.projects.kicker}
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl text-forest tracking-tight mb-1.5">
-            <span className="font-sans font-semibold">Selected Works &amp; </span>
-            <span className="font-serif italic font-normal">Campus Projects</span>
+            <span className="font-sans font-semibold">{t.projects.titleMain} </span>
+            <span className="font-serif italic font-normal">{t.projects.titleItalic}</span>
           </h2>
           <p className="text-xs sm:text-sm text-forest/75 leading-relaxed font-source">
-            Kompilasi proyek sistem informasi, riset aplikasi, analisis data, dan strategi bisnis yang dikerjakan selama studi di D4 SIB Polinema.
+            {t.projects.subtitle}
           </p>
         </motion.div>
 
@@ -1396,7 +1458,7 @@ export default function Home() {
                 : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
             }`}
           >
-            All Projects ({projectsList.length})
+            {t.projects.tabs.all} ({projectsList.length})
           </button>
           <button
             onClick={() => setActiveDossierTab('surveyku')}
@@ -1406,7 +1468,7 @@ export default function Home() {
                 : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
             }`}
           >
-            Web Systems
+            {t.projects.tabs.web}
           </button>
           <button
             onClick={() => setActiveDossierTab('media-monitor')}
@@ -1491,7 +1553,7 @@ export default function Home() {
                   {/* Hover Quick Prompt */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-forest/30 pointer-events-none">
                     <span className="px-3 py-1 rounded-full bg-white/95 text-rose-dark text-xs font-bold shadow-md flex items-center gap-1.5 backdrop-blur-xs">
-                      <span>Buka Dokumentasi ↗</span>
+                      <span>{t.projects.inspectGalleryPrompt}</span>
                     </span>
                   </div>
                 </div>
@@ -1502,7 +1564,7 @@ export default function Home() {
                     {project.period}
                   </span>
                   <span className="text-[10px] text-forest/60 font-medium">
-                    {project.extraImages?.length || 1} Foto
+                    {project.extraImages?.length || 1} {lang === 'en' ? 'Photos' : 'Foto'}
                   </span>
                 </div>
 
@@ -1532,7 +1594,7 @@ export default function Home() {
               {/* Bottom Subtle Action Trigger */}
               <div className="pt-2 mt-2 border-t border-[#CAD7C5]/40 flex items-center justify-between text-xs text-forest/60">
                 <span className="text-[11px] font-bold text-rose-dark group-hover:underline flex items-center gap-1">
-                  <span>Lihat Dokumentasi</span>
+                  <span>{t.projects.detailBtn}</span>
                   <span className="text-xs">↗</span>
                 </span>
                 <span className="w-5 h-5 rounded-full bg-[#E8EFE5] text-forest group-hover:bg-rose-dark group-hover:text-white transition-colors flex items-center justify-center text-[10px] font-bold">
@@ -1558,12 +1620,13 @@ export default function Home() {
           variants={fadeUp}
           className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4"
         >
-          <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-0.5">/ Honors & Recognitions /</span>
+          <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-0.5">{t.awards.kicker}</span>
           <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-forest tracking-normal mb-1.5">
-            National Competitions & Honors
+            <span>{t.awards.titleMain} </span>
+            <span className="italic font-normal">{t.awards.titleItalic}</span>
           </h2>
           <p className="text-xs sm:text-sm text-forest/75 leading-relaxed">
-            Galeri visual pencapaian terverifikasi dalam kompetisi business plan dan debat nasional. Klik untuk membuka sertifikat resmi.
+            {t.awards.subtitle}
           </p>
         </motion.div>
 
@@ -1577,7 +1640,7 @@ export default function Home() {
                 : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
             }`}
           >
-            All Awards (7)
+            {t.awards.tabs.all} (7)
           </button>
           <button
             onClick={() => setAwardFilter('1st')}
@@ -1587,7 +1650,7 @@ export default function Home() {
                 : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
             }`}
           >
-            1st Winner (2)
+            {t.awards.tabs.first} (2)
           </button>
           <button
             onClick={() => setAwardFilter('2nd')}
@@ -1597,7 +1660,7 @@ export default function Home() {
                 : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
             }`}
           >
-            2nd Winner (2)
+            {t.awards.tabs.second} (2)
           </button>
           <button
             onClick={() => setAwardFilter('top5')}
@@ -1607,7 +1670,7 @@ export default function Home() {
                 : 'bg-white/80 text-forest/80 border border-[#CAD7C5] hover:bg-white'
             }`}
           >
-            Top 5 Finalist (2)
+            {t.awards.tabs.top5} (2)
           </button>
           <button
             onClick={() => setAwardFilter('speaker')}
@@ -1719,7 +1782,7 @@ export default function Home() {
 
                     <div className="pt-2 border-t border-white/20 flex items-center justify-between text-xs">
                       <span className="text-[10px] font-bold text-rose-blush flex items-center gap-1">
-                        <span>Bukti Foto</span>
+                        <span>{lang === 'en' ? 'Photo Evidence' : 'Bukti Foto'}</span>
                       </span>
                       <div className="flex items-center gap-1.5">
                         {award.videoLink && (
@@ -1748,7 +1811,7 @@ export default function Home() {
                           </a>
                         )}
                         <span className="px-3 py-1 rounded-full bg-rose-dark text-white text-xs font-bold shadow-2xs hover:bg-rose-berry transition-colors flex items-center gap-1">
-                          <span>Detail</span>
+                          <span>{t.awards.viewDocBtn}</span>
                           <span>↗</span>
                         </span>
                       </div>
@@ -1764,7 +1827,9 @@ export default function Home() {
 
         {/* Footer Note */}
         <p className="text-center text-xs text-forest/60 italic mt-2.5">
-          Klik pada gambar untuk melihat pop-up foto penerimaan piala dan sertifikat resmi
+          {lang === 'en' 
+            ? 'Click on any image to open the official trophy presentation and certificate dialog' 
+            : 'Klik pada gambar untuk melihat pop-up foto penerimaan piala dan sertifikat resmi'}
         </p>
 
       </section>
@@ -1782,12 +1847,13 @@ export default function Home() {
           variants={fadeUp}
           className="text-center max-w-2xl mx-auto mb-2.5 sm:mb-3"
         >
-          <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-0.5">/ Governance & Track Record /</span>
+          <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-0.5">{t.leadership.kicker}</span>
           <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-forest tracking-normal mb-1.5">
-            Leadership & Organizational Impact
+            <span>{t.leadership.titleMain} </span>
+            <span className="italic font-normal">{t.leadership.titleItalic}</span>
           </h2>
           <p className="text-xs sm:text-sm text-forest/75 leading-relaxed font-source">
-            Pengalaman memimpin mahasiswa, mengawal tata kelola organisasi skala jurusan, serta mewakili ekosistem teknologi kampus.
+            {t.leadership.subtitle}
           </p>
         </motion.div>
 
@@ -1998,11 +2064,11 @@ export default function Home() {
                               }}
                               className="text-xs font-bold text-rose-dark hover:text-rose-berry transition-colors flex items-center gap-1 cursor-pointer"
                             >
-                              <span>Dokumentasi Lengkap</span>
+                              <span>{t.leadership.inspectDocBtn}</span>
                               <span>↗</span>
                             </button>
                             <span className="text-[10px] text-forest/50 font-medium">
-                              {org.images.length} Foto Tersedia
+                              {org.images.length} {lang === 'en' ? 'Photos Available' : 'Foto Tersedia'}
                             </span>
                           </div>
 
@@ -2051,12 +2117,13 @@ export default function Home() {
           variants={fadeUp}
           className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4"
         >
-          <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-0.5">/ Continuous Learning /</span>
+          <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-0.5">{t.certifications.kicker}</span>
           <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-forest tracking-normal mb-1.5">
-            Professional Certifications & Credentials
+            <span>{t.certifications.titleMain} </span>
+            <span className="italic font-normal">{t.certifications.titleItalic}</span>
           </h2>
           <p className="text-xs sm:text-sm text-forest/75 leading-relaxed font-source">
-            Lisensi pelatihan industri, sertifikasi kompetensi terakreditasi, dan pengujian standar internasional.
+            {t.certifications.subtitle}
           </p>
         </motion.div>
 
@@ -2113,7 +2180,7 @@ export default function Home() {
               {/* Bottom Minimal Arrow Footer */}
               <div className="pt-2 mt-1.5 border-t border-[#CAD7C5]/40 flex items-center justify-between text-xs">
                 <span className="text-[9px] text-forest/60 font-medium">
-                  Lihat Sertifikat
+                  {t.certifications.viewCert}
                 </span>
                 <span className="w-5 h-5 rounded-full bg-[#E8EFE5] text-forest group-hover:bg-rose-dark group-hover:text-white transition-colors flex items-center justify-center text-[9px] font-bold">
                   →
@@ -2134,11 +2201,11 @@ export default function Home() {
           <div className="flex items-center gap-2">
             <span className="text-rose-dark font-serif font-bold text-base select-none">✦</span>
             <span className="font-medium text-[11px] sm:text-xs">
-              Seluruh sertifikat diterbitkan oleh institusi terakreditasi internasional & nasional (RevoU, MySkill, ETS International).
+              {t.certifications.notice}
             </span>
           </div>
           <span className="text-[10px] sm:text-[11px] font-bold text-rose-dark shrink-0">
-            Klik kartu untuk pratinjau sertifikat resolusi tinggi ↗
+            {t.certifications.clickPrompt} ↗
           </span>
         </motion.div>
 
@@ -2157,12 +2224,12 @@ export default function Home() {
           variants={fadeUp}
           className="text-center max-w-2xl mx-auto mb-3.5 sm:mb-4"
         >
-          <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-0.5">/ Content & Media /</span>
+          <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-0.5">{t.creative.kicker}</span>
           <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-forest tracking-normal mb-1.5">
-            Creator Studio & Social Growth
+            {t.creative.title}
           </h2>
           <p className="text-xs sm:text-sm text-forest/75 leading-relaxed">
-            Eksplorasi visual dan penceritaan kreatif: Produksi konten lintas platform (Instagram & TikTok) di berbagai akun.
+            {t.creative.subtitle}
           </p>
         </motion.div>
 
@@ -2437,7 +2504,7 @@ export default function Home() {
           )}
 
           <p className="text-center text-[11px] text-forest/60 italic mt-2.5">
-            Arahkan kursor ke masing-masing kartu untuk melihat interaksi preview
+            {t.creative.hoverNotice}
           </p>
 
         </motion.div>
@@ -2457,12 +2524,12 @@ export default function Home() {
           variants={fadeUp}
           className="text-center max-w-xl mx-auto mb-3.5 sm:mb-4"
         >
-          <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-0.5">/ Creative Balance & Lifestyle /</span>
+          <span className="font-script text-2xl sm:text-3xl text-rose-dark block mb-0.5">{t.hobbies.kicker}</span>
           <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-forest tracking-normal mb-1.5">
-            Arts, Hobbies & Intellectual Pursuits
+            {t.hobbies.title}
           </h2>
           <p className="text-xs sm:text-sm text-forest/75 leading-relaxed">
-            Aktivitas personal yang menjaga keseimbangan kreativitas, wawasan intelektual, dan kesegaran cara pandang.
+            {t.hobbies.subtitle}
           </p>
         </motion.div>
 
@@ -2512,12 +2579,12 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="text-xs font-bold text-rose-dark hover:underline flex items-center gap-1"
                   >
-                    <span>Baca di Medium</span>
+                    <span>{t.hobbies.mediumBtn}</span>
                     <span>↗</span>
                   </a>
                 ) : (
                   <span className="text-[10px] font-medium text-forest/50 italic">
-                    Creative Expression
+                    {t.hobbies.creativeTag}
                   </span>
                 )}
                 <span className="w-5 h-5 rounded-full bg-[#E8EFE5] flex items-center justify-center text-[10px] group-hover:bg-rose-blush group-hover:text-rose-dark transition-colors">
@@ -2548,16 +2615,16 @@ export default function Home() {
             variants={fadeUp}
             className="relative z-10 max-w-3xl mx-auto flex flex-col items-center text-center"
           >
-            <span className="editorial-kicker text-2xl sm:text-3xl text-rose-dark block mb-2">/ Let&apos;s Connect /</span>
+            <span className="editorial-kicker text-2xl sm:text-3xl text-rose-dark block mb-2">{t.contact.kicker}</span>
             <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-normal leading-[1.12] mb-3 text-forest tracking-normal">
-              Let&apos;s Cultivate Meaningful{' '}
+              {t.contact.headingMain}{' '}
               <span className="editorial-serif-italic text-rose-dark font-normal">
-                Business Growth
+                {t.contact.headingItalic}
               </span>{' '}
-              Together.
+              {t.contact.headingTogether}
             </h2>
             <p className="text-xs sm:text-sm md:text-base text-forest/75 leading-relaxed mb-8 max-w-xl mx-auto font-sans">
-              Terbuka untuk posisi Management Trainee, Business Development, Strategic Marketing Specialist, serta inisiatif kemitraan baru. Mari berdiskusi bagaimana saya dapat berkontribusi nyata bagi organisasi Anda.
+              {t.contact.desc}
             </p>
 
             {/* Primary Direct Contact Buttons */}
@@ -2568,7 +2635,7 @@ export default function Home() {
                 href={`mailto:${portfolioData.socials.email}`}
                 className="btn-floral w-full sm:w-auto justify-center px-6 py-3 rounded-full text-xs sm:text-sm font-semibold bg-forest text-[#E8EFE5] hover:bg-rose-dark flex items-center gap-2 shadow-sm hover:shadow-md cursor-pointer text-center"
               >
-                <span>Email: {portfolioData.socials.email}</span>
+                <span>{t.contact.emailBtn}: {portfolioData.socials.email}</span>
               </motion.a>
               <motion.a
                 whileHover={{ y: -2, scale: 1.02 }}
@@ -2578,7 +2645,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="btn-floral w-full sm:w-auto justify-center px-6 py-3 rounded-full text-xs sm:text-sm font-semibold bg-rose-dark text-white hover:bg-rose-berry flex items-center gap-2 shadow-sm hover:shadow-md cursor-pointer text-center"
               >
-                <span>WhatsApp Langsung ↗</span>
+                <span>{t.contact.waBtn} ↗</span>
               </motion.a>
               <motion.a
                 whileHover={{ y: -2, scale: 1.02 }}
@@ -2588,14 +2655,14 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="btn-floral-light w-full sm:w-auto justify-center px-6 py-3 rounded-full text-xs sm:text-sm font-semibold bg-white text-forest border border-[#CAD7C5] hover:border-rose-dark hover:bg-[#FAFBF8] flex items-center gap-2 shadow-sm hover:shadow-md cursor-pointer text-center"
               >
-                <span>LinkedIn Profile ↗</span>
+                <span>{t.contact.linkedinBtn} ↗</span>
               </motion.a>
             </div>
 
             {/* Subtle Hairline Divider */}
             <div className="flex items-center gap-3 my-4 w-full max-w-xs justify-center opacity-60">
               <div className="h-px bg-[#CAD7C5] grow" />
-              <span className="text-[10px] uppercase font-sans font-bold tracking-widest text-forest/70">Connect & Social Media</span>
+              <span className="text-[10px] uppercase font-sans font-bold tracking-widest text-forest/70">{t.contact.connectDivider}</span>
               <div className="h-px bg-[#CAD7C5] grow" />
             </div>
 
@@ -2684,45 +2751,23 @@ export default function Home() {
         {/* EDITORIAL GRAND FINALE FOOTER (Minimalist Editorial Concept)              */}
         {/* ========================================================================= */}
         <div className="w-full max-w-[1380px] mx-auto mt-12 sm:mt-16 pt-8 sm:pt-12 border-t border-[#CAD7C5]/70">
-          {/* Top Row: Navigation Links (Left) + Copyright Notice (Right) */}
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6 pb-6 sm:pb-10 border-b border-[#CAD7C5]/40">
+          {/* Clean Editorial Navigation & Copyright Row */}
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6 pb-2">
             {/* Left-Aligned Clean Editorial Navigation */}
             <nav className="flex flex-wrap items-center justify-center md:justify-start gap-5 sm:gap-7 lg:gap-8 text-xs sm:text-sm font-sans font-medium text-forest/75">
               <a href="#hero" className="hover:text-rose-dark transition-colors tracking-wide">Home</a>
-              <a href="#about" className="hover:text-rose-dark transition-colors tracking-wide">About</a>
-              <a href="#experience" className="hover:text-rose-dark transition-colors tracking-wide">Experience</a>
-              <a href="#projects" className="hover:text-rose-dark transition-colors tracking-wide">Projects</a>
-              <a href="#awards" className="hover:text-rose-dark transition-colors tracking-wide">Awards</a>
+              <a href="#academy-skills" className="hover:text-rose-dark transition-colors tracking-wide">{t.nav.academy}</a>
+              <a href="#experience" className="hover:text-rose-dark transition-colors tracking-wide">{t.nav.experience}</a>
+              <a href="#projects" className="hover:text-rose-dark transition-colors tracking-wide">{t.nav.projects}</a>
+              <a href="#recognition" className="hover:text-rose-dark transition-colors tracking-wide">{t.nav.awards}</a>
               <a href="#contact" className="hover:text-rose-dark transition-colors tracking-wide">Contact</a>
             </nav>
 
             {/* Right-Aligned Clean Copyright */}
             <div className="text-xs sm:text-[13px] text-forest/60 font-sans tracking-tight text-center md:text-right">
-              © {new Date().getFullYear()} Chikal Nazmi Mahira. All rights reserved.
+              © {new Date().getFullYear()} Chikal Nazmi Mahira. {t.contact.rights}
             </div>
           </div>
-
-          {/* Bottom Row: Colossal Editorial Masthead Matching Brand Font */}
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-40px" }}
-            variants={fadeUp}
-            className="w-full pt-6 sm:pt-8 pb-2 overflow-hidden select-none"
-          >
-            <a
-              href="#hero"
-              className="group block w-full text-left tracking-normal font-serif font-normal text-forest hover:text-rose-dark transition-colors duration-700 leading-[0.88] cursor-pointer whitespace-nowrap overflow-hidden"
-              title="Chikal Nazmi Mahira — Kembali ke Atas ↑"
-            >
-              <span className="block text-[8.5vw] sm:text-[8vw] md:text-[7.8vw] lg:text-[7.5vw] xl:text-[7.2rem] 2xl:text-[8.5rem] transition-transform duration-700 group-hover:translate-x-1.5 font-normal">
-                Chikal Nazmi Mahira
-              </span>
-            </a>
-            <div className="text-[10px] sm:text-xs font-sans font-medium tracking-widest uppercase text-forest/60 mt-2 sm:mt-3">
-              Business &amp; Marketing
-            </div>
-          </motion.div>
         </div>
 
       </footer>
@@ -2812,16 +2857,16 @@ export default function Home() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="absolute top-3 right-3 z-20 px-3 py-1.5 rounded-full bg-white/95 hover:bg-white text-forest hover:text-rose-dark text-xs font-bold shadow-md border border-[#CAD7C5]/70 transition-all flex items-center gap-1.5 backdrop-blur-xs"
-                      title="Buka foto asli resolusi penuh di tab baru"
+                      title={lang === 'en' ? 'Open original photo in new tab' : 'Buka foto asli resolusi penuh di tab baru'}
                     >
-                      <span>Buka Ukuran Asli</span>
+                      <span>{lang === 'en' ? 'Original Size' : 'Buka Ukuran Asli'}</span>
                       <span>↗</span>
                     </a>
 
                     {/* Bottom Left: Live Photo Counter Badge */}
                     <div className="absolute bottom-3 left-3 z-20 px-3.5 py-1 rounded-full bg-black/75 backdrop-blur-md text-white text-[11px] font-mono font-medium shadow-md flex items-center gap-2 border border-white/20">
                       <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                      <span>Foto {activeModalPhoto + 1} dari {modalData.images.length}</span>
+                      <span>{lang === 'en' ? `Photo ${activeModalPhoto + 1} of ${modalData.images.length}` : `Foto ${activeModalPhoto + 1} dari ${modalData.images.length}`}</span>
                     </div>
                   </div>
 
@@ -2964,14 +3009,14 @@ export default function Home() {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                         </svg>
                         <span className="text-[11px] font-medium">
-                          Foto ditampilkan dalam rasio asli tanpa distorsi / cropping
+                          {lang === 'en' ? 'Photos displayed in native uncropped resolution' : 'Foto ditampilkan dalam rasio asli tanpa distorsi / cropping'}
                         </span>
                       </div>
                       <div className="flex items-center gap-2 text-[10px] text-forest/60 font-mono">
                         <svg className="w-3.5 h-3.5 text-forest/60 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
                         </svg>
-                        <span>Navigasi: tombol panah ‹ › di keyboard</span>
+                        <span>{lang === 'en' ? 'Navigation: arrow keys ‹ › on keyboard' : 'Navigasi: tombol panah ‹ › di keyboard'}</span>
                       </div>
                     </div>
                   </div>
@@ -2982,7 +3027,7 @@ export default function Home() {
                       onClick={closeModal}
                       className="btn-floral w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-forest text-[#E8EFE5] hover:bg-rose-dark shadow-xs cursor-pointer text-center"
                     >
-                      Tutup Dialog [ESC]
+                      {t.modal.closeBtn}
                     </button>
                   </div>
                 </div>
