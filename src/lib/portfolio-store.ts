@@ -49,6 +49,11 @@ export interface ProjectDoc {
   extraImages: string[];
   link?: string;
   linkLabel?: string;
+  linkThumbnail?: string;
+  newsLink?: string;
+  newsLinkLabel?: string;
+  newsPublisher?: string;
+  newsThumbnail?: string;
 }
 
 export interface AwardItem {
@@ -294,6 +299,10 @@ export const DEFAULT_PORTFOLIO_DATA: PortfolioData = {
       extraImages: ['/3.png', '/4.png', '/1.png'],
       link: 'https://instagram.com/duasisi.laundry',
       linkLabel: 'Profil Bisnis Dua Sisi ↗',
+      newsLink: 'https://radarmalang.jawapos.com',
+      newsLinkLabel: 'Liputan Media: Mahasiswi Polinema Rintis Bisnis Mandiri Dua Sisi Laundry',
+      newsPublisher: 'Radar Malang / Jawa Pos',
+      newsThumbnail: '/3.png',
     },
     {
       id: 'yarnup-brand',
@@ -988,6 +997,12 @@ export async function sanitizeAndUploadAllImages(data: PortfolioData): Promise<P
           }
         }
       }
+      if (exp.linkThumbnail?.startsWith('data:image/')) {
+        exp.linkThumbnail = await uploadDataUrl(exp.linkThumbnail, `exp_${i}_link_thumb`);
+      }
+      if (exp.newsThumbnail?.startsWith('data:image/')) {
+        exp.newsThumbnail = await uploadDataUrl(exp.newsThumbnail, `exp_${i}_news_thumb`);
+      }
     }
   }
 
@@ -1004,6 +1019,12 @@ export async function sanitizeAndUploadAllImages(data: PortfolioData): Promise<P
             proj.extraImages[j] = await uploadDataUrl(proj.extraImages[j], `proj_${i}_extra_${j}`);
           }
         }
+      }
+      if (proj.linkThumbnail?.startsWith('data:image/')) {
+        proj.linkThumbnail = await uploadDataUrl(proj.linkThumbnail, `proj_${i}_link_thumb`);
+      }
+      if (proj.newsThumbnail?.startsWith('data:image/')) {
+        proj.newsThumbnail = await uploadDataUrl(proj.newsThumbnail, `proj_${i}_news_thumb`);
       }
     }
   }

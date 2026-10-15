@@ -1381,6 +1381,103 @@ export default function AdminPortal() {
                     </div>
                   </div>
 
+                  {/* LinkedIn-Style News / Media Coverage & Press Release */}
+                  <div className="p-4 rounded-2xl bg-gradient-to-r from-[#F4F7F2] to-[#FAFBF8] border border-[#CAD7C5] space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-forest flex items-center gap-2">
+                        <span className="text-sm">📰</span>
+                        <span>Liputan Portal Berita & Media Massa (LinkedIn-Style News Card)</span>
+                      </span>
+                      <span className="text-[10px] text-rose-dark font-mono font-bold bg-white px-2.5 py-0.5 rounded-full border border-rose-dusty/40">
+                        Fitur Berita / Press
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-forest/75 leading-relaxed">
+                      Pernah diliput media massa atau portal berita online (seperti saat membuka Dua Sisi Laundry)? Masukkan link dan judul liputannya di sini agar muncul kartu tautan berita eksklusif lengkap dengan foto thumbnail, nama portal media, dan tombol direct link!
+                    </p>
+                    
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-[11px] font-bold text-neutral-800 mb-1">
+                          Link URL Portal Berita:
+                        </label>
+                        <input
+                          type="text"
+                          value={currentExp.newsLink || ''}
+                          onChange={(e) => {
+                            const updated = [...exps];
+                            updated[activeExperienceIdx] = { ...currentExp, newsLink: e.target.value };
+                            setData({ ...data, experiences: updated });
+                          }}
+                          placeholder="https://radarmalang.jawapos.com/... atau https://detik.com/..."
+                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-mono"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-bold text-neutral-800 mb-1">
+                          Nama Media / Publisher:
+                        </label>
+                        <input
+                          type="text"
+                          value={currentExp.newsPublisher || ''}
+                          onChange={(e) => {
+                            const updated = [...exps];
+                            updated[activeExperienceIdx] = { ...currentExp, newsPublisher: e.target.value };
+                            setData({ ...data, experiences: updated });
+                          }}
+                          placeholder="Contoh: Radar Malang / Jawa Pos, Detik, Kompas"
+                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
+                      <div className="sm:col-span-8">
+                        <label className="block text-[11px] font-bold text-neutral-800 mb-1">
+                          Judul / Headline Liputan Berita:
+                        </label>
+                        <input
+                          type="text"
+                          value={currentExp.newsLinkLabel || ''}
+                          onChange={(e) => {
+                            const updated = [...exps];
+                            updated[activeExperienceIdx] = { ...currentExp, newsLinkLabel: e.target.value };
+                            setData({ ...data, experiences: updated });
+                          }}
+                          placeholder="Contoh: Mahasiswi Polinema Rintis Usaha Mandiri Dua Sisi Laundry"
+                          className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-medium"
+                        />
+                      </div>
+
+                      <div className="sm:col-span-4">
+                        <label className="block text-[11px] font-bold text-neutral-800 mb-1">
+                          Foto / Thumbnail Berita:
+                        </label>
+                        <div className="flex items-center gap-2">
+                          <input
+                            type="text"
+                            value={currentExp.newsThumbnail || ''}
+                            onChange={(e) => {
+                              const updated = [...exps];
+                              updated[activeExperienceIdx] = { ...currentExp, newsThumbnail: e.target.value };
+                              setData({ ...data, experiences: updated });
+                            }}
+                            placeholder="URL foto / kosongkan utk foto utama"
+                            className="w-full px-3 py-1.5 rounded-xl bg-white border border-[#CAD7C5] text-[11px]"
+                          />
+                          {(currentExp.newsThumbnail || currentExp.image) && (
+                            <img
+                              src={currentExp.newsThumbnail || currentExp.image}
+                              alt="thumb"
+                              className="w-8 h-8 rounded-lg object-cover border border-[#CAD7C5] shrink-0"
+                            />
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                   <div>
                     <label className="block text-xs font-bold text-neutral-900 mb-1">Ringkasan Pengalaman Kerja (Summary):</label>
                     <textarea
@@ -1584,7 +1681,7 @@ export default function AdminPortal() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-neutral-900 mb-1">Link Eksternal / Berita:</label>
+                    <label className="block text-xs font-bold text-neutral-900 mb-1">Link Eksternal / Portal:</label>
                     <input
                       type="text"
                       value={data.projects[activeProjectIdx].link || ''}
@@ -1608,9 +1705,90 @@ export default function AdminPortal() {
                         updated[activeProjectIdx].linkLabel = e.target.value;
                         setData({ ...data, projects: updated });
                       }}
-                      placeholder="Profil Bisnis Dua Sisi ↗"
+                      placeholder="Detail Riset SurveyKu ↗"
                       className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs"
                     />
+                  </div>
+                </div>
+
+                {/* LinkedIn-Style News / Media Coverage & Press Release for Projects */}
+                <div className="p-4 rounded-2xl bg-gradient-to-r from-[#F4F7F2] to-[#FAFBF8] border border-[#CAD7C5] space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-forest flex items-center gap-2">
+                      <span className="text-sm">📰</span>
+                      <span>Liputan Berita / Publikasi Ilmiah (LinkedIn-Style News Card)</span>
+                    </span>
+                    <span className="text-[10px] text-rose-dark font-mono font-bold bg-white px-2.5 py-0.5 rounded-full border border-rose-dusty/40">
+                      Opsional
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-[11px] font-bold text-neutral-800 mb-1">
+                        Link URL Berita / Publikasi:
+                      </label>
+                      <input
+                        type="text"
+                        value={data.projects[activeProjectIdx].newsLink || ''}
+                        onChange={(e) => {
+                          const updated = [...data.projects];
+                          updated[activeProjectIdx].newsLink = e.target.value;
+                          setData({ ...data, projects: updated });
+                        }}
+                        placeholder="https://... (portal berita / warta kampus)"
+                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-mono"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-bold text-neutral-800 mb-1">
+                        Nama Media / Jurnal:
+                      </label>
+                      <input
+                        type="text"
+                        value={data.projects[activeProjectIdx].newsPublisher || ''}
+                        onChange={(e) => {
+                          const updated = [...data.projects];
+                          updated[activeProjectIdx].newsPublisher = e.target.value;
+                          setData({ ...data, projects: updated });
+                        }}
+                        placeholder="Contoh: Warta Polinema / Radar Malang"
+                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
+                    <div className="sm:col-span-8">
+                      <label className="block text-[11px] font-bold text-neutral-800 mb-1">
+                        Judul / Headline Publikasi:
+                      </label>
+                      <input
+                        type="text"
+                        value={data.projects[activeProjectIdx].newsLinkLabel || ''}
+                        onChange={(e) => {
+                          const updated = [...data.projects];
+                          updated[activeProjectIdx].newsLinkLabel = e.target.value;
+                          setData({ ...data, projects: updated });
+                        }}
+                        placeholder="Contoh: Publikasi Hasil Riset D4 SIB"
+                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-[#CAD7C5] text-xs font-medium"
+                      />
+                    </div>
+                    <div className="sm:col-span-4">
+                      <label className="block text-[11px] font-bold text-neutral-800 mb-1">
+                        Foto Thumbnail Berita:
+                      </label>
+                      <input
+                        type="text"
+                        value={data.projects[activeProjectIdx].newsThumbnail || ''}
+                        onChange={(e) => {
+                          const updated = [...data.projects];
+                          updated[activeProjectIdx].newsThumbnail = e.target.value;
+                          setData({ ...data, projects: updated });
+                        }}
+                        placeholder="URL foto / default gambar proyek"
+                        className="w-full px-3 py-1.5 rounded-xl bg-white border border-[#CAD7C5] text-[11px]"
+                      />
+                    </div>
                   </div>
                 </div>
 

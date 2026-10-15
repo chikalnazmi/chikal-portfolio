@@ -109,6 +109,10 @@ export default function Home() {
     linkLabel?: string;
     videoLink?: string;
     videoLinkLabel?: string;
+    newsLink?: string;
+    newsLinkLabel?: string;
+    newsPublisher?: string;
+    newsThumbnail?: string;
   }>({
     isOpen: false,
     title: '',
@@ -119,6 +123,10 @@ export default function Home() {
     linkLabel: undefined,
     videoLink: undefined,
     videoLinkLabel: undefined,
+    newsLink: undefined,
+    newsLinkLabel: undefined,
+    newsPublisher: undefined,
+    newsThumbnail: undefined,
   });
 
   // Dynamic portfolio store state (synced with /admin and Supabase in real-time)
@@ -196,7 +204,11 @@ export default function Home() {
     link?: string,
     linkLabel?: string,
     videoLink?: string,
-    videoLinkLabel?: string
+    videoLinkLabel?: string,
+    newsLink?: string,
+    newsLinkLabel?: string,
+    newsPublisher?: string,
+    newsThumbnail?: string
   ) => {
     setActiveModalPhoto(0);
     setModalData({
@@ -209,6 +221,10 @@ export default function Home() {
       linkLabel,
       videoLink,
       videoLinkLabel,
+      newsLink,
+      newsLinkLabel,
+      newsPublisher,
+      newsThumbnail,
     });
   };
 
@@ -1368,7 +1384,13 @@ export default function Home() {
                         exp.summary,
                         galleryImages,
                         exp.link,
-                        exp.linkLabel
+                        exp.linkLabel,
+                        undefined,
+                        undefined,
+                        exp.newsLink,
+                        exp.newsLinkLabel,
+                        exp.newsPublisher,
+                        exp.newsThumbnail
                       )}
                       className="relative aspect-[4/3] rounded-xl overflow-hidden bg-forest/5 border border-[#CAD7C5] cursor-pointer group/img shadow-2xs"
                     >
@@ -1434,17 +1456,53 @@ export default function Home() {
                         </div>
                       )}
 
-                      {/* LinkedIn-Style Connected Link Preview Box */}
-                      {exp.link && (
+                      {/* LinkedIn-Style News & Media Coverage Card */}
+                      {exp.newsLink && (
+                        <a
+                          href={exp.newsLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-2.5 group/news block p-2.5 rounded-xl bg-gradient-to-br from-[#FAFBF8] to-[#F1F6EE] hover:from-[#F1F6EE] hover:to-[#E8EFE5] border border-[#CAD7C5] hover:border-forest/60 transition-all shadow-2xs cursor-pointer"
+                        >
+                          <div className="flex items-center gap-3">
+                            <div className="relative w-14 h-14 rounded-lg overflow-hidden shrink-0 border border-[#CAD7C5]/80 bg-white shadow-2xs">
+                              <img
+                                src={exp.newsThumbnail || currentImg}
+                                alt="Liputan Berita"
+                                className="w-full h-full object-cover group-hover/news:scale-105 transition-transform duration-300"
+                              />
+                              <div className="absolute top-1 left-1 px-1 py-0.5 rounded bg-black/60 text-[8px] text-white font-bold leading-none backdrop-blur-xs">
+                                NEWS
+                              </div>
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <div className="flex items-center gap-1.5 text-[9px] font-mono font-bold text-rose-dark uppercase tracking-wider mb-0.5">
+                                <span>📰</span>
+                                <span className="truncate">{exp.newsPublisher || getDomainBadge(exp.newsLink)}</span>
+                              </div>
+                              <div className="text-xs font-bold text-forest leading-snug line-clamp-2 group-hover/news:text-rose-dark transition-colors font-serif">
+                                {exp.newsLinkLabel || exp.title}
+                              </div>
+                              <div className="text-[10px] text-forest/75 flex items-center gap-1 mt-1 font-sans font-medium">
+                                <span>Baca Liputan Berita</span>
+                                <span className="group-hover/news:translate-x-1 transition-transform text-rose-dark font-bold">↗</span>
+                              </div>
+                            </div>
+                          </div>
+                        </a>
+                      )}
+
+                      {/* LinkedIn-Style Connected Profile / Business Link */}
+                      {exp.link && exp.link !== exp.newsLink && (
                         <a
                           href={exp.link}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="mt-2 group/linkedin flex items-center gap-2.5 p-2 rounded-xl bg-[#F8FAF6] hover:bg-[#EEF4EA] border border-[#CAD7C5] hover:border-forest/50 transition-all shadow-2xs cursor-pointer"
                         >
-                          <div className="relative w-12 h-12 rounded-lg overflow-hidden shrink-0 border border-[#CAD7C5]/70 bg-white">
+                          <div className="relative w-10 h-10 rounded-lg overflow-hidden shrink-0 border border-[#CAD7C5]/70 bg-white">
                             <img
-                              src={currentImg}
+                              src={exp.linkThumbnail || currentImg}
                               alt=""
                               className="w-full h-full object-cover group-hover/linkedin:scale-105 transition-transform duration-300"
                             />
@@ -1457,14 +1515,11 @@ export default function Home() {
                               <span className="w-1.5 h-1.5 rounded-full bg-rose-dark" />
                               <span>{getDomainBadge(exp.link)}</span>
                             </div>
-                            <div className="text-[11px] sm:text-xs font-bold text-forest truncate group-hover/linkedin:text-rose-dark transition-colors">
+                            <div className="text-[11px] font-bold text-forest truncate group-hover/linkedin:text-rose-dark transition-colors">
                               {exp.linkLabel || exp.title}
                             </div>
-                            <div className="text-[10px] text-forest/70 flex items-center gap-1">
-                              <span>Lihat Media / Tautan</span>
-                              <span className="group-hover/linkedin:translate-x-0.5 transition-transform">↗</span>
-                            </div>
                           </div>
+                          <span className="text-xs text-forest/50 group-hover/linkedin:text-rose-dark pr-1">↗</span>
                         </a>
                       )}
                     </div>
@@ -1480,7 +1535,13 @@ export default function Home() {
                       exp.summary,
                       galleryImages,
                       exp.link,
-                      exp.linkLabel
+                      exp.linkLabel,
+                      undefined,
+                      undefined,
+                      exp.newsLink,
+                      exp.newsLinkLabel,
+                      exp.newsPublisher,
+                      exp.newsThumbnail
                     )}
                     className="inline-flex items-center gap-1.5 text-xs font-bold text-rose-dark hover:text-rose-berry transition-colors cursor-pointer group/btn"
                   >
@@ -1614,7 +1675,13 @@ export default function Home() {
                 project.summary,
                 project.extraImages && project.extraImages.length > 0 ? project.extraImages : [project.image],
                 project.link,
-                project.linkLabel
+                project.linkLabel,
+                undefined,
+                undefined,
+                project.newsLink,
+                project.newsLinkLabel,
+                project.newsPublisher,
+                project.newsThumbnail
               )}
               className="bg-white/95 backdrop-blur-sm border border-[#CAD7C5] rounded-2xl p-3.5 shadow-2xs hover:shadow-md hover:border-rose-dusty/80 transition-all duration-300 flex flex-col justify-between group cursor-pointer"
             >
@@ -1673,18 +1740,52 @@ export default function Home() {
                   </div>
                 </div>
 
+                {/* LinkedIn-Style News Card for Project */}
+                {project.newsLink && (
+                  <a
+                    href={project.newsLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="mt-2 group/news block p-2 rounded-xl bg-gradient-to-r from-[#FAFBF8] to-[#F1F6EE] hover:from-[#F1F6EE] hover:to-[#E8EFE5] border border-[#CAD7C5] hover:border-forest/60 transition-all shadow-2xs cursor-pointer"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <div className="relative w-10 h-10 rounded-lg overflow-hidden shrink-0 border border-[#CAD7C5]/70 bg-white">
+                        <img
+                          src={project.newsThumbnail || project.image}
+                          alt=""
+                          className="w-full h-full object-cover group-hover/news:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute top-0.5 left-0.5 px-0.5 rounded bg-black/60 text-[7px] text-white font-bold leading-none">
+                          NEWS
+                        </div>
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="text-[9px] font-mono font-bold text-rose-dark uppercase tracking-wider truncate flex items-center gap-1">
+                          <span>📰</span>
+                          <span>{project.newsPublisher || getDomainBadge(project.newsLink)}</span>
+                        </div>
+                        <div className="text-[10px] font-bold text-forest truncate group-hover/news:text-rose-dark transition-colors font-serif">
+                          {project.newsLinkLabel || project.title}
+                        </div>
+                      </div>
+                      <span className="text-xs text-rose-dark font-bold pr-1">↗</span>
+                    </div>
+                  </a>
+                )}
+
                 {/* LinkedIn-Style Connected Link Preview Box */}
-                {project.link && (
+                {project.link && project.link !== project.newsLink && (
                   <a
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="mt-2 group/linkedin flex items-center gap-2 p-1.5 rounded-xl bg-[#F8FAF6] hover:bg-[#EEF4EA] border border-[#CAD7C5] hover:border-forest/50 transition-all shadow-2xs cursor-pointer"
+                    className="mt-1.5 group/linkedin flex items-center gap-2 p-1.5 rounded-xl bg-[#F8FAF6] hover:bg-[#EEF4EA] border border-[#CAD7C5] hover:border-forest/50 transition-all shadow-2xs cursor-pointer"
                   >
                     <div className="relative w-8 h-8 rounded-lg overflow-hidden shrink-0 border border-[#CAD7C5]/70 bg-white">
                       <img
-                        src={project.image}
+                        src={project.linkThumbnail || project.image}
                         alt=""
                         className="w-full h-full object-cover group-hover/linkedin:scale-105 transition-transform duration-300"
                       />
@@ -3052,12 +3153,46 @@ export default function Home() {
                     </div>
 
                     {/* Interactive Action Card for External Links & Video Documentation */}
-                    {(modalData.link || modalData.videoLink) && (
+                    {(modalData.link || modalData.videoLink || modalData.newsLink) && (
                       <div className="p-3.5 rounded-2xl bg-gradient-to-br from-rose-50/70 via-white to-sage-50/70 border border-[#CAD7C5] mb-4 space-y-2.5 shadow-2xs">
                         <div className="flex items-center gap-1.5 text-[10px] font-bold text-forest tracking-wider uppercase">
                           <span className="w-2 h-2 rounded-full bg-rose-dark animate-pulse" />
-                          <span>Tautan Video &amp; Dokumentasi Eksternal</span>
+                          <span>Tautan Berita &amp; Dokumentasi Eksternal</span>
                         </div>
+
+                        {/* LinkedIn-Style News / Press Coverage Banner */}
+                        {modalData.newsLink && (
+                          <a
+                            href={modalData.newsLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-3 rounded-xl bg-gradient-to-r from-amber-50/70 via-white to-rose-50/70 hover:from-amber-100/80 hover:to-rose-100/80 border border-amber-300/80 hover:border-amber-400 transition-all shadow-xs flex items-center gap-3 group cursor-pointer"
+                          >
+                            <div className="relative w-12 h-12 rounded-lg overflow-hidden shrink-0 border border-[#CAD7C5] bg-white shadow-2xs">
+                              <img
+                                src={modalData.newsThumbnail || modalData.images[0] || '/3.png'}
+                                alt="News thumbnail"
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                              />
+                              <div className="absolute top-0.5 left-0.5 px-1 py-0.2 rounded bg-black/70 text-[7px] text-white font-bold leading-none">
+                                NEWS
+                              </div>
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <div className="flex items-center gap-1 text-[9px] font-mono font-bold text-rose-dark uppercase tracking-wider mb-0.5">
+                                <span>📰</span>
+                                <span>{modalData.newsPublisher || getDomainBadge(modalData.newsLink)}</span>
+                              </div>
+                              <div className="text-xs font-bold text-forest line-clamp-1 group-hover:text-rose-dark transition-colors font-serif">
+                                {modalData.newsLinkLabel || 'Liputan Berita Media Online'}
+                              </div>
+                              <div className="text-[10px] text-forest/70 flex items-center gap-1 mt-0.5">
+                                <span>Buka Portal Berita</span>
+                                <span className="group-hover:translate-x-1 transition-transform font-bold text-rose-dark">↗</span>
+                              </div>
+                            </div>
+                          </a>
+                        )}
 
                         {/* Video Link Button */}
                         {modalData.videoLink && (
