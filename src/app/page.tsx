@@ -66,6 +66,16 @@ function BotanicalCorner({ className = "top-4 right-4" }: { className?: string }
   );
 }
 
+function getDomainBadge(url?: string): string {
+  if (!url) return 'Link';
+  try {
+    const parsed = new URL(url.startsWith('http') ? url : `https://${url}`);
+    return parsed.hostname.replace('www.', '');
+  } catch {
+    return 'Tautan';
+  }
+}
+
 export default function Home() {
   // Bilingual state with localStorage persistence
   const [lang, setLang] = useState<Language>('id');
@@ -656,6 +666,19 @@ export default function Home() {
                 </button>
               </div>
 
+              {/* Download PDF Button */}
+              <a
+                href="/chikal-nazmi-portfolio.pdf"
+                download="Chikal_Nazmi_Mahira_Portfolio.pdf"
+                className="btn-floral-light px-3 py-1 rounded-full text-[11px] font-semibold bg-white/90 text-forest border border-[#CAD7C5] hover:border-rose-dusty hover:text-rose-dark shadow-2xs cursor-pointer flex items-center gap-1.5 transition-all"
+                title={lang === 'id' ? 'Unduh Dokumen PDF Portofolio' : 'Download Portfolio PDF Document'}
+              >
+                <svg className="w-3.5 h-3.5 text-rose-dusty" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <span>{t.nav.downloadPdf}</span>
+              </a>
+
               <a
                 href={portfolioData.socials.whatsapp}
                 target="_blank"
@@ -732,10 +755,21 @@ export default function Home() {
               {t.nav.hobbies}
             </a>
             <a
+              href="/chikal-nazmi-portfolio.pdf"
+              download="Chikal_Nazmi_Mahira_Portfolio.pdf"
+              onClick={() => setMobileMenuOpen(false)}
+              className="mt-2 text-center py-2.5 rounded-xl bg-forest/10 border border-[#CAD7C5] text-forest text-xs font-semibold shadow-xs flex items-center justify-center gap-1.5"
+            >
+              <svg className="w-4 h-4 text-rose-dusty" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              <span>{t.nav.downloadPdf}</span>
+            </a>
+            <a
               href={portfolioData.socials.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-2 text-center py-2.5 rounded-xl bg-rose-dark text-white text-xs font-semibold shadow-xs"
+              className="mt-1 text-center py-2.5 rounded-xl bg-rose-dark text-white text-xs font-semibold shadow-xs"
             >
               {t.nav.connectBtn}
             </a>
@@ -924,18 +958,33 @@ export default function Home() {
                 {lang === 'en' ? t.hero.bio : (portfolioData.hero?.bio || t.hero.bio)}
               </p>
 
-              {/* Get in Touch CTA Button */}
-              <motion.a
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.96 }}
-                href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890?text=Halo%20Chikal,%20saya%20tertarik%20berdiskusi%20mengenai%20peluang%20kerjasama."}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hero-cta-btn btn-floral inline-flex items-center gap-2 px-5 py-2 rounded-full bg-forest hover:bg-rose-dark text-[#E8EFE5] text-xs sm:text-sm font-semibold shadow-xs hover:shadow-md cursor-pointer"
-              >
-                <span>→</span>
-                <span>{t.hero.ctaBtn}</span>
-              </motion.a>
+              {/* Actions: Get in Touch CTA Button & Download PDF */}
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                <motion.a
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.96 }}
+                  href={portfolioData.socials?.whatsapp || "https://wa.me/6281234567890?text=Halo%20Chikal,%20saya%20tertarik%20berdiskusi%20mengenai%20peluang%20kerjasama."}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hero-cta-btn btn-floral inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-forest hover:bg-rose-dark text-[#E8EFE5] text-xs font-semibold shadow-xs hover:shadow-md cursor-pointer"
+                >
+                  <span>→</span>
+                  <span>{t.hero.ctaBtn}</span>
+                </motion.a>
+                <motion.a
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.96 }}
+                  href="/chikal-nazmi-portfolio.pdf"
+                  download="Chikal_Nazmi_Mahira_Portfolio.pdf"
+                  className="btn-floral-light inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-full bg-white/95 border border-[#CAD7C5] hover:border-rose-dusty text-forest hover:text-rose-dark text-xs font-semibold shadow-2xs cursor-pointer backdrop-blur-md"
+                  title={lang === 'id' ? 'Unduh Dokumen PDF Portofolio' : 'Download Portfolio PDF Document'}
+                >
+                  <svg className="w-3.5 h-3.5 text-rose-dusty" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  <span>{t.nav.downloadPdf}</span>
+                </motion.a>
+              </div>
             </motion.div>
 
           </div>
@@ -1375,7 +1424,7 @@ export default function Home() {
 
                       {/* Strategic Deliverables List */}
                       {exp.results && exp.results.length > 0 && (
-                        <div className="space-y-1.5 mb-3">
+                        <div className="space-y-1.5 mb-2.5">
                           {exp.results.map((res, rIdx) => (
                             <div key={rIdx} className="flex items-start gap-2 text-xs text-forest/85">
                               <span className="w-1.5 h-1.5 rounded-full bg-rose-dusty shrink-0 mt-1.5" />
@@ -1383,6 +1432,40 @@ export default function Home() {
                             </div>
                           ))}
                         </div>
+                      )}
+
+                      {/* LinkedIn-Style Connected Link Preview Box */}
+                      {exp.link && (
+                        <a
+                          href={exp.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-2 group/linkedin flex items-center gap-2.5 p-2 rounded-xl bg-[#F8FAF6] hover:bg-[#EEF4EA] border border-[#CAD7C5] hover:border-forest/50 transition-all shadow-2xs cursor-pointer"
+                        >
+                          <div className="relative w-12 h-12 rounded-lg overflow-hidden shrink-0 border border-[#CAD7C5]/70 bg-white">
+                            <img
+                              src={currentImg}
+                              alt=""
+                              className="w-full h-full object-cover group-hover/linkedin:scale-105 transition-transform duration-300"
+                            />
+                            <div className="absolute inset-0 bg-black/10 flex items-center justify-center opacity-0 group-hover/linkedin:opacity-100 transition-opacity">
+                              <span className="text-[10px] text-white font-bold">↗</span>
+                            </div>
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center gap-1.5 text-[9px] font-mono font-bold text-rose-dark uppercase tracking-wider">
+                              <span className="w-1.5 h-1.5 rounded-full bg-rose-dark" />
+                              <span>{getDomainBadge(exp.link)}</span>
+                            </div>
+                            <div className="text-[11px] sm:text-xs font-bold text-forest truncate group-hover/linkedin:text-rose-dark transition-colors">
+                              {exp.linkLabel || exp.title}
+                            </div>
+                            <div className="text-[10px] text-forest/70 flex items-center gap-1">
+                              <span>Lihat Media / Tautan</span>
+                              <span className="group-hover/linkedin:translate-x-0.5 transition-transform">↗</span>
+                            </div>
+                          </div>
+                        </a>
                       )}
                     </div>
                   </div>
@@ -1589,6 +1672,34 @@ export default function Home() {
                     ))}
                   </div>
                 </div>
+
+                {/* LinkedIn-Style Connected Link Preview Box */}
+                {project.link && (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="mt-2 group/linkedin flex items-center gap-2 p-1.5 rounded-xl bg-[#F8FAF6] hover:bg-[#EEF4EA] border border-[#CAD7C5] hover:border-forest/50 transition-all shadow-2xs cursor-pointer"
+                  >
+                    <div className="relative w-8 h-8 rounded-lg overflow-hidden shrink-0 border border-[#CAD7C5]/70 bg-white">
+                      <img
+                        src={project.image}
+                        alt=""
+                        className="w-full h-full object-cover group-hover/linkedin:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-[9px] font-mono font-bold text-rose-dark uppercase tracking-wider truncate">
+                        {getDomainBadge(project.link)}
+                      </div>
+                      <div className="text-[10px] font-bold text-forest truncate group-hover/linkedin:text-rose-dark transition-colors">
+                        {project.linkLabel || (lang === 'en' ? 'Open Connected Link ↗' : 'Buka Tautan ↗')}
+                      </div>
+                    </div>
+                    <span className="text-xs text-forest/50 group-hover/linkedin:text-rose-dark pr-1">↗</span>
+                  </a>
+                )}
               </div>
 
               {/* Bottom Subtle Action Trigger */}
@@ -2992,11 +3103,14 @@ export default function Home() {
                                 {modalData.linkLabel || (
                                   modalData.link.includes('youtube') || modalData.link.includes('youtu.be')
                                     ? 'Tonton Video Dokumentasi'
-                                    : 'Buka Tautan Eksternal'
+                                    : `Buka Tautan (${getDomainBadge(modalData.link)})`
                                 )}
                               </span>
                             </span>
-                            <span className="group-hover:translate-x-1 transition-transform">↗</span>
+                            <span className="flex items-center gap-1 text-[11px] font-mono opacity-80 group-hover:translate-x-1 transition-transform">
+                              <span>{getDomainBadge(modalData.link)}</span>
+                              <span>↗</span>
+                            </span>
                           </a>
                         )}
                       </div>

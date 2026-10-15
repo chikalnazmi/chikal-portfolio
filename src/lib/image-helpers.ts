@@ -39,7 +39,14 @@ export async function convertHeicIfNeeded(
   onStatusUpdate?.('Mengonversi foto iPhone (HEIC ke JPEG)...');
 
   try {
-    const heic2any = (await import('heic2any')).default;
+    let heic2any: any;
+    try {
+      // @ts-ignore
+      heic2any = (await import(/* webpackIgnore: true */ 'heic2any')).default;
+    } catch {
+      console.warn('heic2any is not installed; skipping client-side HEIC conversion.');
+      return file;
+    }
     const result = await heic2any({
       blob: file,
       toType: 'image/jpeg',

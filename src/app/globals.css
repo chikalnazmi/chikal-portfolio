@@ -787,4 +787,71 @@
   transform: scale(0.96);
 }
 
+/* =========================================================
+   PRINT TO PDF OPTIMIZATION (@media print)
+   ========================================================= */
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm 14mm;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  body {
+    background-color: #FFFFFF !important;
+    color: #1E2B1A !important;
+    font-size: 11pt !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Hide interactive, floating, and unnecessary web elements */
+  nav,
+  header,
+  .paper-texture-overlay,
+  .nav-floral-sway-left,
+  .nav-floral-sway-right,
+  .nav-butterfly-flutter,
+  .hero-floral-backdrop,
+  .hero-radiant-sage-aura,
+  button,
+  .btn-floral,
+  .btn-floral-light,
+  [aria-label="Toggle Menu"],
+  .no-print {
+    display: none !important;
+  }
+
+  /* Prevent page breaks inside cards and sections */
+  section,
+  .card,
+  article,
+  figure,
+  .hero-trusted-proof,
+  .break-inside-avoid {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Remove fixed/sticky positioning during print */
+  .sticky,
+  .fixed {
+    position: static !important;
+  }
+
+  /* Links styling in print */
+  a {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+}
+
+
 

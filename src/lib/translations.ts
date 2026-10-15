@@ -15,6 +15,7 @@ export interface TranslationDictionary {
     creative: string;
     hobbies: string;
     connectBtn: string;
+    downloadPdf: string;
   };
   hero: {
     greeting: string;
@@ -206,6 +207,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       creative: 'Kreatif & Konten',
       hobbies: 'Minat & Hobi',
       connectBtn: 'Hubungi Saya ↗',
+      downloadPdf: 'Unduh PDF',
     },
     hero: {
       greeting: "Hi I'm Chikal",
@@ -395,6 +397,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       creative: 'Creative & Content',
       hobbies: 'Hobbies',
       connectBtn: "Let's Connect ↗",
+      downloadPdf: 'Download PDF',
     },
     hero: {
       greeting: "Hi I'm Chikal",

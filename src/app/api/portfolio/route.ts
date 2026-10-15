@@ -134,10 +134,17 @@ export async function POST(req: NextRequest) {
       message: 'Portfolio data successfully updated in Supabase Cloud Database',
     });
   } catch (err: any) {
-    console.error('API /api/portfolio POST fatal error:', err);
+    const msg = String(err?.message || '');
+    const isPaused = msg.includes('fetch failed') || msg.includes('ENOTFOUND') || msg.includes('ECONNREFUSED');
+    console.error('API /api/portfolio POST error:', err);
     return NextResponse.json(
-      { error: err?.message || 'Failed to update portfolio data' },
-      { status: 500 }
+      { 
+        error: isPaused
+          ? 'Project Supabase Cloud sedang dijeda (paused). Silakan unpause / restore project di Supabase Dashboard.'
+          : (err?.message || 'Failed to update portfolio data'),
+        isPaused,
+      },
+      { status: 503 }
     );
   }
 }

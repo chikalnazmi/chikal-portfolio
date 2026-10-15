@@ -35,7 +35,7 @@ export default function AdminPortal() {
   const [newSkillInput, setNewSkillInput] = useState<string>('');
   const [isSaving, setIsSaving] = useState(false);
   const [isLoadingData, setIsLoadingData] = useState<boolean>(true);
-  const [toastNotification, setToastNotification] = useState<{ type: 'success' | 'error'; message: string; detail?: string } | null>(null);
+  const [toastNotification, setToastNotification] = useState<{ type: 'success' | 'warning' | 'error'; message: string; detail?: string } | null>(null);
 
   // Secret PIN (Default: chikal2026)
   const SECRET_PIN = 'chikal2026';
@@ -48,19 +48,38 @@ export default function AdminPortal() {
       setIsAuthenticated(true);
     }
 
-    // Load live single-source-of-truth portfolio data from Supabase Cloud
+    // Load initial local data immediately so admin is fast & responsive
+    const local = getPortfolioData();
+    if (local) {
+      setData(local);
+    }
+
+    // Attempt to fetch from Supabase Cloud
     fetchPortfolioDataFromSupabase()
       .then((remoteData) => {
         if (remoteData) {
           setData(remoteData);
-          setIsCloudConnected(true);
         }
       })
       .catch((err) => {
-        console.error('Failed to load portfolio data in admin:', err);
+        console.warn('Failed to load portfolio data in admin:', err);
       })
       .finally(() => {
         setIsLoadingData(false);
+      });
+
+    // Verify Supabase cloud health
+    fetch('/api/portfolio')
+      .then(res => res.json())
+      .then(json => {
+        if (json && json.isSupabaseConnected === false) {
+          setIsCloudConnected(false);
+        } else {
+          setIsCloudConnected(true);
+        }
+      })
+      .catch(() => {
+        setIsCloudConnected(false);
       });
   }, []);
 
@@ -88,11 +107,19 @@ export default function AdminPortal() {
       if (res.data) {
         setData(res.data);
       }
-      if (res.success) {
+      if (res.isLocalFallback) {
+        setIsCloudConnected(false);
+        setToastNotification({
+          type: 'warning',
+          message: 'Tersimpan di Browser!',
+          detail: 'Foto & perubahan Anda aman tersimpan dan langsung tampil di landing page. Supabase Cloud saat ini sedang dijeda (paused) — silakan unpause/restore di Supabase Dashboard agar tersinkronisasi ke Vercel.',
+        });
+      } else if (res.success) {
+        setIsCloudConnected(true);
         setToastNotification({
           type: 'success',
           message: 'Perubahan Berhasil Disimpan!',
-          detail: 'Teks, foto, dan pengaturan portofolio telah tersinkronisasi langsung ke Cloud Database Supabase.',
+          detail: 'Teks, foto, dan pengaturan portofolio telah tersinkronisasi langsung ke Cloud Database Supabase & Browser.',
         });
       } else {
         setToastNotification({
@@ -111,7 +138,7 @@ export default function AdminPortal() {
       setIsSaving(false);
       setTimeout(() => {
         setToastNotification(null);
-      }, 4500);
+      }, 5500);
     }
   };
 
@@ -205,13 +232,17 @@ export default function AdminPortal() {
         <div className={`fixed top-6 right-6 z-50 text-white px-5 py-3.5 rounded-2xl shadow-2xl border flex items-center gap-3 animate-fade-in ${
           toastNotification.type === 'success'
             ? 'bg-[#1E2E1B] border-rose-blush/40'
+            : toastNotification.type === 'warning'
+            ? 'bg-[#2E2415] border-amber-500/60'
             : 'bg-rose-950 border-rose-500/50'
         }`}>
           <span className="text-xl">
-            {toastNotification.type === 'success' ? '✦' : '!'}
+            {toastNotification.type === 'success' ? '✦' : toastNotification.type === 'warning' ? '⚡' : '!'}
           </span>
           <div>
-            <p className="text-xs font-bold font-serif text-rose-blush">
+            <p className={`text-xs font-bold font-serif ${
+              toastNotification.type === 'warning' ? 'text-amber-300' : 'text-rose-blush'
+            }`}>
               {toastNotification.message}
             </p>
             {toastNotification.detail && (
@@ -238,15 +269,22 @@ export default function AdminPortal() {
                 <span className="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-bold border border-emerald-200">
                   ● Studio Edit
                 </span>
-                {isCloudConnected || isSupabaseConfigured ? (
+                {isCloudConnected ? (
                   <span className="text-[10px] text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full font-bold border border-emerald-300 flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                     Supabase Cloud Terhubung
                   </span>
                 ) : (
-                  <span className="text-[10px] text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full font-bold border border-amber-200">
-                    Mode Offline (LocalStorage)
-                  </span>
+                  <a
+                    href="https://supabase.com/dashboard/project/sfenzcsurtcejjpwbrqk"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] text-amber-900 bg-amber-100 hover:bg-amber-200 px-2.5 py-0.5 rounded-full font-bold border border-amber-300 flex items-center gap-1 transition-colors cursor-pointer"
+                    title="Klik untuk membuka Supabase dan Restore / Unpause Project"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                    Database Paused (Klik Restore ↗)
+                  </a>
                 )}
               </div>
             </div>

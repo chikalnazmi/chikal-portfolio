@@ -778,6 +778,7 @@ import { supabase, isSupabaseConfigured } from './supabase';
 
 const EVENT_NAME = 'chikal_portfolio_updated';
 const CHANNEL_NAME = 'chikal_portfolio_sync';
+const STORAGE_KEY = 'chikal_portfolio_content_v7';
 
 // In-memory active state cache for ultra-fast synchronous reads
 let activePortfolioData: PortfolioData = DEFAULT_PORTFOLIO_DATA;
@@ -805,18 +806,35 @@ export function cleanPortfolioData(raw?: Partial<PortfolioData> | null): Portfol
 
 /**
  * Synchronously returns current active in-memory portfolio data.
- * Zero localStorage access.
+ * Checks localStorage on the client for persistent changes across reloads.
  */
 export function getPortfolioData(): PortfolioData {
+  if (typeof window !== 'undefined' && activePortfolioData === DEFAULT_PORTFOLIO_DATA) {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (parsed && typeof parsed === 'object') {
+          activePortfolioData = cleanPortfolioData(parsed);
+        }
+      }
+    } catch {}
+  }
   return activePortfolioData;
 }
 
 /**
- * Sets current in-memory data and broadcasts update across all open tabs/components.
+ * Sets current in-memory data, writes to localStorage, and broadcasts update across all open tabs/components.
  */
 export function setPortfolioDataLocally(data: PortfolioData): void {
   activePortfolioData = data;
   if (typeof window !== 'undefined') {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch (e) {
+      console.warn('Could not write to localStorage:', e);
+    }
+
     window.dispatchEvent(new CustomEvent(EVENT_NAME, { detail: data }));
     try {
       if ('BroadcastChannel' in window) {
@@ -829,13 +847,24 @@ export function setPortfolioDataLocally(data: PortfolioData): void {
 }
 
 /**
- * Fetches the definitive portfolio content from Supabase Cloud Database via the server API.
- * Never overwrites with localStorage or stale timestamps.
+ * Fetches portfolio content from Supabase Cloud Database via the server API.
+ * Gracefully falls back to localStorage if Supabase is paused or offline.
  */
 export async function fetchPortfolioDataFromSupabase(): Promise<PortfolioData | null> {
   if (typeof window === 'undefined') {
     return activePortfolioData;
   }
+
+  // Load from localStorage immediately so user edits are instantly preserved
+  try {
+    const local = localStorage.getItem(STORAGE_KEY);
+    if (local) {
+      const parsed = JSON.parse(local);
+      if (parsed && typeof parsed === 'object') {
+        activePortfolioData = cleanPortfolioData(parsed);
+      }
+    }
+  } catch {}
 
   try {
     const res = await fetch('/api/portfolio', {
@@ -846,16 +875,16 @@ export async function fetchPortfolioDataFromSupabase(): Promise<PortfolioData | 
     if (res.ok) {
       const json = await res.json();
       if (json && json.data) {
-        const cleaned = cleanPortfolioData(json.data);
-        activePortfolioData = cleaned;
-        if (typeof window !== 'undefined') {
-          window.dispatchEvent(new CustomEvent(EVENT_NAME, { detail: cleaned }));
+        // Only accept if source is valid and not a database error fallback
+        if (json.source !== 'error-fallback' && json.source !== 'fatal-error' && json.source !== 'offline-fallback') {
+          const cleaned = cleanPortfolioData(json.data);
+          setPortfolioDataLocally(cleaned);
+          return cleaned;
         }
-        return cleaned;
       }
     }
   } catch (e) {
-    console.warn('API /api/portfolio fetch error, attempting direct client fallback:', e);
+    console.warn('API /api/portfolio fetch error (Supabase may be paused):', e);
   }
 
   // Direct Supabase client query fallback
@@ -869,10 +898,7 @@ export async function fetchPortfolioDataFromSupabase(): Promise<PortfolioData | 
 
       if (!error && data?.content) {
         const cleaned = cleanPortfolioData(data.content as Partial<PortfolioData>);
-        activePortfolioData = cleaned;
-        if (typeof window !== 'undefined') {
-          window.dispatchEvent(new CustomEvent(EVENT_NAME, { detail: cleaned }));
-        }
+        setPortfolioDataLocally(cleaned);
         return cleaned;
       }
     } catch (err) {
@@ -880,6 +906,10 @@ export async function fetchPortfolioDataFromSupabase(): Promise<PortfolioData | 
     }
   }
 
+  // Fallback to active in-memory / localStorage data
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent(EVENT_NAME, { detail: activePortfolioData }));
+  }
   return activePortfolioData;
 }
 
@@ -1034,14 +1064,15 @@ export async function sanitizeAndUploadAllImages(data: PortfolioData): Promise<P
 
 export interface SaveResult {
   success: boolean;
+  isLocalFallback?: boolean;
   data?: PortfolioData;
   message?: string;
   error?: string;
 }
 
 /**
- * Saves portfolio data directly to Supabase Cloud Database via the server API.
- * Single source of truth. Zero localStorage.
+ * Saves portfolio data directly to Supabase Cloud Database via the server API,
+ * and maintains resilient localStorage backup so user edits/photos are never lost.
  */
 export async function savePortfolioData(data: PortfolioData): Promise<SaveResult> {
   if (typeof window === 'undefined') {
@@ -1051,7 +1082,10 @@ export async function savePortfolioData(data: PortfolioData): Promise<SaveResult
   // 1. Sanitize any base64 images so the payload remains tiny (<25KB)
   const cleanData = await sanitizeAndUploadAllImages(data);
 
-  // 2. Submit directly to Server API (which uses Supabase Service Role Key)
+  // 2. ALWAYS save to localStorage & memory cache first to guarantee zero loss
+  setPortfolioDataLocally(cleanData);
+
+  // 3. Submit directly to Server API (which uses Supabase Service Role Key)
   try {
     const res = await fetch('/api/portfolio', {
       method: 'POST',
@@ -1064,27 +1098,31 @@ export async function savePortfolioData(data: PortfolioData): Promise<SaveResult
     const json = await res.json().catch(() => ({}));
 
     if (res.ok && json.success) {
-      // Update in-memory active cache and notify listeners
-      setPortfolioDataLocally(cleanData);
-
       return {
         success: true,
+        isLocalFallback: false,
         data: cleanData,
-        message: 'Perubahan berhasil disimpan ke Cloud Database Supabase!',
+        message: 'Perubahan berhasil disimpan ke Cloud Database Supabase & Browser!',
       };
     } else {
+      // Cloud database failed (e.g. Supabase paused or 503), but locally saved!
+      console.warn('Cloud database sync issue, saved locally:', json.error || res.status);
       return {
-        success: false,
+        success: true,
+        isLocalFallback: true,
         data: cleanData,
+        message: 'Tersimpan di Browser Lokal! (Database Supabase sedang dijeda/paused).',
         error: json.error || `Server responded with status ${res.status}`,
       };
     }
   } catch (err: any) {
-    console.error('Error saving portfolio data to /api/portfolio:', err);
+    console.warn('Error saving to /api/portfolio, saved locally:', err);
     return {
-      success: false,
+      success: true,
+      isLocalFallback: true,
       data: cleanData,
-      error: err?.message || 'Gagal tersambung ke server / database Supabase Cloud.',
+      message: 'Tersimpan di Browser Lokal! (Database Supabase sedang dijeda/paused).',
+      error: err?.message || 'Gagal tersambung ke database Supabase Cloud.',
     };
   }
 }
